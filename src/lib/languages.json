@@ -1,0 +1,35 @@
+{
+  "FA": {
+    "title": "\u0641\u0627\u0631\u0633\u06cc",
+    "id": 1,
+    "image": "5edb5ea634c3c.png",
+    "layout": "rtl",
+    "code": "FA-IR",
+    "shortCode": "FA",
+    "default": 1,
+    "dateMode": "jalali",
+    "systemCode": "fa-IR"
+  },
+  "EN": {
+    "title": "English",
+    "id": 4,
+    "image": "5edb927f30f64.png",
+    "layout": "ltr",
+    "code": "EN-US",
+    "shortCode": "EN",
+    "default": null,
+    "dateMode": "",
+    "systemCode": "en-US"
+  },
+  "AR": {
+    "title": "\u0639\u0631\u0628\u06cc",
+    "id": 5,
+    "image": "5edb9375234b8.png",
+    "layout": "rtl",
+    "code": "AR-AR",
+    "shortCode": "AR",
+    "default": null,
+    "dateMode": "",
+    "systemCode": "ar-AR"
+  }
+}
