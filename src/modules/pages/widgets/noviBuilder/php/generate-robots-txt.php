@@ -1,14 +1,21 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
-if (!isset($_POST["settings"]) || !isset($_POST["path"])){
+if (!isset($_POST["settings"]) || !isset($_POST["path"])) {
     echo -1;
     die();
 }
 
 $result = [];
 $settings = json_decode($_POST["settings"], true);
-$originalDestination = $_POST["path"] . 'robots.txt';
-$destination = "../" . $originalDestination;
+$originalDestination = $_POST["path"].'robots.txt';
+$destination = "../".$originalDestination;
 $content = "";
 
 if ($settings['recommended']) {
@@ -21,7 +28,7 @@ if ($settings['recommended']) {
 }
 
 if ($settings['sitemapUrl']) {
-    $content .= "Sitemap: " . $settings['sitemapUrl'] . "\n";
+    $content .= "Sitemap: ".$settings['sitemapUrl']."\n";
 }
 
 if ($settings['customCode']) {

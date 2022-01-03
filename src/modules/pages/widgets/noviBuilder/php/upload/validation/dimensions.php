@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace Upload\Validation;
 
@@ -19,8 +26,8 @@ class Dimensions implements ValidationInterface
     protected $height;
 
     /**
-     * @param int $expectedWidth
-     * @param int $expectedHeight
+     * @param  int  $expectedWidth
+     * @param  int  $expectedHeight
      */
     function __construct($expectedWidth, $expectedHeight)
     {

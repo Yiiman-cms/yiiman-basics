@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\FileSelectorWidget;
 use yii\helpers\Html;
@@ -12,7 +19,7 @@ use kartik\select2\Select2;
 
 ?>
 <?php
-if (\YiiMan\YiiBasics\lib\i18n\Layout::run()=='rtl'){
+if (\YiiMan\YiiBasics\lib\i18n\Layout::run() == 'rtl') {
     ?>
     <style>
         .form-wrap.form-builder .frmb-control li {
@@ -21,9 +28,11 @@ if (\YiiMan\YiiBasics\lib\i18n\Layout::run()=='rtl'){
             text-align: right;
             white-space: nowrap;
         }
+
         .form-wrap.form-builder .frmb .form-elements .false-label:first-child, .form-wrap.form-builder .frmb .form-elements label:first-child {
             float: right;
         }
+
         pre code {
             padding: 0;
             font-size: inherit;
@@ -35,9 +44,11 @@ if (\YiiMan\YiiBasics\lib\i18n\Layout::run()=='rtl'){
             text-align: left;
             float: left;
         }
+
         .form-wrap.form-builder .frmb li {
             margin-bottom: 43px !important;
         }
+
         .form-wrap.form-builder .frmb .field-actions {
             position: absolute;
             top: -5px;
@@ -46,7 +57,7 @@ if (\YiiMan\YiiBasics\lib\i18n\Layout::run()=='rtl'){
             right: auto;
         }
     </style>
-<?php
+    <?php
 }
 ?>
 <div class="form-form">
@@ -68,11 +79,12 @@ if (\YiiMan\YiiBasics\lib\i18n\Layout::run()=='rtl'){
             <div class="row">
                 <div class="card card-nav-tabs" style="margin-top: 20px ">
                     <div class="card-body ">
-                        <h4 class="text-center"><?= \Yii::t('site','ذخیره و انتشار') ?></h4>
+                        <h4 class="text-center"><?= \Yii::t('site', 'ذخیره و انتشار') ?></h4>
                         <div class="row">
                             <div class="col-md-12 pull-right">
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-success"><?= \Yii::t('site','ذخیره') ?></button>
+                                    <button type="submit" class="btn btn-success"><?= \Yii::t('site',
+                                            'ذخیره') ?></button>
                                 </div>
                             </div>
                         </div>
@@ -83,12 +95,14 @@ if (\YiiMan\YiiBasics\lib\i18n\Layout::run()=='rtl'){
         <div class="col-md-12">
             <div class="card card-nav-tabs" style="margin-top: 20px ">
                 <div class="card-body ">
-                    <h4 class="text-center"><?= \Yii::t('site','مشخصات') ?></h4>
+                    <h4 class="text-center"><?= \Yii::t('site', 'مشخصات') ?></h4>
                     <div class="row">
                         <div class="col-md-12 pull-right">
-                            <div class="col-md-12"><?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?></div>
+                            <div class="col-md-12"><?= $form->field($model,
+                                    'title')->textInput(['maxlength' => true]) ?></div>
 
-                            <div class="col-md-12"><?= $form->field($model, 'details')->widget(\YiiMan\YiiBasics\modules\form\widgets\FormGeneratorWidget::className()) ?></div>
+                            <div class="col-md-12"><?= $form->field($model,
+                                    'details')->widget(\YiiMan\YiiBasics\modules\form\widgets\FormGeneratorWidget::className()) ?></div>
 
                         </div>
                     </div>

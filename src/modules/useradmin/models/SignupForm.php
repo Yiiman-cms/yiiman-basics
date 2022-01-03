@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\useradmin\models;
 
@@ -25,16 +32,38 @@ class SignupForm extends Model
                 'username',
                 'unique',
                 'targetClass' => User::className(),
-                'message' => Yii::t('base', 'این شماره همراه قبلا ثبت شده است.')
+                'message'     => Yii::t('base', 'این شماره همراه قبلا ثبت شده است.')
             ],
-            ['username', 'trim'],
-            ['username', 'required'],
-            ['username', 'number', 'min' => 10, 'max' => 15],
-
-            ['password', 'required'],
-            ['password', 'string', 'min' => 6, 'max' => 255],
             [
-                ['name', 'family'],
+                'username',
+                'trim'
+            ],
+            [
+                'username',
+                'required'
+            ],
+            [
+                'username',
+                'number',
+                'min' => 10,
+                'max' => 15
+            ],
+
+            [
+                'password',
+                'required'
+            ],
+            [
+                'password',
+                'string',
+                'min' => 6,
+                'max' => 255
+            ],
+            [
+                [
+                    'name',
+                    'family'
+                ],
                 'string',
                 'min' => 3,
                 'max' => 30,
@@ -47,8 +76,8 @@ class SignupForm extends Model
         return [
             'username' => Yii::t('base', 'شماره همراه'),
             'password' => Yii::t('base', 'رمز عبور'),
-            'name' => 'نام',
-            'family' => 'نام خانوادگی'
+            'name'     => 'نام',
+            'family'   => 'نام خانوادگی'
         ];
     }
 

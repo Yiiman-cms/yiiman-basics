@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\lib\hquery\Strategy;
 
@@ -32,9 +39,8 @@ use Nyholm\Psr7\Request as NyholmRequest;
 use Nyholm\Psr7\Factory\HttplugFactory as NyholmHttplugFactory;
 
 /**
- * @internal
- *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ * @internal
  */
 final class CommonClassesStrategy implements DiscoveryStrategy
 {
@@ -42,40 +48,133 @@ final class CommonClassesStrategy implements DiscoveryStrategy
      * @var array
      */
     private static $classes = [
-        MessageFactory::class => [
-            ['class' => NyholmHttplugFactory::class, 'condition' => [NyholmHttplugFactory::class]],
-            ['class' => GuzzleMessageFactory::class, 'condition' => [GuzzleRequest::class, GuzzleMessageFactory::class]],
-            ['class' => DiactorosMessageFactory::class, 'condition' => [DiactorosRequest::class, DiactorosMessageFactory::class]],
-            ['class' => SlimMessageFactory::class, 'condition' => [SlimRequest::class, SlimMessageFactory::class]],
+        MessageFactory::class  => [
+            [
+                'class'     => NyholmHttplugFactory::class,
+                'condition' => [NyholmHttplugFactory::class]
+            ],
+            [
+                'class'     => GuzzleMessageFactory::class,
+                'condition' => [
+                    GuzzleRequest::class,
+                    GuzzleMessageFactory::class
+                ]
+            ],
+            [
+                'class'     => DiactorosMessageFactory::class,
+                'condition' => [
+                    DiactorosRequest::class,
+                    DiactorosMessageFactory::class
+                ]
+            ],
+            [
+                'class'     => SlimMessageFactory::class,
+                'condition' => [
+                    SlimRequest::class,
+                    SlimMessageFactory::class
+                ]
+            ],
         ],
-        StreamFactory::class => [
-            ['class' => NyholmHttplugFactory::class, 'condition' => [NyholmHttplugFactory::class]],
-            ['class' => GuzzleStreamFactory::class, 'condition' => [GuzzleRequest::class, GuzzleStreamFactory::class]],
-            ['class' => DiactorosStreamFactory::class, 'condition' => [DiactorosRequest::class, DiactorosStreamFactory::class]],
-            ['class' => SlimStreamFactory::class, 'condition' => [SlimRequest::class, SlimStreamFactory::class]],
-            ['class' => NyholmStreamFactory::class, 'condition' => [NyholmRequest::class, NyholmStreamFactory::class]],
+        StreamFactory::class   => [
+            [
+                'class'     => NyholmHttplugFactory::class,
+                'condition' => [NyholmHttplugFactory::class]
+            ],
+            [
+                'class'     => GuzzleStreamFactory::class,
+                'condition' => [
+                    GuzzleRequest::class,
+                    GuzzleStreamFactory::class
+                ]
+            ],
+            [
+                'class'     => DiactorosStreamFactory::class,
+                'condition' => [
+                    DiactorosRequest::class,
+                    DiactorosStreamFactory::class
+                ]
+            ],
+            [
+                'class'     => SlimStreamFactory::class,
+                'condition' => [
+                    SlimRequest::class,
+                    SlimStreamFactory::class
+                ]
+            ],
+            [
+                'class'     => NyholmStreamFactory::class,
+                'condition' => [
+                    NyholmRequest::class,
+                    NyholmStreamFactory::class
+                ]
+            ],
         ],
-        UriFactory::class => [
-            ['class' => NyholmHttplugFactory::class, 'condition' => [NyholmHttplugFactory::class]],
-            ['class' => GuzzleUriFactory::class, 'condition' => [GuzzleRequest::class, GuzzleUriFactory::class]],
-            ['class' => DiactorosUriFactory::class, 'condition' => [DiactorosRequest::class, DiactorosUriFactory::class]],
-            ['class' => SlimUriFactory::class, 'condition' => [SlimRequest::class, SlimUriFactory::class]],
+        UriFactory::class      => [
+            [
+                'class'     => NyholmHttplugFactory::class,
+                'condition' => [NyholmHttplugFactory::class]
+            ],
+            [
+                'class'     => GuzzleUriFactory::class,
+                'condition' => [
+                    GuzzleRequest::class,
+                    GuzzleUriFactory::class
+                ]
+            ],
+            [
+                'class'     => DiactorosUriFactory::class,
+                'condition' => [
+                    DiactorosRequest::class,
+                    DiactorosUriFactory::class
+                ]
+            ],
+            [
+                'class'     => SlimUriFactory::class,
+                'condition' => [
+                    SlimRequest::class,
+                    SlimUriFactory::class
+                ]
+            ],
         ],
         HttpAsyncClient::class => [
-            ['class' => Guzzle6::class, 'condition' => Guzzle6::class],
-            ['class' => Curl::class, 'condition' => Curl::class],
-            ['class' => React::class, 'condition' => React::class],
+            ['class'     => Guzzle6::class,
+             'condition' => Guzzle6::class
+            ],
+            ['class'     => Curl::class,
+             'condition' => Curl::class
+            ],
+            ['class'     => React::class,
+             'condition' => React::class
+            ],
         ],
-        HttpClient::class => [
-            ['class' => Guzzle6::class, 'condition' => Guzzle6::class],
-            ['class' => Guzzle5::class, 'condition' => Guzzle5::class],
-            ['class' => Curl::class, 'condition' => Curl::class],
-            ['class' => Socket::class, 'condition' => Socket::class],
-            ['class' => Buzz::class, 'condition' => Buzz::class],
-            ['class' => React::class, 'condition' => React::class],
-            ['class' => Cake::class, 'condition' => Cake::class],
-            ['class' => Zend::class, 'condition' => Zend::class],
-            ['class' => Artax::class, 'condition' => Artax::class],
+        HttpClient::class      => [
+            ['class'     => Guzzle6::class,
+             'condition' => Guzzle6::class
+            ],
+            ['class'     => Guzzle5::class,
+             'condition' => Guzzle5::class
+            ],
+            ['class'     => Curl::class,
+             'condition' => Curl::class
+            ],
+            ['class'     => Socket::class,
+             'condition' => Socket::class
+            ],
+            ['class'     => Buzz::class,
+             'condition' => Buzz::class
+            ],
+            ['class'     => React::class,
+             'condition' => React::class
+            ],
+            ['class'     => Cake::class,
+             'condition' => Cake::class
+            ],
+            ['class'     => Zend::class,
+             'condition' => Zend::class
+            ],
+            ['class'     => Artax::class,
+             'condition' => Artax::class
+            ],
         ],
     ];
 

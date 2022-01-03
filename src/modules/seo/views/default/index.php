@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
@@ -9,14 +16,14 @@ use yii\widgets\Pjax;
 /* @var $searchModel YiiMan\YiiBasics\modules\seo\models\SearchSeoFlagContents */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('seo', 'محتوای پرچم ها') . ' ';
+$this->title = Yii::t('seo', 'محتوای پرچم ها').' ';
 $this->params['breadcrumbs'][] = $this->title;
 \YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('seo', 'ثبت کلمه ی راهنما'),
     'success',
     null,
-    Yii::$app->Options->BackendUrl . '/seo/default/create'
+    Yii::$app->Options->BackendUrl.'/seo/default/create'
 );
 \YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 
@@ -44,31 +51,31 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
-                        'filterModel' => $searchModel,
-                        'columns' => [
+                        'filterModel'  => $searchModel,
+                        'columns'      => [
                             ['class' => 'yii\grid\SerialColumn'],
                             ['class' => \YiiMan\YiiBasics\lib\i18n\LanguageColumn::className()],
 
                             'title',
                             [
                                 'attribute' => 'link',
-                                'value' => function ($model) {
+                                'value'     => function ($model) {
                                     if (!empty($model->link)) {
-                                        return '<a href="' . $model->link . '" target="_blank">' . $model->link . '</a>';
+                                        return '<a href="'.$model->link.'" target="_blank">'.$model->link.'</a>';
                                     }
                                 },
-                                'format' => 'raw'
+                                'format'    => 'raw'
                             ],
                             [
                                 'attribute' => 'short_content',
-                                'format' => 'raw',
-                                'value' => function ($model) {
-                                    return Yii::$app->functions->limitText( strip_tags($model->short_content),50);
+                                'format'    => 'raw',
+                                'value'     => function ($model) {
+                                    return Yii::$app->functions->limitText(strip_tags($model->short_content), 50);
                                 }
                             ],
                             [
                                 'attribute' => 'status',
-                                'value' => function ($model) {
+                                'value'     => function ($model) {
                                     /**
                                      * @var $model \common\models\Neighbourhoods
                                      */

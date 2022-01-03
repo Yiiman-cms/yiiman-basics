@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\ticket\models;
 
@@ -6,14 +13,12 @@ use Yii;
 
 /**
  * This is the model class for table "{{%module_ticket_department_users}}".
- *
- * @property int $id
- * @property int $department دپارتمان
- * @property int $uid کاربر
- * @property int $language
- * @property int $language_parent
- *
- * @property UserAdmin $u
+ * @property int               $id
+ * @property int               $department دپارتمان
+ * @property int               $uid        کاربر
+ * @property int               $language
+ * @property int               $language_parent
+ * @property UserAdmin         $u
  * @property TicketDepartments $department0
  */
 class TicketDepartmentUsers extends \YiiMan\YiiBasics\lib\ActiveRecord
@@ -35,10 +40,37 @@ class TicketDepartmentUsers extends \YiiMan\YiiBasics\lib\ActiveRecord
     public function rules()
     {
         return [
-            [['department', 'uid'], 'required'],
-            [['id', 'department', 'uid', 'language', 'language_parent'], 'integer'],
-            [['uid'], 'exist', 'skipOnError' => true, 'targetClass' => \YiiMan\YiiBasics\modules\user\models\UserAdmin::className(), 'targetAttribute' => ['uid' => 'id']],
-            [['department'], 'exist', 'skipOnError' => true, 'targetClass' => \YiiMan\YiiBasics\modules\ticket\models\TicketDepartments::className(), 'targetAttribute' => ['department' => 'id']],
+            [
+                [
+                    'department',
+                    'uid'
+                ],
+                'required'
+            ],
+            [
+                [
+                    'id',
+                    'department',
+                    'uid',
+                    'language',
+                    'language_parent'
+                ],
+                'integer'
+            ],
+            [
+                ['uid'],
+                'exist',
+                'skipOnError'     => true,
+                'targetClass'     => \YiiMan\YiiBasics\modules\user\models\UserAdmin::className(),
+                'targetAttribute' => ['uid' => 'id']
+            ],
+            [
+                ['department'],
+                'exist',
+                'skipOnError'     => true,
+                'targetClass'     => \YiiMan\YiiBasics\modules\ticket\models\TicketDepartments::className(),
+                'targetAttribute' => ['department' => 'id']
+            ],
         ];
     }
 
@@ -48,10 +80,10 @@ class TicketDepartmentUsers extends \YiiMan\YiiBasics\lib\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('ticket', 'ID'),
-            'department' => Yii::t('ticket', 'دپارتمان'),
-            'uid' => Yii::t('ticket', 'کاربر'),
-            'language' => Yii::t('ticket', 'Language'),
+            'id'              => Yii::t('ticket', 'ID'),
+            'department'      => Yii::t('ticket', 'دپارتمان'),
+            'uid'             => Yii::t('ticket', 'کاربر'),
+            'language'        => Yii::t('ticket', 'Language'),
             'language_parent' => Yii::t('ticket', 'Language Parent'),
         ];
     }

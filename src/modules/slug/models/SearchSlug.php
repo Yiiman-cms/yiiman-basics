@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\slug\models;
 
@@ -18,8 +25,20 @@ class SearchSlug extends Slug
     public function rules()
     {
         return [
-            [['id', 'table_id'], 'integer'],
-            [['slug', 'table_name'], 'safe'],
+            [
+                [
+                    'id',
+                    'table_id'
+                ],
+                'integer'
+            ],
+            [
+                [
+                    'slug',
+                    'table_name'
+                ],
+                'safe'
+            ],
         ];
     }
 
@@ -34,9 +53,7 @@ class SearchSlug extends Slug
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
@@ -63,8 +80,16 @@ class SearchSlug extends Slug
             'table_id' => $this->table_id,
         ]);
 
-        $query->andFilterWhere(['like', 'slug', $this->slug])
-            ->andFilterWhere(['like', 'table_name', $this->table_name]);
+        $query->andFilterWhere([
+            'like',
+            'slug',
+            $this->slug
+        ])
+            ->andFilterWhere([
+                'like',
+                'table_name',
+                $this->table_name
+            ]);
 
         return $dataProvider;
     }

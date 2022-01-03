@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * Copyright (c) 2018-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
@@ -17,7 +17,7 @@ use yii\helpers\Url;
 
 /**
  * @author Nghia Nguyen <yiidevelop@hotmail.com>
- * @since 2.0
+ * @since  2.0
  */
 class RedactorModule extends \yii\base\Module
 {
@@ -29,15 +29,25 @@ class RedactorModule extends \yii\base\Module
     public $fileUploadRoute = ['/redactor/upload/file'];
     public $imageManagerJsonRoute = ['/redactor/upload/image-json'];
     public $fileManagerJsonRoute = ['/redactor/upload/file-json'];
-    public $imageAllowExtensions = ['jpg', 'png', 'gif', 'bmp', 'svg'];
+    public $imageAllowExtensions = [
+        'jpg',
+        'png',
+        'gif',
+        'bmp',
+        'svg'
+    ];
     public $fileAllowExtensions = null;
-    public $widgetOptions=[];
-    public $widgetClientOptions=[];
+    public $widgetOptions = [];
+    public $widgetClientOptions = [];
 
-
-    public function getOwnerPath()
+    /**
+     * @param $fileName
+     * @return string
+     * @throws InvalidConfigException
+     */
+    public function getFilePath($fileName)
     {
-        return Yii::$app->user->isGuest ? 'guest' : Yii::$app->user->id;
+        return $this->getSaveDir().DIRECTORY_SEPARATOR.$fileName;
     }
 
     /**
@@ -51,19 +61,14 @@ class RedactorModule extends \yii\base\Module
         if (!file_exists($path)) {
             throw new InvalidConfigException('Invalid config $uploadDir');
         }
-        if (FileHelper::createDirectory($path . DIRECTORY_SEPARATOR . $this->getOwnerPath(), 0777)) {
-            return $path . DIRECTORY_SEPARATOR . $this->getOwnerPath();
+        if (FileHelper::createDirectory($path.DIRECTORY_SEPARATOR.$this->getOwnerPath(), 0777)) {
+            return $path.DIRECTORY_SEPARATOR.$this->getOwnerPath();
         }
     }
 
-    /**
-     * @param $fileName
-     * @return string
-     * @throws InvalidConfigException
-     */
-    public function getFilePath($fileName)
+    public function getOwnerPath()
     {
-        return $this->getSaveDir() . DIRECTORY_SEPARATOR . $fileName;
+        return Yii::$app->user->isGuest ? 'guest' : Yii::$app->user->id;
     }
 
     /**
@@ -72,6 +77,6 @@ class RedactorModule extends \yii\base\Module
      */
     public function getUrl($fileName)
     {
-        return Url::to($this->uploadUrl . '/' . $this->getOwnerPath() . '/' . $fileName);
+        return Url::to($this->uploadUrl.'/'.$this->getOwnerPath().'/'.$fileName);
     }
 }

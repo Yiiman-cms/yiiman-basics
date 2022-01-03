@@ -1,8 +1,10 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
- * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * Copyright (c) 2008-2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
  */
 
 namespace YiiMan\YiiBasics\lib\mail;
@@ -14,24 +16,20 @@ use yii\mail\BaseMessage;
 
 /**
  * Message implements a message class based on SwiftMailer.
- *
- * @see http://swiftmailer.org/docs/messages.html
- * @see Mailer
- *
+ * @see    http://swiftmailer.org/docs/messages.html
+ * @see    Mailer
  * @method Mailer getMailer() returns mailer instance.
- *
- * @property array $headers Headers in format: `[name => value]`. This property is write-only.
- * @property int $priority Priority value as integer in range: `1..5`, where 1 is the highest priority and 5
+ * @property array                        $headers       Headers in format: `[name => value]`. This property is write-only.
+ * @property int                          $priority      Priority value as integer in range: `1..5`, where 1 is the highest priority and 5
  * is the lowest.
- * @property string $readReceiptTo Receipt receive email addresses. Note that the type of this property
+ * @property string                       $readReceiptTo Receipt receive email addresses. Note that the type of this property
  * differs in getter and setter. See [[getReadReceiptTo()]] and [[setReadReceiptTo()]] for details.
- * @property string $returnPath The bounce email address.
- * @property array|callable|\Swift_Signer $signature Signature specification. See [[addSignature()]] for
+ * @property string                       $returnPath    The bounce email address.
+ * @property array|callable|\Swift_Signer $signature     Signature specification. See [[addSignature()]] for
  * details on how it should be specified. This property is write-only.
- * @property \Swift_Message $swiftMessage Swift message instance. This property is read-only.
- *
+ * @property \Swift_Message               $swiftMessage  Swift message instance. This property is read-only.
  * @author Paul Klimov <klimov.paul@gmail.com>
- * @since 2.0
+ * @since  2.0
  */
 class Message extends BaseMessage
 {
@@ -58,6 +56,14 @@ class Message extends BaseMessage
     }
 
     /**
+     * @inheritdoc
+     */
+    public function getCharset()
+    {
+        return $this->getSwiftMessage()->getCharset();
+    }
+
+    /**
      * @return \Swift_Message Swift message instance.
      */
     public function getSwiftMessage()
@@ -70,11 +76,12 @@ class Message extends BaseMessage
     }
 
     /**
-     * @inheritdoc
+     * Creates the Swift email message instance.
+     * @return \Swift_Message email message instance.
      */
-    public function getCharset()
+    protected function createSwiftMessage()
     {
-        return $this->getSwiftMessage()->getCharset();
+        return new \Swift_Message();
     }
 
     /**
@@ -206,21 +213,11 @@ class Message extends BaseMessage
     }
 
     /**
-     * @inheritdoc
-     */
-    public function setHtmlBody($html)
-    {
-        $this->setBody($html, 'text/html');
-
-        return $this;
-    }
-
-    /**
      * Sets the message body.
      * If body is already set and its content type matches given one, it will
      * be overridden, if content type miss match the multipart message will be composed.
-     * @param string $body body content.
-     * @param string $contentType body content type.
+     * @param  string  $body         body content.
+     * @param  string  $contentType  body content type.
      */
     protected function setBody($body, $contentType)
     {
@@ -264,6 +261,16 @@ class Message extends BaseMessage
     /**
      * @inheritdoc
      */
+    public function setHtmlBody($html)
+    {
+        $this->setBody($html, 'text/html');
+
+        return $this;
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function attach($fileName, array $options = [])
     {
         $attachment = \Swift_Attachment::fromPath($fileName);
@@ -291,7 +298,7 @@ class Message extends BaseMessage
             $attachment->setContentType($options['contentType']);
         }
         if (!empty($options['setDisposition'])) {
-          $attachment->setDisposition($options['setDisposition']);
+            $attachment->setDisposition($options['setDisposition']);
         }
         $this->getSwiftMessage()->attach($attachment);
 
@@ -332,8 +339,8 @@ class Message extends BaseMessage
 
     /**
      * Sets message signature
-     * @param array|callable|\Swift_Signer $signature signature specification.
-     * See [[addSignature()]] for details on how it should be specified.
+     * @param  array|callable|\Swift_Signer  $signature  signature specification.
+     *                                                   See [[addSignature()]] for details on how it should be specified.
      * @return $this self reference.
      * @since 2.0.6
      */
@@ -352,12 +359,10 @@ class Message extends BaseMessage
 
     /**
      * Adds message signature.
-     * @param array|callable|\Swift_Signer $signature signature specification, this can be:
-     *
-     * - [[\Swift_Signer]] instance
-     * - callable, which returns [[\Swift_Signer]] instance
-     * - configuration array for the signer creation
-     *
+     * @param  array|callable|\Swift_Signer  $signature  signature specification, this can be:
+     *                                                   - [[\Swift_Signer]] instance
+     *                                                   - callable, which returns [[\Swift_Signer]] instance
+     *                                                   - configuration array for the signer creation
      * @return $this self reference
      * @throws InvalidConfigException on invalid signature configuration
      * @since 2.0.6
@@ -382,7 +387,7 @@ class Message extends BaseMessage
 
     /**
      * Creates signer from its configuration
-     * @param array $signature signature configuration
+     * @param  array  $signature  signature configuration
      * @return \Swift_Signer signer instance
      * @throws InvalidConfigException on invalid configuration provided
      * @since 2.0.6
@@ -428,22 +433,13 @@ class Message extends BaseMessage
         return $this->getSwiftMessage()->toString();
     }
 
-    /**
-     * Creates the Swift email message instance.
-     * @return \Swift_Message email message instance.
-     */
-    protected function createSwiftMessage()
-    {
-        return new \Swift_Message();
-    }
-
     // Headers setup :
 
     /**
      * Adds custom header value to the message.
      * Several invocations of this method with the same name will add multiple header values.
-     * @param string $name header name.
-     * @param string $value header value.
+     * @param  string  $name   header name.
+     * @param  string  $value  header value.
      * @return $this self reference.
      * @since 2.0.6
      */
@@ -454,30 +450,8 @@ class Message extends BaseMessage
     }
 
     /**
-     * Sets custom header value to the message.
-     * @param string $name header name.
-     * @param string|array $value header value or values.
-     * @return $this self reference.
-     * @since 2.0.6
-     */
-    public function setHeader($name, $value)
-    {
-        $headerSet = $this->getSwiftMessage()->getHeaders();
-
-        if ($headerSet->has($name)) {
-            $headerSet->remove($name);
-        }
-
-        foreach ((array)$value as $v) {
-            $headerSet->addTextHeader($name, $v);
-        }
-
-        return $this;
-    }
-
-    /**
      * Returns all values for the specified header.
-     * @param string $name header name.
+     * @param  string  $name  header name.
      * @return array header values list.
      * @since 2.0.6
      */
@@ -497,7 +471,7 @@ class Message extends BaseMessage
 
     /**
      * Sets custom header values to the message.
-     * @param array $headers headers in format: `[name => value]`.
+     * @param  array  $headers  headers in format: `[name => value]`.
      * @return $this self reference.
      * @since 2.0.7
      */
@@ -509,11 +483,33 @@ class Message extends BaseMessage
         return $this;
     }
 
+    /**
+     * Sets custom header value to the message.
+     * @param  string        $name   header name.
+     * @param  string|array  $value  header value or values.
+     * @return $this self reference.
+     * @since 2.0.6
+     */
+    public function setHeader($name, $value)
+    {
+        $headerSet = $this->getSwiftMessage()->getHeaders();
+
+        if ($headerSet->has($name)) {
+            $headerSet->remove($name);
+        }
+
+        foreach ((array) $value as $v) {
+            $headerSet->addTextHeader($name, $v);
+        }
+
+        return $this;
+    }
+
     // SwiftMessage shortcuts :
 
     /**
      * Set the return-path (the bounce address) of this message.
-     * @param string $address the bounce email address.
+     * @param  string  $address  the bounce email address.
      * @return $this self reference.
      * @since 2.0.6
      */
@@ -535,8 +531,8 @@ class Message extends BaseMessage
 
     /**
      * Set the priority of this message.
-     * @param int $priority priority value, should be an integer in range: `1..5`,
-     * where 1 is the highest priority and 5 is the lowest.
+     * @param  int  $priority  priority value, should be an integer in range: `1..5`,
+     *                         where 1 is the highest priority and 5 is the lowest.
      * @return $this self reference.
      * @since 2.0.6
      */
@@ -559,7 +555,7 @@ class Message extends BaseMessage
 
     /**
      * Sets the ask for a delivery receipt from the recipient to be sent to $addresses.
-     * @param string|array $addresses receipt receive email address(es).
+     * @param  string|array  $addresses  receipt receive email address(es).
      * @return $this self reference.
      * @since 2.0.6
      */

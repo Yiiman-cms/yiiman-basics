@@ -1,6 +1,6 @@
 <?php
-/*
- * Copyright (c) 2022.
+/**
+ * Copyright (c) 2022-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
@@ -11,7 +11,6 @@
  * Created by YiiMan TM.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
- *
  * Site:https://yiiman.ir
  * Date: 03/25/2020
  * Time: 01:04 AM
@@ -88,10 +87,12 @@ Yii::$app->view->registerJs($js, Yii::$app->view::POS_END);
         overflow-y: auto;
         max-height: 200px;
     }
-    .response-row h4{
+
+    .response-row h4 {
         text-align: center;
     }
-    .response-row{
+
+    .response-row {
         display: none;
     }
 </style>
@@ -103,11 +104,11 @@ Yii::$app->view->registerJs($js, Yii::$app->view::POS_END);
             <div class="col-md-6">
                 <?php
                 $gates = [];
-                $gatesFiles = getFileList(__DIR__ . '/../gates');
+                $gatesFiles = getFileList(__DIR__.'/../gates');
                 foreach ($gatesFiles as $gate) {
                     if ($gate['type'] == 'text/x-php') {
                         $className = str_replace('.php', '', $gate['name']);
-                        $gates[$className] = ('YiiMan\YiiBasics\modules\sms\gates\\' . $className)::title();
+                        $gates[$className] = ('YiiMan\YiiBasics\modules\sms\gates\\'.$className)::title();
                     }
                 }
 
@@ -146,8 +147,8 @@ Yii::$app->view->registerJs($js, Yii::$app->view::POS_END);
         <div class="row">
             <div class="col-md-6">
                 <?php
-                if (empty(Yii::$app->Options->MaxVerifySms)){
-                    Yii::$app->Options->MaxVerifySms=3;
+                if (empty(Yii::$app->Options->MaxVerifySms)) {
+                    Yii::$app->Options->MaxVerifySms = 3;
                 }
                 $attr = 'MaxVerifySms';
                 $model->addRule([$attr], 'trim');
@@ -188,8 +189,10 @@ Yii::$app->view->registerJs($js, Yii::$app->view::POS_END);
 
         <a href="<?= Yii::$app->urlManager->createUrl(['/sms/default/sendtest']) ?>" class="btn btn-success">ارسال پیامک
             تست</a>
-        <btn href="<?= Yii::$app->urlManager->createUrl(['/sms/default/sendtestpatten']) ?>" class="btn btn-success" id="send-test-pattern-sms">ارسال پیامک
-            تست مبتنی بر الگو</btn>
+        <btn href="<?= Yii::$app->urlManager->createUrl(['/sms/default/sendtestpatten']) ?>" class="btn btn-success"
+             id="send-test-pattern-sms">ارسال پیامک
+            تست مبتنی بر الگو
+        </btn>
 
 
     </div>

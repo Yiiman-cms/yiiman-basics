@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\menumodern\controllers;
 
@@ -58,6 +65,20 @@ class DefaultController extends Controller
         );
     }
 
+    /**
+     * @param $id
+     * @return \YiiMan\YiiBasics\modules\menumodern\models\Menu|null
+     * @throws \yii\web\NotFoundHttpException
+     */
+    protected function findModel($id)
+    {
+        if (($model = Menu::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
     public function actionCreate()
     {
         $model = new Menu();
@@ -106,12 +127,17 @@ class DefaultController extends Controller
                     $model->parent_id = $model->child;
                     break;
             }
-            $model->position = (int)$model->pos;
+            $model->position = (int) $model->pos;
             $model->save();
 
             Yii::$app->response->format = Response::FORMAT_JSON;
 
-            return ['status' => 'ok', 'tid' => $model->id, 'label' => $model->name, 'icon' => $model->icon];
+            return [
+                'status' => 'ok',
+                'tid'    => $model->id,
+                'label'  => $model->name,
+                'icon'   => $model->icon
+            ];
         } else {
             if (!empty($_GET['type'])) {
                 if ($_GET['type'] == 'tabmenu') {
@@ -170,13 +196,18 @@ class DefaultController extends Controller
                     $model->parent_id = $model->child;
                     break;
             }
-            $model->position = (int)$model->pos;
+            $model->position = (int) $model->pos;
             $model->save();
 
 
             Yii::$app->response->format = Response::FORMAT_JSON;
 
-            return ['status' => 'ok', 'tid' => $model->id, 'label' => $model->name, 'icon' => $model->icon];
+            return [
+                'status' => 'ok',
+                'tid'    => $model->id,
+                'label'  => $model->name,
+                'icon'   => $model->icon
+            ];
         } else {
 
             $model->pos = $model->position;
@@ -194,22 +225,10 @@ class DefaultController extends Controller
         Yii::$app->response->format = Response::FORMAT_JSON;
         $this->findModel($id)->delete();
 
-        return ['status' => 'ok', 'tid' => $id];
-    }
-
-    /**
-     * @param $id
-     *
-     * @return \YiiMan\YiiBasics\modules\menumodern\models\Menu|null
-     * @throws \yii\web\NotFoundHttpException
-     */
-    protected function findModel($id)
-    {
-        if (($model = Menu::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
+        return [
+            'status' => 'ok',
+            'tid'    => $id
+        ];
     }
 
     public function actionIndexx()
@@ -231,7 +250,8 @@ class DefaultController extends Controller
             return
                 [
                     'label' => $type['label'],
-                    'data' => ArrayHelper::map($type['model']::find()->all(), $type['modelMap'][0], $type['modelMap'][1])
+                    'data'  => ArrayHelper::map($type['model']::find()->all(), $type['modelMap'][0],
+                        $type['modelMap'][1])
                 ];
 
         }
@@ -257,7 +277,7 @@ class DefaultController extends Controller
     public function actionPublish()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
-        @unlink(realpath(__DIR__ . '/../models/menu.text'));
+        @unlink(realpath(__DIR__.'/../models/menu.text'));
         return ['status' => 'ok'];
     }
 }

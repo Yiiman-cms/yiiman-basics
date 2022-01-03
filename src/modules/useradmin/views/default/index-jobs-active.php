@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
@@ -9,8 +16,11 @@ use yii\widgets\Pjax;
 /* @var $searchModel YiiMan\YiiBasics\modules\useradmin\models\SearchUser */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('user', 'لیست کاربرانی که درخواست تایید شغل دارند') . ' ';
-$this->params['breadcrumbs'][] = ['label' => Yii::t('user', 'کاربران سایت'), 'url' => ['index']];
+$this->title = Yii::t('user', 'لیست کاربرانی که درخواست تایید شغل دارند').' ';
+$this->params['breadcrumbs'][] = [
+    'label' => Yii::t('user', 'کاربران سایت'),
+    'url'   => ['index']
+];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -33,8 +43,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= GridView::widget(
                         [
                             'dataProvider' => $dataProvider,
-                            'filterModel' => $searchModel,
-                            'columns' => [
+                            'filterModel'  => $searchModel,
+                            'columns'      => [
                                 ['class' => 'yii\grid\SerialColumn'],
 
                                 'username',
@@ -42,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'family',
                                 [
                                     'attribute' => 'status_job',
-                                    'value' => function ($model) {
+                                    'value'     => function ($model) {
                                         switch ($model->status_job) {
                                             case \YiiMan\YiiBasics\modules\useradmin\models\User::STATUS_JOB_SEND_ATTACHED:
                                                 return 'مدارک ارسال شده است';
@@ -58,20 +68,24 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],
                                 [
                                     'attribute' => 'attached',
-                                    'format' => 'raw',
-                                    'value' => function ($model) {
-                                        return Html::img(!empty($model->attached) ? Yii::$app->urlManager->createAbsoluteUrl(['../upload/users/attached/' . $model->attached]) : Yii::$app->Options->UploadUrl . '/users/default.png', ['style' => 'height: 110px;']);
+                                    'format'    => 'raw',
+                                    'value'     => function ($model) {
+                                        return Html::img(!empty($model->attached) ? Yii::$app->urlManager->createAbsoluteUrl(['../upload/users/attached/'.$model->attached]) : Yii::$app->Options->UploadUrl.'/users/default.png',
+                                            ['style' => 'height: 110px;']);
 
                                     }
                                 ],
-                                ['class' => 'yii\grid\ActionColumn',
+                                [
+                                    'class'    => 'yii\grid\ActionColumn',
                                     'template' => '{view} {active} {deactive}',
-                                    'buttons' => [
-                                        'active' => function ($url, $model, $key) {     // render your custom button
-                                            return Html::a('<i class="material-icons">done</i>', ['default/jobs-active?id='.$model->id]);
+                                    'buttons'  => [
+                                        'active'   => function ($url, $model, $key) {     // render your custom button
+                                            return Html::a('<i class="material-icons">done</i>',
+                                                ['default/jobs-active?id='.$model->id]);
                                         },
                                         'deactive' => function ($url, $model, $key) {     // render your custom button
-                                            return Html::a('<i class="material-icons">close</i>', ['default/jobs-deactive?id='.$model->id]);
+                                            return Html::a('<i class="material-icons">close</i>',
+                                                ['default/jobs-deactive?id='.$model->id]);
                                         }
                                     ]
                                 ],

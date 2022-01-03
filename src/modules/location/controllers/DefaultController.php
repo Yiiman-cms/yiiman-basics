@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\location\controllers;
 
@@ -16,7 +23,6 @@ use yii\filters\VerbFilter;
 class DefaultController extends \YiiMan\YiiBasics\lib\Controller
 {
     /**
-     *
      * @var $model SearchLocationCity
      */
     public $model;
@@ -53,7 +59,7 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
 
     /**
      * Displays a single LocationCity model.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -78,7 +84,10 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
             }
         }
         return $this->render('create', [
@@ -89,7 +98,7 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
     /**
      * Updates an existing LocationCity model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -98,7 +107,10 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
             }
         }
 
@@ -110,7 +122,7 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
     /**
      * Deletes an existing LocationCity model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -121,17 +133,15 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
         return $this->redirect(['index']);
     }
 
+    public function init()
+    {
+        parent::init();
+        $this->modelClass = new LocationCity();
+    }
 
     protected function upload()
     {
 
 
-    }
-
-
-    public function init()
-    {
-        parent::init();
-        $this->modelClass = new LocationCity();
     }
 }

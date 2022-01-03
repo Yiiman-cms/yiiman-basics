@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\language\models;
 
@@ -15,26 +22,24 @@ use \YiiMan\YiiBasics\modules\workscatworks\models\WorksCatWorks;
 
 /**
  * This is the model class for table "{{%module_language}}".
- *
- * @property int $id
- * @property string $title
- * @property string $image
- * @property string $code
- * @property string $shortCode
- * @property int $status
- * @property int $default
- * @property string $layout
- * @property string $dateMode
- *
- * @property Menu[] $menus
- * @property Pages[] $pages
- * @property Profiles[] $profiles
+ * @property int               $id
+ * @property string            $title
+ * @property string            $image
+ * @property string            $code
+ * @property string            $shortCode
+ * @property int               $status
+ * @property int               $default
+ * @property string            $layout
+ * @property string            $dateMode
+ * @property Menu[]            $menus
+ * @property Pages[]           $pages
+ * @property Profiles[]        $profiles
  * @property SeoFlagContents[] $seoFlagContents
- * @property SeoFlags[] $seoFlags
- * @property Skills[] $skills
- * @property Testimotional[] $testimotionals
- * @property Works[] $works
- * @property WorksCatWorks[] $worksCatWorks
+ * @property SeoFlags[]        $seoFlags
+ * @property Skills[]          $skills
+ * @property Testimotional[]   $testimotionals
+ * @property Works[]           $works
+ * @property WorksCatWorks[]   $worksCatWorks
  */
 class Language extends \YiiMan\YiiBasics\lib\ActiveRecord
 {
@@ -55,13 +60,49 @@ class Language extends \YiiMan\YiiBasics\lib\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'status', 'layout', 'shortCode'], 'required'],
-            [['status'], 'integer'],
-            [['title', 'code'], 'string', 'max' => 50],
-            [['image'], 'string', 'max' => 255],
-            [['layout'], 'string', 'max' => 4],
-            [['shortCode', 'dateMode'], 'string', 'max' => 10],
-            [['default'], 'integer']
+            [
+                [
+                    'title',
+                    'status',
+                    'layout',
+                    'shortCode'
+                ],
+                'required'
+            ],
+            [
+                ['status'],
+                'integer'
+            ],
+            [
+                [
+                    'title',
+                    'code'
+                ],
+                'string',
+                'max' => 50
+            ],
+            [
+                ['image'],
+                'string',
+                'max' => 255
+            ],
+            [
+                ['layout'],
+                'string',
+                'max' => 4
+            ],
+            [
+                [
+                    'shortCode',
+                    'dateMode'
+                ],
+                'string',
+                'max' => 10
+            ],
+            [
+                ['default'],
+                'integer'
+            ]
         ];
     }
 
@@ -71,14 +112,14 @@ class Language extends \YiiMan\YiiBasics\lib\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('language', 'شناسه'),
+            'id'        => Yii::t('language', 'شناسه'),
             'shortCode' => Yii::t('language', 'کد کوتاه'),
-            'title' => Yii::t('language', 'موضوع'),
-            'image' => Yii::t('language', 'تصویر'),
-            'code' => Yii::t('language', 'کد'),
-            'status' => Yii::t('language', 'وضعیت'),
-            'layout' => Yii::t('language', 'ترتیب اسکلت'),
-            'dateMode' => Yii::t('language', 'سیستم تقویمی'),
+            'title'     => Yii::t('language', 'موضوع'),
+            'image'     => Yii::t('language', 'تصویر'),
+            'code'      => Yii::t('language', 'کد'),
+            'status'    => Yii::t('language', 'وضعیت'),
+            'layout'    => Yii::t('language', 'ترتیب اسکلت'),
+            'dateMode'  => Yii::t('language', 'سیستم تقویمی'),
         ];
     }
 

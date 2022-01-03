@@ -1,6 +1,6 @@
 <?php
-/*
- * Copyright (c) 2022.
+/**
+ * Copyright (c) 2022-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
@@ -11,7 +11,6 @@
  * Created by YiiMan TM.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
- *
  * Site:https://yiiman.ir
  * Date: ۰۲/۲۴/۲۰۲۰
  * Time: ۱۲:۴۳ بعدازظهر
@@ -55,7 +54,7 @@ class WidgetController extends Controller
 
             $controller = new \YiiMan\YiiBasics\modules\widget\controllers\DefaultController($this->id, $this->module);
 
-            $out = $controller->actionLayout('array', $model->template,$model)['full'];
+            $out = $controller->actionLayout('array', $model->template, $model)['full'];
             $html = hQuery::fromHTML($out);
             $content = $html->find('begincontent')->html();
             $menu = $html->find('beginMenu')->html();
@@ -65,7 +64,7 @@ class WidgetController extends Controller
             $out = str_replace($content, $pageContent, $out);
             $out = str_replace('<beginfooter></beginfooter>', '', $out);
             $out = str_replace('<beginmenu></beginmenu>', '', $out);
-            $out .= '<style>' . <<<CSS
+            $out .= '<style>'.<<<CSS
 main {
 	margin-top: 0;
 	margin-bottom: 0;
@@ -109,18 +108,18 @@ CSS;
 
         } else {
 
-            Yii::setAlias('@page_example', Yii::$app->Options->UploadDir . '/samplePages/');
-            $layout = Yii::$app->Options->UploadDir . '/samplePages/layouts/main.php';
+            Yii::setAlias('@page_example', Yii::$app->Options->UploadDir.'/samplePages/');
+            $layout = Yii::$app->Options->UploadDir.'/samplePages/layouts/main.php';
 
-            Yii::setAlias('@page_example_layout', Yii::$app->Options->UploadDir . '/samplePages/layouts/');
+            Yii::setAlias('@page_example_layout', Yii::$app->Options->UploadDir.'/samplePages/layouts/');
             if (!realpath($layout)) {
                 throw new BadRequestHttpException(
-                    'You Must Create Folder ' . Yii::$app->Options->UploadDir . '/samplePages/layouts And Create main.php Layout File For Load On Page Content Editor'
+                    'You Must Create Folder '.Yii::$app->Options->UploadDir.'/samplePages/layouts And Create main.php Layout File For Load On Page Content Editor'
                 );
             }
             $this->layout = '@frontend/views/layouts/main.php';
 
-            return $this->render('@page_example/' . $page . '.php');
+            return $this->render('@page_example/'.$page.'.php');
         }
     }
 
@@ -137,7 +136,7 @@ CSS;
                     $node = hQuery::fromHTML($post['html']);
                     $html = $node->find('begincontent')->html();
 
-                    $model->content =str_replace('contenteditable="true"','', ( !empty($html) ? $html : '.'));
+                    $model->content = str_replace('contenteditable="true"', '', (!empty($html) ? $html : '.'));
                     if (!empty($post['default'])) {
                         Yii::$app->Options->defaultPage = $model->id;
                         $model->default = 1;
@@ -150,7 +149,7 @@ CSS;
                     $model->title = $post['title'];
 
 
-                    $model->content =str_replace('contenteditable="true"','', $node->find('begincontent')->html());
+                    $model->content = str_replace('contenteditable="true"', '', $node->find('begincontent')->html());
 
                     if (!empty($post['default'])) {
                         Yii::$app->Options->defaultPage = $model->id;
@@ -176,7 +175,9 @@ SQL;
                                 $SlugModel->table_name = $model::tableName();
                                 $SlugModel->save();
                             } else {
-                                $SlugModel = Slug::findOne(['table_id' => $model->id, 'table_name' => $model::tableName()]);
+                                $SlugModel = Slug::findOne(['table_id'   => $model->id,
+                                                            'table_name' => $model::tableName()
+                                ]);
                                 if (!empty($SlugModel)) {
                                     $SlugModel->slug = $post['slug'];
                                     $SlugModel->save();
@@ -191,7 +192,9 @@ SQL;
                         }
                     } else {
                         if (empty($post['slug'])) {
-                            $slugModel = Slug::findOne(['table_id' => $model->id, 'table_name' => $model::tableName()]);
+                            $slugModel = Slug::findOne(['table_id'   => $model->id,
+                                                        'table_name' => $model::tableName()
+                            ]);
                             if (!empty($slugModel)) {
                                 $slugModel->delete();
                             }
@@ -217,13 +220,6 @@ SQL;
         }
     }
 
-    private function fileTypes($extension)
-    {
-        $type = json_decode(file_get_contents(__DIR__ . '/mime.json'), true)[str_replace('.', '', $extension)];
-        $type = explode('/', $type);
-        return $type[0];
-    }
-
     public function actionUpload($id)
     {
         if (empty($_FILES['file']['tmp_name'])) {
@@ -236,7 +232,7 @@ SQL;
 
 
             $attribute = $_FILES['file']['name'];
-            $path = Yii::$app->Options->UploadDir . '/dl/Pages';
+            $path = Yii::$app->Options->UploadDir.'/dl/Pages';
             if (!realpath($path)) {
                 @mkdir($path, 0777, true);
             }
@@ -247,20 +243,20 @@ SQL;
             if (empty($fileExtension)) {
                 $fileExtension = '';
             } else {
-                $fileExtension = '.' . $fileExtension[count($fileExtension) - 1];
+                $fileExtension = '.'.$fileExtension[count($fileExtension) - 1];
             }
-            $moved = move_uploaded_file($_FILES['file']['tmp_name'], $path . '/' . $fileName . $fileExtension);
+            $moved = move_uploaded_file($_FILES['file']['tmp_name'], $path.'/'.$fileName.$fileExtension);
             $cookie = Yii::$app->cookie->tmpFiles;
             if (empty($cookie)) {
                 $tmpFile =
                     [
-                        'fileName' => $fileName,
+                        'fileName'      => $fileName,
                         'fileExtension' => $fileExtension,
-                        'created_at' => time(),
-                        'model' => Pages::className(),
-                        'attr' => $attribute,
-                        'type' => is_array($_FILES['file']['type']) ? $_FILES['file']['type'][0] : $_FILES['file']['type'],
-                        'size' => is_array($_FILES['file']['size']) ? $_FILES['file']['size'][0] : $_FILES['file']['size'],
+                        'created_at'    => time(),
+                        'model'         => Pages::className(),
+                        'attr'          => $attribute,
+                        'type'          => is_array($_FILES['file']['type']) ? $_FILES['file']['type'][0] : $_FILES['file']['type'],
+                        'size'          => is_array($_FILES['file']['size']) ? $_FILES['file']['size'][0] : $_FILES['file']['size'],
                     ];
                 $tmpFiles = [];
                 $tmpFiles[] = $tmpFile;
@@ -279,10 +275,10 @@ SQL;
                         }
 
                         if ($expired) {
-                            $files = glob($path . '/*'); // get all file names
+                            $files = glob($path.'/*'); // get all file names
                             foreach ($files as $f) { // iterate files
                                 if (is_file($f)) {
-                                    if ($path . '/' . $fileName . $fileExtension == $f) {
+                                    if ($path.'/'.$fileName.$fileExtension == $f) {
                                         continue;
                                     }
                                     unlink($f); // delete file
@@ -291,13 +287,13 @@ SQL;
 
                             $tmpFile =
                                 [
-                                    'fileName' => $fileName,
+                                    'fileName'      => $fileName,
                                     'fileExtension' => $fileExtension,
-                                    'created_at' => time(),
-                                    'model' => Pages::className(),
-                                    'attr' => $attribute,
-                                    'type' => is_array($_FILES['file']['type']) ? $_FILES['file']['type'][0] : $_FILES['file']['type'],
-                                    'size' => is_array($_FILES['file']['size']) ? $_FILES['file']['size'][0] : $_FILES['file']['size'],
+                                    'created_at'    => time(),
+                                    'model'         => Pages::className(),
+                                    'attr'          => $attribute,
+                                    'type'          => is_array($_FILES['file']['type']) ? $_FILES['file']['type'][0] : $_FILES['file']['type'],
+                                    'size'          => is_array($_FILES['file']['size']) ? $_FILES['file']['size'][0] : $_FILES['file']['size'],
                                 ];
                             $tmpFiles = [];
                             $tmpFiles[] = $tmpFile;
@@ -305,13 +301,13 @@ SQL;
                         } else {
                             $tmpFile =
                                 [
-                                    'fileName' => $fileName,
+                                    'fileName'      => $fileName,
                                     'fileExtension' => $fileExtension,
-                                    'created_at' => time(),
-                                    'model' => Pages::className(),
-                                    'attr' => $attribute,
-                                    'type' => is_array($_FILES['file']['type']) ? $_FILES['file']['type'][0] : $_FILES['file']['type'],
-                                    'size' => is_array($_FILES['file']['size']) ? $_FILES['file']['size'][0] : $_FILES['file']['size'],
+                                    'created_at'    => time(),
+                                    'model'         => Pages::className(),
+                                    'attr'          => $attribute,
+                                    'type'          => is_array($_FILES['file']['type']) ? $_FILES['file']['type'][0] : $_FILES['file']['type'],
+                                    'size'          => is_array($_FILES['file']['size']) ? $_FILES['file']['size'][0] : $_FILES['file']['size'],
                                 ];
 
                             $cookie[] = $tmpFile;
@@ -320,13 +316,13 @@ SQL;
                     } else {
                         $tmpFile =
                             [
-                                'fileName' => $fileName,
+                                'fileName'      => $fileName,
                                 'fileExtension' => $fileExtension,
-                                'created_at' => time(),
-                                'model' => Pages::className(),
-                                'attr' => $attribute,
-                                'type' => is_array($_FILES['file']['type']) ? $_FILES['file']['type'][0] : $_FILES['file']['type'],
-                                'size' => is_array($_FILES['file']['size']) ? $_FILES['file']['size'][0] : $_FILES['file']['size'],
+                                'created_at'    => time(),
+                                'model'         => Pages::className(),
+                                'attr'          => $attribute,
+                                'type'          => is_array($_FILES['file']['type']) ? $_FILES['file']['type'][0] : $_FILES['file']['type'],
+                                'size'          => is_array($_FILES['file']['size']) ? $_FILES['file']['size'][0] : $_FILES['file']['size'],
                             ];
                         $tmpFiles = [];
                         $tmpFiles[] = $tmpFile;
@@ -340,6 +336,13 @@ SQL;
         // </ Upload To Table >
 
 
-        echo Yii::$app->Options->URL . Yii::$app->Options->UploadUrl . '/dl/Pages/' . $fileName . $fileExtension;
+        echo Yii::$app->Options->URL.Yii::$app->Options->UploadUrl.'/dl/Pages/'.$fileName.$fileExtension;
+    }
+
+    private function fileTypes($extension)
+    {
+        $type = json_decode(file_get_contents(__DIR__.'/mime.json'), true)[str_replace('.', '', $extension)];
+        $type = explode('/', $type);
+        return $type[0];
     }
 }

@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Copyright (c) 2018-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
@@ -7,38 +7,38 @@
  * Site:https://yiiman.ir
  */
 /**
- * @var $this \yii\web\View
+ * @var $this  \yii\web\View
  * @var $class \YiiMan\YiiBasics\widgets\fileUpload\MaterialFontWidget
  */
-$attr  = $class->attribute . '-input';
-$attr2 = $class->attribute . '-input2';
-$url   = $class->UploadUrl;
-$filename= $class->className . '[' . $class->attribute . ']' . ( ! empty( $class->multiple ) ? '[]' : '' );
+$attr = $class->attribute.'-input';
+$attr2 = $class->attribute.'-input2';
+$url = $class->UploadUrl;
+$filename = $class->className.'['.$class->attribute.']'.(!empty($class->multiple) ? '[]' : '');
 
 /* < Build File Type Check > */
 {
-    if ($class->fileTypes!='.*'){
-        $types=str_replace( '.', '', $class->fileTypes);
-	    $types=explode( ',',$types);
-	    $typeText='';
-	    foreach ($types as $type){
-		    $typeText.=' case "'.$type.'":
+    if ($class->fileTypes != '.*') {
+        $types = str_replace('.', '', $class->fileTypes);
+        $types = explode(',', $types);
+        $typeText = '';
+        foreach ($types as $type) {
+            $typeText .= ' case "'.$type.'":
 		    ';
-	    }
-    }else{
-	    $typeText=' case default:';
+        }
+    } else {
+        $typeText = ' case default:';
     }
 
 }
 /* </ Build File Type Check > */
-$uploadFunction='function upload'.$class->attribute;
-$uploadFunctionName='upload'.$class->attribute;
-if (!empty( $class->callBack)){
-    $callBack=$class->callBack.'(response);';
-}else{
-    $callBack='';
+$uploadFunction = 'function upload'.$class->attribute;
+$uploadFunctionName = 'upload'.$class->attribute;
+if (!empty($class->callBack)) {
+    $callBack = $class->callBack.'(response);';
+} else {
+    $callBack = '';
 }
-$js    = <<<JS
+$js = <<<JS
     $(document).ready(function(){
          
             $('#$attr').change(function(e){
@@ -100,7 +100,7 @@ $js    = <<<JS
         
     });
 JS;
-$this->registerJs( $js, \yii\web\View::POS_END );
+$this->registerJs($js, \yii\web\View::POS_END);
 ?>
 <div class="form-group form-file-upload form-file-multiple">
     <input type="file" multiple="" class="inputFileHidden" id="<?= $attr ?>"

@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\transactions\base;
 
@@ -14,40 +20,31 @@ abstract class BaseTerminal extends Transactions implements Terminal
 {
     /**
      * توکن هایی که نیاز دارید کاربر برای ارتباط به پنل به شما بدهد را اینجا با نام فارسی وارد کنید.
-     *
      * برای مثال:
-     *
      * [
-     *
-     *
      *  'Username'=>
-     *
      *          [
-     *
      *          'label'=>'نام کاربری درگاه',
-     *
      *          'hint'=>'لطفا نام کاربری درگاه را وارد کنید',
-     *
      *          ],
      *  'apiToken'=>'توکن واسط کاربری'
-     *
      * ]
-     *
      * @var array
      */
-    public $tokens=[];
+    public $tokens = [];
 
     /**
      * در صورتی که درگاه در حالت برنامه نویسی باشد این تابع مقدار صحیح برمیگرداند
      * @return bool
      */
-    public function isDebugMode(){
+    public function isDebugMode()
+    {
         return !empty(\Yii::$app->Options->PaymentDebug);
     }
 
     /**
      * یک تراکنش ایجاد میکند، سپس مقدمات پرداخت را آماده سازی نموده و تابع start را فراخوانی میکند
-     * @param TransactionsFactor $factor
+     * @param  TransactionsFactor  $factor
      */
     public function pay(TransactionsFactor $factor)
     {
@@ -74,7 +71,8 @@ abstract class BaseTerminal extends Transactions implements Terminal
         // </ پرداخت فاکتور با مبلغ  صفر >
 
 
-        $serial = $this->get_before_pay_serial($factor->total_price * 10, $factor, $transaction, \Yii::$app->urlManager->createAbsoluteUrl(['/payment/verify']));
+        $serial = $this->get_before_pay_serial($factor->total_price * 10, $factor, $transaction,
+            \Yii::$app->urlManager->createAbsoluteUrl(['/payment/verify']));
 
         $transaction->status = self::STATUS_WAIT_FOR_PAY;
         $transaction->terminal_pre_pay_serial = $serial;
@@ -90,7 +88,7 @@ abstract class BaseTerminal extends Transactions implements Terminal
     {
         return \Yii::$app->view->render('@system/modules/transactions/settings/autorender.php',
             [
-                'tokens'=>$this->tokens
+                'tokens' => $this->tokens
             ]
         );
     }
@@ -99,7 +97,8 @@ abstract class BaseTerminal extends Transactions implements Terminal
      * این متد, کدهای جاوا اسکریپتی که کاربر نیاز دارد را پس از ایجاد فیلد های مورد نیاز در فرم ایجاد میکند.
      * @return string
      */
-    public function renderJS(){
+    public function renderJS()
+    {
         return '';
     }
 }

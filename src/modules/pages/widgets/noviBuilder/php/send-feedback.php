@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 $default_recipients = 'support@novibuilder.com';
 
@@ -7,7 +14,8 @@ try {
 
     $recipients = $_POST['recipient'];
 
-    preg_match_all("/([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)/", $recipients, $addresses, PREG_OFFSET_CAPTURE);
+    preg_match_all("/([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)/", $recipients,
+        $addresses, PREG_OFFSET_CAPTURE);
 
     if (preg_match('/^(127\.|192\.168\.)/', $_SERVER['REMOTE_ADDR'])) {
         die('MF002');
@@ -18,26 +26,46 @@ try {
 
     if (isset($_POST['email'])) {
         $template = str_replace(
-            array("<!-- #{FromState} -->", "<!-- #{FromEmail} -->"),
-            array("Email:", $_POST['email']),
+            [
+                "<!-- #{FromState} -->",
+                "<!-- #{FromEmail} -->"
+            ],
+            [
+                "Email:",
+                $_POST['email']
+            ],
             $template);
-    }else{
+    } else {
         die('MF003');
     }
 
     if (isset($_POST['message'])) {
         $template = str_replace(
-            array("<!-- #{MessageState} -->", "<!-- #{MessageDescription} -->"),
-            array("Message:", $_POST['message']),
+            [
+                "<!-- #{MessageState} -->",
+                "<!-- #{MessageDescription} -->"
+            ],
+            [
+                "Message:",
+                $_POST['message']
+            ],
             $template);
     }
 
     preg_match("/(<!-- #{BeginInfo} -->)(.|\n)+(<!-- #{EndInfo} -->)/", $template, $tmp, PREG_OFFSET_CAPTURE);
     foreach ($_POST as $key => $value) {
-        if ($key != "email" && $key != "message" && $key != "form-type" && !empty($value)){
+        if ($key != "email" && $key != "message" && $key != "form-type" && !empty($value)) {
             $info = str_replace(
-                array("<!-- #{BeginInfo} -->", "<!-- #{InfoState} -->", "<!-- #{InfoDescription} -->"),
-                array("", ucfirst($key) . ':', $value),
+                [
+                    "<!-- #{BeginInfo} -->",
+                    "<!-- #{InfoState} -->",
+                    "<!-- #{InfoDescription} -->"
+                ],
+                [
+                    "",
+                    ucfirst($key).':',
+                    $value
+                ],
                 $tmp[0][0]);
 
             $template = str_replace("<!-- #{EndInfo} -->", $info, $template);
@@ -45,8 +73,14 @@ try {
     }
 
     $template = str_replace(
-        array("<!-- #{Subject} -->", "<!-- #{SiteName} -->"),
-        array($subject, $_SERVER['SERVER_NAME']),
+        [
+            "<!-- #{Subject} -->",
+            "<!-- #{SiteName} -->"
+        ],
+        [
+            $subject,
+            $_SERVER['SERVER_NAME']
+        ],
         $template);
 
     $mail = new PHPMailer();
@@ -56,15 +90,17 @@ try {
     if (isset($_FILES['file']) &&
         $_FILES['file']['error'] == UPLOAD_ERR_OK) {
         $mail->AddAttachment($_FILES['file']['tmp_name'],
-                             $_FILES['file']['name']);
+            $_FILES['file']['name']);
     }
 
-    if (isset($_POST['name'])){
+    if (isset($_POST['name'])) {
         $mail->FromName = $_POST['name'];
-    }else if ($recipients !== $default_recipients){
-        $mail->FromName = "Builder Visitor";
-    }else{
-        $mail->FromName = "Novi Builder Visitor";
+    } else {
+        if ($recipients !== $default_recipients) {
+            $mail->FromName = "Builder Visitor";
+        } else {
+            $mail->FromName = "Novi Builder Visitor";
+        }
     }
 
     foreach ($addresses[0] as $key => $value) {

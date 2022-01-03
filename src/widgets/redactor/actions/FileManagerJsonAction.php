@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Copyright (c) 2018-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
@@ -37,7 +37,7 @@ class FileManagerJsonAction extends Action
         $config = ['recursive' => true];
         if (!is_null(Yii::$app->controller->module->imageAllowExtensions)) {
             $onlyExtensions = array_map(function ($ext) {
-                return '*.' . $ext;
+                return '*.'.$ext;
             }, Yii::$app->controller->module->imageAllowExtensions);
             $config['only'] = $onlyExtensions;
         }
@@ -47,7 +47,13 @@ class FileManagerJsonAction extends Action
             foreach ($filesPath as $filePath) {
                 $url = Yii::$app->controller->module->getUrl(pathinfo($filePath, PATHINFO_BASENAME));
                 $fileName = pathinfo($filePath, PATHINFO_FILENAME);
-                $result[] = ['title' => $fileName, 'name' => $fileName, 'link' => $url, 'size' => Yii::$app->formatter->asShortSize(filesize($filePath)), 2];
+                $result[] = [
+                    'title' => $fileName,
+                    'name'  => $fileName,
+                    'link'  => $url,
+                    'size'  => Yii::$app->formatter->asShortSize(filesize($filePath)),
+                    2
+                ];
             }
             return $result;
         }

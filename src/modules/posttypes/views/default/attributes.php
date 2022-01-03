@@ -1,6 +1,14 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use \YiiMan\YiiBasics\modules\posttypes\models\Posttypes;
+
 \YiiMan\YiiBasics\widgets\fontAwesomePicker\assets\FontAwesomeFontPickerAssets::register($this);
 /**
  * @var $posttype string
@@ -19,7 +27,7 @@ if (empty($searchModel)) {
 
 ?>
 <style>
-    .fas{
+    .fas {
         text-align: center;
         display: block;
         color: #1a534b;
@@ -33,9 +41,11 @@ foreach ($searchModel::getConfigs()['items'][$posttype]['indexAttributes'] as $n
         case Posttypes::INPUT_MULTI_SELECT:
             $columns[] =
                 [
-                    'attribute' => 'fields[' . $column . ']',
-                    'value' => function ($model) use ($column, $searchModel) {
-                        $relation = \YiiMan\YiiBasics\modules\posttypes\models\PosttypesFields::find()->select(['content'])->where(['posttype' => $model->id, 'fieldName' => $column])->all();
+                    'attribute' => 'fields['.$column.']',
+                    'value'     => function ($model) use ($column, $searchModel) {
+                        $relation = \YiiMan\YiiBasics\modules\posttypes\models\PosttypesFields::find()->select(['content'])->where(['posttype'  => $model->id,
+                                                                                                                                    'fieldName' => $column
+                        ])->all();
 
                         if (!empty($relation)) {
                             $array = [];
@@ -45,17 +55,17 @@ foreach ($searchModel::getConfigs()['items'][$posttype]['indexAttributes'] as $n
                             return $array;
                         }
                     },
-                    'label' => $searchModel::getConfigs(true)[$posttype][$column]['label']
+                    'label'     => $searchModel::getConfigs(true)[$posttype][$column]['label']
                 ];
             break;
         case Posttypes::INPUT_MULTIPLE:
             $columns[] =
                 [
-                    'attribute' => 'fields[' . $column . ']',
-                    'value' => function ($model) use ($column, $searchModel) {
+                    'attribute' => 'fields['.$column.']',
+                    'value'     => function ($model) use ($column, $searchModel) {
                         return '';
                     },
-                    'label' => $searchModel::getConfigs(true)[$posttype][$column]['label']
+                    'label'     => $searchModel::getConfigs(true)[$posttype][$column]['label']
                 ];
             break;
         case Posttypes::INPUT_NUMBER:
@@ -63,28 +73,32 @@ foreach ($searchModel::getConfigs()['items'][$posttype]['indexAttributes'] as $n
         case Posttypes::INPUT_TEXTAREA:
             $columns[] =
                 [
-                    'attribute' => 'fields[' . $column . ']',
-                    'value' => function ($model) use ($column, $searchModel) {
-                        $relation = \YiiMan\YiiBasics\modules\posttypes\models\PosttypesFields::findOne(['posttype' => $model->id, 'fieldName' => $column]);
+                    'attribute' => 'fields['.$column.']',
+                    'value'     => function ($model) use ($column, $searchModel) {
+                        $relation = \YiiMan\YiiBasics\modules\posttypes\models\PosttypesFields::findOne(['posttype'  => $model->id,
+                                                                                                         'fieldName' => $column
+                        ]);
                         if (!empty($relation)) {
-                            return '<i class="fa ' . $relation->content . '"></i>';
+                            return '<i class="fa '.$relation->content.'"></i>';
                         }
                     },
-                    'label' => $searchModel::getConfigs(true)[$posttype][$column]['label']
+                    'label'     => $searchModel::getConfigs(true)[$posttype][$column]['label']
                 ];
             break;
         case Posttypes::INPUT_FONTAWESOME_ICON:
             $columns[] =
                 [
-                    'attribute' => 'fields[' . $column . ']',
-                    'value' => function ($model) use ($column, $searchModel) {
-                        $relation = \YiiMan\YiiBasics\modules\posttypes\models\PosttypesFields::findOne(['posttype' => $model->id, 'fieldName' => $column]);
+                    'attribute' => 'fields['.$column.']',
+                    'value'     => function ($model) use ($column, $searchModel) {
+                        $relation = \YiiMan\YiiBasics\modules\posttypes\models\PosttypesFields::findOne(['posttype'  => $model->id,
+                                                                                                         'fieldName' => $column
+                        ]);
                         if (!empty($relation)) {
-                            return '<i class="' . $relation->content . '"></i>';
+                            return '<i class="'.$relation->content.'"></i>';
                         }
                     },
-                    'format' => 'raw',
-                    'label' => $searchModel::getConfigs(true)[$posttype][$column]['label']
+                    'format'    => 'raw',
+                    'label'     => $searchModel::getConfigs(true)[$posttype][$column]['label']
                 ];
             break;
 
@@ -92,14 +106,16 @@ foreach ($searchModel::getConfigs()['items'][$posttype]['indexAttributes'] as $n
         case Posttypes::INPUT_SELECT:
             $columns[] =
                 [
-                    'attribute' => 'fields[' . $column . ']',
-                    'value' => function ($model) use ($column, $searchModel) {
-                        $relation = \YiiMan\YiiBasics\modules\posttypes\models\PosttypesFields::findOne(['posttype' => $model->id, 'fieldName' => $column]);
+                    'attribute' => 'fields['.$column.']',
+                    'value'     => function ($model) use ($column, $searchModel) {
+                        $relation = \YiiMan\YiiBasics\modules\posttypes\models\PosttypesFields::findOne(['posttype'  => $model->id,
+                                                                                                         'fieldName' => $column
+                        ]);
                         if (!empty($relation)) {
                             return $searchModel::getConfigs(true)[$model->posttype][$column]['data'][$relation->content];
                         }
                     },
-                    'label' => $searchModel::getConfigs(true)[$posttype][$column]['label']
+                    'label'     => $searchModel::getConfigs(true)[$posttype][$column]['label']
                 ];
             break;
 
@@ -109,7 +125,7 @@ foreach ($searchModel::getConfigs()['items'][$posttype]['indexAttributes'] as $n
 $columns[] =
     [
         'attribute' => 'status',
-        'value' => function ($model) {
+        'value'     => function ($model) {
             /**
              * @var $model Posttypes
              */
@@ -126,12 +142,12 @@ $columns[] =
 if (Yii::$app->controller->action->id == 'index') {
     $columns[] =
         [
-            'class' => 'YiiMan\YiiBasics\lib\ActionColumn',
+            'class'      => 'YiiMan\YiiBasics\lib\ActionColumn',
             'urlCreator' => function ($action, $model, $key, $index, $_this) {
                 if ($action == 'index') {
-                    return Yii::$app->urlManager->createUrl(['/pt/' . $_GET['posttype']]);
+                    return Yii::$app->urlManager->createUrl(['/pt/'.$_GET['posttype']]);
                 } else {
-                    return Yii::$app->urlManager->createUrl(['/pt/' . $action . '/' . $_GET['posttype'] . '/' . $model->id]);
+                    return Yii::$app->urlManager->createUrl(['/pt/'.$action.'/'.$_GET['posttype'].'/'.$model->id]);
                 }
             }
         ];

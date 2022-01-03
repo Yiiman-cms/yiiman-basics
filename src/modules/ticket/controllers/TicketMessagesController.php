@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\ticket\controllers;
 
@@ -13,11 +20,12 @@ use yii\filters\VerbFilter;
 /**
  * TicketMessagesController implements the CRUD actions for TicketMessages model.
  */
-class TicketMessagesController extends \YiiMan\YiiBasics\lib\Controller{
-	/**
-	*
-	* @var $model SearchTicketMessages	*/
-	public $model;
+class TicketMessagesController extends \YiiMan\YiiBasics\lib\Controller
+{
+    /**
+     * @var $model SearchTicketMessages
+     */
+    public $model;
     /**
      * {@inheritdoc}
      */
@@ -50,14 +58,14 @@ class TicketMessagesController extends \YiiMan\YiiBasics\lib\Controller{
 
     /**
      * Displays a single TicketMessages model.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
 
-        $model=$this->findModel($id);
+        $model = $this->findModel($id);
 
         return $this->render('view', [
             'model' => $model,
@@ -74,8 +82,11 @@ class TicketMessagesController extends \YiiMan\YiiBasics\lib\Controller{
         $model = new TicketMessages;
 
         if ($model->load(Yii::$app->request->post())) {
-            if($model->save()){
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->save()) {
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
             }
         }
         return $this->render('create', [
@@ -86,16 +97,19 @@ class TicketMessagesController extends \YiiMan\YiiBasics\lib\Controller{
     /**
      * Updates an existing TicketMessages model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
-        $model=$this->findModel($id);
+        $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post())) {
-            if( $model->save()){
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->save()) {
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
             }
         }
 
@@ -107,7 +121,7 @@ class TicketMessagesController extends \YiiMan\YiiBasics\lib\Controller{
     /**
      * Deletes an existing TicketMessages model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -118,17 +132,15 @@ class TicketMessagesController extends \YiiMan\YiiBasics\lib\Controller{
         return $this->redirect(['index']);
     }
 
-
-
-
-	protected function upload(){
-	
-	
-	}
-
-
-	public function init(){
+    public function init()
+    {
         parent::init();
-		$this->modelClass=new TicketMessages();
-	}
+        $this->modelClass = new TicketMessages();
+    }
+
+    protected function upload()
+    {
+
+
+    }
 }

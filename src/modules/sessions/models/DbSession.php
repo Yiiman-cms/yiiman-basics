@@ -1,8 +1,10 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
- * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * Copyright (c) 2008-2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
  */
 
 namespace YiiMan\YiiBasics\modules\sessions\models;
@@ -17,13 +19,10 @@ use yii\web\MultiFieldSession;
 
 /**
  * DbSession extends [[Session]] by using database as session data storage.
- *
  * By default, DbSession stores session data in a DB table named 'session'. This table
  * must be pre-created. The table name can be changed by setting [[sessionTable]].
- *
  * The following example shows how you can configure the application to use DbSession:
  * Add the following to your application config under `components`:
- *
  * ```php
  * 'session' => [
  *     'class' => 'yii\web\DbSession',
@@ -31,12 +30,10 @@ use yii\web\MultiFieldSession;
  *     // 'sessionTable' => 'my_session',
  * ]
  * ```
- *
  * DbSession extends [[MultiFieldSession]], thus it allows saving extra fields into the [[sessionTable]].
  * Refer to [[MultiFieldSession]] for more details.
- *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @since 2.0
+ * @since  2.0
  */
 class DbSession extends MultiFieldSession
 {
@@ -50,7 +47,6 @@ class DbSession extends MultiFieldSession
     /**
      * @var string the name of the DB table that stores the session data.
      * The table should be pre-created as follows:
-     *
      * ```sql
      * CREATE TABLE session
      * (
@@ -59,17 +55,13 @@ class DbSession extends MultiFieldSession
      *     data BLOB
      * )
      * ```
-     *
      * where 'BLOB' refers to the BLOB-type of your preferred DBMS. Below are the BLOB type
      * that can be used for some popular DBMS:
-     *
      * - MySQL: LONGBLOB
      * - PostgreSQL: BYTEA
      * - MSSQL: BLOB
-     *
      * When using DbSession in a production server, we recommend you create a DB index for the 'expire'
      * column in the session table to improve the performance.
-     *
      * Note that according to the php.ini setting of `session.hash_function`, you may need to adjust
      * the length of the `id` column. For example, if `session.hash_function=sha256`, you should use
      * length 64 instead of 40.
@@ -96,8 +88,8 @@ class DbSession extends MultiFieldSession
 
     /**
      * Session open handler.
-     * @param string $savePath session save path
-     * @param string $sessionName session name
+     * @param  string  $savePath     session save path
+     * @param  string  $sessionName  session name
      * @return bool whether session is opened successfully
      * @internal Do not call this method directly.
      */
@@ -112,6 +104,23 @@ class DbSession extends MultiFieldSession
         }
 
         return parent::openSession($savePath, $sessionName);
+    }
+
+    /**
+     * Generates a query to get the session from db
+     * @param  string  $id  The id of the session
+     * @return Query
+     */
+    protected function getReadQuery($id)
+    {
+        $time = time();
+
+        return (new Query())
+            ->from($this->sessionTable)
+            ->where('[[expire]]>:expire AND [[id]]=:id', [
+                ':expire' => $time,
+                ':id'     => $id
+            ]);
     }
 
     /**
@@ -175,7 +184,7 @@ class DbSession extends MultiFieldSession
 
     /**
      * Session read handler.
-     * @param string $id session ID
+     * @param  string  $id  session ID
      * @return string the session data
      * @internal Do not call this method directly.
      */
@@ -194,8 +203,8 @@ class DbSession extends MultiFieldSession
 
     /**
      * Session write handler.
-     * @param string $id session ID
-     * @param string $data session data
+     * @param  string  $id    session ID
+     * @param  string  $data  session data
      * @return bool whether session write is successful
      * @internal Do not call this method directly.
      */
@@ -222,9 +231,9 @@ class DbSession extends MultiFieldSession
 
             // ensure 'id' and 'expire' are never affected by [[writeCallback]]
             $this->fields = array_merge($this->fields, [
-                'id' => $id,
-                'expire' => time() + $this->getTimeout(),
-                'app' => Yii::$app->id,
+                'id'         => $id,
+                'expire'     => time() + $this->getTimeout(),
+                'app'        => Yii::$app->id,
                 'created_at' => date('Y-m-d H:i:s'),
             ]);
             $this->fields = $this->typecastFields($this->fields);
@@ -243,20 +252,40 @@ class DbSession extends MultiFieldSession
      */
     public function getTimeout()
     {
-        $out= (int)Yii::$app->Options->{'SessionTimeOut'.str_replace(['-','_'],'',Yii::$app->id)};
+        $out = (int) Yii::$app->Options->{'SessionTimeOut'.str_replace([
+            '-',
+            '_'
+        ], '', Yii::$app->id)};
 
-        if (empty($out)){
-            $out=100000;
-            return  $out;
-        }else{
-            $out=($out*60);
+        if (empty($out)) {
+            $out = 100000;
+            return $out;
+        } else {
+            $out = ($out * 60);
             return $out;
         }
     }
 
     /**
+     * Method typecasts $fields before passing them to PDO.
+     * Default implementation casts field `data` to `\PDO::PARAM_LOB`.
+     * You can override this method in case you need special type casting.
+     * @param  array  $fields  Fields, that will be passed to PDO. Key - name, Value - value
+     * @return array
+     * @since 2.0.13
+     */
+    protected function typecastFields($fields)
+    {
+        if (isset($fields['data']) && !is_array($fields['data']) && !is_object($fields['data'])) {
+            $fields['data'] = new PdoValue($fields['data'], \PDO::PARAM_LOB);
+        }
+
+        return $fields;
+    }
+
+    /**
      * Session destroy handler.
-     * @param string $id session ID
+     * @param  string  $id  session ID
      * @return bool whether session is destroyed successfully
      * @internal Do not call this method directly.
      */
@@ -271,7 +300,7 @@ class DbSession extends MultiFieldSession
 
     /**
      * Session GC (garbage collection) handler.
-     * @param int $maxLifetime the number of seconds after which data will be seen as 'garbage' and cleaned up.
+     * @param  int  $maxLifetime  the number of seconds after which data will be seen as 'garbage' and cleaned up.
      * @return bool whether session is GCed successfully
      * @internal Do not call this method directly.
      */
@@ -282,37 +311,5 @@ class DbSession extends MultiFieldSession
             ->execute();
 
         return true;
-    }
-
-    /**
-     * Generates a query to get the session from db
-     * @param string $id The id of the session
-     * @return Query
-     */
-    protected function getReadQuery($id)
-    {
-        $time=time();
-
-        return (new Query())
-            ->from($this->sessionTable)
-            ->where('[[expire]]>:expire AND [[id]]=:id', [':expire' => $time, ':id' => $id]);
-    }
-
-    /**
-     * Method typecasts $fields before passing them to PDO.
-     * Default implementation casts field `data` to `\PDO::PARAM_LOB`.
-     * You can override this method in case you need special type casting.
-     *
-     * @param array $fields Fields, that will be passed to PDO. Key - name, Value - value
-     * @return array
-     * @since 2.0.13
-     */
-    protected function typecastFields($fields)
-    {
-        if (isset($fields['data']) && !is_array($fields['data']) && !is_object($fields['data'])) {
-            $fields['data'] = new PdoValue($fields['data'], \PDO::PARAM_LOB);
-        }
-
-        return $fields;
     }
 }

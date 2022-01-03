@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\hint\models;
 
@@ -18,8 +25,20 @@ class SearchHint extends Hint
     public function rules()
     {
         return [
-            [['id', 'count'], 'integer'],
-            [['date', 'url'], 'safe'],
+            [
+                [
+                    'id',
+                    'count'
+                ],
+                'integer'
+            ],
+            [
+                [
+                    'date',
+                    'url'
+                ],
+                'safe'
+            ],
         ];
     }
 
@@ -34,9 +53,7 @@ class SearchHint extends Hint
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
@@ -59,12 +76,16 @@ class SearchHint extends Hint
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'date' => $this->date,
+            'id'    => $this->id,
+            'date'  => $this->date,
             'count' => $this->count,
         ]);
 
-        $query->andFilterWhere(['like', 'url', $this->url]);
+        $query->andFilterWhere([
+            'like',
+            'url',
+            $this->url
+        ]);
 
         return $dataProvider;
     }

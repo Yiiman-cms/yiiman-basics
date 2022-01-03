@@ -1,18 +1,27 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+
 /* @var $this yii\web\View */
 /* @var $searchModel YiiMan\YiiBasics\modules\transactions\models\SearchTransactionsCoupons */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 \YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
-'add',
-Yii::t('transactions', 'ثبت کوپن های تخفیف'),
-'success' ,
-null ,
-Yii::$app->Options->BackendUrl . '/transactions-coupons/default/create'
+    'add',
+    Yii::t('transactions', 'ثبت کوپن های تخفیف'),
+    'success',
+    null,
+    Yii::$app->Options->BackendUrl.'/transactions-coupons/default/create'
 );
 \YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 
@@ -28,46 +37,46 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="row">
                 <div class="col-md-12 pull-right">
 
-                        <?php Pjax::begin(); ?>
-                                                <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-                    
+                    <?php Pjax::begin(); ?>
+                    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
 
-                                            <?= GridView::widget([
+
+                    <?= GridView::widget([
                         'dataProvider' => $dataProvider,
-                        'filterModel' => $searchModel,
-        'columns' => [
-                        ['class' => 'yii\grid\SerialColumn'],
-                        ['class' => '\YiiMan\YiiBasics\lib\i18n\LanguageColumn'],
-                                                            'price',
-            'expire',
-                                            [
-                                            'attribute' => 'status' ,
-                                            'format'=>'raw',
-                                            'value'   => function ( $model ) {
+                        'filterModel'  => $searchModel,
+                        'columns'      => [
+                            ['class' => 'yii\grid\SerialColumn'],
+                            ['class' => '\YiiMan\YiiBasics\lib\i18n\LanguageColumn'],
+                            'price',
+                            'expire',
+                            [
+                                'attribute' => 'status',
+                                'format'    => 'raw',
+                                'value'     => function ($model) {
 
-                                            switch ( $model->status ) {
-                                            case $model::STATUS_ACTIVE:
+                                    switch ($model->status) {
+                                        case $model::STATUS_ACTIVE:
                                             return '<span style="color:green">انتشار یافته</span>';
-                                                                                                 break;
-                                                                                                 case $model::STATUS_DE_ACTIVE:
-                                                                                                 return '<span
+                                            break;
+                                        case $model::STATUS_DE_ACTIVE:
+                                            return '<span
                                                 style="color: red">بازبینی</span>';
                                             break;
-                                            }
-                                            },
-                                            ],
-                                                        'start_from',
-            //'limit_count',
-            //'mode',
-            //'uid_limit',
-            //'created_at',
-            //'created_by',
+                                    }
+                                },
+                            ],
+                            'start_from',
+                            //'limit_count',
+                            //'mode',
+                            //'uid_limit',
+                            //'created_at',
+                            //'created_by',
 
-                        ['class' => 'YiiMan\YiiBasics\lib\ActionColumn'],
+                            ['class' => 'YiiMan\YiiBasics\lib\ActionColumn'],
                         ],
-                        ]); ?>
-                                            <?php Pjax::end(); ?>
+                    ]); ?>
+                    <?php Pjax::end(); ?>
                 </div>
             </div>
 

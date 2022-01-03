@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\transactions\controllers;
 
@@ -13,11 +20,12 @@ use yii\filters\VerbFilter;
 /**
  * TransactionsCouponsController implements the CRUD actions for TransactionsCoupons model.
  */
-class TransactionsCouponsController extends \YiiMan\YiiBasics\lib\Controller{
-	/**
-	*
-	* @var $model SearchTransactionsCoupons	*/
-	public $model;
+class TransactionsCouponsController extends \YiiMan\YiiBasics\lib\Controller
+{
+    /**
+     * @var $model SearchTransactionsCoupons
+     */
+    public $model;
     /**
      * {@inheritdoc}
      */
@@ -50,14 +58,14 @@ class TransactionsCouponsController extends \YiiMan\YiiBasics\lib\Controller{
 
     /**
      * Displays a single TransactionsCoupons model.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
 
-        $model=$this->findModel($id);
+        $model = $this->findModel($id);
 
         return $this->render('view', [
             'model' => $model,
@@ -74,8 +82,11 @@ class TransactionsCouponsController extends \YiiMan\YiiBasics\lib\Controller{
         $model = new TransactionsCoupons;
 
         if ($model->load(Yii::$app->request->post())) {
-            if($model->save()){
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->save()) {
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
             }
         }
         return $this->render('create', [
@@ -86,16 +97,19 @@ class TransactionsCouponsController extends \YiiMan\YiiBasics\lib\Controller{
     /**
      * Updates an existing TransactionsCoupons model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
-        $model=$this->findModel($id);
+        $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post())) {
-            if( $model->save()){
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->save()) {
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
             }
         }
 
@@ -107,7 +121,7 @@ class TransactionsCouponsController extends \YiiMan\YiiBasics\lib\Controller{
     /**
      * Deletes an existing TransactionsCoupons model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -118,17 +132,15 @@ class TransactionsCouponsController extends \YiiMan\YiiBasics\lib\Controller{
         return $this->redirect(['index']);
     }
 
-
-
-
-	protected function upload(){
-	
-	
-	}
-
-
-	public function init(){
+    public function init()
+    {
         parent::init();
-		$this->modelClass=new TransactionsCoupons();
-	}
+        $this->modelClass = new TransactionsCoupons();
+    }
+
+    protected function upload()
+    {
+
+
+    }
 }

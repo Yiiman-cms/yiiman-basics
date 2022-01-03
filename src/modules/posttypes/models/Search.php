@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\posttypes\models;
 
@@ -11,16 +17,16 @@ class Search extends Posttypes
 
     /**
      * بررسی میکند آیا کلید مورد نظر برای جست و جو ارسال شده است یا خیر، و اگر ارسال شده بود، مقدار آن را بازگردانی میکند
-     * @param $val
-     * @param string $id
+     * @param          $val
+     * @param  string  $id
      * @return mixed|string
      */
     public static function getVal($val, $id = '')
     {
-        $id = (string)$id;
+        $id = (string) $id;
         if (!empty($_GET[$val])) {
             if (!empty($id) && is_array($_GET[$val])) {
-                if (!is_bool(array_search((string)$id, $_GET[$val]))) {
+                if (!is_bool(array_search((string) $id, $_GET[$val]))) {
                     return $_GET[$val];
                 } else {
                     return '';
@@ -33,7 +39,7 @@ class Search extends Posttypes
         }
     }
 
-    public static function searchWithGet($posttype, $params = [], $checkGetParams = true,$limit=null)
+    public static function searchWithGet($posttype, $params = [], $checkGetParams = true, $limit = null)
     {
         $conditions = [];
         $query = <<<MYSQL
@@ -69,14 +75,14 @@ MYSQL;
 
 
         if (!empty($conditions)) {
-            $conditions = ' and ' . implode(' and ', $conditions);
+            $conditions = ' and '.implode(' and ', $conditions);
         } else {
             $conditions = '';
         }
 
-        $out = $query . $conditions . ' group by module_posttypes.id';
-        if (!empty($limit)){
-            $out .=' limit '.$limit;
+        $out = $query.$conditions.' group by module_posttypes.id';
+        if (!empty($limit)) {
+            $out .= ' limit '.$limit;
         }
         $out = \Yii::$app->db->createCommand($out)->queryAll();
         if (!empty($out)) {
@@ -112,7 +118,7 @@ MYSQL;
                     case Posttypes::INPUT_NUMBER :
                     case Posttypes::INPUT_FONTAWESOME_ICON :
                     case Posttypes::INPUT_SELECT :
-                        if (!empty((int)$val)) {
+                        if (!empty((int) $val)) {
 
                             $fields[] = <<<SQL
 exists
@@ -180,7 +186,7 @@ MYSQL;
 
                         break;
                     case Posttypes::INPUT_RELATION_SINGLE :
-                        if (!empty((int)$val)) {
+                        if (!empty((int) $val)) {
                             $fk[] = <<<MYSQL
 
 exists(select id from module_posttypes_fk where module_posttypes_fk.posttype_from=module_posttypes.id and module_posttypes_fk.posttype_to={$val})
@@ -226,7 +232,6 @@ MYSQL;
             // </Posttype created_at >
 
 
-
             // <Posttype hash >
             {
                 if ($key == 'hash') {
@@ -238,9 +243,6 @@ MYSQL;
                 }
             }
             // </Posttype hash >
-
-
-
 
 
             // <Posttype updated_at >
@@ -260,7 +262,7 @@ MYSQL;
         // < calculate Titles >
         {
             if (!empty($posttype_titles)) {
-                $posttype_conditions[] = '(' . implode(' or ', $posttype_titles) . ') ';
+                $posttype_conditions[] = '('.implode(' or ', $posttype_titles).') ';
             }
         }
         // </ calculate Titles >

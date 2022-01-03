@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
@@ -10,18 +17,20 @@ use yii\widgets\Pjax;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 \YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
-\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb('add',Yii::t('language','ثبت زبان'),'success',null,Yii::$app->Options->BackendUrl . '/language/default/create');
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb('add', Yii::t('language', 'ثبت زبان'), 'success', null,
+    Yii::$app->Options->BackendUrl.'/language/default/create');
 
 
-$this->title = Yii::t('language', 'زبان های سایت') . ' ';
+$this->title = Yii::t('language', 'زبان های سایت').' ';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php
-if (!\YiiMan\YiiBasics\lib\Core::$enabledLanguage){
+if (!\YiiMan\YiiBasics\lib\Core::$enabledLanguage) {
     ?>
     <div class="alert alert-danger">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <strong>سیستم چند زبانگی خاموش است!</strong> توجه داشته باشید، سیستم چند زبانگی در این پروژه خاموش است، در این حالت شما فقط میتوانید ترجمه های مربوط به پنل مدیریت را تغییر دهید
+        <strong>سیستم چند زبانگی خاموش است!</strong> توجه داشته باشید، سیستم چند زبانگی در این پروژه خاموش است، در این
+        حالت شما فقط میتوانید ترجمه های مربوط به پنل مدیریت را تغییر دهید
     </div>
     <?php
 }
@@ -41,23 +50,27 @@ if (!\YiiMan\YiiBasics\lib\Core::$enabledLanguage){
 
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
-                        'filterModel' => $searchModel,
-                        'columns' => [
+                        'filterModel'  => $searchModel,
+                        'columns'      => [
                             ['class' => 'yii\grid\SerialColumn'],
 
                             'title',
                             [
                                 'attribute' => 'image',
-                                'format' => 'raw',
-                                'value' => function ($model) {
-                                    return MediaViewWidget::widget(['attribute' => 'image', 'model' => $model, 'count' => 1]);
+                                'format'    => 'raw',
+                                'value'     => function ($model) {
+                                    return MediaViewWidget::widget([
+                                        'attribute' => 'image',
+                                        'model'     => $model,
+                                        'count'     => 1
+                                    ]);
                                 }
                             ],
                             'code',
                             [
                                 'attribute' => 'status',
-                                'format' => 'raw',
-                                'value' => function ($model) {
+                                'format'    => 'raw',
+                                'value'     => function ($model) {
 
                                     switch ($model->status) {
                                         case $model::STATUS_ACTIVE:

@@ -1,6 +1,6 @@
 <?php
-/*
- * Copyright (c) 2022.
+/**
+ * Copyright (c) 2022-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
@@ -11,7 +11,6 @@
  * Created by YiiMan TM.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
- *
  * Site:https://yiiman.ir
  * Date: 03/25/2020
  * Time: 01:04 AM
@@ -60,15 +59,15 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                        <?php
-                        $attr = 'smsTestLine';
-                        $model->addRule([$attr], 'required');
-                        $model->addRule([$attr], 'trim');
-                        $model->addRule([$attr], 'string', ['max' => 50]);
-                        echo $form->field($model, $attr)->textInput()->hint(
-                            Yii::t('sms', 'Enter Sms Test mobile phone for send test message')
-                        );
-                        ?>
+                    <?php
+                    $attr = 'smsTestLine';
+                    $model->addRule([$attr], 'required');
+                    $model->addRule([$attr], 'trim');
+                    $model->addRule([$attr], 'string', ['max' => 50]);
+                    echo $form->field($model, $attr)->textInput()->hint(
+                        Yii::t('sms', 'Enter Sms Test mobile phone for send test message')
+                    );
+                    ?>
                 </div>
             </div>
             <div class="row">
@@ -175,7 +174,8 @@
                     $model->addRule([$attr], 'trim');
                     $model->addRule([$attr], 'string', ['max' => 200]);
                     echo $form->field($model, $attr)->textarea()->hint(
-                        Yii::t('settings', 'متن ارسال پیامک تغییر رمز را وارد کنید، این متن زمانی استفاده میشود که کاربر مدیر، از پنل مدیریت رمز عبور یکی از کاربران را تغییر دهد ')
+                        Yii::t('settings',
+                            'متن ارسال پیامک تغییر رمز را وارد کنید، این متن زمانی استفاده میشود که کاربر مدیر، از پنل مدیریت رمز عبور یکی از کاربران را تغییر دهد ')
                     );
                     ?>
                     <style>
@@ -208,7 +208,8 @@
                     </p>
                 </div>
             </div>
-            <a href="<?= Yii::$app->urlManager->createUrl(['/sms/default/sendtest']) ?>" class="btn btn-success">ارسال پیامک تست</a>
+            <a href="<?= Yii::$app->urlManager->createUrl(['/sms/default/sendtest']) ?>" class="btn btn-success">ارسال
+                پیامک تست</a>
         </div>
     </div>
 </div>

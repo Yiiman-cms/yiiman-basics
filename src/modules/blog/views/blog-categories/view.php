@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use YiiMan\YiiBasics\modules\setting\widgets\ImageField;
@@ -9,15 +16,21 @@ use yii\widgets\DetailView;
 /* @var $model YiiMan\YiiBasics\modules\blog\models\BlogArticles */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('blog', 'وبلاگ'), 'url' => ['/blog']];
-$this->params['breadcrumbs'][] = ['label' => Yii::t('blog', 'دسته بندی ها'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = [
+    'label' => Yii::t('blog', 'وبلاگ'),
+    'url'   => ['/blog']
+];
+$this->params['breadcrumbs'][] = [
+    'label' => Yii::t('blog', 'دسته بندی ها'),
+    'url'   => ['index']
+];
 $this->params['breadcrumbs'][] = $this->title;
 \YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('blog', 'ثبت دسته بندی'),
     'success',
     null,
-    Yii::$app->Options->BackendUrl . '/blog/blog-category/create'
+    Yii::$app->Options->BackendUrl.'/blog/blog-category/create'
 );
 
 
@@ -26,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
     Yii::t('blog', 'ویرایش این مورد'),
     'info',
     null,
-    Yii::$app->Options->BackendUrl . '/blog/blog-category/update?id=' . $model->id);
+    Yii::$app->Options->BackendUrl.'/blog/blog-category/update?id='.$model->id);
 
 
 \YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
@@ -34,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
     Yii::t('blog', 'حذف این مورد'),
     'danger',
     null,
-    Yii::$app->Options->BackendUrl . '/blog/blog-category/delete?id=' . $model->id);
+    Yii::$app->Options->BackendUrl.'/blog/blog-category/delete?id='.$model->id);
 
 \YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
 
@@ -52,7 +65,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             if (!empty($model->loadDefaultImage())) {
                                 ?>
                                 <img class="img img-rounded" style="margin: auto;display: block"
-                                     src="<?= Yii::$app->UploadManager->getFit('dl/BlogArticles', $model->loadDefaultImage()->file_name . $model->loadDefaultImage()->extension, '870*412')
+                                     src="<?= Yii::$app->UploadManager->getFit('dl/BlogArticles',
+                                         $model->loadDefaultImage()->file_name.$model->loadDefaultImage()->extension,
+                                         '870*412')
                                      ?>">
                                 <?php
                             }

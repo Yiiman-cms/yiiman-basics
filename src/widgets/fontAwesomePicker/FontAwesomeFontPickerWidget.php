@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Copyright (c) 2018-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
@@ -12,7 +12,6 @@
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
- *
  * Site:https://yiiman.ir
  * Date: 8/12/2018
  * Time: 9:59 AM
@@ -44,11 +43,11 @@ class FontAwesomeFontPickerWidget extends InputWidget
         (
             'picker',
             [
-                'name' => $this->name,
-                'label' => $this->label,
+                'name'        => $this->name,
+                'label'       => $this->label,
                 'description' => $this->description,
-                'value' => $val,
-                'view' => $this->view
+                'value'       => $val,
+                'view'        => $this->view
             ]
         );
     }

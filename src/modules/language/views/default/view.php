@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
@@ -15,7 +22,7 @@ use yii\widgets\DetailView;
     Yii::t('language', 'ثبت زبان های سایت'),
     'success',
     null,
-    Yii::$app->Options->BackendUrl . '/language/default/create'
+    Yii::$app->Options->BackendUrl.'/language/default/create'
 );
 
 
@@ -24,7 +31,7 @@ use yii\widgets\DetailView;
     Yii::t('language', 'ویرایش این مورد'),
     'info',
     null,
-    Yii::$app->Options->BackendUrl . '/language/default/update?id=' . $model->id);
+    Yii::$app->Options->BackendUrl.'/language/default/update?id='.$model->id);
 
 
 \YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
@@ -32,14 +39,17 @@ use yii\widgets\DetailView;
     Yii::t('language', 'حذف این مورد'),
     'danger',
     null,
-    Yii::$app->Options->BackendUrl . '/language/default/delete?id=' . $model->id);
+    Yii::$app->Options->BackendUrl.'/language/default/delete?id='.$model->id);
 
 
-$this->title = Yii::t('language', 'زبان های سایت:  ' . $model->title);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('language', 'زبان های سایت'), 'url' => ['index']];
+$this->title = Yii::t('language', 'زبان های سایت:  '.$model->title);
+$this->params['breadcrumbs'][] = [
+    'label' => Yii::t('language', 'زبان های سایت'),
+    'url'   => ['index']
+];
 $this->params['breadcrumbs'][] = $this->title;
-$url=Yii::$app->urlManager->createUrl(['/language/default/translate']);
-$lang=strtolower($model->shortCode);
+$url = Yii::$app->urlManager->createUrl(['/language/default/translate']);
+$lang = strtolower($model->shortCode);
 $js = <<<JS
     $('input').dblclick(function(){
         var el=$(this);
@@ -61,7 +71,7 @@ $js = <<<JS
 
     });
 JS;
-$this->registerJs( $js, $this::POS_END);
+$this->registerJs($js, $this::POS_END);
 
 ?>
 <style>
@@ -110,15 +120,18 @@ $this->registerJs( $js, $this::POS_END);
                                         'title',
                                         [
                                             'attribute' => 'image',
-                                            'format' => 'raw',
-                                            'value' => function ($model) {
-                                                return MediaViewWidget::widget(['attribute' => 'image', 'model' => $model]);
+                                            'format'    => 'raw',
+                                            'value'     => function ($model) {
+                                                return MediaViewWidget::widget([
+                                                    'attribute' => 'image',
+                                                    'model'     => $model
+                                                ]);
                                             }
                                         ],
                                         'code',
                                         [
                                             'attribute' => 'status',
-                                            'value' => function ($model) {
+                                            'value'     => function ($model) {
                                                 /**
                                                  * @var $model \common\models\Neighbourhoods
                                                  */
@@ -199,9 +212,11 @@ color: white;" ';
                                                                     ?>
                                                                     <tr>
                                                                         <td class="key"><?= $item['key'] ?></td>
-                                                                        <td><input <?= \YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget::attribute('برای ترجمه ی ماشینی، دابل کلیک کنید') ?> type="text" class="form-control"
-                                                                                   name="<?= $file['name'] ?>[<?= $key ?>]"
-                                                                                   value="<?= $item['translate'] ?>">
+                                                                        <td>
+                                                                            <input <?= \YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget::attribute('برای ترجمه ی ماشینی، دابل کلیک کنید') ?>
+                                                                                    type="text" class="form-control"
+                                                                                    name="<?= $file['name'] ?>[<?= $key ?>]"
+                                                                                    value="<?= $item['translate'] ?>">
                                                                         </td>
                                                                     </tr>
                                                                     <?php

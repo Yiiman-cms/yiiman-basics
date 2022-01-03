@@ -1,6 +1,6 @@
 <?php
-/*
- * Copyright (c) 2022.
+/**
+ * Copyright (c) 2022-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
@@ -11,7 +11,6 @@
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
- *
  * Site:https://yiiman.ir
  * Date: 01/05/2019
  * Time: 07:03 PM

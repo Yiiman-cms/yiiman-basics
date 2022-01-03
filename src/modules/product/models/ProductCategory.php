@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\product\models;
 
@@ -6,12 +13,10 @@ use Yii;
 
 /**
  * This is the model class for table "{{%module_product_category}}".
- *
- * @property int $id
- * @property string $title
- * @property int $parent
- *
- * @property ProductCategory $parent0
+ * @property int               $id
+ * @property string            $title
+ * @property int               $parent
+ * @property ProductCategory   $parent0
  * @property ProductCategory[] $productCategories
  */
 class ProductCategory extends \YiiMan\YiiBasics\lib\ActiveRecord
@@ -33,10 +38,26 @@ class ProductCategory extends \YiiMan\YiiBasics\lib\ActiveRecord
     public function rules()
     {
         return [
-            [['title'], 'required'],
-            [['parent'], 'integer'],
-            [['title'], 'string', 'max' => 255],
-            [['parent'], 'exist', 'skipOnError' => true, 'targetClass' => \YiiMan\YiiBasics\modules\product\models\ProductCategory::className(), 'targetAttribute' => ['parent' => 'id']],
+            [
+                ['title'],
+                'required'
+            ],
+            [
+                ['parent'],
+                'integer'
+            ],
+            [
+                ['title'],
+                'string',
+                'max' => 255
+            ],
+            [
+                ['parent'],
+                'exist',
+                'skipOnError'     => true,
+                'targetClass'     => \YiiMan\YiiBasics\modules\product\models\ProductCategory::className(),
+                'targetAttribute' => ['parent' => 'id']
+            ],
         ];
     }
 
@@ -46,8 +67,8 @@ class ProductCategory extends \YiiMan\YiiBasics\lib\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('product', 'ID'),
-            'title' => Yii::t('product', 'موضوع گروه'),
+            'id'     => Yii::t('product', 'ID'),
+            'title'  => Yii::t('product', 'موضوع گروه'),
             'parent' => Yii::t('product', 'گروه مادر'),
         ];
     }

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\lib\curl;
 
@@ -8,14 +15,11 @@ class Encoder extends Component
 {
     /**
      * Encode JSON
-     *
      * Wrap json_encode() to throw error when the value being encoded fails.
-     *
      * @access public
      * @param  $value
      * @param  $options
      * @param  $depth
-     *
      * @return string
      * @throws \ErrorException
      */
@@ -33,7 +37,7 @@ class Encoder extends Component
         $value = call_user_func_array('json_encode', $args);
         if (!(json_last_error() === JSON_ERROR_NONE)) {
             if (function_exists('json_last_error_msg')) {
-                $error_message = 'json_encode error: ' . json_last_error_msg();
+                $error_message = 'json_encode error: '.json_last_error_msg();
             } else {
                 $error_message = 'json_encode error';
             }

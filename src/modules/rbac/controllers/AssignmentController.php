@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\rbac\controllers;
 
@@ -17,7 +24,6 @@ use YiiMan\YiiBasics\modules\rbac\models\AssignmentForm;
 
 /**
  * AssignmentController is controller for manager user assignment
- *
  * @author John Martin <john.itvn@gmail.com>
  * @since  1.0.0
  */
@@ -38,7 +44,7 @@ class AssignmentController extends \YiiMan\YiiBasics\lib\Controller
             'index',
             [
                 'dataProvider' => $dataProvider,
-                'searchModel' => $searchModel,
+                'searchModel'  => $searchModel,
             ]
         );
     }
@@ -76,36 +82,39 @@ class AssignmentController extends \YiiMan\YiiBasics\lib\Controller
                 $oldSaved = ModuleRbacAuthAssignment::findOne(
                     [
                         'item_name' => $post['ModuleRbacAuthAssignment']['item_name'],
-                        'user_id' => $uid,
+                        'user_id'   => $uid,
                     ]
                 );
                 if (empty($oldSaved)) {
                     $newSaved = new ModuleRbacAuthAssignment;
                     $newSaved->item_name = $post['ModuleRbacAuthAssignment']['item_name'];
-                    $newSaved->user_id = (string)$uid;
+                    $newSaved->user_id = (string) $uid;
                     $newSaved->created_at = date('Y-m-d H:i:s');
                     $newSaved->save();
                 }
             }
-            Yii::$app->session->addFlash('success','نقش '.$post['ModuleRbacAuthAssignment']['item_name'].' با موفقیت برای کاربران انتخابی ثبت شد');
-            return  $this->redirect(['index']);
+            Yii::$app->session->addFlash('success',
+                'نقش '.$post['ModuleRbacAuthAssignment']['item_name'].' با موفقیت برای کاربران انتخابی ثبت شد');
+            return $this->redirect(['index']);
         }
 
 
-        return $this->render('assignment', ['model' => $model, 'roles' => $roles, 'users' => $users]);
+        return $this->render('assignment', [
+            'model' => $model,
+            'roles' => $roles,
+            'users' => $users
+        ]);
     }
 
     /**
      * Assignment roles to user
-     *
-     * @param mixed $id The user id
-     *
+     * @param  mixed  $id  The user id
      * @return mixed
      */
     public function actionAssignment($id)
     {
         $model = new ModuleRbacAuthAssignment();
-        $model->item_name=$id;
+        $model->item_name = $id;
         $model->loadUsers();
 
         $post = Yii::$app->request->post();
@@ -131,31 +140,36 @@ class AssignmentController extends \YiiMan\YiiBasics\lib\Controller
                     $s->delete();
                 }
             }
-            if (!empty($post['ModuleRbacAuthAssignment']['users'])){
+            if (!empty($post['ModuleRbacAuthAssignment']['users'])) {
 
                 foreach ($post['ModuleRbacAuthAssignment']['users'] as $uid) {
 
                     $oldSaved = ModuleRbacAuthAssignment::findOne(
                         [
                             'item_name' => $post['ModuleRbacAuthAssignment']['item_name'],
-                            'user_id' => $uid,
+                            'user_id'   => $uid,
                         ]
                     );
                     if (empty($oldSaved)) {
                         $newSaved = new ModuleRbacAuthAssignment;
                         $newSaved->item_name = $post['ModuleRbacAuthAssignment']['item_name'];
-                        $newSaved->user_id = (string)$uid;
+                        $newSaved->user_id = (string) $uid;
                         $newSaved->created_at = date('Y-m-d H:i:s');
                         $newSaved->save();
                     }
                 }
             }
-            Yii::$app->session->addFlash('success','نقش '.$post['ModuleRbacAuthAssignment']['item_name'].' با موفقیت برای کاربران انتخابی ثبت شد');
-            return  $this->redirect(['index']);
+            Yii::$app->session->addFlash('success',
+                'نقش '.$post['ModuleRbacAuthAssignment']['item_name'].' با موفقیت برای کاربران انتخابی ثبت شد');
+            return $this->redirect(['index']);
         }
 
 
-        return $this->render('assignment', ['model' => $model, 'roles' => $roles, 'users' => $users]);
+        return $this->render('assignment', [
+            'model' => $model,
+            'roles' => $roles,
+            'users' => $users
+        ]);
     }
 
 }

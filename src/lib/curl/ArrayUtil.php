@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\lib\curl;
 
@@ -8,23 +15,19 @@ class ArrayUtil extends Component
 {
     /**
      * Is Array Assoc
-     *
      * @access public
      * @param  $array
-     *
      * @return boolean
      */
     public static function is_array_assoc($array)
     {
-        return (bool)count(array_filter(array_keys($array), 'is_string'));
+        return (bool) count(array_filter(array_keys($array), 'is_string'));
     }
 
     /**
      * Is Array Multidim
-     *
      * @access public
      * @param  $array
-     *
      * @return boolean
      */
     public static function is_array_multidim($array)
@@ -33,21 +36,19 @@ class ArrayUtil extends Component
             return false;
         }
 
-        return (bool)count(array_filter($array, 'is_array'));
+        return (bool) count(array_filter($array, 'is_array'));
     }
 
     /**
      * Array Flatten Multidim
-     *
      * @access public
      * @param  $array
      * @param  $prefix
-     *
      * @return array
      */
     public static function array_flatten_multidim($array, $prefix = false)
     {
-        $return = array();
+        $return = [];
         if (is_array($array) || is_object($array)) {
             if (empty($array)) {
                 $return[$prefix] = '';
@@ -55,7 +56,7 @@ class ArrayUtil extends Component
                 foreach ($array as $key => $value) {
                     if (is_scalar($value)) {
                         if ($prefix) {
-                            $return[$prefix . '[' . $key . ']'] = $value;
+                            $return[$prefix.'['.$key.']'] = $value;
                         } else {
                             $return[$key] = $value;
                         }
@@ -67,7 +68,7 @@ class ArrayUtil extends Component
                                 $return,
                                 self::array_flatten_multidim(
                                     $value,
-                                    $prefix ? $prefix . '[' . $key . ']' : $key
+                                    $prefix ? $prefix.'['.$key.']' : $key
                                 )
                             );
                         }

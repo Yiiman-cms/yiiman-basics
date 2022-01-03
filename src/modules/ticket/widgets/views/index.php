@@ -1,6 +1,14 @@
 <?php
 /**
- * @var $this \YiiMan\YiiBasics\lib\View
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
+/**
+ * @var $this  \YiiMan\YiiBasics\lib\View
  * @var $model \YiiMan\YiiBasics\modules\ticket\models\Ticket
  */
 
@@ -54,6 +62,7 @@ $this->registerJs($js, $this::POS_END);
         margin-top: 20px;
         width: auto;
     }
+
     .admin-message {
         display: block;
         flex-direction: row;
@@ -123,7 +132,6 @@ $this->registerJs($js, $this::POS_END);
         margin-top: -20px;
         left: -47px;
     }
-
 
 
     .line-break {
@@ -203,6 +211,7 @@ $this->registerJs($js, $this::POS_END);
         margin-bottom: -16px;
         font-size: 10px;
     }
+
     .message .img {
         /* padding: 20px; */
         margin: auto;
@@ -212,10 +221,12 @@ $this->registerJs($js, $this::POS_END);
         max-width: 180px !important;
         /* height: auto; */
     }
+
     .message a {
         padding: 17px;
-        color:white;
+        color: white;
     }
+
     .message p {
         display: block;
         word-wrap: break-word;
@@ -254,9 +265,9 @@ $this->registerJs($js, $this::POS_END);
                     <div class="line-break"></div>
                     <?php
                     if (!empty($msg->file)) {
-                        $file = Yii::$app->Options->UploadDir . '/tickets/' . $model->id . '/' . $msg->id . '/' . $msg->file;
+                        $file = Yii::$app->Options->UploadDir.'/tickets/'.$model->id.'/'.$msg->id.'/'.$msg->file;
                         $ext = pathinfo($file, PATHINFO_EXTENSION);
-                        if (!empty($ext)){
+                        if (!empty($ext)) {
                             switch ($ext) {
                                 case 'png':
                                 case 'jpeg':
@@ -270,8 +281,11 @@ $this->registerJs($js, $this::POS_END);
 
                                         </div>
                                         <div class="message">
-                                            <a href="<?= Yii::$app->Options->UploadUrl.'/tickets/' . $model->id . '/' . $msg->id . '/' . $msg->file ?>" target="_blank">
-                                                <img  class="img" src="<?= Yii::$app->Options->UploadUrl.'/tickets/' . $model->id . '/' . $msg->id . '/' . $msg->file ?>" alt="">
+                                            <a href="<?= Yii::$app->Options->UploadUrl.'/tickets/'.$model->id.'/'.$msg->id.'/'.$msg->file ?>"
+                                               target="_blank">
+                                                <img class="img"
+                                                     src="<?= Yii::$app->Options->UploadUrl.'/tickets/'.$model->id.'/'.$msg->id.'/'.$msg->file ?>"
+                                                     alt="">
                                             </a>
                                             <div class="name"><?= $user->fullname ?></div>
                                             <div class="datetime"><?= Yii::$app->functions->convertdatetime($msg->created_at) ?></div>
@@ -289,7 +303,8 @@ $this->registerJs($js, $this::POS_END);
 
                                         </div>
                                         <div class="message">
-                                            <a href="<?= Yii::$app->Options->UploadUrl.'/tickets/' . $model->id . '/' . $msg->id . '/' . $msg->file ?>" target="_blank">
+                                            <a href="<?= Yii::$app->Options->UploadUrl.'/tickets/'.$model->id.'/'.$msg->id.'/'.$msg->file ?>"
+                                               target="_blank">
                                                 <?= $msg->file ?>
                                             </a>
                                             <div class="name"><?= $admin->nickName ?></div>
@@ -325,9 +340,9 @@ $this->registerJs($js, $this::POS_END);
                     <div class="line-break"></div>
                     <?php
                     if (!empty($msg->file)) {
-                        $file = Yii::$app->Options->UploadDir . '/tickets/' . $model->id . '/' . $msg->id . '/' . $msg->file;
+                        $file = Yii::$app->Options->UploadDir.'/tickets/'.$model->id.'/'.$msg->id.'/'.$msg->file;
                         $ext = pathinfo($file, PATHINFO_EXTENSION);
-                        if (!empty($ext)){
+                        if (!empty($ext)) {
                             switch ($ext) {
                                 case 'png':
                                 case 'jpeg':
@@ -341,8 +356,11 @@ $this->registerJs($js, $this::POS_END);
 
                                         </div>
                                         <div class="message">
-                                            <a href="<?= Yii::$app->Options->UploadUrl.'/tickets/' . $model->id . '/' . $msg->id . '/' . $msg->file ?>" target="_blank">
-                                                <img  class="img" src="<?= Yii::$app->Options->UploadUrl.'/tickets/' . $model->id . '/' . $msg->id . '/' . $msg->file ?>" alt="">
+                                            <a href="<?= Yii::$app->Options->UploadUrl.'/tickets/'.$model->id.'/'.$msg->id.'/'.$msg->file ?>"
+                                               target="_blank">
+                                                <img class="img"
+                                                     src="<?= Yii::$app->Options->UploadUrl.'/tickets/'.$model->id.'/'.$msg->id.'/'.$msg->file ?>"
+                                                     alt="">
                                             </a>
                                             <div class="name"><?= $admin->nickName ?></div>
                                             <div class="datetime"><?= Yii::$app->functions->convertdatetime($msg->created_at) ?></div>
@@ -360,7 +378,8 @@ $this->registerJs($js, $this::POS_END);
 
                                         </div>
                                         <div class="message">
-                                            <a href="<?= Yii::$app->Options->UploadUrl.'/tickets/' . $model->id . '/' . $msg->id . '/' . $msg->file ?>" target="_blank">
+                                            <a href="<?= Yii::$app->Options->UploadUrl.'/tickets/'.$model->id.'/'.$msg->id.'/'.$msg->file ?>"
+                                               target="_blank">
                                                 <?= $msg->file ?>
                                             </a>
                                             <div class="name"><?= $admin->nickName ?></div>

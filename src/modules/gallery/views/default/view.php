@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
@@ -13,7 +20,7 @@ use yii\widgets\DetailView;
     Yii::t('gallery', 'ثبت پوشه ها'),
     'success',
     null,
-    Yii::$app->Options->BackendUrl . '/gallery/default/create'
+    Yii::$app->Options->BackendUrl.'/gallery/default/create'
 );
 
 
@@ -22,7 +29,7 @@ use yii\widgets\DetailView;
     Yii::t('gallery', 'ویرایش این مورد'),
     'info',
     null,
-    Yii::$app->Options->BackendUrl . '/gallery/default/update?id=' . $model->id);
+    Yii::$app->Options->BackendUrl.'/gallery/default/update?id='.$model->id);
 
 
 \YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
@@ -30,11 +37,14 @@ use yii\widgets\DetailView;
     Yii::t('gallery', 'حذف این مورد'),
     'danger',
     null,
-    Yii::$app->Options->BackendUrl . '/gallery/default/delete?id=' . $model->id);
+    Yii::$app->Options->BackendUrl.'/gallery/default/delete?id='.$model->id);
 
 
-$this->title = Yii::t('gallery', 'پوشه ها:  ' . $model->title);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('gallery', 'گالری'), 'url' => ['index']];
+$this->title = Yii::t('gallery', 'پوشه ها:  '.$model->title);
+$this->params['breadcrumbs'][] = [
+    'label' => Yii::t('gallery', 'گالری'),
+    'url'   => ['index']
+];
 $this->params['breadcrumbs'][] = $this->title;
 
 \YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
@@ -59,9 +69,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'description:ntext',
                                     [
                                         'attribute' => 'image',
-                                        'format' => 'raw',
-                                        'value' => function ($model) {
-                                            return MediaViewWidget::widget(['attribute' => 'image', 'model' => $model]);
+                                        'format'    => 'raw',
+                                        'value'     => function ($model) {
+                                            return MediaViewWidget::widget([
+                                                'attribute' => 'image',
+                                                'model'     => $model
+                                            ]);
                                         }
                                     ],
                                     'parent',

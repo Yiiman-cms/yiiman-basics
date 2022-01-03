@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use common\models\Category;
 use yii\bootstrap\Modal;
@@ -21,19 +28,19 @@ $menu = $provider->getMenu();
 /* < load JavaScript From Frontend > */
 {
     $this->registerJs(
-        file_get_contents(realpath(__DIR__ . '/../../assets/app.js')),
+        file_get_contents(realpath(__DIR__.'/../../assets/app.js')),
         $this::POS_END
     );
     $this->registerJs(
-        file_get_contents(realpath(__DIR__ . '/../../assets/index.js')),
+        file_get_contents(realpath(__DIR__.'/../../assets/index.js')),
         $this::POS_END
     );
     $this->registerJs(
-        file_get_contents(__DIR__ . '/../../assets/jquery.form.js'),
+        file_get_contents(__DIR__.'/../../assets/jquery.form.js'),
         $this::POS_END
     );
     $this->registerJs(
-        file_get_contents(__DIR__ . '/../../assets/sweetalert.js'),
+        file_get_contents(__DIR__.'/../../assets/sweetalert.js'),
         $this::POS_END
     );
 
@@ -117,8 +124,6 @@ $menu = $provider->getMenu();
         color: hsla(0, 0%, 0%, 0.77) !important;
         font-weight: 400;
     }
-
-
 
 
     .mega-dropdown ul a.parent {
@@ -345,34 +350,31 @@ $menu = $provider->getMenu();
     }
 
 
-
-
-
-
-
-
     /*yiimnan changes*/
 
     .nav.navbar-nav.ui-draggable.ui-draggable-handle {
         background: white;
         border-radius: 5px;
-        box-shadow: 0 5px 15px -8px rgba(0,0,0,.24),0 8px 10px -5px rgba(0,0,0,.2);
+        box-shadow: 0 5px 15px -8px rgba(0, 0, 0, .24), 0 8px 10px -5px rgba(0, 0, 0, .2);
         max-width: 60vw;
         float: right;
         padding-right: 0;
     }
+
     .ui-draggable.navbar-nav > li {
         float: right;
         max-width: 230px;
         max-height: 50px;
     }
+
     .description-box {
         background: #fffffff0;
         padding: 10px;
         border-radius: 5px;
         margin-top: 20px;
-        box-shadow: 0 5px 15px -8px rgba(0,0,0,.24),0 8px 10px -5px rgba(0,0,0,.2);
+        box-shadow: 0 5px 15px -8px rgba(0, 0, 0, .24), 0 8px 10px -5px rgba(0, 0, 0, .2);
     }
+
     .dropdown-menu.mega-dropdown-menu.shadowTwo.pb0 {
         padding-top: 0 !important;
         width: calc(100vw - 30vw) !important;
@@ -380,11 +382,13 @@ $menu = $provider->getMenu();
         /* opacity: 1; */
         /* display: block; */
     }
+
     .mega-dropdown .col-sm-3 {
         float: right;
         direction: rtl !important;
         list-style: none;
     }
+
     .dropdown-menu li a:hover, .dropdown-menu li a:focus, .dropdown-menu li a:active {
         background-color: #c9ccd259;
         color: #FFFFFF;

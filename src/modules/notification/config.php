@@ -1,16 +1,16 @@
-<?php /*
- * Copyright (c) 2022.
+<?php /**
+ * Copyright (c) 2022-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
  * Site:https://yiiman.ir
- */ /**
+ */
+
+/**
  * Site: https://yiiman.ir
  * AuthorName: gholamreza beheshtian
  * AuthorNumber:+989353466620 | +17272282283
  * AuthorCompany: YiiMan
- *
- *
  */
 
 use YiiMan\YiiBasics\lib\Triggers;
@@ -22,23 +22,25 @@ $dir = basename(__DIR__);
 
 $conf =
     [
-        'name' => $dir,
-        'name_fa' => 'اطلاعیه ها',
-        'type' => ['backend'],
-        'namespace' => 'YiiMan\YiiBasics\modules\\' . $dir,
-        'address' => '',
-        'menu' =>
+        'name'      => $dir,
+        'name_fa'   => 'اطلاعیه ها',
+        'type'      => ['backend'],
+        'namespace' => 'YiiMan\YiiBasics\modules\\'.$dir,
+        'address'   => '',
+        'menu'      =>
 
             [
-                'name' => $dir,
+                'name'  => $dir,
                 'title' => 'اطلاعیه ها',
                 'items' =>
                     [
-                        ['name' => '', 'title' => 'پیام های ارسالی',],]
+                        ['name'  => '',
+                         'title' => 'پیام های ارسالی',
+                        ],
+                    ]
             ]
         ,
     ];
-
 
 
 // < اگر تنظیمات اختصاصی برای این ماژول میخواهید این بخش را تنظیم کنید >
@@ -47,7 +49,7 @@ $conf =
     $settings =
         [
             [
-                'id' => 'notificationCenter',
+                'id'       => 'notificationCenter',
                 'tabTitle' => Yii::t('notification', 'مرکز اطلاعیه ها'),
             ]
         ];
@@ -55,13 +57,12 @@ $conf =
 // </ اگر تنظیمات اختصاصی برای این ماژول میخواهید این بخش را تنظیم کنید >
 
 
-
 // < تغییری در این بخش ندهید - این بخش را برای همه ی ماژول هایی که نیاز به تنظیمات دارند کپی کنید >
 {
     Event::on(Triggers::className(), Triggers::AFTER_SETTINGS_TAB, function () use ($settings) {
         foreach ($settings as $s) {
             echo '<li>
-				<a href="#' . $s['id'] . '" data-toggle="tab">' . $s['tabTitle'] . '</a>
+				<a href="#'.$s['id'].'" data-toggle="tab">'.$s['tabTitle'].'</a>
           </li>';
         }
 
@@ -70,15 +71,15 @@ $conf =
         $model = \YiiMan\YiiBasics\modules\setting\models\DynamicModel::getInstans();
         $form = $model::getForm();
         foreach ($settings as $s) {
-            echo '<div class="tab-pane" id="' . $s['id'] . '">';
-            (include __DIR__ . '/settings/' . $s['id'] . '.php');
+            echo '<div class="tab-pane" id="'.$s['id'].'">';
+            (include __DIR__.'/settings/'.$s['id'].'.php');
             echo '</div>';
         }
     });
 }
 // </ تغییری در این بخش ندهید - این بخش را برای همه ی ماژول هایی که نیاز به تنظیمات دارند کپی کنید >
 
-if (!defined('MTHJK_' . $dir)) {
-    define('MTHJK_' . $dir, '1');
+if (!defined('MTHJK_'.$dir)) {
+    define('MTHJK_'.$dir, '1');
 }
 return $conf;

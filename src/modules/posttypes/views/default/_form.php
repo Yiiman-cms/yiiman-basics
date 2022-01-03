@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\FileSelectorWidget;
 use yii\helpers\Html;
@@ -234,24 +241,24 @@ if (!empty($model::getConfigs()['items'][$posttype]['fields'])) {
                                 <?= $form->field($model, 'status')->widget(
                                     \kartik\select2\Select2::className(),
                                     [
-                                        'data' =>
+                                        'data'          =>
                                             [
-                                                $model::STATUS_ACTIVE => 'منتشر شده',
+                                                $model::STATUS_ACTIVE    => 'منتشر شده',
                                                 $model::STATUS_DE_ACTIVE => 'در حال بازبینی',
 
                                             ],
-                                        'options' => ['dir' => 'rtl'],
+                                        'options'       => ['dir' => 'rtl'],
                                         'pluginOptions' => ['dir' => 'rtl'],
-                                        'pluginEvents' => [
-                                            "change" => "function() {  }",
-                                            "select2:opening" => "function() {  }",
-                                            "select2:open" => "function() {  }",
-                                            "select2:closing" => "function() {  }",
-                                            "select2:close" => "function() {  }",
-                                            "select2:selecting" => "function() {  }",
-                                            "select2:select" => "function() {  }",
+                                        'pluginEvents'  => [
+                                            "change"              => "function() {  }",
+                                            "select2:opening"     => "function() {  }",
+                                            "select2:open"        => "function() {  }",
+                                            "select2:closing"     => "function() {  }",
+                                            "select2:close"       => "function() {  }",
+                                            "select2:selecting"   => "function() {  }",
+                                            "select2:select"      => "function() {  }",
                                             "select2:unselecting" => "function() {  }",
-                                            "select2:unselect" => "function() {  }"
+                                            "select2:unselect"    => "function() {  }"
                                         ]
                                     ]
                                 ) ?>

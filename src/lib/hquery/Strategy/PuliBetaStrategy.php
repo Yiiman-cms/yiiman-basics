@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\lib\hquery\Strategy;
 
@@ -9,12 +16,10 @@ use Puli\GeneratedPuliFactory;
 
 /**
  * Find candidates using Puli.
- *
- * @internal
- * @final
- *
  * @author David de Boer <david@ddeboer.nl>
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
+ * @internal
+ * @final
  */
 class PuliBetaStrategy implements DiscoveryStrategy
 {
@@ -29,8 +34,45 @@ class PuliBetaStrategy implements DiscoveryStrategy
     protected static $puliDiscovery;
 
     /**
+     * {@inheritdoc}
+     */
+    public static function getCandidates($type)
+    {
+        $returnData = [];
+        $bindings = self::getPuliDiscovery()->findBindings($type);
+
+        foreach ($bindings as $binding) {
+            $condition = true;
+            if ($binding->hasParameterValue('depends')) {
+                $condition = $binding->getParameterValue('depends');
+            }
+            $returnData[] = ['class'     => $binding->getClassName(),
+                             'condition' => $condition
+            ];
+        }
+
+        return $returnData;
+    }
+
+    /**
+     * Returns the Puli discovery layer.
+     * @return Discovery
+     * @throws PuliUnavailableException
+     */
+    private static function getPuliDiscovery()
+    {
+        if (!isset(self::$puliDiscovery)) {
+            $factory = self::getPuliFactory();
+            $repository = $factory->createRepository();
+
+            self::$puliDiscovery = $factory->createDiscovery($repository);
+        }
+
+        return self::$puliDiscovery;
+    }
+
+    /**
      * @return GeneratedPuliFactory
-     *
      * @throws PuliUnavailableException
      */
     private static function getPuliFactory()
@@ -50,43 +92,5 @@ class PuliBetaStrategy implements DiscoveryStrategy
         }
 
         return self::$puliFactory;
-    }
-
-    /**
-     * Returns the Puli discovery layer.
-     *
-     * @return Discovery
-     *
-     * @throws PuliUnavailableException
-     */
-    private static function getPuliDiscovery()
-    {
-        if (!isset(self::$puliDiscovery)) {
-            $factory = self::getPuliFactory();
-            $repository = $factory->createRepository();
-
-            self::$puliDiscovery = $factory->createDiscovery($repository);
-        }
-
-        return self::$puliDiscovery;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function getCandidates($type)
-    {
-        $returnData = [];
-        $bindings = self::getPuliDiscovery()->findBindings($type);
-
-        foreach ($bindings as $binding) {
-            $condition = true;
-            if ($binding->hasParameterValue('depends')) {
-                $condition = $binding->getParameterValue('depends');
-            }
-            $returnData[] = ['class' => $binding->getClassName(), 'condition' => $condition];
-        }
-
-        return $returnData;
     }
 }

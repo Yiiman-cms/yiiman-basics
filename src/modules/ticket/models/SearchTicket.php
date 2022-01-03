@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\ticket\models;
 
@@ -20,8 +27,30 @@ class SearchTicket extends Ticket
     {
         return
             [
-                [['id', 'status', 'department', 'language', 'language_parent'], 'integer'],
-                [['subject', 'created_at', 'created_by', 'updated_at','serial', 'updated_by', 'deleted_at', 'deleted_by', 'closed_at'], 'safe'],
+                [
+                    [
+                        'id',
+                        'status',
+                        'department',
+                        'language',
+                        'language_parent'
+                    ],
+                    'integer'
+                ],
+                [
+                    [
+                        'subject',
+                        'created_at',
+                        'created_by',
+                        'updated_at',
+                        'serial',
+                        'updated_by',
+                        'deleted_at',
+                        'deleted_by',
+                        'closed_at'
+                    ],
+                    'safe'
+                ],
             ];
     }
 
@@ -36,9 +65,7 @@ class SearchTicket extends Ticket
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
@@ -83,22 +110,42 @@ class SearchTicket extends Ticket
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'status' => $this->status,
-            'department' => $this->department,
-            'deleted_at' => $this->deleted_at,
-            'closed_at' => $this->closed_at,
-            'language' => $this->language,
+            'id'              => $this->id,
+            'created_at'      => $this->created_at,
+            'updated_at'      => $this->updated_at,
+            'status'          => $this->status,
+            'department'      => $this->department,
+            'deleted_at'      => $this->deleted_at,
+            'closed_at'       => $this->closed_at,
+            'language'        => $this->language,
             'language_parent' => $this->language_parent,
         ]);
 
-        $query->andFilterWhere(['like', 'subject', $this->subject])
-            ->andFilterWhere(['like', 'serial', $this->serial])
-            ->andFilterWhere(['like', 'created_by', $this->created_by])
-            ->andFilterWhere(['like', 'updated_by', $this->updated_by])
-            ->andFilterWhere(['like', 'deleted_by', $this->deleted_by]);
+        $query->andFilterWhere([
+            'like',
+            'subject',
+            $this->subject
+        ])
+            ->andFilterWhere([
+                'like',
+                'serial',
+                $this->serial
+            ])
+            ->andFilterWhere([
+                'like',
+                'created_by',
+                $this->created_by
+            ])
+            ->andFilterWhere([
+                'like',
+                'updated_by',
+                $this->updated_by
+            ])
+            ->andFilterWhere([
+                'like',
+                'deleted_by',
+                $this->deleted_by
+            ]);
 
         return $dataProvider;
     }
@@ -131,20 +178,40 @@ class SearchTicket extends Ticket
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            'id'         => $this->id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'status' => $this->status,
+            'status'     => $this->status,
             'department' => $this->department,
             'deleted_at' => $this->deleted_at,
-            'closed_at' => $this->closed_at,
+            'closed_at'  => $this->closed_at,
         ]);
 
-        $query->andFilterWhere(['like', 'subject', $this->subject])
-            ->andFilterWhere(['like', 'serial', $this->serial])
-            ->andFilterWhere(['like', 'created_by', $this->created_by])
-            ->andFilterWhere(['like', 'updated_by', $this->updated_by])
-            ->andFilterWhere(['like', 'deleted_by', $this->deleted_by]);
+        $query->andFilterWhere([
+            'like',
+            'subject',
+            $this->subject
+        ])
+            ->andFilterWhere([
+                'like',
+                'serial',
+                $this->serial
+            ])
+            ->andFilterWhere([
+                'like',
+                'created_by',
+                $this->created_by
+            ])
+            ->andFilterWhere([
+                'like',
+                'updated_by',
+                $this->updated_by
+            ])
+            ->andFilterWhere([
+                'like',
+                'deleted_by',
+                $this->deleted_by
+            ]);
 
         return $dataProvider;
     }

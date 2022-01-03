@@ -1,9 +1,11 @@
 <?php
 
 /**
- * @link https://github.com/unclead/yii2-multiple-input
- * @copyright Copyright (c) 2014 unclead
- * @license https://github.com/unclead/yii2-multiple-input/blob/master/LICENSE.md
+ * Copyright (c) 2014-2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
  */
 
 namespace YiiMan\YiiBasics\widgets\multiRowInput\renderers;
@@ -41,14 +43,13 @@ class ListRenderer extends BaseRenderer
         $content = Html::tag('table', implode("\n", $content), $options);
 
         return Html::tag('div', $content, [
-            'id' => $this->id,
+            'id'    => $this->id,
             'class' => 'multiple-input'
         ]);
     }
 
     /**
      * Renders the header.
-     *
      * @return string
      */
     public function renderHeader()
@@ -73,29 +74,18 @@ class ListRenderer extends BaseRenderer
         return Html::tag('thead', Html::tag('tr', implode("\n", $content)));
     }
 
-    /**
-     * Renders the footer.
-     *
-     * @return string
-     */
-    public function renderFooter()
+    private function renderAddButton()
     {
-        if (!$this->isAddButtonPositionFooter()) {
-            return '';
-        }
+        $options = [
+            'class' => 'multiple-input-list__btn js-input-plus',
+        ];
+        Html::addCssClass($options, $this->addButtonOptions['class']);
 
-        $cells = [];
-        $cells[] = Html::tag('td', '&nbsp;');
-        $cells[] = Html::tag('td', $this->renderAddButton(), [
-            'class' => 'list-cell__button'
-        ]);
-
-        return Html::tag('tfoot', Html::tag('tr', implode("\n", $cells)));
+        return Html::tag('div', $this->addButtonOptions['label'], $options);
     }
 
     /**
      * Renders the body.
-     *
      * @return string
      * @throws \yii\base\InvalidConfigException
      * @throws \yii\base\InvalidParamException
@@ -127,9 +117,8 @@ class ListRenderer extends BaseRenderer
 
     /**
      * Renders the row content.
-     *
-     * @param int $index
-     * @param ActiveRecordInterface|array $item
+     * @param  int                          $index
+     * @param  ActiveRecordInterface|array  $item
      * @return mixed
      * @throws InvalidConfigException
      */
@@ -157,43 +146,22 @@ class ListRenderer extends BaseRenderer
         $content = Html::tag('tr', implode("\n", $content), $this->prepareRowOptions($index, $item));
 
         if ($index !== null) {
-            $content = str_replace('{' . $this->getIndexPlaceholder() . '}', $index, $content);
+            $content = str_replace('{'.$this->getIndexPlaceholder().'}', $index, $content);
         }
 
         return $content;
     }
 
     /**
-     * Prepares the row options.
-     *
-     * @param int $index
-     * @param ActiveRecordInterface|array $item
-     * @return array
-     */
-    protected function prepareRowOptions($index, $item)
-    {
-        if (is_callable($this->rowOptions)) {
-            $options = call_user_func($this->rowOptions, $item, $index, $this->context);
-        } else {
-            $options = $this->rowOptions;
-        }
-
-        Html::addCssClass($options, 'multiple-input-list__item');
-
-        return $options;
-    }
-
-    /**
      * Renders the cell content.
-     *
-     * @param BaseColumn $column
-     * @param int|null $index
+     * @param  BaseColumn  $column
+     * @param  int|null    $index
      * @return string
      */
     public function renderCellContent($column, $index, $columnIndex = null)
     {
-        $id    = $column->getElementId($index);
-        $name  = $column->getElementName($index);
+        $id = $column->getElementId($index);
+        $name = $column->getElementName($index);
 
         /**
          * This class inherits iconMap from BaseRenderer
@@ -206,12 +174,12 @@ class ListRenderer extends BaseRenderer
         }
 
         $input = $column->renderInput($name, $options, [
-            'id' => $id,
-            'name' => $name,
+            'id'               => $id,
+            'name'             => $name,
             'indexPlaceholder' => $this->getIndexPlaceholder(),
-            'index' => $index,
-            'columnIndex' => $columnIndex,
-            'context' => $this->context,
+            'index'            => $index,
+            'columnIndex'      => $columnIndex,
+            'context'          => $this->context,
         ]);
 
         if ($column->isHiddenInput()) {
@@ -219,10 +187,10 @@ class ListRenderer extends BaseRenderer
         }
 
         $layoutConfig = array_merge([
-            'offsetClass'   => $this->isBootstrapTheme() ? 'col-sm-offset-3' : '',
-            'labelClass'    => $this->isBootstrapTheme() ? 'col-sm-3' : '',
-            'wrapperClass'  => $this->isBootstrapTheme() ? 'col-sm-6' : '',
-            'errorClass'    => $this->isBootstrapTheme() ? 'col-sm-offset-3 col-sm-6' : '',
+            'offsetClass'  => $this->isBootstrapTheme() ? 'col-sm-offset-3' : '',
+            'labelClass'   => $this->isBootstrapTheme() ? 'col-sm-3' : '',
+            'wrapperClass' => $this->isBootstrapTheme() ? 'col-sm-6' : '',
+            'errorClass'   => $this->isBootstrapTheme() ? 'col-sm-offset-3 col-sm-6' : '',
         ], $this->layoutConfig);
 
         Html::addCssClass($column->errorOptions, $layoutConfig['errorClass']);
@@ -244,7 +212,7 @@ class ListRenderer extends BaseRenderer
         Html::addCssClass($wrapperOptions, $layoutConfig['wrapperClass']);
 
         $options = [
-            'class' => "field-$id list-cell__$column->name" . ($hasError ? ' has-error' : '')
+            'class' => "field-$id list-cell__$column->name".($hasError ? ' has-error' : '')
         ];
 
         if ($this->isBootstrapTheme()) {
@@ -275,7 +243,7 @@ class ListRenderer extends BaseRenderer
         $content .= Html::tag('div', $input, $wrapperOptions);
 
         if ($column->enableError) {
-            $content .= "\n" . $column->renderError($error);
+            $content .= "\n".$column->renderError($error);
         }
 
         $content .= Html::endTag('div');
@@ -285,30 +253,16 @@ class ListRenderer extends BaseRenderer
 
     /**
      * Renders the action column.
-     *
-     * @param null|int $index
-     * @param null|ActiveRecordInterface|array $item
+     * @param  null|int                          $index
+     * @param  null|ActiveRecordInterface|array  $item
      * @return string
      * @throws \Exception
      */
     private function renderActionColumn($index = null, $item = null)
     {
-        $content = $this->getActionButton($index) . $this->getExtraButtons($index, $item);
+        $content = $this->getActionButton($index).$this->getExtraButtons($index, $item);
 
         return Html::tag('td', $content, [
-            'class' => 'list-cell__button',
-        ]);
-    }
-
-    /**
-     * Renders the clone column.
-     *
-     * @return string
-     * @throws \Exception
-     */
-    private function renderCloneColumn()
-    {
-        return Html::tag('td', $this->renderCloneButton(), [
             'class' => 'list-cell__button',
         ]);
     }
@@ -331,19 +285,8 @@ class ListRenderer extends BaseRenderer
         return $this->renderRemoveButton();
     }
 
-    private function renderAddButton()
-    {
-        $options = [
-            'class' => 'multiple-input-list__btn js-input-plus',
-        ];
-        Html::addCssClass($options, $this->addButtonOptions['class']);
-
-        return Html::tag('div', $this->addButtonOptions['label'], $options);
-    }
-
     /**
      * Renders remove button.
-     *
      * @return string
      */
     private function renderRemoveButton()
@@ -357,8 +300,19 @@ class ListRenderer extends BaseRenderer
     }
 
     /**
+     * Renders the clone column.
+     * @return string
+     * @throws \Exception
+     */
+    private function renderCloneColumn()
+    {
+        return Html::tag('td', $this->renderCloneButton(), [
+            'class' => 'list-cell__button',
+        ]);
+    }
+
+    /**
      * Renders clone button.
-     *
      * @return string
      */
     private function renderCloneButton()
@@ -372,10 +326,46 @@ class ListRenderer extends BaseRenderer
     }
 
     /**
-     * Returns template for using in js.
-     *
+     * Prepares the row options.
+     * @param  int                          $index
+     * @param  ActiveRecordInterface|array  $item
+     * @return array
+     */
+    protected function prepareRowOptions($index, $item)
+    {
+        if (is_callable($this->rowOptions)) {
+            $options = call_user_func($this->rowOptions, $item, $index, $this->context);
+        } else {
+            $options = $this->rowOptions;
+        }
+
+        Html::addCssClass($options, 'multiple-input-list__item');
+
+        return $options;
+    }
+
+    /**
+     * Renders the footer.
      * @return string
-     *
+     */
+    public function renderFooter()
+    {
+        if (!$this->isAddButtonPositionFooter()) {
+            return '';
+        }
+
+        $cells = [];
+        $cells[] = Html::tag('td', '&nbsp;');
+        $cells[] = Html::tag('td', $this->renderAddButton(), [
+            'class' => 'list-cell__button'
+        ]);
+
+        return Html::tag('tfoot', Html::tag('tr', implode("\n", $cells)));
+    }
+
+    /**
+     * Returns template for using in js.
+     * @return string
      * @throws \yii\base\InvalidConfigException
      */
     protected function prepareTemplate()

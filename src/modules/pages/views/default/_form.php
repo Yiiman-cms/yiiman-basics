@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\FileSelectorWidget;
 
@@ -59,30 +66,31 @@ use kartik\select2\Select2;
                                                     <?= $form->field($model, 'status')->widget(
                                                         \kartik\select2\Select2::className(),
                                                         [
-                                                            'data' =>
+                                                            'data'          =>
                                                                 [
                                                                     1 => \Yii::t('pages', 'منتشر شده'),
                                                                     0 => \Yii::t('pages', 'بازبینی'),
 
                                                                 ],
-                                                            'options' => ['dir' => 'rtl'],
+                                                            'options'       => ['dir' => 'rtl'],
                                                             'pluginOptions' => ['dir' => 'rtl'],
-                                                            'pluginEvents' => [
-                                                                "change" => "function() {  }",
-                                                                "select2:opening" => "function() {  }",
-                                                                "select2:open" => "function() {  }",
-                                                                "select2:closing" => "function() {  }",
-                                                                "select2:close" => "function() {  }",
-                                                                "select2:selecting" => "function() {  }",
-                                                                "select2:select" => "function() {  }",
+                                                            'pluginEvents'  => [
+                                                                "change"              => "function() {  }",
+                                                                "select2:opening"     => "function() {  }",
+                                                                "select2:open"        => "function() {  }",
+                                                                "select2:closing"     => "function() {  }",
+                                                                "select2:close"       => "function() {  }",
+                                                                "select2:selecting"   => "function() {  }",
+                                                                "select2:select"      => "function() {  }",
                                                                 "select2:unselecting" => "function() {  }",
-                                                                "select2:unselect" => "function() {  }"
+                                                                "select2:unselect"    => "function() {  }"
                                                             ]
                                                         ]
                                                     ) ?>
                                                     <?= $form->field($model, 'template')->widget(Select2::className(),
                                                         [
-                                                            'data' => \yii\helpers\ArrayHelper::map(\YiiMan\YiiBasics\modules\pages\models\Pages::getAllTemplates(), 'name', 'label'),
+                                                            'data'    => \yii\helpers\ArrayHelper::map(\YiiMan\YiiBasics\modules\pages\models\Pages::getAllTemplates(),
+                                                                'name', 'label'),
                                                             'options' =>
                                                                 [
                                                                     'dir' => 'rtl'
@@ -91,7 +99,8 @@ use kartik\select2\Select2;
                                                     ) ?>
                                                     <div class="form-group">
                                                         <button type="submit"
-                                                                class="btn btn-success"><?= \Yii::t('pages', 'ذخیره') ?></button>
+                                                                class="btn btn-success"><?= \Yii::t('pages',
+                                                                'ذخیره') ?></button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -135,13 +144,16 @@ use kartik\select2\Select2;
                                                     <?php $form->field($model, 'tags')->widget(
                                                         Select2::className(),
                                                         [
-                                                            'options' => [
+                                                            'options'       => [
                                                                 'placeholder' => 'type Tags...',
-                                                                'multiple' => true
+                                                                'multiple'    => true
                                                             ],
                                                             'pluginOptions' => [
-                                                                'tags' => true,
-                                                                'tokenSeparators' => [',', ' '],
+                                                                'tags'               => true,
+                                                                'tokenSeparators'    => [
+                                                                    ',',
+                                                                    ' '
+                                                                ],
                                                                 'maximumInputLength' => 10
                                                             ],
                                                         ]
@@ -164,7 +176,7 @@ use kartik\select2\Select2;
                                         <div class="row">
                                             <div class="col-md-12 pull-right">
 
-                                                <?=  $form->field($model, 'content')->widget(
+                                                <?= $form->field($model, 'content')->widget(
                                                     \YiiMan\YiiBasics\widgets\CodeMirror\CodeMirrorWidget::className(),
                                                     []
                                                 ) ?>

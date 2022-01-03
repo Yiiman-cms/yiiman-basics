@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\location\models;
 
@@ -6,11 +13,9 @@ use Yii;
 
 /**
  * This is the model class for table "{{%module_location_neighbourhood}}".
- *
- * @property int $id
- * @property string $name
- * @property int $city
- *
+ * @property int          $id
+ * @property string       $name
+ * @property int          $city
  * @property LocationCity $city0
  */
 class LocationNeighbourhood extends \YiiMan\YiiBasics\lib\ActiveRecord
@@ -32,10 +37,29 @@ class LocationNeighbourhood extends \YiiMan\YiiBasics\lib\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'city'], 'required'],
-            [['city'], 'integer'],
-            [['name'], 'string', 'max' => 255],
-            [['city'], 'exist', 'skipOnError' => true, 'targetClass' => \YiiMan\YiiBasics\modules\location\models\LocationCity::className(), 'targetAttribute' => ['city' => 'id']],
+            [
+                [
+                    'name',
+                    'city'
+                ],
+                'required'
+            ],
+            [
+                ['city'],
+                'integer'
+            ],
+            [
+                ['name'],
+                'string',
+                'max' => 255
+            ],
+            [
+                ['city'],
+                'exist',
+                'skipOnError'     => true,
+                'targetClass'     => \YiiMan\YiiBasics\modules\location\models\LocationCity::className(),
+                'targetAttribute' => ['city' => 'id']
+            ],
         ];
     }
 
@@ -45,7 +69,7 @@ class LocationNeighbourhood extends \YiiMan\YiiBasics\lib\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('location', 'ID'),
+            'id'   => Yii::t('location', 'ID'),
             'name' => Yii::t('location', 'نام محله'),
             'city' => Yii::t('location', 'شهر'),
         ];

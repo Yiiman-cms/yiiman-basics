@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\language\controllers;
 
@@ -16,11 +23,9 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
 {
     public $enableCsrfValidation = false;
     /**
-     *
      * @var $model SearchLanguage
      */
     public $model;
-
 
 
     /**
@@ -33,14 +38,14 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
      * Displays a single Language model.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -48,7 +53,7 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
     {
         $model = Language::findOne($id);
         $lng = Yii::$app->Language->getLanguages()[strtoupper($model->shortCode)];
-        $translates = getFileList(Yii::getAlias('@system/translates/' . $lng->systemCode));
+        $translates = getFileList(Yii::getAlias('@system/translates/'.$lng->systemCode));
 
         $modules = getFileList(Yii::getAlias('@system/modules'));
 
@@ -59,9 +64,9 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
                 continue;
             }
 
-            if (file_exists(Yii::getAlias('@system/modules') . '/' . $file['name'] . '/translates/' . $lng->systemCode . '/' . $file['name'] . '.php')) {
+            if (file_exists(Yii::getAlias('@system/modules').'/'.$file['name'].'/translates/'.$lng->systemCode.'/'.$file['name'].'.php')) {
                 $v = [];
-                $v['path'] = Yii::getAlias('@system/modules') . '/' . $file['name'] . '/translates/' . $lng->systemCode . '/' . $file['name'] . '.php';;
+                $v['path'] = Yii::getAlias('@system/modules').'/'.$file['name'].'/translates/'.$lng->systemCode.'/'.$file['name'].'.php';;
                 $v['values'] = [];
                 $v['name'] = str_replace('.php', '', $file['name']);
                 $i = include_once $v['path'];
@@ -70,7 +75,7 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
                     foreach ($i as $k => $t) {
                         $trans[hash('crc32', $k)] =
                             [
-                                'key' => $k,
+                                'key'       => $k,
                                 'translate' => $t
                             ];
                     }
@@ -83,17 +88,17 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
         foreach ($translates as $item) {
 
             $v = [];
-            $v['path'] = Yii::getAlias('@system/translates/' . $lng->systemCode) . '/' . $item['name'];
+            $v['path'] = Yii::getAlias('@system/translates/'.$lng->systemCode).'/'.$item['name'];
             $v['values'] = [];
             $v['name'] = str_replace('.php', '', $item['name']);
 
             $i = include_once $v['path'];
             if (!empty($i)) {
                 $trans = [];
-                foreach ((array)$i as $k => $t) {
+                foreach ((array) $i as $k => $t) {
                     $trans[hash('crc32', $k)] =
                         [
-                            'key' => $k,
+                            'key'       => $k,
                             'translate' => $t
                         ];
                 }
@@ -109,25 +114,25 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
                 $final = [];
                 $itemOriginal = $moduleTranslates[$key];
                 foreach ($item as $hash => $translate) {
-                    $final[$itemOriginal['values'][$hash]['key']]=$translate;
+                    $final[$itemOriginal['values'][$hash]['key']] = $translate;
                 }
                 $file = fopen(
-                    $itemOriginal['path'] ,
+                    $itemOriginal['path'],
                     'w+'
                 );
-                fwrite( $file , $this->generatePHPFile_array( $final ) );
-                fclose( $file );
+                fwrite($file, $this->generatePHPFile_array($final));
+                fclose($file);
             }
 
             // < Remove Language Cache >
             {
-                foreach (Yii::$aliases as $alias){
+                foreach (Yii::$aliases as $alias) {
 
-                    if (is_array($alias) || is_object($alias)){
+                    if (is_array($alias) || is_object($alias)) {
                         continue;
                     }
-                    $path=Yii::getAlias($alias).'/runtime/tmp/'.$lng->systemCode.'/translates.php';
-                    if (realpath($path)){
+                    $path = Yii::getAlias($alias).'/runtime/tmp/'.$lng->systemCode.'/translates.php';
+                    if (realpath($path)) {
 
                         unlink($path);
                     }
@@ -138,20 +143,25 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
         }
 
 
-
-
-
-
         return $this->render('view', [
             'model' => $model,
             'files' => $moduleTranslates
         ]);
     }
 
-    public function generatePHPFile_array( $array ) {
-        $json = "<?php \n return \n" . json_encode( $array , JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE );
+    public function generatePHPFile_array($array)
+    {
+        $json = "<?php \n return \n".json_encode($array, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
-        return str_replace( [ '":' , '{' , '}' ] , [ '"=>' , '[' , ']' ] , $json ) . ";";
+        return str_replace([
+                '":',
+                '{',
+                '}'
+            ], [
+                '"=>',
+                '[',
+                ']'
+            ], $json).";";
 
     }
 
@@ -168,7 +178,10 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
             if ($model->save()) {
                 Yii::$app->Language->reBuild();
                 $model->saveImage('image');
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
             }
         }
         return $this->render('create', [
@@ -179,7 +192,7 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
     /**
      * Updates an existing Language model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -191,7 +204,10 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
             $model->saveImage('image');
             if ($model->save()) {
                 Yii::$app->Language->reBuild();
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
             }
         }
 
@@ -201,23 +217,9 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
     }
 
     /**
-     * Deletes an existing Language model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
-
-    /**
      * Finds the Language model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
+     * @param  integer  $id
      * @return Language the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -230,32 +232,39 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
         throw new NotFoundHttpException(Yii::t('language', 'The requested page does not exist.'));
     }
 
-
-    protected function upload()
+    /**
+     * Deletes an existing Language model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param  integer  $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDelete($id)
     {
+        $this->findModel($id)->delete();
 
-
+        return $this->redirect(['index']);
     }
 
+    public function actionTranslate($source, $target, $text)
+    {
 
-
-    public  function actionTranslate($source, $target, $text) {
-
-        $response 		= self::requestTranslation($source, $target, $text);
-        $translation 	= self::getSentencesFromJSON($response);
+        $response = self::requestTranslation($source, $target, $text);
+        $translation = self::getSentencesFromJSON($response);
         return $translation;
     }
 
-    protected static function requestTranslation($source, $target, $text) {
+    protected static function requestTranslation($source, $target, $text)
+    {
         $url = "https://translate.google.com/translate_a/single?client=at&dt=t&dt=ld&dt=qca&dt=rm&dt=bd&dj=1&hl=es-ES&ie=UTF-8&oe=UTF-8&inputm=2&otf=2&iid=1dd3b944-fa62-4b55-b330-74909a99969e";
-        $fields = array(
+        $fields = [
             'sl' => urlencode($source),
             'tl' => urlencode($target),
-            'q' => urlencode($text)
-        );
+            'q'  => urlencode($text)
+        ];
 
         $fields_string = "";
-        foreach($fields as $key=>$value) {
+        foreach ($fields as $key => $value) {
             $fields_string .= $key.'='.$value.'&';
         }
 
@@ -268,7 +277,8 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
         curl_setopt($ch, CURLOPT_ENCODING, 'UTF-8');
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($ch, CURLOPT_USERAGENT, 'AndroidTranslate/5.3.0.RC02.130475354-53000263 5.1 phone TRANSLATE_OPM5_TEST_1');
+        curl_setopt($ch, CURLOPT_USERAGENT,
+            'AndroidTranslate/5.3.0.RC02.130475354-53000263 5.1 phone TRANSLATE_OPM5_TEST_1');
 
         $result = curl_exec($ch);
 
@@ -276,22 +286,27 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
         return $result;
     }
 
-    protected static function getSentencesFromJSON($json) {
+    protected static function getSentencesFromJSON($json)
+    {
         $sentencesArray = json_decode($json, true);
         $sentences = "";
         foreach ($sentencesArray["sentences"] as $s) {
-            if (!empty($s["trans"])){
+            if (!empty($s["trans"])) {
                 $sentences .= $s["trans"];
             }
         }
         return $sentences;
     }
 
-
-
     public function init()
     {
         parent::init();
         $this->model = new SearchLanguage();
+    }
+
+    protected function upload()
+    {
+
+
     }
 }

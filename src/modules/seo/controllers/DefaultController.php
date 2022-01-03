@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\seo\controllers;
 
@@ -13,12 +20,13 @@ use yii\filters\VerbFilter;
 /**
  * DefaultController implements the CRUD actions for SeoFlagContents model.
  */
-class DefaultController extends \YiiMan\YiiBasics\lib\Controller{
-    public $hasLanguage=true;
-	/**
-	*
-	* @var $model SearchSeoFlagContents	*/
-	public $model;
+class DefaultController extends \YiiMan\YiiBasics\lib\Controller
+{
+    public $hasLanguage = true;
+    /**
+     * @var $model SearchSeoFlagContents
+     */
+    public $model;
 
 
     /**
@@ -38,7 +46,7 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller{
 
     /**
      * Displays a single SeoFlagContents model.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -57,15 +65,18 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller{
     public function actionCreate()
     {
         $model = new SeoFlagContents();
-		
+
         if ($model->load(Yii::$app->request->post())) {
-			if($model->save()){
-				if (empty( $model->slug)){
-					$model->slug=urlencode($model->title);
-					$model->save();
-				}
-				return $this->redirect(['view', 'id' => $model->id]);
-			}
+            if ($model->save()) {
+                if (empty($model->slug)) {
+                    $model->slug = urlencode($model->title);
+                    $model->save();
+                }
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
+            }
         }
 
         return $this->render('create', [
@@ -76,18 +87,21 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller{
     /**
      * Updates an existing SeoFlagContents model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
-        $model=$this->findModel($id);
+        $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-			if( $model->save()){
-				return $this->redirect(['view', 'id' => $model->id]);
-			}
+            if ($model->save()) {
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
+            }
         }
 
         return $this->render('update', [
@@ -98,7 +112,7 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller{
     /**
      * Deletes an existing SeoFlagContents model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -109,19 +123,16 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller{
         return $this->redirect(['index']);
     }
 
-
-
-
-
-	protected function upload(){
-	
-	
-	}
-
-
-	public function init(){
+    public function init()
+    {
         parent::init();
-        $this->modelClass=SeoFlagContents::className();
-		$this->model=new SearchSeoFlagContents();
-	}
+        $this->modelClass = SeoFlagContents::className();
+        $this->model = new SearchSeoFlagContents();
+    }
+
+    protected function upload()
+    {
+
+
+    }
 }

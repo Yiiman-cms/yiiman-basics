@@ -1,6 +1,6 @@
 <?php
-/*
- * Copyright (c) 2022.
+/**
+ * Copyright (c) 2022-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
@@ -21,10 +21,10 @@ use yii\helpers\Html;
 
 
 /**
- * @var yii\web\View                                $this
+ * @var yii\web\View                                          $this
  * @var YiiMan\YiiBasics\modules\setting\models\SettingSearch $searchModel
- * @var yii\data\ActiveDataProvider                 $dataProvider
- * @var \YiiMan\Setting\module\components\Options  $options
+ * @var yii\data\ActiveDataProvider                           $dataProvider
+ * @var \YiiMan\Setting\module\components\Options             $options
  */
 
 $this->title = Module::t('setting', 'Settings');

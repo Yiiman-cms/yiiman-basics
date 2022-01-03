@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\transactions\controllers;
 
@@ -13,11 +20,12 @@ use yii\filters\VerbFilter;
 /**
  * TransactionsHistoryController implements the CRUD actions for TransactionsHistory model.
  */
-class TransactionsHistoryController extends \YiiMan\YiiBasics\lib\Controller{
-	/**
-	*
-	* @var $model SearchTransactionsHistory	*/
-	public $model;
+class TransactionsHistoryController extends \YiiMan\YiiBasics\lib\Controller
+{
+    /**
+     * @var $model SearchTransactionsHistory
+     */
+    public $model;
     /**
      * {@inheritdoc}
      */
@@ -50,14 +58,14 @@ class TransactionsHistoryController extends \YiiMan\YiiBasics\lib\Controller{
 
     /**
      * Displays a single TransactionsHistory model.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
 
-        $model=$this->findModel($id);
+        $model = $this->findModel($id);
 
         return $this->render('view', [
             'model' => $model,
@@ -74,8 +82,11 @@ class TransactionsHistoryController extends \YiiMan\YiiBasics\lib\Controller{
         $model = new TransactionsHistory;
 
         if ($model->load(Yii::$app->request->post())) {
-            if($model->save()){
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->save()) {
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
             }
         }
         return $this->render('create', [
@@ -86,16 +97,19 @@ class TransactionsHistoryController extends \YiiMan\YiiBasics\lib\Controller{
     /**
      * Updates an existing TransactionsHistory model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
-        $model=$this->findModel($id);
+        $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post())) {
-            if( $model->save()){
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->save()) {
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
             }
         }
 
@@ -107,7 +121,7 @@ class TransactionsHistoryController extends \YiiMan\YiiBasics\lib\Controller{
     /**
      * Deletes an existing TransactionsHistory model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -118,17 +132,15 @@ class TransactionsHistoryController extends \YiiMan\YiiBasics\lib\Controller{
         return $this->redirect(['index']);
     }
 
-
-
-
-	protected function upload(){
-	
-	
-	}
-
-
-	public function init(){
+    public function init()
+    {
         parent::init();
-		$this->modelClass=new TransactionsHistory();
-	}
+        $this->modelClass = new TransactionsHistory();
+    }
+
+    protected function upload()
+    {
+
+
+    }
 }

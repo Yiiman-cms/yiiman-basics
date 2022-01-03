@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * Copyright (c) 2018-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
@@ -14,14 +14,18 @@ use Yii;
 
 /**
  * @author Nghia Nguyen <yiidevelop@hotmail.com>
- * @since 2.0
+ * @since  2.0
  */
 class ImageUploadModel extends FileUploadModel
 {
     public function rules()
     {
         return [
-            ['file', 'file', 'extensions' => Yii::$app->controller->module->imageAllowExtensions]
+            [
+                'file',
+                'file',
+                'extensions' => Yii::$app->controller->module->imageAllowExtensions
+            ]
         ];
     }
 

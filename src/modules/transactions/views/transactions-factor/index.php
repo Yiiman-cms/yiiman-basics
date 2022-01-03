@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
@@ -15,11 +22,11 @@ use \YiiMan\YiiBasics\modules\transactions\models\TransactionsFactor;
     Yii::t('transactions', 'ثبت فاکتور ها'),
     'success',
     null,
-    Yii::$app->Options->BackendUrl . '/transactions-factor-head/default/create'
+    Yii::$app->Options->BackendUrl.'/transactions-factor-head/default/create'
 );
 \YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 
-$this->title = Yii::t('transactions', 'فاکتور ها') . ' ';
+$this->title = Yii::t('transactions', 'فاکتور ها').' ';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -38,32 +45,32 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
-                        'filterModel' => $searchModel,
-                        'columns' => [
+                        'filterModel'  => $searchModel,
+                        'columns'      => [
                             ['class' => 'yii\grid\SerialColumn'],
 //                            ['class' => '\YiiMan\YiiBasics\lib\i18n\LanguageColumn'],
                             [
                                 'attribute' => 'created_at',
-                                'value' => function ($model) {
+                                'value'     => function ($model) {
                                     /**
                                      * @var $model
                                      */
                                     return Yii::$app->functions->convertdate($model->created_at);
                                 },
-                                'filter' => \yii\widgets\MaskedInput::widget(
+                                'filter'    => \yii\widgets\MaskedInput::widget(
                                     [
-                                        'model' => $searchModel,
+                                        'model'     => $searchModel,
                                         'attribute' => 'created_at',
-                                        'options' => ['class' => 'form-control'],
-                                        'mask' => '9999/99/99'
+                                        'options'   => ['class' => 'form-control'],
+                                        'mask'      => '9999/99/99'
                                     ]
                                 )
                             ],
 
                             [
                                 'attribute' => 'status',
-                                'format' => 'raw',
-                                'value' => function ($model) {
+                                'format'    => 'raw',
+                                'value'     => function ($model) {
                                     /**
                                      * @var $model TransactionsFactor
                                      */
@@ -79,13 +86,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                             break;
                                     }
                                 },
-                                'filter' => Html::activeDropDownList(
+                                'filter'    => Html::activeDropDownList(
                                     $searchModel,
                                     'status',
                                     [
-                                        '' => 'همه',
-                                        TransactionsFactor::STATUS_EXPIRED => 'منقضی شده',
-                                        TransactionsFactor::STATUS_PAYED => 'پرداخت شده',
+                                        ''                                         => 'همه',
+                                        TransactionsFactor::STATUS_EXPIRED         => 'منقضی شده',
+                                        TransactionsFactor::STATUS_PAYED           => 'پرداخت شده',
                                         TransactionsFactor::STATUS_WAITING_FOR_PAY => 'در انتظار پرداخت'
                                     ],
                                     [
@@ -95,31 +102,34 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                             [
                                 'attribute' => 'uid',
-                                'value' => function ($model) {
+                                'value'     => function ($model) {
                                     /**
                                      * @var $model TransactionsFactor
                                      */
                                     return \YiiMan\YiiBasics\modules\factorina\models\User::findOne($model->uid)->fullname;
                                 },
-                                'filter' => \kartik\select2\Select2::widget(
+                                'filter'    => \kartik\select2\Select2::widget(
                                     [
-                                        'model' => $searchModel,
+                                        'model'     => $searchModel,
                                         'attribute' => 'uid',
-                                        'data' =>
+                                        'data'      =>
                                             array_merge_recursive(
                                                 ['' => 'همه'],
-                                                \yii\helpers\ArrayHelper::map(\YiiMan\YiiBasics\modules\factorina\models\User::find()->all(), 'id', 'fullname')
+                                                \yii\helpers\ArrayHelper::map(\YiiMan\YiiBasics\modules\factorina\models\User::find()->all(),
+                                                    'id', 'fullname')
                                             ),
 
                                     ]
                                 )
-                                ,],
+                                ,
+                            ],
                             [
                                 'attribute' => 'total_price',
-                                'value' => function ($model) {
+                                'value'     => function ($model) {
                                     return number_format($model->total_price);
                                 },
-                                'filter' => Html::activeTextInput($searchModel, 'total_price', ['class' => 'form-control'])
+                                'filter'    => Html::activeTextInput($searchModel, 'total_price',
+                                    ['class' => 'form-control'])
                             ],
                             //'payed_at',
                             //'price',

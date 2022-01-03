@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\form\models;
 
@@ -18,8 +25,17 @@ class SearchForm extends Form
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['title', 'details'], 'safe'],
+            [
+                ['id'],
+                'integer'
+            ],
+            [
+                [
+                    'title',
+                    'details'
+                ],
+                'safe'
+            ],
         ];
     }
 
@@ -34,20 +50,18 @@ class SearchForm extends Form
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
     {
         $query = Form::find();
 
-        if ($this->hasLanguage){
-            if (!empty( $_GET['lng'])){
-                $query=$query->where(['language'=> $_GET['lng']]);
-            }else{
-                $query=$query->where(['language_parent'=>null]);
+        if ($this->hasLanguage) {
+            if (!empty($_GET['lng'])) {
+                $query = $query->where(['language' => $_GET['lng']]);
+            } else {
+                $query = $query->where(['language_parent' => null]);
             }
         }
         // add conditions that should always apply here
@@ -69,8 +83,16 @@ class SearchForm extends Form
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'details', $this->details]);
+        $query->andFilterWhere([
+            'like',
+            'title',
+            $this->title
+        ])
+            ->andFilterWhere([
+                'like',
+                'details',
+                $this->details
+            ]);
 
         return $dataProvider;
     }

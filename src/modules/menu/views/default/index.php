@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use YiiMan\YiiBasics\modules\menu\models\Menu;
@@ -11,7 +18,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel YiiMan\YiiBasics\modules\menu\models\SearchMenu */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('menu', 'منوهای سایت') . ' ';
+$this->title = Yii::t('menu', 'منوهای سایت').' ';
 $this->params['breadcrumbs'][] = $this->title;
 $this->registerJs($this->render('script/app.js'), $this::POS_END);
 \YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
@@ -19,7 +26,7 @@ $this->registerJs($this->render('script/app.js'), $this::POS_END);
     Yii::t('Menu', 'ثبت منو'),
     'success',
     null,
-    Yii::$app->Options->BackendUrl . '/menu/default/create'
+    Yii::$app->Options->BackendUrl.'/menu/default/create'
 );
 \YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 ?>
@@ -38,15 +45,15 @@ $this->registerJs($this->render('script/app.js'), $this::POS_END);
                     <?= GridView::widget(
                         [
                             'dataProvider' => $dataProvider,
-                            'filterModel' => $searchModel,
-                            'columns' => [
+                            'filterModel'  => $searchModel,
+                            'columns'      => [
                                 ['class' => 'yii\grid\SerialColumn'],
                                 ['class' => \YiiMan\YiiBasics\lib\i18n\LanguageColumn::className()],
 
                                 'title',
                                 [
                                     'attribute' => 'slug',
-                                    'value' => function ($model) {
+                                    'value'     => function ($model) {
                                         /**
                                          * @var $model \YiiMan\YiiBasics\modules\menu\models\Menu
                                          */
@@ -58,13 +65,13 @@ $this->registerJs($this->render('script/app.js'), $this::POS_END);
                                 //'image',
                                 [
                                     'attribute' => 'status',
-                                    'value' => function ($model) {
+                                    'value'     => function ($model) {
                                         switch ($model->status) {
                                             case Menu::STATUS_PUBLISHED:
-                                                return   \Yii::t('menu','منتشر شده') ;
+                                                return \Yii::t('menu', 'منتشر شده');
                                                 break;
                                             case Menu::STATUS_REVIEW:
-                                                return   \Yii::t('menu','بازبینی') ;
+                                                return \Yii::t('menu', 'بازبینی');
                                                 break;
                                         }
                                     },

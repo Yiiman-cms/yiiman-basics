@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\transactions\models;
 
@@ -18,9 +25,29 @@ class SearchTransactionsCoupons extends TransactionsCoupons
     public function rules()
     {
         return [
-            [['id', 'expire', 'status', 'limit_count', 'mode', 'uid_limit', 'created_by'], 'integer'],
-            [['price'], 'number'],
-            [['start_from', 'created_at'], 'safe'],
+            [
+                [
+                    'id',
+                    'expire',
+                    'status',
+                    'limit_count',
+                    'mode',
+                    'uid_limit',
+                    'created_by'
+                ],
+                'integer'
+            ],
+            [
+                ['price'],
+                'number'
+            ],
+            [
+                [
+                    'start_from',
+                    'created_at'
+                ],
+                'safe'
+            ],
         ];
     }
 
@@ -35,20 +62,18 @@ class SearchTransactionsCoupons extends TransactionsCoupons
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
     {
         $query = TransactionsCoupons::find();
 
-        if ($this->hasLanguage){
-            if (!empty( $_GET['lng'])){
-                $query=$query->where(['language'=> $_GET['lng']]);
-            }else{
-                $query=$query->where(['language_parent'=>null]);
+        if ($this->hasLanguage) {
+            if (!empty($_GET['lng'])) {
+                $query = $query->where(['language' => $_GET['lng']]);
+            } else {
+                $query = $query->where(['language_parent' => null]);
             }
         }
         // add conditions that should always apply here
@@ -67,16 +92,16 @@ class SearchTransactionsCoupons extends TransactionsCoupons
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'price' => $this->price,
-            'expire' => $this->expire,
-            'status' => $this->status,
-            'start_from' => $this->start_from,
+            'id'          => $this->id,
+            'price'       => $this->price,
+            'expire'      => $this->expire,
+            'status'      => $this->status,
+            'start_from'  => $this->start_from,
             'limit_count' => $this->limit_count,
-            'mode' => $this->mode,
-            'uid_limit' => $this->uid_limit,
-            'created_at' => $this->created_at,
-            'created_by' => $this->created_by,
+            'mode'        => $this->mode,
+            'uid_limit'   => $this->uid_limit,
+            'created_at'  => $this->created_at,
+            'created_by'  => $this->created_by,
         ]);
 
         return $dataProvider;

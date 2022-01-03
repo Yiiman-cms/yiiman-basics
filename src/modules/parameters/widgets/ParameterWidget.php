@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\parameters\widgets;
 
@@ -36,16 +42,17 @@ border-radius: 5px;
 margin: 10px 0;
 padding: 10px;
 "><div class="col-md-12">';
-            $out .= '<h3>' . \Yii::t('parameters', 'پارامتر های قابل استفاده برای ادیتور') . '</h3>';
+            $out .= '<h3>'.\Yii::t('parameters', 'پارامتر های قابل استفاده برای ادیتور').'</h3>';
 
             // < Translates >
             {
                 $translates =
                     json_encode(
                         [
-                            'save' => \Yii::t('site', 'استفاده'),
-                            'help' => \Yii::t('site', 'پس از ورود اطلاعات، کلید "استفاده" را فشار دهید، تا پارامتر ساخته شده کپی شود، سپس آن را به متن خود الصاق کنید'),
-                            'close' => \Yii::t('site', 'انصراف و بستن'),
+                            'save'   => \Yii::t('site', 'استفاده'),
+                            'help'   => \Yii::t('site',
+                                'پس از ورود اطلاعات، کلید "استفاده" را فشار دهید، تا پارامتر ساخته شده کپی شود، سپس آن را به متن خود الصاق کنید'),
+                            'close'  => \Yii::t('site', 'انصراف و بستن'),
                             'header' => \Yii::t('site', 'فرم ایجاد پارامتر داینامیک')
                         ]
                     );
@@ -70,14 +77,13 @@ JS;
                 // </ Description >
 
 
-
                 // < set Color Class >
                 {
                     switch (true) {
                         case !empty($item['function']):
                             $classColor = 'badge-rose';
                             $isFunction = "true";
-                            $fields = $item["key"] . "" . uniqid();
+                            $fields = $item["key"]."".uniqid();
                             $jsFields = json_encode($item["fields"]);
 
                             $js = <<<JS
@@ -96,7 +102,7 @@ JS;
                 // </ set Color Class >
 
 
-                $out .= '<span style="cursor:pointer;margin:5px;padding:5px 10px;" fields="' . $fields . '" function="' . $isFunction . '" class="badge ' . $classColor . ' p-parameter" ' . $tippy . '>' . $item['key'] . '</span>';
+                $out .= '<span style="cursor:pointer;margin:5px;padding:5px 10px;" fields="'.$fields.'" function="'.$isFunction.'" class="badge '.$classColor.' p-parameter" '.$tippy.'>'.$item['key'].'</span>';
             }
 
             $out .= '</div></div>';

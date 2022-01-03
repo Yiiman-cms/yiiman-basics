@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\pages\models;
 
@@ -18,8 +25,22 @@ class SearchPages extends Pages
     public function rules()
     {
         return [
-            [['id', 'status'], 'integer'],
-            [[ 'content', 'seo_description', 'tags', 'title'], 'safe'],
+            [
+                [
+                    'id',
+                    'status'
+                ],
+                'integer'
+            ],
+            [
+                [
+                    'content',
+                    'seo_description',
+                    'tags',
+                    'title'
+                ],
+                'safe'
+            ],
         ];
     }
 
@@ -34,18 +55,16 @@ class SearchPages extends Pages
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
     {
         $query = Pages::find();
-        if (!empty( $_GET['lng'])){
-            $query=$query->where(['language'=> $_GET['lng']]);
-        }else{
-            $query=$query->where(['language_parent'=>null]);
+        if (!empty($_GET['lng'])) {
+            $query = $query->where(['language' => $_GET['lng']]);
+        } else {
+            $query = $query->where(['language_parent' => null]);
         }
         // add conditions that should always apply here
 
@@ -68,10 +87,26 @@ class SearchPages extends Pages
         ]);
 
         $query
-            ->andFilterWhere(['like', 'content', $this->content])
-            ->andFilterWhere(['like', 'seo_description', $this->seo_description])
-            ->andFilterWhere(['like', 'tags', $this->tags])
-            ->andFilterWhere(['like', 'title', $this->title]);
+            ->andFilterWhere([
+                'like',
+                'content',
+                $this->content
+            ])
+            ->andFilterWhere([
+                'like',
+                'seo_description',
+                $this->seo_description
+            ])
+            ->andFilterWhere([
+                'like',
+                'tags',
+                $this->tags
+            ])
+            ->andFilterWhere([
+                'like',
+                'title',
+                $this->title
+            ]);
 
         return $dataProvider;
     }

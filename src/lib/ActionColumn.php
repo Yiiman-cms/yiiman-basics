@@ -1,8 +1,10 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
- * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * Copyright (c) 2008-2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
  */
 
 namespace YiiMan\YiiBasics\lib;
@@ -14,9 +16,7 @@ use yii\helpers\Url;
 
 /**
  * ActionColumn is a column for the [[GridView]] widget that displays buttons for viewing and manipulating the items.
- *
  * To add an ActionColumn to the gridview, add it to the [[GridView::columns|columns]] configuration as follows:
- *
  * ```php
  * 'columns' => [
  *     // ...
@@ -26,11 +26,9 @@ use yii\helpers\Url;
  *     ],
  * ]
  * ```
- *
  * For more details and usage information on ActionColumn, see the [guide article on data widgets](guide:output-data-widgets).
- *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @since 2.0
+ * @since  2.0
  */
 class ActionColumn extends Column
 {
@@ -51,13 +49,10 @@ class ActionColumn extends Column
      * in the context of action column). They will be replaced by the corresponding button rendering callbacks
      * specified in [[buttons]]. For example, the token `{view}` will be replaced by the result of
      * the callback `buttons['view']`. If a callback cannot be found, the token will be replaced with an empty string.
-     *
      * As an example, to only have the view, and update button you can add the ActionColumn to your GridView columns as follows:
-     *
      * ```php
      * ['class' => 'yii\grid\ActionColumn', 'template' => '{view} {update}'],
      * ```
-     *
      * @see buttons
      */
     public $template = '{view} {update} {delete}';
@@ -65,19 +60,15 @@ class ActionColumn extends Column
      * @var array button rendering callbacks. The array keys are the button names (without curly brackets),
      * and the values are the corresponding button rendering callbacks. The callbacks should use the following
      * signature:
-     *
      * ```php
      * function ($url, $model, $key) {
      *     // return the button HTML code
      * }
      * ```
-     *
      * where `$url` is the URL that the column creates for the button, `$model` is the model object
      * being rendered for the current row, and `$key` is the key of the model in the data provider array.
-     *
      * You can add further conditions to the button, for example only display it, when the model is
      * editable (here assuming you have a status field that indicates that):
-     *
      * ```php
      * [
      *     'update' => function ($url, $model, $key) {
@@ -91,15 +82,12 @@ class ActionColumn extends Column
      * and the values are the boolean true/false or the anonymous function. When the button name is not specified in
      * this array it will be shown by default.
      * The callbacks must use the following signature:
-     *
      * ```php
      * function ($model, $key, $index) {
      *     return $model->status === 'editable';
      * }
      * ```
-     *
      * Or you can pass a boolean value:
-     *
      * ```php
      * [
      *     'update' => \Yii::$app->user->can('update'),
@@ -112,13 +100,11 @@ class ActionColumn extends Column
      * @var callable a callback that creates a button URL using the specified model information.
      * The signature of the callback should be the same as that of [[createUrl()]]
      * Since 2.0.10 it can accept additional parameter, which refers to the column instance itself:
-     *
      * ```php
      * function (string $action, mixed $model, mixed $key, integer $index, ActionColumn $this) {
      *     //return string;
      * }
      * ```
-     *
      * If this property is not set, button URLs will be created using [[createUrl()]].
      */
     public $urlCreator;
@@ -150,14 +136,14 @@ class ActionColumn extends Column
 
     /**
      * Initializes the default button rendering callback for single button.
-     * @param string $name Button name as it's written in template
-     * @param string $iconName The part of Bootstrap glyphicon class that makes it unique
-     * @param array $additionalOptions Array of additional options
+     * @param  string  $name               Button name as it's written in template
+     * @param  string  $iconName           The part of Bootstrap glyphicon class that makes it unique
+     * @param  array   $additionalOptions  Array of additional options
      * @since 2.0.11
      */
     protected function initDefaultButton($name, $iconName, $additionalOptions = [])
     {
-        if (!isset($this->buttons[$name]) && strpos($this->template, '{' . $name . '}') !== false) {
+        if (!isset($this->buttons[$name]) && strpos($this->template, '{'.$name.'}') !== false) {
             $this->buttons[$name] = function ($url, $model, $key) use ($name, $iconName, $additionalOptions) {
                 switch ($name) {
                     case 'view':
@@ -173,38 +159,15 @@ class ActionColumn extends Column
                         $title = ucfirst($name);
                 }
                 $options = array_merge([
-                    'title' => $title,
+                    'title'      => $title,
                     'aria-label' => $title,
-                    'data-pjax' => '0',
+                    'data-pjax'  => '0',
                 ], $additionalOptions, $this->buttonOptions);
                 $icon = Html::tag('span', '', ['class' => "glyphicon glyphicon-$iconName"]);
 
                 return Html::a($icon, $url, $options);
             };
         }
-    }
-
-    /**
-     * Creates a URL for the given action and model.
-     * This method is called for each button and each row.
-     * @param string $action the button name (or action ID)
-     * @param \yii\db\ActiveRecordInterface $model the data model
-     * @param mixed $key the key associated with the data model
-     * @param int $index the current row index
-     * @return string the created URL
-     */
-    public function createUrl($action, $model, $key, $index)
-    {
-        if (is_callable($this->urlCreator)) {
-            return call_user_func($this->urlCreator, $action, $model, $key, $index, $this);
-        }
-
-        $params = is_array($key) ? $key : ['id' => (string) $key];
-        $params[0] = $this->controller ? $this->controller . '/' . $action : $action;
-        if (!empty($_GET['lng'])){
-            $params['lng']=$_GET['lng'];
-        }
-        return Url::toRoute($params);
     }
 
     /**
@@ -230,5 +193,28 @@ class ActionColumn extends Column
 
             return '';
         }, $this->template);
+    }
+
+    /**
+     * Creates a URL for the given action and model.
+     * This method is called for each button and each row.
+     * @param  string                         $action  the button name (or action ID)
+     * @param  \yii\db\ActiveRecordInterface  $model   the data model
+     * @param  mixed                          $key     the key associated with the data model
+     * @param  int                            $index   the current row index
+     * @return string the created URL
+     */
+    public function createUrl($action, $model, $key, $index)
+    {
+        if (is_callable($this->urlCreator)) {
+            return call_user_func($this->urlCreator, $action, $model, $key, $index, $this);
+        }
+
+        $params = is_array($key) ? $key : ['id' => (string) $key];
+        $params[0] = $this->controller ? $this->controller.'/'.$action : $action;
+        if (!empty($_GET['lng'])) {
+            $params['lng'] = $_GET['lng'];
+        }
+        return Url::toRoute($params);
     }
 }

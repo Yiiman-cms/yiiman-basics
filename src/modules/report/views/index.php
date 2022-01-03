@@ -1,10 +1,18 @@
 <?php
 /**
- * @var $this \yii\web\View
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
+/**
+ * @var $this     \yii\web\View
  * @var $dataProvider
  * @var $searchModel
  * @var $viewname string
- * @var $view \YiiMan\YiiBasics\modules\report\controllers\BaseReportController
+ * @var $view     \YiiMan\YiiBasics\modules\report\controllers\BaseReportController
  */
 $this->title = $view->reportTitle();
 $columns = [];
@@ -16,7 +24,7 @@ $columns = array_merge_recursive(
 );
 $columns[] =
     [
-        'class' => 'YiiMan\YiiBasics\lib\ActionColumn',
+        'class'    => 'YiiMan\YiiBasics\lib\ActionColumn',
         'template' => $view->IndexButtons()
     ];
 ?>
@@ -32,14 +40,16 @@ $columns[] =
         padding: 10px;
         margin-bottom: 20px;
     }
+
     .box > h5 {
         background: #212121 !important;
         border-radius: 3px;
         color: white;
         padding: 2px 6px;
         margin-top: -25px;
-        box-shadow: 0 4px 20px 0 rgba(0,0,0,.14),0 7px 12px -5px rgba(33,33,33,.46);
+        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 12px -5px rgba(33, 33, 33, .46);
     }
+
     form > p {
         font-weight: 800;
         padding-right: 7px;
@@ -50,6 +60,7 @@ $columns[] =
         border-radius: 5px;
         margin-right: 17px;
     }
+
     .keys {
         display: block;
         width: 100%;
@@ -68,26 +79,31 @@ $columns[] =
                 <div class="col-md-12 pull-right">
                     <?php \yii\widgets\Pjax::begin(); ?>
                     <?php
-                    if (realpath(Yii::getAlias('@system') . '/reports/views/' . $viewname . '/_search.php')) {
+                    if (realpath(Yii::getAlias('@system').'/reports/views/'.$viewname.'/_search.php')) {
 
                         $form = \yii\bootstrap\ActiveForm::begin([
-                            'action' => ['index'],
-                            'method' => 'get',
+                            'action'  => ['index'],
+                            'method'  => 'get',
                             'options' => [
                                 'data-pjax' => 1
                             ],
                         ]);
 
-                        echo $this->render('@system/reports/views/' . $viewname . '/_search.php', ['model' => $searchModel, 'form' => $form]);;
+                        echo $this->render('@system/reports/views/'.$viewname.'/_search.php', [
+                            'model' => $searchModel,
+                            'form'  => $form
+                        ]);;
                         ?>
-                            <div class="keys">
-                                <div class="col-md-12" style="margin-top:20px">
-                                    <div class="form-group ">
-                                        <?= \yii\helpers\Html::submitButton(Yii::t('user', 'جست و جو'), ['class' => 'btn btn-primary']) ?>
-                                        <?= \yii\helpers\Html::resetButton(Yii::t('user', 'بازنشانی'), ['class' => 'btn btn-default']) ?>
-                                    </div>
+                        <div class="keys">
+                            <div class="col-md-12" style="margin-top:20px">
+                                <div class="form-group ">
+                                    <?= \yii\helpers\Html::submitButton(Yii::t('user', 'جست و جو'),
+                                        ['class' => 'btn btn-primary']) ?>
+                                    <?= \yii\helpers\Html::resetButton(Yii::t('user', 'بازنشانی'),
+                                        ['class' => 'btn btn-default']) ?>
                                 </div>
                             </div>
+                        </div>
 
 
                         <?php
@@ -100,7 +116,7 @@ $columns[] =
                             [
                                 'dataProvider' => $dataProvider,
 //                                'filterModel' => $searchModel,
-                                'columns' => $columns,
+                                'columns'      => $columns,
                             ]
                         );
                         \yii\widgets\Pjax::end();

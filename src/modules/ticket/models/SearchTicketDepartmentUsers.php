@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\ticket\models;
 
@@ -18,7 +25,16 @@ class SearchTicketDepartmentUsers extends TicketDepartmentUsers
     public function rules()
     {
         return [
-            [['id', 'department', 'uid', 'language', 'language_parent'], 'integer'],
+            [
+                [
+                    'id',
+                    'department',
+                    'uid',
+                    'language',
+                    'language_parent'
+                ],
+                'integer'
+            ],
         ];
     }
 
@@ -33,20 +49,18 @@ class SearchTicketDepartmentUsers extends TicketDepartmentUsers
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
     {
         $query = TicketDepartmentUsers::find();
 
-        if ($this->hasLanguage){
-            if (!empty( $_GET['lng'])){
-                $query=$query->where(['language'=> $_GET['lng']]);
-            }else{
-                $query=$query->where(['language_parent'=>null]);
+        if ($this->hasLanguage) {
+            if (!empty($_GET['lng'])) {
+                $query = $query->where(['language' => $_GET['lng']]);
+            } else {
+                $query = $query->where(['language_parent' => null]);
             }
         }
         // add conditions that should always apply here
@@ -65,10 +79,10 @@ class SearchTicketDepartmentUsers extends TicketDepartmentUsers
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'department' => $this->department,
-            'uid' => $this->uid,
-            'language' => $this->language,
+            'id'              => $this->id,
+            'department'      => $this->department,
+            'uid'             => $this->uid,
+            'language'        => $this->language,
             'language_parent' => $this->language_parent,
         ]);
 

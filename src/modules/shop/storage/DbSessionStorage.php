@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\shop\storage;
 
@@ -55,20 +62,6 @@ class DbSessionStorage implements StorageInterface
     }
 
     /**
-     * @param CartItem[] $items
-     * @return void
-     */
-    public function save(array $items)
-    {
-        if (Yii::$app->user->isGuest) {
-            $this->sessionStorage->save($items);
-        } else {
-            $this->moveItems();
-            $this->saveDb($items);
-        }
-    }
-
-    /**
      *  Moves all items from session storage to database storage
      * @return void
      */
@@ -102,7 +95,8 @@ class DbSessionStorage implements StorageInterface
                 ->limit(1)
                 ->one();
             if ($product) {
-                $items[$product->{$this->params['productFieldId']}] = new CartItem($product, $row['quantity'], $this->params);
+                $items[$product->{$this->params['productFieldId']}] = new CartItem($product, $row['quantity'],
+                    $this->params);
             }
         }
         return $items;
@@ -110,7 +104,7 @@ class DbSessionStorage implements StorageInterface
 
     /**
      * Save all items to the database
-     * @param CartItem[] $items
+     * @param  CartItem[]  $items
      * @return void
      */
     private function saveDb(array $items)
@@ -119,7 +113,11 @@ class DbSessionStorage implements StorageInterface
 
         $this->db->createCommand()->batchInsert(
             $this->table,
-            ['user_id', 'product_id', 'quantity'],
+            [
+                'user_id',
+                'product_id',
+                'quantity'
+            ],
             array_map(function (CartItem $item) {
                 return [
                     'user_id' => $this->userId,
@@ -128,5 +126,19 @@ class DbSessionStorage implements StorageInterface
                 ];
             }, $items)
         )->execute();
+    }
+
+    /**
+     * @param  CartItem[]  $items
+     * @return void
+     */
+    public function save(array $items)
+    {
+        if (Yii::$app->user->isGuest) {
+            $this->sessionStorage->save($items);
+        } else {
+            $this->moveItems();
+            $this->saveDb($items);
+        }
     }
 }

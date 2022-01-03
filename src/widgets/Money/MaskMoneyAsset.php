@@ -1,21 +1,22 @@
 <?php
 
 /**
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @package yii2-money
- * @version 1.2.3
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
  */
-	
-	namespace YiiMan\YiiBasics\widgets\Money;
+
+namespace YiiMan\YiiBasics\widgets\Money;
 
 use kartik\base\AssetBundle;
 
 /**
  * Asset bundle for the [[MaskMoney]] widget. Includes client assets from
  * [jQuery-maskMoney](https://github.com/plentz/jquery-maskmoney).
- *
  * @author Kartik Visweswaran <kartikv2@gmail.com>
- * @since 1.0
+ * @since  1.0
  */
 class MaskMoneyAsset extends AssetBundle
 {
@@ -24,10 +25,10 @@ class MaskMoneyAsset extends AssetBundle
      */
     public function init()
     {
-        $this->setSourcePath(__DIR__ . '/assets');
+        $this->setSourcePath(__DIR__.'/assets');
         $this->setupAssets('js', ['js/jquery.maskMoney']);
         parent::init();
     }
-    
-    
+
+
 }

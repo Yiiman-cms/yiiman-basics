@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
@@ -9,14 +16,14 @@ use yii\widgets\Pjax;
 /* @var $searchModel YiiMan\YiiBasics\modules\useradmin\models\SearchUser */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('user', 'Manage Users') . ' ';
+$this->title = Yii::t('user', 'Manage Users').' ';
 $this->params['breadcrumbs'][] = $this->title;
 \YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('useradmin', 'ثبت کاربر'),
     'success',
     null,
-    Yii::$app->Options->BackendUrl . '/useradmin/default/create'
+    Yii::$app->Options->BackendUrl.'/useradmin/default/create'
 );
 ?>
 
@@ -62,14 +69,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <div class="col-md-6">
                                     <a class="btn btn-danger"
                                        href="<?= Yii::$app->urlManager->createUrl(
-                                           ['/useradmin/default/delete?id=' . $item->id]
+                                           ['/useradmin/default/delete?id='.$item->id]
                                        ) ?>"
                                     >حذف</a>
                                 </div>
                                 <div class="col-md-6">
                                     <a class="btn btn-success"
                                        href="<?= Yii::$app->urlManager->createUrl(
-                                           ['/useradmin/default/update?id=' . $item->id]
+                                           ['/useradmin/default/update?id='.$item->id]
                                        ) ?>">بروزرسانی</a>
                                 </div>
                             </div>

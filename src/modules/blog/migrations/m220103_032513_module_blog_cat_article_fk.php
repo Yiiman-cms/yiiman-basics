@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use yii\db\Schema;
 use yii\db\Migration;
@@ -19,15 +26,15 @@ class m220103_032513_module_blog_cat_article_fk extends Migration
         $this->createTable(
             '{{%module_blog_cat_article_fk}}',
             [
-                'id'=> $this->primaryKey(11),
-                'category'=> $this->integer(11)->notNull(),
-                'article'=> $this->integer(11)->notNull(),
-                'language'=> $this->integer(11)->null()->defaultValue(null),
-                'language_parent'=> $this->integer(11)->null()->defaultValue(null),
-            ],$tableOptions
+                'id'              => $this->primaryKey(11),
+                'category'        => $this->integer(11)->notNull(),
+                'article'         => $this->integer(11)->notNull(),
+                'language'        => $this->integer(11)->null()->defaultValue(null),
+                'language_parent' => $this->integer(11)->null()->defaultValue(null),
+            ], $tableOptions
         );
-        $this->createIndex('category','{{%module_blog_cat_article_fk}}',['category'],false);
-        $this->createIndex('article','{{%module_blog_cat_article_fk}}',['article'],false);
+        $this->createIndex('category', '{{%module_blog_cat_article_fk}}', ['category'], false);
+        $this->createIndex('article', '{{%module_blog_cat_article_fk}}', ['article'], false);
 
     }
 

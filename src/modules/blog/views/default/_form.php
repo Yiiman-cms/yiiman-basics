@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\FileSelectorWidget;
 use YiiMan\YiiBasics\modules\setting\widgets\ImageField;
@@ -32,29 +39,30 @@ use kartik\select2\Select2;
                                 echo $form->field($model, 'status')->widget(
                                     \kartik\select2\Select2::className(),
                                     [
-                                        'data' =>
+                                        'data'         =>
                                             [
                                                 1 => 'منتشر شده',
                                                 0 => 'بازبینی',
 
                                             ],
                                         'pluginEvents' => [
-                                            "change" => "function() {  }",
-                                            "select2:opening" => "function() {  }",
-                                            "select2:open" => "function() {  }",
-                                            "select2:closing" => "function() {  }",
-                                            "select2:close" => "function() {  }",
-                                            "select2:selecting" => "function() {  }",
-                                            "select2:select" => "function() {  }",
+                                            "change"              => "function() {  }",
+                                            "select2:opening"     => "function() {  }",
+                                            "select2:open"        => "function() {  }",
+                                            "select2:closing"     => "function() {  }",
+                                            "select2:close"       => "function() {  }",
+                                            "select2:selecting"   => "function() {  }",
+                                            "select2:select"      => "function() {  }",
                                             "select2:unselecting" => "function() {  }",
-                                            "select2:unselect" => "function() {  }"
+                                            "select2:unselect"    => "function() {  }"
                                         ]
                                     ]
                                 );
                                 echo $form->field($model, 'author')->widget(
                                     Select2::className(),
                                     [
-                                        'data' => ArrayHelper::map(\YiiMan\YiiBasics\modules\useradmin\models\User::find()->all(), 'id', 'nickName')
+                                        'data' => ArrayHelper::map(\YiiMan\YiiBasics\modules\useradmin\models\User::find()->all(),
+                                            'id', 'nickName')
                                     ]
                                 ) ?>
                                 <div class="form-group">
@@ -128,16 +136,19 @@ use kartik\select2\Select2;
                                     <?= $form->field($model, 'tags')->widget(
                                         Select2::className(),
                                         [
-                                            'options' =>
+                                            'options'       =>
                                                 [
                                                     'placeholder' => \Yii::t('blog', 'برچسب ها را تایپ کنید...'),
-                                                    'multiple' => true,
-                                                    'dir' => 'rtl'
+                                                    'multiple'    => true,
+                                                    'dir'         => 'rtl'
                                                 ],
                                             'pluginOptions' =>
                                                 [
-                                                    'tags' => true,
-                                                    'tokenSeparators' => [',', ' '],
+                                                    'tags'               => true,
+                                                    'tokenSeparators'    => [
+                                                        ',',
+                                                        ' '
+                                                    ],
                                                     'maximumInputLength' => 10
                                                 ],
                                         ]

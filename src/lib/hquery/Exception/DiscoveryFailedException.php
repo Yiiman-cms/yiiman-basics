@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\lib\hquery\Exception;
 
@@ -6,7 +13,6 @@ use YiiMan\YiiBasics\lib\hquery\Exception;
 
 /**
  * Thrown when all discovery strategies fails to find a resource.
- *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
 final class DiscoveryFailedException extends \Exception implements Exception
@@ -17,8 +23,8 @@ final class DiscoveryFailedException extends \Exception implements Exception
     private $exceptions;
 
     /**
-     * @param string       $message
-     * @param \Exception[] $exceptions
+     * @param  string        $message
+     * @param  \Exception[]  $exceptions
      */
     public function __construct($message, array $exceptions = [])
     {
@@ -28,7 +34,7 @@ final class DiscoveryFailedException extends \Exception implements Exception
     }
 
     /**
-     * @param \Exception[] $exceptions
+     * @param  \Exception[]  $exceptions
      */
     public static function create($exceptions)
     {

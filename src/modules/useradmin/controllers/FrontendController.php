@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\useradmin\controllers;
 
@@ -25,11 +32,9 @@ use yii\web\UploadedFile;
 class FrontendController extends \YiiMan\YiiBasics\lib\Controller
 {
     /**
-     *
      * @var $model SearchUser
      */
     public $model;
-
 
 
     /**
@@ -38,11 +43,11 @@ class FrontendController extends \YiiMan\YiiBasics\lib\Controller
      */
     public function actionIndex()
     {
-       if (Yii::$app->user->isGuest){
-       	return $this->redirect( ['register']);
-       }else{
-       	return $this->render( 'profile');
-       }
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['register']);
+        } else {
+            return $this->render('profile');
+        }
     }
 
 
@@ -92,15 +97,31 @@ class FrontendController extends \YiiMan\YiiBasics\lib\Controller
         ]);
     }
 
+    /**
+     * Finds the User model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param  integer  $id
+     * @return User the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($this->model = User::findOne($id)) !== null) {
+            return $this->model;
+        }
 
-    public function actionRegister(){
-    	return $this->render( 'register');
+        throw new NotFoundHttpException(Yii::t('user', 'The requested page does not exist.'));
     }
-    
+
+    public function actionRegister()
+    {
+        return $this->render('register');
+    }
+
     /**
      * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -114,43 +135,28 @@ class FrontendController extends \YiiMan\YiiBasics\lib\Controller
         if ($model->load(Yii::$app->request->post())) {
 
             if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
             }
         }
 
         return $this->render('update', [
             'model' => $model,
-            'jobs' => $jobs,
+            'jobs'  => $jobs,
 
         ]);
     }
 
-    /**
-     * Finds the User model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return User the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
+    public function init()
     {
-        if (($this->model = User::findOne($id)) !== null) {
-            return $this->model;
-        }
-
-        throw new NotFoundHttpException(Yii::t('user', 'The requested page does not exist.'));
+        $this->model = new SearchUser();
     }
-
 
     protected function upload()
     {
 
 
-    }
-
-
-    public function init()
-    {
-        $this->model = new SearchUser();
     }
 }

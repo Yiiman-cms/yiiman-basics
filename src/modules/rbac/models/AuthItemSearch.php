@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\rbac\models;
 
@@ -8,12 +15,17 @@ use yii\rbac\Item;
 
 /**
  * @author John Martin <john.itvn@gmail.com>
- * @since 1.0.0
+ * @since  1.0.0
  */
 abstract class AuthItemSearch extends AuthItem
 {
 
     public $module;
+
+    public static function find($name)
+    {
+        throw new \yii\base\Exception('Not support find() method in this object');
+    }
 
     /**
      * @inheritdoc
@@ -22,18 +34,22 @@ abstract class AuthItemSearch extends AuthItem
     {
         return
             [
-                [['name', 'description', 'module_en', 'module_fa','module'], 'safe'],
+                [
+                    [
+                        'name',
+                        'description',
+                        'module_en',
+                        'module_fa',
+                        'module'
+                    ],
+                    'safe'
+                ],
             ];
-    }
-
-    public static function find($name)
-    {
-        throw new \yii\base\Exception('Not support find() method in this object');
     }
 
     /**
      * Search authitem
-     * @param array $params
+     * @param  array  $params
      * @return \yii\data\ActiveDataProvider|\yii\data\ArrayDataProvider
      */
     public function search($params)
@@ -49,8 +65,11 @@ abstract class AuthItemSearch extends AuthItem
             $search = strtolower(trim($this->name));
             $desc = strtolower(trim($this->description));
             $module = strtolower(trim($this->module));
-            $items = array_filter($items, function ($item) use ($search, $desc,$module) {
-                return (empty($search) || strpos(strtolower($item->name), $search) !== false) && (empty($desc) || strpos(strtolower($item->description), $desc) !== false)&& (empty($module) || strpos(strtolower($item->module_fa), $module) !== false);
+            $items = array_filter($items, function ($item) use ($search, $desc, $module) {
+                return (empty($search) || strpos(strtolower($item->name),
+                            $search) !== false) && (empty($desc) || strpos(strtolower($item->description),
+                            $desc) !== false) && (empty($module) || strpos(strtolower($item->module_fa),
+                            $module) !== false);
             });
         }
         return new ArrayDataProvider([

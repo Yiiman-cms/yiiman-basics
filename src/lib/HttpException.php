@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Copyright (c) 2018-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
@@ -11,10 +11,10 @@ namespace YiiMan\YiiBasics\lib;
 
 class HttpException extends BaseRuntimeException
 {
-	public function getName()
+    public function getName()
     {
         return 'HttpException';
-    }	
+    }
 }
 
 ?>

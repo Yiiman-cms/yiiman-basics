@@ -1,8 +1,10 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
- * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * Copyright (c) 2008-2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
  */
 
 namespace YiiMan\YiiBasics\lib\mail;
@@ -13,9 +15,7 @@ use yii\mail\BaseMailer;
 
 /**
  * Mailer implements a mailer based on SwiftMailer.
- *
  * To use Mailer, you should configure it in the application configuration like the following:
- *
  * ```php
  * [
  *     'components' => [
@@ -35,14 +35,11 @@ use yii\mail\BaseMailer;
  *     // ...
  * ],
  * ```
- *
  * You may also skip the configuration of the [[transport]] property. In that case, the default
  * `\Swift_SendmailTransport` transport will be used to send emails.
- *
  * You specify the transport constructor arguments using 'constructArgs' key in the config.
  * You can also specify the list of plugins, which should be registered to the transport using
  * 'plugins' key. For example:
- *
  * ```php
  * 'transport' => [
  *     'class' => 'Swift_SmtpTransport',
@@ -55,9 +52,7 @@ use yii\mail\BaseMailer;
  *     ],
  * ],
  * ```
- *
  * To send an email, you may use the following code:
- *
  * ```php
  * Yii::$app->mailer->compose('contact/html', ['contactForm' => $form])
  *     ->setFrom('from@domain.com')
@@ -65,15 +60,12 @@ use yii\mail\BaseMailer;
  *     ->setSubject($form->subject)
  *     ->send();
  * ```
- *
- * @see http://swiftmailer.org
- *
- * @property array|\Swift_Mailer $swiftMailer Swift mailer instance or array configuration. This property is
+ * @see    http://swiftmailer.org
+ * @property array|\Swift_Mailer    $swiftMailer Swift mailer instance or array configuration. This property is
  * read-only.
- * @property array|\Swift_Transport $transport This property is read-only.
- *
+ * @property array|\Swift_Transport $transport   This property is read-only.
  * @author Paul Klimov <klimov.paul@gmail.com>
- * @since 2.0
+ * @since  2.0
  */
 class Mailer extends BaseMailer
 {
@@ -84,7 +76,7 @@ class Mailer extends BaseMailer
     /**
      * @var bool whether to enable writing of the SwiftMailer internal logs using Yii log mechanism.
      * If enabled [[Logger]] plugin will be attached to the [[transport]] for this purpose.
-     * @see Logger
+     * @see   Logger
      * @since 2.0.4
      */
     public $enableSwiftMailerLogging = false;
@@ -98,6 +90,20 @@ class Mailer extends BaseMailer
      */
     private $_transport = [];
 
+    /**
+     * @inheritdoc
+     */
+    protected function sendMessage($message)
+    {
+        /* @var $message Message */
+        $address = $message->getTo();
+        if (is_array($address)) {
+            $address = implode(', ', array_keys($address));
+        }
+        Yii::info('Sending email "'.$message->getSubject().'" to "'.$address.'"', __METHOD__);
+
+        return $this->getSwiftMailer()->send($message->getSwiftMessage()) > 0;
+    }
 
     /**
      * @return array|\Swift_Mailer Swift mailer instance or array configuration.
@@ -117,16 +123,12 @@ class Mailer extends BaseMailer
     }
 
     /**
-     * @param array|\Swift_Transport $transport
-     * @throws InvalidConfigException on invalid argument.
+     * Creates Swift mailer instance.
+     * @return \Swift_Mailer mailer instance.
      */
-    public function setTransport($transport)
+    protected function createSwiftMailer()
     {
-        if (!is_array($transport) && !is_object($transport)) {
-            throw new InvalidConfigException('"' . get_class($this) . '::transport" should be either object or array, "' . gettype($transport) . '" given.');
-        }
-        $this->_transport = $transport;
-        $this->_swiftMailer = null;
+        return new \Swift_Mailer($this->getTransport());
     }
 
     /**
@@ -142,34 +144,23 @@ class Mailer extends BaseMailer
     }
 
     /**
-     * @inheritdoc
+     * @param  array|\Swift_Transport  $transport
+     * @throws InvalidConfigException on invalid argument.
      */
-    protected function sendMessage($message)
+    public function setTransport($transport)
     {
-        /* @var $message Message */
-        $address = $message->getTo();
-        if (is_array($address)) {
-            $address = implode(', ', array_keys($address));
+        if (!is_array($transport) && !is_object($transport)) {
+            throw new InvalidConfigException('"'.get_class($this).'::transport" should be either object or array, "'.gettype($transport).'" given.');
         }
-        Yii::info('Sending email "' . $message->getSubject() . '" to "' . $address . '"', __METHOD__);
-
-        return $this->getSwiftMailer()->send($message->getSwiftMessage()) > 0;
-    }
-
-    /**
-     * Creates Swift mailer instance.
-     * @return \Swift_Mailer mailer instance.
-     */
-    protected function createSwiftMailer()
-    {
-        return new \Swift_Mailer($this->getTransport());
+        $this->_transport = $transport;
+        $this->_swiftMailer = null;
     }
 
     /**
      * Creates email transport instance by its array configuration.
-     * @param array $config transport configuration.
-     * @throws \yii\base\InvalidConfigException on invalid transport configuration.
+     * @param  array  $config  transport configuration.
      * @return \Swift_Transport transport instance.
+     * @throws \yii\base\InvalidConfigException on invalid transport configuration.
      */
     protected function createTransport(array $config)
     {
@@ -185,7 +176,7 @@ class Mailer extends BaseMailer
 
         if ($this->enableSwiftMailerLogging) {
             $plugins[] = [
-                'class' => 'Swift_Plugins_LoggerPlugin',
+                'class'         => 'Swift_Plugins_LoggerPlugin',
                 'constructArgs' => [
                     [
                         'class' => 'yii\swiftmailer\Logger'
@@ -210,7 +201,7 @@ class Mailer extends BaseMailer
 
     /**
      * Creates Swift library object, from given array configuration.
-     * @param array $config object configuration
+     * @param  array  $config  object configuration
      * @return Object created object
      * @throws \yii\base\InvalidConfigException on invalid configuration.
      */
@@ -244,11 +235,11 @@ class Mailer extends BaseMailer
                 if ($reflection->hasProperty($name) && $reflection->getProperty($name)->isPublic()) {
                     $object->$name = $value;
                 } else {
-                    $setter = 'set' . $name;
+                    $setter = 'set'.$name;
                     if ($reflection->hasMethod($setter) || $reflection->hasMethod('__call')) {
                         $object->$setter($value);
                     } else {
-                        throw new InvalidConfigException('Setting unknown property: ' . $className . '::' . $name);
+                        throw new InvalidConfigException('Setting unknown property: '.$className.'::'.$name);
                     }
                 }
             }

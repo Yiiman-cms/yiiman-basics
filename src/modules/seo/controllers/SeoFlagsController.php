@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\seo\controllers;
 
@@ -12,11 +19,13 @@ use yii\filters\VerbFilter;
 /**
  * SeoFlagsController implements the CRUD actions for SeoFlags model.
  */
-class SeoFlagsController extends \YiiMan\YiiBasics\lib\Controller{
-	/**
-	*
-	* @var $model SearchSeoFlags	*/
-	public $model;
+class SeoFlagsController extends \YiiMan\YiiBasics\lib\Controller
+{
+    /**
+     * @var $model SearchSeoFlags
+     */
+    public $model;
+
     /**
      * {@inheritdoc}
      */
@@ -24,7 +33,7 @@ class SeoFlagsController extends \YiiMan\YiiBasics\lib\Controller{
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class'   => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -42,14 +51,14 @@ class SeoFlagsController extends \YiiMan\YiiBasics\lib\Controller{
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
      * Displays a single SeoFlags model.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -58,6 +67,22 @@ class SeoFlagsController extends \YiiMan\YiiBasics\lib\Controller{
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+    }
+
+    /**
+     * Finds the SeoFlags model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param  integer  $id
+     * @return SeoFlags the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id, $lang = null)
+    {
+        if (($this->model = SeoFlags::findOne($id)) !== null) {
+            return $this->model;
+        }
+
+        throw new NotFoundHttpException(Yii::t('seo', 'The requested page does not exist.'));
     }
 
     /**
@@ -70,9 +95,12 @@ class SeoFlagsController extends \YiiMan\YiiBasics\lib\Controller{
         $model = new $this->model();
 
         if ($model->load(Yii::$app->request->post())) {
-			if($model->save()){
-				return $this->redirect(['view', 'id' => $model->id]);
-			}
+            if ($model->save()) {
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
+            }
         }
 
         return $this->render('create', [
@@ -83,18 +111,21 @@ class SeoFlagsController extends \YiiMan\YiiBasics\lib\Controller{
     /**
      * Updates an existing SeoFlags model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
-        $model=$this->findModel($id);
+        $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-			if( $model->save()){
-				return $this->redirect(['view', 'id' => $model->id]);
-			}
+            if ($model->save()) {
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
+            }
         }
 
         return $this->render('update', [
@@ -105,7 +136,7 @@ class SeoFlagsController extends \YiiMan\YiiBasics\lib\Controller{
     /**
      * Deletes an existing SeoFlags model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -116,32 +147,15 @@ class SeoFlagsController extends \YiiMan\YiiBasics\lib\Controller{
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the SeoFlags model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return SeoFlags the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id,$lang=null)
+    public function init()
     {
-        if (($this->model = SeoFlags::findOne($id)) !== null) {
-            return $this->model;
-        }
-
-        throw new NotFoundHttpException(Yii::t('seo', 'The requested page does not exist.'));
+        parent::init();
+        $this->model = new SearchSeoFlags();
     }
 
+    protected function upload()
+    {
 
 
-	protected function upload(){
-	
-	
-	}
-
-
-	public function init(){
-        parent::init();
-		$this->model=new SearchSeoFlags();
-	}
+    }
 }

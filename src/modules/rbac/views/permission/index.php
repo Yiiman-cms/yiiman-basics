@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use johnitvn\ajaxcrud\CrudAsset;
 use kartik\grid\GridView;
@@ -17,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
     Yii::t('rbac', 'ثبت نقش های سیستمی'),
     'success',
     null,
-    Yii::$app->Options->BackendUrl . '/rbac/create-permissions/index'
+    Yii::$app->Options->BackendUrl.'/rbac/create-permissions/index'
 );
 ?>
 <div class="auth-item-index">
@@ -28,26 +35,33 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="card card-nav-tabs" style="margin-bottom: 20px;padding: 0px">
                         <div class="card-body " style="padding: 0">
                             <h3 class="text-center">جست و جو</h3>
-                            <form action="<?= Yii::$app->urlManager->createUrl(['/rbac/permission/index']) ?>" method="get">
+                            <form action="<?= Yii::$app->urlManager->createUrl(['/rbac/permission/index']) ?>"
+                                  method="get">
                                 <div class="row">
                                     <div class="col-md-12 pull-right">
 
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <?php
-                                                $attr='name';
+                                                $attr = 'name';
                                                 ?>
                                                 <label for="<?= $attr ?>">بخشی از نام مجوز</label>
-                                                <input type="text" name="PermissionSearch[<?= $attr ?>]" id="<?= $attr ?>" class="form-control" value="<?= !empty($_GET['PermissionSearch'][$attr])?$_GET['PermissionSearch'][$attr]:'' ?>" title="">
+                                                <input type="text" name="PermissionSearch[<?= $attr ?>]"
+                                                       id="<?= $attr ?>" class="form-control"
+                                                       value="<?= !empty($_GET['PermissionSearch'][$attr]) ? $_GET['PermissionSearch'][$attr] : '' ?>"
+                                                       title="">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <?php
-                                                $attr='module';
+                                                $attr = 'module';
                                                 ?>
                                                 <label for="<?= $attr ?>">بخشی از نام ماژول</label>
-                                                <input type="text" name="PermissionSearch[<?= $attr ?>]" id="<?= $attr ?>" class="form-control" value="<?= !empty($_GET['PermissionSearch'][$attr])?$_GET['PermissionSearch'][$attr]:'' ?>" title="">
+                                                <input type="text" name="PermissionSearch[<?= $attr ?>]"
+                                                       id="<?= $attr ?>" class="form-control"
+                                                       value="<?= !empty($_GET['PermissionSearch'][$attr]) ? $_GET['PermissionSearch'][$attr] : '' ?>"
+                                                       title="">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -57,7 +71,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 </button>
                                             </div>
                                         </div>
-
 
 
                                     </div>
@@ -95,13 +108,13 @@ padding: 0;"><?= 'مجوز های بخش '.(empty($array[0]->module_fa) ? $array
                             if ($count == 1) {
                                 echo '<div class="row">';
                             }
-                            if ($count!=1 && $count!=4){
-                                $padding='padding:2px';
-                            }else{
-                                if ($count==1){
-                                    $padding='padding-left:2px;padding-top:2px';
-                                }else{
-                                    $padding='padding-right:2px;padding-top:2px';
+                            if ($count != 1 && $count != 4) {
+                                $padding = 'padding:2px';
+                            } else {
+                                if ($count == 1) {
+                                    $padding = 'padding-left:2px;padding-top:2px';
+                                } else {
+                                    $padding = 'padding-right:2px;padding-top:2px';
                                 }
                             }
                             ?>
@@ -110,7 +123,7 @@ padding: 0;"><?= 'مجوز های بخش '.(empty($array[0]->module_fa) ? $array
                                     <div class="card-body " style="padding: 1px;">
                                         <p style="font-weight: 900;
 text-align: center;line-break: anywhere;">
-                                            <?= $out=$model->name  ?>
+                                            <?= $out = $model->name ?>
                                         </p>
                                         <p style="text-align: center;
 font-size: 10px;

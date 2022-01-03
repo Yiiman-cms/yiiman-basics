@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\rbac\models;
 
@@ -17,8 +24,21 @@ class RoleSearch extends Role
     public function rules()
     {
         return [
-            [['id', 'status'], 'integer'],
-            [['name', 'description', 'RegisterTime'], 'safe'],
+            [
+                [
+                    'id',
+                    'status'
+                ],
+                'integer'
+            ],
+            [
+                [
+                    'name',
+                    'description',
+                    'RegisterTime'
+                ],
+                'safe'
+            ],
         ];
     }
 
@@ -33,9 +53,7 @@ class RoleSearch extends Role
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
@@ -45,7 +63,7 @@ class RoleSearch extends Role
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+            'query'      => $query,
             'pagination' => [
                 'pageSize' => 10,
             ],
@@ -59,24 +77,37 @@ class RoleSearch extends Role
         //    return $dataProvider;
         //}
 
-        $startDate=null;
-        $endDate=null;
+        $startDate = null;
+        $endDate = null;
         if ($this->RegisterTime) {
-            $gdate=Yii::$app->functions->convertdate( $this->RegisterTime);
-            $startDate=$gdate.' 00:00:00';
-            $endDate=$gdate.' 23:59:59';
+            $gdate = Yii::$app->functions->convertdate($this->RegisterTime);
+            $startDate = $gdate.' 00:00:00';
+            $endDate = $gdate.' 23:59:59';
         }
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            'id'     => $this->id,
             //'RegisterTime' => $this->RegisterTime,
             'status' => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-        ->andFilterWhere(['like', 'description', $this->description])
-        ->andFilterWhere(['between', 'RegisterTime', $startDate, $endDate]);
+        $query->andFilterWhere([
+            'like',
+            'name',
+            $this->name
+        ])
+            ->andFilterWhere([
+                'like',
+                'description',
+                $this->description
+            ])
+            ->andFilterWhere([
+                'between',
+                'RegisterTime',
+                $startDate,
+                $endDate
+            ]);
 
         return $dataProvider;
     }

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\parameters\models;
 
@@ -12,13 +19,12 @@ use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%module_parameters}}".
- *
- * @property int $id
- * @property int $private مقادیر مخفی از دید ویرایشگر های متن
- * @property int $protected محافظت شده(توسط کاربران قابل حذف نیست و از پارامتر های سیستم به حساب می آید)
- * @property string $key نام کلید
- * @property string $val مقدار داخل کلید
- * @property string $editor آیا از ادیتور برای ویرایش این مقدار استفاده شود؟
+ * @property int    $id
+ * @property int    $private     مقادیر مخفی از دید ویرایشگر های متن
+ * @property int    $protected   محافظت شده(توسط کاربران قابل حذف نیست و از پارامتر های سیستم به حساب می آید)
+ * @property string $key         نام کلید
+ * @property string $val         مقدار داخل کلید
+ * @property string $editor      آیا از ادیتور برای ویرایش این مقدار استفاده شود؟
  * @property string $description توضیحات کوتاه در مورد این کلید
  */
 class Parameters extends \YiiMan\YiiBasics\lib\ActiveRecord
@@ -45,31 +51,6 @@ class Parameters extends \YiiMan\YiiBasics\lib\ActiveRecord
         return '{{%module_parameters}}';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['key', 'val'], 'required'],
-            [['key', 'val', 'description'], 'string', 'max' => 255],
-            [['protected', 'private','editor'], 'integer']
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => Yii::t('parameters', 'ID'),
-            'key' => Yii::t('parameters', 'نام کلید'),
-            'val' => Yii::t('parameters', 'مقدار داخل کلید'),
-            'description' => Yii::t('parameters', 'توضیحات کوتاه در مورد این کلید'),
-        ];
-    }
-
     public static function filter($content)
     {
 
@@ -78,7 +59,8 @@ class Parameters extends \YiiMan\YiiBasics\lib\ActiveRecord
         // < Get Tag Parameters >
         {
 
-            preg_match_all('/<systemparameter name="(.+?)" data-component-.+? (.+?)>.+?<\/systemparameter>/s', $content, $matches, PREG_SET_ORDER);
+            preg_match_all('/<systemparameter name="(.+?)" data-component-.+? (.+?)>.+?<\/systemparameter>/s', $content,
+                $matches, PREG_SET_ORDER);
 //            echo '<pre>';
 //            var_dump($matches);
 //            var_dump($content);
@@ -94,7 +76,7 @@ class Parameters extends \YiiMan\YiiBasics\lib\ActiveRecord
                 if (!empty(self::$functions[$paramName])) {
                     if (!empty(self::$functions[$paramName]['fields'])) {
                         $countNumber = 1;
-                        $count=count(self::$functions[$paramName]['fields']);
+                        $count = count(self::$functions[$paramName]['fields']);
                         foreach (self::$functions[$paramName]['fields'] as $pName => $pdetails) {
                             preg_match('/'.$pName.'="(.+?)"/', $tags, $pMatch);
                             if (!empty($pMatch)) {
@@ -102,16 +84,16 @@ class Parameters extends \YiiMan\YiiBasics\lib\ActiveRecord
                             } else {
                                 $Functionparams .= '""';
                             }
-                            if ($countNumber<$count){
-                                $Functionparams .=',';
+                            if ($countNumber < $count) {
+                                $Functionparams .= ',';
                             }
-                            $countNumber ++;
+                            $countNumber++;
                         }
                     }
 
                     // < Execute Parameter function >
                     {
-                        $callback=" \$replace= self::\$functions[\$paramName]['val']( " . $Functionparams . " ); ";
+                        $callback = " \$replace= self::\$functions[\$paramName]['val']( ".$Functionparams." ); ";
                         eval($callback);
 
                         $content = str_replace($fullTag, $replace, $content);
@@ -119,11 +101,11 @@ class Parameters extends \YiiMan\YiiBasics\lib\ActiveRecord
                     // </ Execute Parameter function >
                 }
 
-                if ($paramName=='form'){
+                if ($paramName == 'form') {
 
                     preg_match('/idmodel="(.+?)"/', $tags, $pMatch);
-                    $id=$pMatch[1];
-                    $form=FormRenderWidget::widget(['id'=>$id]);
+                    $id = $pMatch[1];
+                    $form = FormRenderWidget::widget(['id' => $id]);
                     $content = str_replace($fullTag, $form, $content);
                 }
 
@@ -139,7 +121,7 @@ class Parameters extends \YiiMan\YiiBasics\lib\ActiveRecord
 
             if (!empty($model)) {
                 foreach ($model as $item) {
-                    self::$regexFind[] = '{{' . $item['key'] . '}}';
+                    self::$regexFind[] = '{{'.$item['key'].'}}';
                     self::$regexReplace[] = $item['val'];
                 }
             }
@@ -157,7 +139,7 @@ class Parameters extends \YiiMan\YiiBasics\lib\ActiveRecord
             if (!empty(self::$functions)) {
                 if (empty(self::$regexFunctionFind)) {
                     foreach (self::$functions as $item) {
-                        self::$regexFunctionFind[$item['key']] = '{{{' . $item['key'] . '}}}';
+                        self::$regexFunctionFind[$item['key']] = '{{{'.$item['key'].'}}}';
                         self::$regexFunctionVal[$item['key']] = $item['val'];
                     }
                 }
@@ -174,18 +156,22 @@ class Parameters extends \YiiMan\YiiBasics\lib\ActiveRecord
                         $variables = explode(']', $match);
                         unset($variables[(count($variables) - 1)]);
                         foreach ($variables as $k => $v) {
-                            $variables[$k] = trim(str_replace(['{{{' . $paramName . ' [', '[', ']'], '', $variables[$k]));
+                            $variables[$k] = trim(str_replace([
+                                '{{{'.$paramName.' [',
+                                '[',
+                                ']'
+                            ], '', $variables[$k]));
 
                         }
                         $vi = '';
                         foreach ($variables as $kk => $v) {
-                            $vi .= '"' . $v . '"';
+                            $vi .= '"'.$v.'"';
                             if (!empty($variables[($kk + 1)])) {
                                 $vi .= ',';
                             }
                         }
 
-                        eval(" \$replace= self::\$regexFunctionVal[\$paramName]( " . $vi . " ); ");
+                        eval(" \$replace= self::\$regexFunctionVal[\$paramName]( ".$vi." ); ");
 
                         $content = str_replace($match, $replace, $content);
                     }
@@ -197,52 +183,13 @@ class Parameters extends \YiiMan\YiiBasics\lib\ActiveRecord
         // </ function Regexes >
 
 
-
         return $content;
 
     }
 
-
-    /**
-     * اطلاعات یک پارامتر را به شما بازگردانی میکند
-     * @param $key
-     * @return string
-     */
-    public static function getParameter($key)
-    {
-        self::loadParameters();
-
-        if (!empty(self::$Parameters[$key])) {
-            return self::$Parameters[$key]['val'];
-        } else {
-            if (!empty(self::$statics[$key])) {
-                $model = new Parameters();
-                $model->key = $key;
-                $model->val = (string)self::$statics[$key]['val'];
-                $model->description = !empty(self::$statics[$key]['description']) ? self::$statics[$key]['description'] : '';
-                $model->protected = !empty(self::$statics[$key]['protected']) ? 1 : 0;
-                $model->private = !empty(self::$statics[$key]['private']) ? 1 : 0;
-                if ($model->save()) {
-
-                    self::$Parameters[$key] = self::$statics[$key];
-                }
-                return self::$statics[$key]['val'];
-            }
-
-
-        }
-
-
-        return '';
-    }
-
     /**
      * آرایه ای شامل همه ی پارامتر های ثبت شده بر میگرداند
-     *
-     *
      * این آرایه مشابه آرایه ی ذیل است:
-     *
-     *
      * [
      *      [
      *          'description'=>'',
@@ -255,9 +202,7 @@ class Parameters extends \YiiMan\YiiBasics\lib\ActiveRecord
      *          'val'=>'',
      *      ],
      * ]
-     *
-     *
-     * @param bool $withFunctions
+     * @param  bool  $withFunctions
      * @return array
      */
     public static function getAllParameters($withFunctions = false, $force = false)
@@ -265,52 +210,6 @@ class Parameters extends \YiiMan\YiiBasics\lib\ActiveRecord
         self::loadParameters($withFunctions, $force);
 
         return ArrayHelper::merge(self::$statics, self::$Parameters);
-    }
-
-
-    /**
-     * آرایه ای شامل پارامتر های مدنظر که به صورت یکجا ثبت میشود
-     * این آرایه ها در هر جای سیستم قابل بازخوانی هستند، همچنین به طور خودکار بر روی ویجت های ورود محتوی برای استفاده درج میشوند
-     *
-     *
-     * Sample Array:
-     *
-     *
-     * [
-     *      [
-     *          'description'=>'',
-     *          'key'=>'',
-     *          'val'=>''
-     *      ],
-     *      [
-     *          'description'=>'',
-     *          'key'=>'',
-     *          'val'=>'',
-     *      ],
-     * ]
-     *
-     *
-     * @param $array
-     */
-    public static function addParameters($array)
-    {
-        foreach ($array as $item) {
-            if (empty($item['function'])) {
-                self::$statics[$item['key']] =
-                    [
-                        'val' => $item['val'],
-                        'description' => !empty($item['description']) ? $item['description'] : '',
-                        'protected' => 1,
-                        'key' => $item['key'],
-                        'editor' => !empty($item['editor'])?$item['editor']:0,
-                        'private' => !empty($item['private']) ? $item['private'] : '',
-                    ];
-            } else {
-                self::$functions[$item['key']] = $item;
-            }
-        }
-        unset($app);
-
     }
 
     private static function loadParameters($withFunction = false, $force = false)
@@ -338,5 +237,123 @@ class Parameters extends \YiiMan\YiiBasics\lib\ActiveRecord
 
 
         }
+    }
+
+    /**
+     * اطلاعات یک پارامتر را به شما بازگردانی میکند
+     * @param $key
+     * @return string
+     */
+    public static function getParameter($key)
+    {
+        self::loadParameters();
+
+        if (!empty(self::$Parameters[$key])) {
+            return self::$Parameters[$key]['val'];
+        } else {
+            if (!empty(self::$statics[$key])) {
+                $model = new Parameters();
+                $model->key = $key;
+                $model->val = (string) self::$statics[$key]['val'];
+                $model->description = !empty(self::$statics[$key]['description']) ? self::$statics[$key]['description'] : '';
+                $model->protected = !empty(self::$statics[$key]['protected']) ? 1 : 0;
+                $model->private = !empty(self::$statics[$key]['private']) ? 1 : 0;
+                if ($model->save()) {
+
+                    self::$Parameters[$key] = self::$statics[$key];
+                }
+                return self::$statics[$key]['val'];
+            }
+
+
+        }
+
+
+        return '';
+    }
+
+    /**
+     * آرایه ای شامل پارامتر های مدنظر که به صورت یکجا ثبت میشود
+     * این آرایه ها در هر جای سیستم قابل بازخوانی هستند، همچنین به طور خودکار بر روی ویجت های ورود محتوی برای استفاده درج میشوند
+     * Sample Array:
+     * [
+     *      [
+     *          'description'=>'',
+     *          'key'=>'',
+     *          'val'=>''
+     *      ],
+     *      [
+     *          'description'=>'',
+     *          'key'=>'',
+     *          'val'=>'',
+     *      ],
+     * ]
+     * @param $array
+     */
+    public static function addParameters($array)
+    {
+        foreach ($array as $item) {
+            if (empty($item['function'])) {
+                self::$statics[$item['key']] =
+                    [
+                        'val'         => $item['val'],
+                        'description' => !empty($item['description']) ? $item['description'] : '',
+                        'protected'   => 1,
+                        'key'         => $item['key'],
+                        'editor'      => !empty($item['editor']) ? $item['editor'] : 0,
+                        'private'     => !empty($item['private']) ? $item['private'] : '',
+                    ];
+            } else {
+                self::$functions[$item['key']] = $item;
+            }
+        }
+        unset($app);
+
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
+        return [
+            [
+                [
+                    'key',
+                    'val'
+                ],
+                'required'
+            ],
+            [
+                [
+                    'key',
+                    'val',
+                    'description'
+                ],
+                'string',
+                'max' => 255
+            ],
+            [
+                [
+                    'protected',
+                    'private',
+                    'editor'
+                ],
+                'integer'
+            ]
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id'          => Yii::t('parameters', 'ID'),
+            'key'         => Yii::t('parameters', 'نام کلید'),
+            'val'         => Yii::t('parameters', 'مقدار داخل کلید'),
+            'description' => Yii::t('parameters', 'توضیحات کوتاه در مورد این کلید'),
+        ];
     }
 }

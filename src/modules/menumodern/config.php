@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\lib\Triggers;
 use yii\base\Event;
@@ -9,23 +16,23 @@ $dir = basename(__DIR__);
 
 $conf =
     [
-        'name' => $dir,
-        'name_fa' => 'مدیریت مگامنو',
-        'type' => ['backend'],
-        'namespace' => 'YiiMan\YiiBasics\modules\\' . $dir,
-        'address' => '',
-        'menu' =>
+        'name'      => $dir,
+        'name_fa'   => 'مدیریت مگامنو',
+        'type'      => ['backend'],
+        'namespace' => 'YiiMan\YiiBasics\modules\\'.$dir,
+        'address'   => '',
+        'menu'      =>
             [
-                'name' => $dir,
+                'name'  => $dir,
                 'title' => 'Menu Manager',
-                'url' => $dir . '/index'
+                'url'   => $dir.'/index'
             ]
         ,
     ];
 
 /* < Hooks > */
 {
-    if (!defined('MTHJK_' . $dir)) {
+    if (!defined('MTHJK_'.$dir)) {
         /* </ Add translates > */
         {
             Event::on(
@@ -33,10 +40,10 @@ $conf =
                 Application::EVENT_BEFORE_REQUEST,
                 function () use ($conf) {
                     Yii::$app->i18n->translations[$conf['name']] = [
-                        'class' => 'yii\i18n\PhpMessageSource',
+                        'class'          => 'yii\i18n\PhpMessageSource',
                         'sourceLanguage' => 'en-US',
-                        'basePath' => '@system/modules/' . $conf['name'] . '/messages',
-                        'fileMap' => [
+                        'basePath'       => '@system/modules/'.$conf['name'].'/messages',
+                        'fileMap'        => [
                             $conf['name'] => 'module.php',
                         ],
                     ];
@@ -120,7 +127,7 @@ EOT;
 }
 /* </ Hooks > */
 
-if (!defined('MTHJK_' . $dir)) {
-    define('MTHJK_' . $dir, '1');
+if (!defined('MTHJK_'.$dir)) {
+    define('MTHJK_'.$dir, '1');
 }
 return $conf;

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\lib\Triggers;
 use yii\base\Event;
@@ -6,63 +13,62 @@ use yii\web\Application;
 
 $dir = basename(__DIR__);
 
-if (appName=='backend'){
-	/* < Config Urls > */
-	{
-		$urls =
-			[
-				[
-					'pattern'    => 'login' ,
-					'route'      => 'useradmin/login/index' ,
-					'normalizer' =>
-						[
-							// do not collapse consecutive slashes for this rule
-							'collapseSlashes' => false ,
-						] ,
-				] ,
-				[
-					'pattern'    => 'logout' ,
-					'route'      => 'useradmin/login/logout' ,
-					'normalizer' =>
-						[
-							// do not collapse consecutive slashes for this rule
-							'collapseSlashes' => false ,
-						] ,
-				] ,
-			
-			];
-		if ( empty( $components['urlManager']['rules'] ) ) {
-			$components['urlManager']['rules'] = $urls;
-		} else {
-			foreach ( $urls as $item ) {
-				$components['urlManager']['rules'][] = $item;
-			}
-		}
-	}
-	/* </ Config Urls > */
+if (appName == 'backend') {
+    /* < Config Urls > */
+    {
+        $urls =
+            [
+                [
+                    'pattern'    => 'login',
+                    'route'      => 'useradmin/login/index',
+                    'normalizer' =>
+                        [
+                            // do not collapse consecutive slashes for this rule
+                            'collapseSlashes' => false,
+                        ],
+                ],
+                [
+                    'pattern'    => 'logout',
+                    'route'      => 'useradmin/login/logout',
+                    'normalizer' =>
+                        [
+                            // do not collapse consecutive slashes for this rule
+                            'collapseSlashes' => false,
+                        ],
+                ],
+
+            ];
+        if (empty($components['urlManager']['rules'])) {
+            $components['urlManager']['rules'] = $urls;
+        } else {
+            foreach ($urls as $item) {
+                $components['urlManager']['rules'][] = $item;
+            }
+        }
+    }
+    /* </ Config Urls > */
 }
-	
-	
-	
-	$conf =
+
+
+$conf =
     [
-        'name' => $dir,
-        'type' => ['backend'],
-        'namespace' => 'YiiMan\YiiBasics\modules\\' . $dir,
-        'address' => '',
-        'menu' =>
+        'name'      => $dir,
+        'type'      => ['backend'],
+        'namespace' => 'YiiMan\YiiBasics\modules\\'.$dir,
+        'address'   => '',
+        'menu'      =>
 
             [
-                'name' => $dir,
+                'name'  => $dir,
                 'title' => 'کاربران ادمین',
-                'icon' => 'people'
+                'icon'  => 'people'
             ]
         ,
     ];
 
 /* < Hooks > */
 {
-    if (!defined('MTHJK_' . $dir)) {
+    if (!defined('MTHJK_'.$dir)) {
         /* </ Add translates > */
         {
             Event::on(
@@ -70,10 +76,10 @@ if (appName=='backend'){
                 Application::EVENT_BEFORE_REQUEST,
                 function () use ($conf) {
                     Yii::$app->i18n->translations[$conf['name']] = [
-                        'class' => 'yii\i18n\PhpMessageSource',
+                        'class'          => 'yii\i18n\PhpMessageSource',
                         'sourceLanguage' => 'fa-IR',
-                        'basePath' => '@system/modules/' . $conf['name'] . '/messages',
-                        'fileMap' => [
+                        'basePath'       => '@system/modules/'.$conf['name'].'/messages',
+                        'fileMap'        => [
                             $conf['name'] => 'module.php',
                         ],
                     ];
@@ -157,8 +163,8 @@ EOT;
 }
 /* </ Hooks > */
 
-if (!defined('MTHJK_' . $dir)) {
-    define('MTHJK_' . $dir, '1');
+if (!defined('MTHJK_'.$dir)) {
+    define('MTHJK_'.$dir, '1');
 }
 
 return $conf;

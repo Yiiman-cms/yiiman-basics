@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use yii\db\Schema;
 use yii\db\Migration;
@@ -19,12 +26,12 @@ class m220103_043528_module_ticket_departments extends Migration
         $this->createTable(
             '{{%module_ticket_departments}}',
             [
-                'id'=> $this->primaryKey(11),
-                'title'=> $this->string(255)->notNull()->comment('نام دپارتمان'),
-                'status'=> $this->tinyInteger(1)->notNull()->comment('وضعیت انتشار'),
-                'language'=> $this->integer(11)->null()->defaultValue(null),
-                'language_parent'=> $this->integer(11)->null()->defaultValue(null),
-            ],$tableOptions
+                'id'              => $this->primaryKey(11),
+                'title'           => $this->string(255)->notNull()->comment('نام دپارتمان'),
+                'status'          => $this->tinyInteger(1)->notNull()->comment('وضعیت انتشار'),
+                'language'        => $this->integer(11)->null()->defaultValue(null),
+                'language_parent' => $this->integer(11)->null()->defaultValue(null),
+            ], $tableOptions
         );
 
     }

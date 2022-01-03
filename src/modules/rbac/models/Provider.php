@@ -1,6 +1,6 @@
 <?php
-/*
- * Copyright (c) 2022.
+/**
+ * Copyright (c) 2022-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
@@ -11,7 +11,6 @@
  * Created by YiiMan TM.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
- *
  * Site:https://yiiman.ir
  * Date: 03/21/2020
  * Time: 13:07 PM
@@ -37,12 +36,12 @@ class Provider
     public static function checkPermissionFile()
     {
         $systemDir = Yii::getAlias('@system');
-        if (!realpath($systemDir . '/permissions')) {
-            @mkdir($systemDir . '/permissions');
+        if (!realpath($systemDir.'/permissions')) {
+            @mkdir($systemDir.'/permissions');
         }
 
-        if (!realpath($systemDir . '/permissions/RBAC.php')) {
-            $file = fopen($systemDir . '/permissions/RBAC.php', 'w+');
+        if (!realpath($systemDir.'/permissions/RBAC.php')) {
+            $file = fopen($systemDir.'/permissions/RBAC.php', 'w+');
             fwrite(
                 $file,
                 "<?php\n
@@ -61,38 +60,7 @@ class Provider
     {
         $systemDir = Yii::getAlias('@system');
 
-        return realpath($systemDir . '/permissions/RBAC.php');
-    }
-
-    public static function addPermission($name, $description, $rule = null, $module_en = '', $module_fa = '')
-    {
-        $auth = Yii::$app->authManager;
-        try {
-            if (empty($auth->getPermission($name))) {
-                $createPermission = $auth->createPermission($name);
-                $createPermission->description = $description;
-                $createPermission->module_en = $module_en;
-                $createPermission->module_fa = $module_fa;
-                if (!empty($rule)) {
-                    $rule = new  $rule;
-                    $auth->add($rule);
-                    $createPermission->ruleName = $rule->name;
-                }
-                $auth->add($createPermission);
-            }
-        } catch (\Exception $e) {
-            $createPermission = $auth->createPermission($name);
-            $createPermission->description = $description;
-            $createPermission->module_en = $module_en;
-            $createPermission->module_fa = $module_fa;
-            if (!empty($rule)) {
-                $rule = new  $rule;
-                $auth->add($rule);
-                $createPermission->ruleName = $rule->name;
-            }
-            $auth->add($createPermission);
-        }
-
+        return realpath($systemDir.'/permissions/RBAC.php');
     }
 
     public static function AllSystemPermissions()
@@ -105,10 +73,13 @@ class Provider
             foreach ($modules = Yii::$app->modules as $ModuleName => $item) {
                 if (is_array($item)) {
 
-                    $folder = str_replace(['YiiMan\YiiBasics\modules\\', '\Module'], '', $item['class']);
+                    $folder = str_replace([
+                        'YiiMan\YiiBasics\modules\\',
+                        '\Module'
+                    ], '', $item['class']);
                     if ($folder == $ModuleName) {
                         $controllerDirectory = realpath(
-                            Yii::getAlias('@system') . '/modules/' . $folder . '/controllers'
+                            Yii::getAlias('@system').'/modules/'.$folder.'/controllers'
                         );;
                         if ($controllerDirectory) {
                             $controllerDirs[$ModuleName] = $controllerDirectory;
@@ -117,13 +88,16 @@ class Provider
                 } else {
                     if (!empty($item->controllerNamespace)) {
                         $folder = str_replace(
-                            ['YiiMan\YiiBasics\modules\\', '\Module'],
+                            [
+                                'YiiMan\YiiBasics\modules\\',
+                                '\Module'
+                            ],
                             '',
                             $item->controllerNamespace
                         );
                         if ($folder == $ModuleName) {
                             $controllerDirectory = realpath(
-                                Yii::getAlias('@system') . '/modules/' . $folder . '/controllers'
+                                Yii::getAlias('@system').'/modules/'.$folder.'/controllers'
                             );
                             if ($controllerDirectory) {
                                 $controllerDirs[$ModuleName] = $controllerDirectory;
@@ -136,13 +110,13 @@ class Provider
 
                                 if ($slashCount > 0) {
 
-                                    $classes = include Yii::getAlias('@vendor') . '/autoload.php';
+                                    $classes = include Yii::getAlias('@vendor').'/autoload.php';
                                     $classes2 = $classes->getPrefixesPsr4();
 
-                                    $namespaceMap = str_replace('\controllers', '', $folder) . '\\';
+                                    $namespaceMap = str_replace('\controllers', '', $folder).'\\';
                                     if (!empty($path = $classes2[$namespaceMap])) {
                                         $controllerDirectory = realpath(
-                                            $path[0] . DIRECTORY_SEPARATOR . 'controllers'
+                                            $path[0].DIRECTORY_SEPARATOR.'controllers'
                                         );
                                     } else {
                                         throw new NotFoundHttpException('test');
@@ -150,10 +124,10 @@ class Provider
 
                                 }
                             } catch (\Exception $e) {
-                                $module = Yii::getAlias('@system') . '/modules/' . $root . '/controllers';
+                                $module = Yii::getAlias('@system').'/modules/'.$root.'/controllers';
                                 $folder = str_replace(explode('/', $folder)[0], '', $folder);
                                 $controllerDirectory = realpath(
-                                    $module . $folder
+                                    $module.$folder
                                 );
                             }
 
@@ -173,7 +147,7 @@ class Provider
 
             foreach ($aliases as $name => $alias) {
                 if (!is_array($alias)) {
-                    $controllerDirctory = realpath($alias . '/controllers');
+                    $controllerDirctory = realpath($alias.'/controllers');
                     if ($controllerDirctory) {
                         $controllerDirs[str_replace('@', '', $name)] = $controllerDirctory;
                     }
@@ -191,7 +165,7 @@ class Provider
 
                 // < set module access permission >
                 {
-                    $configFile = Yii::getAlias('@system') . '/modules/' . $moduleId . '/config.php';
+                    $configFile = Yii::getAlias('@system').'/modules/'.$moduleId.'/config.php';
                     if (realpath($configFile)) {
                         $configFile = include $configFile;
                         if (!empty($configFile['name_fa'])) {
@@ -204,7 +178,7 @@ class Provider
                     }
                     self::addPermission(
                         $moduleId,
-                        'دسترسی به بخش ' . $moduleId,
+                        'دسترسی به بخش '.$moduleId,
                         null,
                         $moduleId,
                         $name_fa
@@ -247,7 +221,7 @@ class Provider
 
 
                 if (!empty($controllers)) {
-                    $configFile = Yii::getAlias('@system') . '/modules/' . $moduleName . '/config.php';
+                    $configFile = Yii::getAlias('@system').'/modules/'.$moduleName.'/config.php';
                     if (realpath($configFile)) {
                         $configFile = include $configFile;
                         if (!empty($configFile['name_fa'])) {
@@ -267,13 +241,13 @@ class Provider
                                 //echo '<br>';
 
                                 self::addPermission(
-                                    $moduleName . '_' . $controllerName . '_' . $actionName,
-                                    $actionName . ' action in ' . $controllerName . ' controller in ' . $moduleName . ' module',
+                                    $moduleName.'_'.$controllerName.'_'.$actionName,
+                                    $actionName.' action in '.$controllerName.' controller in '.$moduleName.' module',
                                     null,
                                     $moduleName,
                                     $name_fa
                                 );
-                                self::assignToSuperadmin($moduleName . '_' . $controllerName . '_' . $actionName);
+                                self::assignToSuperadmin($moduleName.'_'.$controllerName.'_'.$actionName);
                             }
                         }
                     }
@@ -297,6 +271,23 @@ class Provider
 
 
         self::assignSuperAdminRole();
+    }
+
+    private static function createSuperAdminRole()
+    {
+        $superAdminRole = ModuleRbacAuthItem::findOne([
+            'name' => 'superadmin',
+            'type' => ModuleRbacAuthItem::TYPE_ROLE
+        ]);
+        if (empty($superAdminRole)) {
+            $superAdminRole = new ModuleRbacAuthItem();
+            $superAdminRole->type = $superAdminRole::TYPE_ROLE;
+            $superAdminRole->description = \Yii::t('rbac', 'Can access to all of the system modules');
+            $superAdminRole->name = 'superadmin';
+            $superAdminRole->created_at = time();
+            $superAdminRole->updated_at = time();
+            $superAdminRole->save();
+        }
     }
 
     private static function actionGetcontrollersandactions($controllerDir)
@@ -323,7 +314,7 @@ class Provider
         {
             $fulllist = [];
             foreach ($controllerlist as $controller):
-                $handle = fopen($controllerDir . '/' . $controller, "r");
+                $handle = fopen($controllerDir.'/'.$controller, "r");
                 if ($handle) {
                     while (($line = fgets($handle)) !== false) {
 
@@ -344,18 +335,35 @@ class Provider
         return $fulllist;
     }
 
-    private static function createSuperAdminRole()
+    public static function addPermission($name, $description, $rule = null, $module_en = '', $module_fa = '')
     {
-        $superAdminRole = ModuleRbacAuthItem::findOne(['name' => 'superadmin', 'type' => ModuleRbacAuthItem::TYPE_ROLE]);
-        if (empty($superAdminRole)) {
-            $superAdminRole = new ModuleRbacAuthItem();
-            $superAdminRole->type = $superAdminRole::TYPE_ROLE;
-            $superAdminRole->description = \Yii::t('rbac', 'Can access to all of the system modules');
-            $superAdminRole->name = 'superadmin';
-            $superAdminRole->created_at = time();
-            $superAdminRole->updated_at = time();
-            $superAdminRole->save();
+        $auth = Yii::$app->authManager;
+        try {
+            if (empty($auth->getPermission($name))) {
+                $createPermission = $auth->createPermission($name);
+                $createPermission->description = $description;
+                $createPermission->module_en = $module_en;
+                $createPermission->module_fa = $module_fa;
+                if (!empty($rule)) {
+                    $rule = new  $rule;
+                    $auth->add($rule);
+                    $createPermission->ruleName = $rule->name;
+                }
+                $auth->add($createPermission);
+            }
+        } catch (\Exception $e) {
+            $createPermission = $auth->createPermission($name);
+            $createPermission->description = $description;
+            $createPermission->module_en = $module_en;
+            $createPermission->module_fa = $module_fa;
+            if (!empty($rule)) {
+                $rule = new  $rule;
+                $auth->add($rule);
+                $createPermission->ruleName = $rule->name;
+            }
+            $auth->add($createPermission);
         }
+
     }
 
     private static function assignToSuperadmin($permissionName)
@@ -364,7 +372,10 @@ class Provider
 
         // < add item to role >
         {
-            $roleItem = ModuleRbacAuthItemChild::findOne(['parent' => 'superadmin', 'child' => $permissionName]);
+            $roleItem = ModuleRbacAuthItemChild::findOne([
+                'parent' => 'superadmin',
+                'child'  => $permissionName
+            ]);
             if (empty($roleItem)) {
                 $roleItem = new ModuleRbacAuthItemChild;
                 $roleItem->parent = 'superadmin';
@@ -378,7 +389,10 @@ class Provider
 
     private static function assignSuperAdminRole()
     {
-        $assignment = ModuleRbacAuthAssignment::findOne(['user_id' => 1, 'item_name' => 'superadmin']);
+        $assignment = ModuleRbacAuthAssignment::findOne([
+            'user_id' => 1,
+            'item_name' => 'superadmin'
+        ]);
         if (empty($assignment)) {
             $assignment = new ModuleRbacAuthAssignment;
             $assignment->item_name = 'superadmin';

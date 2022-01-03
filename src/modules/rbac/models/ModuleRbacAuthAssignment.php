@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\rbac\models;
 
@@ -10,11 +17,9 @@ use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%module_rbac_auth_assignment}}".
- *
- * @property string $item_name
- * @property string $user_id
- * @property int $created_at
- *
+ * @property string             $item_name
+ * @property string             $user_id
+ * @property int                $created_at
  * @property ModuleRbacAuthItem $itemName
  */
 class ModuleRbacAuthAssignment extends ActiveRecord
@@ -35,12 +40,47 @@ class ModuleRbacAuthAssignment extends ActiveRecord
     public function rules()
     {
         return [
-            [['item_name', 'user_id'], 'required'],
-            [['created_at'], 'safe'],
-            [['item_name', 'user_id'], 'string', 'max' => 64],
-            [['item_name', 'user_id'], 'unique', 'targetAttribute' => ['item_name', 'user_id']],
-            ['users', 'safe'],
-            [['item_name'], 'exist', 'skipOnError' => true, 'targetClass' => \YiiMan\YiiBasics\modules\rbac\models\ModuleRbacAuthItem::className(), 'targetAttribute' => ['item_name' => 'name']],
+            [
+                [
+                    'item_name',
+                    'user_id'
+                ],
+                'required'
+            ],
+            [
+                ['created_at'],
+                'safe'
+            ],
+            [
+                [
+                    'item_name',
+                    'user_id'
+                ],
+                'string',
+                'max' => 64
+            ],
+            [
+                [
+                    'item_name',
+                    'user_id'
+                ],
+                'unique',
+                'targetAttribute' => [
+                    'item_name',
+                    'user_id'
+                ]
+            ],
+            [
+                'users',
+                'safe'
+            ],
+            [
+                ['item_name'],
+                'exist',
+                'skipOnError'     => true,
+                'targetClass'     => \YiiMan\YiiBasics\modules\rbac\models\ModuleRbacAuthItem::className(),
+                'targetAttribute' => ['item_name' => 'name']
+            ],
         ];
     }
 
@@ -51,8 +91,8 @@ class ModuleRbacAuthAssignment extends ActiveRecord
     {
         return
             [
-                'item_name' => Yii::t('rbac', 'نقش'),
-                'user_id' => Yii::t('rbac', 'کاربران'),
+                'item_name'  => Yii::t('rbac', 'نقش'),
+                'user_id'    => Yii::t('rbac', 'کاربران'),
                 'created_at' => Yii::t('rbac', 'تاریخ ایجاد'),
             ];
     }
@@ -68,9 +108,9 @@ class ModuleRbacAuthAssignment extends ActiveRecord
     public function loadUsers()
     {
         $model = self::find()->select('user_id')->where(['item_name' => $this->item_name])->asArray()->all();
-        if (!empty($model)){
-            $uids=ArrayHelper::getColumn($model,'user_id');
-            $this->users=$uids;
+        if (!empty($model)) {
+            $uids = ArrayHelper::getColumn($model, 'user_id');
+            $this->users = $uids;
         }
     }
 }

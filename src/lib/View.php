@@ -1,5 +1,13 @@
 <?php
 /**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
+/**
  * View.php
  * @author Revin Roman http://phptime.ru
  */
@@ -48,7 +56,12 @@ class View extends \yii\web\View
     /**
      * @var array schemes that will be ignored during normalization url
      */
-    public $schemas = ['//', 'http://', 'https://', 'ftp://'];
+    public $schemas = [
+        '//',
+        'http://',
+        'https://',
+        'ftp://'
+    ];
 
     public function init()
     {
@@ -81,9 +94,9 @@ class View extends \yii\web\View
         echo strtr(
             $content,
             [
-                self::PH_HEAD => $this->renderHeadHtml(),
+                self::PH_HEAD       => $this->renderHeadHtml(),
                 self::PH_BODY_BEGIN => $this->renderBodyBeginHtml(),
-                self::PH_BODY_END => $this->renderBodyEndHtml($ajaxMode),
+                self::PH_BODY_END   => $this->renderBodyEndHtml($ajaxMode),
             ]
         );
 
@@ -108,7 +121,58 @@ class View extends \yii\web\View
         unset($this->assetBundles[$name]);
     }
 
+    /**
+     * Finds the view file based on the given view name.
+     * @param  string  $view     the view name or the [path alias](guide:concept-aliases) of the view file. Please refer to [[render()]]
+     *                           on how to specify this parameter.
+     * @param  object  $context  the context to be assigned to the view and can later be accessed via [[context]]
+     *                           in the view. If the context implements [[ViewContextInterface]], it may also be used to locate
+     *                           the view file corresponding to a relative view name.
+     * @return string the view file path. Note that the file may not exist.
+     * @throws InvalidCallException if a relative view name is given while there is no active context to
+     *                           determine the corresponding view file.
+     */
+    protected function findViewFile($view, $context = null)
+    {
+        $language = \Yii::$app->language;
 
+        if (strncmp($view, '@', 1) === 0) {
+            // e.g. "@app/views/main"
+            $file = \Yii::getAlias($view);
+        } elseif (strncmp($view, '//', 2) === 0) {
+
+            // e.g. "//layouts/main"
+            $file = \Yii::$app->getViewPath().DIRECTORY_SEPARATOR.ltrim($view, '/');
+        } elseif (strncmp($view, '/', 1) === 0) {
+            // e.g. "/site/index"
+            if (\Yii::$app->controller !== null) {
+                $file = \Yii::$app->controller->module->getViewPath().DIRECTORY_SEPARATOR.ltrim($view, '/');
+            } else {
+                throw new InvalidCallException("Unable to locate view file for view '$view': no active controller.");
+            }
+        } elseif ($context instanceof ViewContextInterface) {
+            if (realpath($context->getViewPath().DIRECTORY_SEPARATOR.$language.DIRECTORY_SEPARATOR.$view)) {
+                $file = $context->getViewPath().DIRECTORY_SEPARATOR.$language.DIRECTORY_SEPARATOR.$view;
+            } else {
+                $file = $context->getViewPath().DIRECTORY_SEPARATOR.$view;
+            }
+
+        } elseif (($currentViewFile = $this->getRequestedViewFile()) !== false) {
+            $file = dirname($currentViewFile).DIRECTORY_SEPARATOR.$view;
+        } else {
+            throw new InvalidCallException("Unable to resolve view file for view '$view': no active view context.");
+        }
+
+        if (pathinfo($file, PATHINFO_EXTENSION) !== '') {
+            return $file;
+        }
+        $path = $file.'.'.$this->defaultExtension;
+        if ($this->defaultExtension !== 'php' && !is_file($path)) {
+            $path = $file.'.php';
+        }
+
+        return $path;
+    }
 
     /**
      * @return self
@@ -129,17 +193,17 @@ class View extends \yii\web\View
 
                     $long_hash = '';
                     foreach ($files as $file => $html) {
-                        $file = \Yii::getAlias($this->base_path) . $file;
+                        $file = \Yii::getAlias($this->base_path).$file;
                         $hash = sha1_file($file);
                         $long_hash .= $hash;
                     }
 
-                    $js_minify_file = $this->minify_path . DIRECTORY_SEPARATOR . sha1($long_hash) . '.js';
+                    $js_minify_file = $this->minify_path.DIRECTORY_SEPARATOR.sha1($long_hash).'.js';
                     if (!file_exists($js_minify_file)) {
                         $js = '';
                         foreach ($files as $file => $html) {
-                            $file = \Yii::getAlias($this->base_path) . $file;
-                            $js .= file_get_contents($file) . ';' . PHP_EOL;
+                            $file = \Yii::getAlias($this->base_path).$file;
+                            $js .= file_get_contents($file).';'.PHP_EOL;
                         }
 
                         $js = (new \JSMin($js))->min();
@@ -162,70 +226,23 @@ class View extends \yii\web\View
         $result = null;
 
         if ('url(' === StringHelper::byteSubstr($url, 0, 4)) {
-            $url = str_replace(['url(\'', 'url(', '\')', ')'], '', $url);
+            $url = str_replace([
+                'url(\'',
+                'url(',
+                '\')',
+                ')'
+            ], '', $url);
 
-            if (StringHelper::byteSubstr($url, 0, 2) === '//')
+            if (StringHelper::byteSubstr($url, 0, 2) === '//') {
                 $url = preg_replace('|^//|', 'http://', $url, 1);
+            }
 
-            if (!empty($url))
+            if (!empty($url)) {
                 $result = file_get_contents($url);
+            }
         }
 
         return $result;
-    }
-
-
-    /**
-     * Finds the view file based on the given view name.
-     * @param string $view the view name or the [path alias](guide:concept-aliases) of the view file. Please refer to [[render()]]
-     * on how to specify this parameter.
-     * @param object $context the context to be assigned to the view and can later be accessed via [[context]]
-     * in the view. If the context implements [[ViewContextInterface]], it may also be used to locate
-     * the view file corresponding to a relative view name.
-     * @return string the view file path. Note that the file may not exist.
-     * @throws InvalidCallException if a relative view name is given while there is no active context to
-     * determine the corresponding view file.
-     */
-    protected function findViewFile($view, $context = null)
-    {
-        $language = \Yii::$app->language;
-
-        if (strncmp($view, '@', 1) === 0) {
-            // e.g. "@app/views/main"
-            $file = \Yii::getAlias($view);
-        } elseif (strncmp($view, '//', 2) === 0) {
-
-            // e.g. "//layouts/main"
-            $file = \Yii::$app->getViewPath() . DIRECTORY_SEPARATOR . ltrim($view, '/');
-        } elseif (strncmp($view, '/', 1) === 0) {
-            // e.g. "/site/index"
-            if (\Yii::$app->controller !== null) {
-                $file = \Yii::$app->controller->module->getViewPath() . DIRECTORY_SEPARATOR . ltrim($view, '/');
-            } else {
-                throw new InvalidCallException("Unable to locate view file for view '$view': no active controller.");
-            }
-        } elseif ($context instanceof ViewContextInterface) {
-            if (realpath($context->getViewPath() . DIRECTORY_SEPARATOR . $language . DIRECTORY_SEPARATOR . $view)) {
-                $file = $context->getViewPath() . DIRECTORY_SEPARATOR . $language . DIRECTORY_SEPARATOR . $view;
-            } else {
-                $file = $context->getViewPath() . DIRECTORY_SEPARATOR . $view;
-            }
-
-        } elseif (($currentViewFile = $this->getRequestedViewFile()) !== false) {
-            $file = dirname($currentViewFile) . DIRECTORY_SEPARATOR . $view;
-        } else {
-            throw new InvalidCallException("Unable to resolve view file for view '$view': no active view context.");
-        }
-
-        if (pathinfo($file, PATHINFO_EXTENSION) !== '') {
-            return $file;
-        }
-        $path = $file . '.' . $this->defaultExtension;
-        if ($this->defaultExtension !== 'php' && !is_file($path)) {
-            $path = $file . '.php';
-        }
-
-        return $path;
     }
 
 }

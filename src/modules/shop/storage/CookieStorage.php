@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\shop\storage;
 
@@ -36,25 +43,7 @@ class CookieStorage implements StorageInterface
     }
 
     /**
-     * @param CartItem[] $items
-     * @return void
-     */
-    public function save(array $items)
-    {
-        Yii::$app->response->cookies->add(new Cookie([
-            'name' => $this->params['key'],
-            'value' => Json::encode(array_map(function (CartItem $item) {
-                return [
-                    'id' => $item->getId(),
-                    'quantity' => $item->getQuantity(),
-                ];
-            }, $items)),
-            'expire' => time() + $this->params['expire'],
-        ]));
-    }
-
-    /**
-     * @param integer $productId
+     * @param  integer  $productId
      * @return object|null
      */
     private function findProduct($productId)
@@ -63,5 +52,23 @@ class CookieStorage implements StorageInterface
             ->where([$this->params['productFieldId'] => $productId])
             ->limit(1)
             ->one();
+    }
+
+    /**
+     * @param  CartItem[]  $items
+     * @return void
+     */
+    public function save(array $items)
+    {
+        Yii::$app->response->cookies->add(new Cookie([
+            'name'   => $this->params['key'],
+            'value'  => Json::encode(array_map(function (CartItem $item) {
+                return [
+                    'id'       => $item->getId(),
+                    'quantity' => $item->getQuantity(),
+                ];
+            }, $items)),
+            'expire' => time() + $this->params['expire'],
+        ]));
     }
 }

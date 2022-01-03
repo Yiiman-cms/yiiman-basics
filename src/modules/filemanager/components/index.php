@@ -1,13 +1,20 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
 namespace AngularFilemanager\LocalBridge;
 
 use Yii;
 
 /**
  *  PHP Local filesystem bridge for angular-filemanager
- *
- *  @author Jakub Ďuraš <jakub@duras.me>
- *  @version 0.2.0
+ * @author  Jakub Ďuraš <jakub@duras.me>
+ * @version 0.2.0
  */
 include 'LocalBridge/Response.php';
 include 'LocalBridge/Rest.php';
@@ -24,6 +31,12 @@ $fileManagerApi = new FileManagerApi();
 $rest = new Rest();
 
 
- return $rest->post([$fileManagerApi, 'postHandler'])
-     ->get([$fileManagerApi, 'getHandler'])
-     ->handle();
+return $rest->post([
+    $fileManagerApi,
+    'postHandler'
+])
+    ->get([
+        $fileManagerApi,
+        'getHandler'
+    ])
+    ->handle();

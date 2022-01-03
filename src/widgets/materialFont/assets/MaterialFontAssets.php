@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Copyright (c) 2018-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
@@ -19,19 +19,21 @@ namespace YiiMan\YiiBasics\widgets\materialFont\assets;
 
 use yii\web\AssetBundle;
 
-class MaterialFontAssets extends AssetBundle {
-	public function init() {
-		parent::init();
-		$this->sourcePath=realpath( __DIR__.'/files');
-	}
-	public $css=
-		[
-			'css/materialdesignicons.css'
-		];
+class MaterialFontAssets extends AssetBundle
+{
+    public $css =
+        [
+            'css/materialdesignicons.css'
+        ];
+    public $depends = [
+        'yii\web\YiiAsset',
+        'yii\bootstrap\BootstrapAsset',
+    ];
 
-	public $depends = [
-		'yii\web\YiiAsset',
-		'yii\bootstrap\BootstrapAsset',
-	];
+    public function init()
+    {
+        parent::init();
+        $this->sourcePath = realpath(__DIR__.'/files');
+    }
 
 }

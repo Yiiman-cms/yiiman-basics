@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
@@ -9,14 +16,14 @@ use yii\widgets\Pjax;
 /* @var $searchModel YiiMan\YiiBasics\modules\blog\models\SearchBlogArticles */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('blog', 'مقالات') . ' ';
+$this->title = Yii::t('blog', 'مقالات').' ';
 $this->params['breadcrumbs'][] = $this->title;
 \YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('blog', 'ثبت مقاله'),
     'success',
     null,
-    Yii::$app->Options->BackendUrl . '/blog/default/create'
+    Yii::$app->Options->BackendUrl.'/blog/default/create'
 );
 \YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 ?>
@@ -35,8 +42,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= GridView::widget(
                         [
                             'dataProvider' => $dataProvider,
-                            'filterModel' => $searchModel,
-                            'columns' => [
+                            'filterModel'  => $searchModel,
+                            'columns'      => [
                                 ['class' => 'yii\grid\SerialColumn'],
                                 [
                                     'class' => \YiiMan\YiiBasics\modules\gallery\grid\ImageColumn::className()
@@ -44,8 +51,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'title',
                                 [
                                     'attribute' => 'content',
-                                    'format' => 'raw',
-                                    'value' => function ($model) {
+                                    'format'    => 'raw',
+                                    'value'     => function ($model) {
                                         /**
                                          * @var $model \YiiMan\YiiBasics\modules\blog\models\BlogArticles
                                          */
@@ -56,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 //'author',
                                 [
                                     'attribute' => 'status',
-                                    'value' => function ($model) {
+                                    'value'     => function ($model) {
                                         /**
                                          * @var $model \YiiMan\YiiBasics\modules\blog\models\BlogArticles
                                          */

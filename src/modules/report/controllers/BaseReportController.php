@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\report\controllers;
 
@@ -13,8 +20,7 @@ use YiiMan\YiiBasics\modules\service\models\Service;
  * Class BaseReportController
  * @package YiiMan\YiiBasics\modules\report\controllers
  * @property ActiveRecord $modelClass
- * @property View $viewClass
- *
+ * @property View         $viewClass
  */
 class BaseReportController extends \YiiMan\YiiBasics\lib\Controller implements View
 {
@@ -33,20 +39,25 @@ class BaseReportController extends \YiiMan\YiiBasics\lib\Controller implements V
 
         return $this->render('@system/modules/report/views/index.php',
             [
-                'searchModel' => $searchModel,
+                'searchModel'  => $searchModel,
                 'dataProvider' => $dataProvider,
-                'view' => $this,
-                'viewname' => $this->id
+                'view'         => $this,
+                'viewname'     => $this->id
             ]
         );
     }
 
-    public function rules()
+    public function AttributeLabels()
+    {
+        return (new $this->modelClass)->attributeLabels();
+    }
+
+    public function publicAttrs()
     {
         return [];
     }
 
-    public function publicAttrs()
+    public function rules()
     {
         return [];
     }
@@ -71,30 +82,6 @@ class BaseReportController extends \YiiMan\YiiBasics\lib\Controller implements V
         return '{view}';
     }
 
-    public function AttributeLabels()
-    {
-        return (new $this->modelClass)->attributeLabels();
-    }
-
-
-    /**
-     * بررسی میکند آیا فیلتر نام برده شده ارسال شده است یا خیر
-     * @param $filterName
-     * @return bool
-     */
-    public function hasFilter($filterName)
-    {
-        $get = \Yii::$app->request->get();
-        if (!empty($get['SearchReportModel'][$filterName])) {
-            return true;
-        } else {
-            if (!empty($get['SearchReportModel']['attrs']) && !empty($get['SearchReportModel']['attrs'][$filterName])) {
-                return true;
-            }
-            return false;
-        }
-    }
-
     /**
      * در صورتی که فیلتر نام برده شده از طرف کلاینت ارسال شده باشد, مقدار آن را بازگردانی میکند
      * @param $filterName
@@ -114,6 +101,24 @@ class BaseReportController extends \YiiMan\YiiBasics\lib\Controller implements V
             return null;
         } else {
             return null;
+        }
+    }
+
+    /**
+     * بررسی میکند آیا فیلتر نام برده شده ارسال شده است یا خیر
+     * @param $filterName
+     * @return bool
+     */
+    public function hasFilter($filterName)
+    {
+        $get = \Yii::$app->request->get();
+        if (!empty($get['SearchReportModel'][$filterName])) {
+            return true;
+        } else {
+            if (!empty($get['SearchReportModel']['attrs']) && !empty($get['SearchReportModel']['attrs'][$filterName])) {
+                return true;
+            }
+            return false;
         }
     }
 

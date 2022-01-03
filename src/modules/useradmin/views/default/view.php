@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
@@ -8,9 +15,12 @@ use yii\widgets\DetailView;
 /* @var $model YiiMan\YiiBasics\modules\useradmin\models\User */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('user', 'کاربران سایتs'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = [
+    'label' => Yii::t('user', 'کاربران سایتs'),
+    'url'   => ['index']
+];
 $this->params['breadcrumbs'][] = $this->title;
-$avatar_path = Yii::$app->urlManager->createAbsoluteUrl(['../upload/users/avatar/' . $model->image]);
+$avatar_path = Yii::$app->urlManager->createAbsoluteUrl(['../upload/users/avatar/'.$model->image]);
 
 ?>
 <div class="user-view">
@@ -19,22 +29,31 @@ $avatar_path = Yii::$app->urlManager->createAbsoluteUrl(['../upload/users/avatar
     <h3><?= Html::encode($this->title) ?></h3>
 
     <p>
-        <?= Html::a(Yii::t('user', 'بروزرسانی'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('user', 'تغییر رمز'), ['change-password', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
-        <?= Html::a(Yii::t('user', 'جذف'), ['delete', 'id' => $model->id], [
+        <?= Html::a(Yii::t('user', 'بروزرسانی'), [
+            'update',
+            'id' => $model->id
+        ], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('user', 'تغییر رمز'), [
+            'change-password',
+            'id' => $model->id
+        ], ['class' => 'btn btn-info']) ?>
+        <?= Html::a(Yii::t('user', 'جذف'), [
+            'delete',
+            'id' => $model->id
+        ], [
             'class' => 'btn btn-danger',
-            'data' => [
+            'data'  => [
                 'confirm' => Yii::t('user', 'آیا برای حذف این مورد اطمینان دارید؟?'),
-                'method' => 'post',
+                'method'  => 'post',
             ],
         ]) ?>
     </p>
     <div class="card">
         <div class="row ">
             <div class="col-md-12">
-                <a href="<?= (!empty($model->image) ? $avatar_path : Yii::$app->Options->UploadUrl . '/users/default.png') ?>">
+                <a href="<?= (!empty($model->image) ? $avatar_path : Yii::$app->Options->UploadUrl.'/users/default.png') ?>">
                     <img class="img" style="margin-right: 35%;width: 20% !important;"
-                         src="<?= (!empty($model->image) ? $avatar_path : Yii::$app->Options->UploadUrl . '/users/default.png') ?>"/>
+                         src="<?= (!empty($model->image) ? $avatar_path : Yii::$app->Options->UploadUrl.'/users/default.png') ?>"/>
                 </a>
             </div>
         </div>
@@ -52,7 +71,7 @@ $avatar_path = Yii::$app->urlManager->createAbsoluteUrl(['../upload/users/avatar
 
             [
                 'attribute' => 'status',
-                'value' => function ($model) {
+                'value'     => function ($model) {
                     /**
                      * @var $model \common\models\Neighbourhoods
                      */
@@ -78,7 +97,7 @@ $avatar_path = Yii::$app->urlManager->createAbsoluteUrl(['../upload/users/avatar
             'bank_card',
             [
                 'attribute' => 'jobs',
-                'value' => function ($model) {
+                'value'     => function ($model) {
                     return $model->getJobs($model->jobs);
                 }
             ],

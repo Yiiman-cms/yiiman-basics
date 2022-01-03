@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\widgets\editarea;
 
@@ -29,6 +35,10 @@ JS;
 	width: 100% !important;
 }');
 
-        return Html::textarea($this->name, $this->value, ['id' => $this->id,'rows'=>15,'cols'=>30]);
+        return Html::textarea($this->name, $this->value, [
+            'id'   => $this->id,
+            'rows' => 15,
+            'cols' => 30
+        ]);
     }
 }

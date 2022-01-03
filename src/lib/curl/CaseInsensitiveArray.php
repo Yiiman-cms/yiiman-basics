@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\lib\curl;
 
@@ -16,7 +23,7 @@ class CaseInsensitiveArray implements \ArrayAccess, \Countable, \Iterator
      * @see next()
      * @see key()
      */
-    private $data = array();
+    private $data = [];
 
     /**
      * @var string[] Case-Sensitive keys.
@@ -24,19 +31,15 @@ class CaseInsensitiveArray implements \ArrayAccess, \Countable, \Iterator
      * @see offsetUnset()
      * @see key()
      */
-    private $keys = array();
+    private $keys = [];
 
     /**
      * Construct
-     *
      * Allow creating either an empty Array, or convert an existing Array to a
      * Case-Insensitive Array.  (Caution: Data may be lost when converting Case-
      * Sensitive Arrays to Case-Insensitive Arrays)
-     *
-     * @param mixed[] $initial (optional) Existing Array to convert.
-     *
+     * @param  mixed[]  $initial  (optional) Existing Array to convert.
      * @return CaseInsensitiveArray
-     *
      * @access public
      */
     public function __construct(array $initial = null)
@@ -50,18 +53,13 @@ class CaseInsensitiveArray implements \ArrayAccess, \Countable, \Iterator
 
     /**
      * Offset Set
-     *
      * Set data at a specified Offset.  Converts the offset to lower-case, and
      * stores the Case-Sensitive Offset and the Data at the lower-case indexes
      * in $this->keys and @this->data.
-     *
-     * @see https://secure.php.net/manual/en/arrayaccess.offseteset.php
-     *
-     * @param string $offset The offset to store the data at (case-insensitive).
-     * @param mixed $value The data to store at the specified offset.
-     *
+     * @see    https://secure.php.net/manual/en/arrayaccess.offseteset.php
+     * @param  string  $offset  The offset to store the data at (case-insensitive).
+     * @param  mixed   $value   The data to store at the specified offset.
      * @return void
-     *
      * @access public
      */
     public function offsetSet($offset, $value)
@@ -77,16 +75,11 @@ class CaseInsensitiveArray implements \ArrayAccess, \Countable, \Iterator
 
     /**
      * Offset Exists
-     *
      * Checks if the Offset exists in data storage.  The index is looked up with
      * the lower-case version of the provided offset.
-     *
-     * @see https://secure.php.net/manual/en/arrayaccess.offsetexists.php
-     *
-     * @param string $offset Offset to check
-     *
+     * @see    https://secure.php.net/manual/en/arrayaccess.offsetexists.php
+     * @param  string  $offset  Offset to check
      * @return bool If the offset exists.
-     *
      * @access public
      */
     public function offsetExists($offset)
@@ -96,16 +89,11 @@ class CaseInsensitiveArray implements \ArrayAccess, \Countable, \Iterator
 
     /**
      * Offset Unset
-     *
      * Unsets the specified offset. Converts the provided offset to lowercase,
      * and unsets the Case-Sensitive Key, as well as the stored data.
-     *
-     * @see https://secure.php.net/manual/en/arrayaccess.offsetunset.php
-     *
-     * @param string $offset The offset to unset.
-     *
+     * @see    https://secure.php.net/manual/en/arrayaccess.offsetunset.php
+     * @param  string  $offset  The offset to unset.
      * @return void
-     *
      * @access public
      */
     public function offsetUnset($offset)
@@ -117,16 +105,11 @@ class CaseInsensitiveArray implements \ArrayAccess, \Countable, \Iterator
 
     /**
      * Offset Get
-     *
      * Return the stored data at the provided offset. The offset is converted to
      * lowercase and the lookup is done on the Data store directly.
-     *
-     * @see https://secure.php.net/manual/en/arrayaccess.offsetget.php
-     *
-     * @param string $offset Offset to lookup.
-     *
+     * @see    https://secure.php.net/manual/en/arrayaccess.offsetget.php
+     * @param  string  $offset  Offset to lookup.
      * @return mixed The data stored at the offset.
-     *
      * @access public
      */
     public function offsetGet($offset)
@@ -137,13 +120,9 @@ class CaseInsensitiveArray implements \ArrayAccess, \Countable, \Iterator
 
     /**
      * Count
-     *
-     * @see https://secure.php.net/manual/en/countable.count.php
-     *
-     * @param void
-     *
+     * @see    https://secure.php.net/manual/en/countable.count.php
+     * @param  void
      * @return int The number of elements stored in the Array.
-     *
      * @access public
      */
     public function count()
@@ -153,13 +132,9 @@ class CaseInsensitiveArray implements \ArrayAccess, \Countable, \Iterator
 
     /**
      * Current
-     *
-     * @see https://secure.php.net/manual/en/iterator.current.php
-     *
-     * @param void
-     *
+     * @see    https://secure.php.net/manual/en/iterator.current.php
+     * @param  void
      * @return mixed Data at the current position.
-     *
      * @access public
      */
     public function current()
@@ -169,13 +144,9 @@ class CaseInsensitiveArray implements \ArrayAccess, \Countable, \Iterator
 
     /**
      * Next
-     *
-     * @see https://secure.php.net/manual/en/iterator.next.php
-     *
-     * @param void
-     *
+     * @see    https://secure.php.net/manual/en/iterator.next.php
+     * @param  void
      * @return void
-     *
      * @access public
      */
     public function next()
@@ -185,13 +156,9 @@ class CaseInsensitiveArray implements \ArrayAccess, \Countable, \Iterator
 
     /**
      * Key
-     *
-     * @see https://secure.php.net/manual/en/iterator.key.php
-     *
-     * @param void
-     *
+     * @see    https://secure.php.net/manual/en/iterator.key.php
+     * @param  void
      * @return mixed Case-Sensitive key at current position.
-     *
      * @access public
      */
     public function key()
@@ -202,11 +169,8 @@ class CaseInsensitiveArray implements \ArrayAccess, \Countable, \Iterator
 
     /**
      * Valid
-     *
-     * @see https://secure.php.net/manual/en/iterator.valid.php
-     *
+     * @see    https://secure.php.net/manual/en/iterator.valid.php
      * @return bool If the current position is valid.
-     *
      * @access public
      */
     public function valid()
@@ -216,13 +180,9 @@ class CaseInsensitiveArray implements \ArrayAccess, \Countable, \Iterator
 
     /**
      * Rewind
-     *
-     * @see https://secure.php.net/manual/en/iterator.rewind.php
-     *
-     * @param void
-     *
+     * @see    https://secure.php.net/manual/en/iterator.rewind.php
+     * @param  void
      * @return void
-     *
      * @access public
      */
     public function rewind()

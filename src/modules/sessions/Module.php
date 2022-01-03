@@ -1,6 +1,6 @@
 <?php
-/*
- * Copyright (c) 2022.
+/**
+ * Copyright (c) 2022-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
@@ -36,6 +36,21 @@ class Module extends \yii\base\Module
     public $config = [];
 
     /**
+     * Translates a message. This is just a wrapper of Yii::t
+     * @param         $category
+     * @param         $message
+     * @param  array  $params
+     * @param  null   $language
+     * @return string
+     * @see Yii::t
+     */
+    public static function t($category, $message, $params = [], $language = null)
+    {
+
+        return Yii::t($category, $message, $params, $language);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function init()
@@ -57,7 +72,6 @@ class Module extends \yii\base\Module
         $this->registerTranslations();
         //$this->initComponents();
     }
-
 
     /**
      * TranslationTrait manages methods for all translations used in Krajee extensions
@@ -92,6 +106,39 @@ class Module extends \yii\base\Module
                 Yii::$app->i18n->translations[$message."*"] = $config;
             }
         }
+
+    }
+
+    public function initModules()
+    {
+        if (!empty($this->config['modules'])) {
+
+            foreach ($this->config['modules'] as $key => $val) {
+                $this->modules[$key] = $val;
+            }
+        }
+    }
+
+    public function initMigrations()
+    {
+        $classes = getFileList(realpath(__DIR__.'/migrations'));
+        if (!empty($classes)) {
+            foreach ($classes as $key => $val) {
+                if ($val['type'] == 'text/x-php') {
+                    $val['name'] = str_replace('.php', '', $val['name']);
+                    $cname = $this->nameSpace.'\migrations\\'.$val['name'];
+                    $class = new $cname();
+                    try {
+                        $generate = $class->safeUp();
+                    } catch (\Exception $e) {
+                    }
+
+
+                }
+
+            }
+        }
+
 
     }
 
@@ -133,53 +180,5 @@ class Module extends \yii\base\Module
 
         //Yii::$app->components['pdf']= $pdf;
         Yii::$app->setComponents(['log' => $Option]);
-    }
-
-    public function initModules()
-    {
-        if (!empty($this->config['modules'])) {
-
-            foreach ($this->config['modules'] as $key => $val) {
-                $this->modules[$key] = $val;
-            }
-        }
-    }
-
-    public function initMigrations()
-    {
-        $classes = getFileList(realpath(__DIR__.'/migrations'));
-        if (!empty($classes)) {
-            foreach ($classes as $key => $val) {
-                if ($val['type'] == 'text/x-php') {
-                    $val['name'] = str_replace('.php', '', $val['name']);
-                    $cname = $this->nameSpace.'\migrations\\'.$val['name'];
-                    $class = new $cname();
-                    try {
-                        $generate = $class->safeUp();
-                    } catch (\Exception $e) {
-                    }
-
-
-                }
-
-            }
-        }
-
-
-    }
-
-    /**
-     * Translates a message. This is just a wrapper of Yii::t
-     * @param         $category
-     * @param         $message
-     * @param  array  $params
-     * @param  null   $language
-     * @return string
-     * @see Yii::t
-     */
-    public static function t($category, $message, $params = [], $language = null)
-    {
-
-        return Yii::t($category, $message, $params, $language);
     }
 }

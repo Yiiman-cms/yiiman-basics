@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\FileSelectorWidget;
 use yii\helpers\Html;
@@ -64,7 +71,7 @@ use kartik\select2\Select2;
                                 ?>
                                 <?= $form->field($model, 'shortCode')->widget(Select2::className(),
                                     [
-                                        'data' => \YiiMan\YiiBasics\modules\widget\models\Widget::getLocations(),
+                                        'data'    => \YiiMan\YiiBasics\modules\widget\models\Widget::getLocations(),
                                         'options' =>
                                             [
                                                 'options' => $disabled
@@ -83,10 +90,12 @@ use kartik\select2\Select2;
                     <div class="row">
                         <div class="col-md-12 pull-right">
 
-                            <div class="col-md-6"><?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?></div>
+                            <div class="col-md-6"><?= $form->field($model,
+                                    'title')->textInput(['maxlength' => true]) ?></div>
 
                             <div class="col-md-12">
-                                <?= $form->field($model, 'content')->widget(\YiiMan\YiiBasics\widgets\CodeMirror\CodeMirrorWidget::className()) ?>
+                                <?= $form->field($model,
+                                    'content')->widget(\YiiMan\YiiBasics\widgets\CodeMirror\CodeMirrorWidget::className()) ?>
                             </div>
 
 

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
@@ -13,7 +20,7 @@ use yii\widgets\DetailView;
     Yii::t('location', 'ثبت شهر ها'),
     'success',
     null,
-    Yii::$app->Options->BackendUrl . '/location/default/create'
+    Yii::$app->Options->BackendUrl.'/location/default/create'
 );
 
 
@@ -22,7 +29,7 @@ use yii\widgets\DetailView;
     Yii::t('location', 'ویرایش این مورد'),
     'info',
     null,
-    Yii::$app->Options->BackendUrl . '/location/default/update?id=' . $model->id);
+    Yii::$app->Options->BackendUrl.'/location/default/update?id='.$model->id);
 
 
 \YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
@@ -30,11 +37,14 @@ use yii\widgets\DetailView;
     Yii::t('location', 'حذف این مورد'),
     'danger',
     null,
-    Yii::$app->Options->BackendUrl . '/location/default/delete?id=' . $model->id);
+    Yii::$app->Options->BackendUrl.'/location/default/delete?id='.$model->id);
 
 
-$this->title = Yii::t('location', 'شهر :  ' . $model->name);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('location', 'موقعیت جغرافیایی'), 'url' => ['index']];
+$this->title = Yii::t('location', 'شهر :  '.$model->name);
+$this->params['breadcrumbs'][] = [
+    'label' => Yii::t('location', 'موقعیت جغرافیایی'),
+    'url'   => ['index']
+];
 $this->params['breadcrumbs'][] = $this->title;
 
 \YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
@@ -86,7 +96,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ?>
                                     <tr>
                                         <th>
-                                            <a href="<?= Yii::$app->urlManager->createUrl(['/location/neighbourhood/view?id=' . $item->id]) ?>"><?= $item->name ?></a>
+                                            <a href="<?= Yii::$app->urlManager->createUrl(['/location/neighbourhood/view?id='.$item->id]) ?>"><?= $item->name ?></a>
                                         </th>
                                     </tr>
                                     <?php

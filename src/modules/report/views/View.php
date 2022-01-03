@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\report\views;
 
@@ -36,16 +42,12 @@ interface View
     public function AttributeLabels();
 
     /**
-
      * تزریق فیلتر های جدید به جست و جو
-     *
      * خروجی این تابع باید تابعی از لیست فیلد های تغییر داده شده باشد
-     *
      * برای مثال اگر فیلد سرویس را دستخوش تغییراتی میکنید باید خروجی تابع به این شکل باشد:
-     *
      * return ['service']
      * @param $query \yii\db\ActiveQuery
      * @param $model \yii\db\ActiveRecord
      */
-    public function filterParse(&$query,&$model);
+    public function filterParse(&$query, &$model);
 }

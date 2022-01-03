@@ -1,6 +1,6 @@
 <?php
-/*
- * Copyright (c) 2022.
+/**
+ * Copyright (c) 2022-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
@@ -11,7 +11,6 @@
  * Created by YiiMan TM.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
- *
  * Site:https://yiiman.ir
  * Date: ۰۲/۲۵/۲۰۲۰
  * Time: ۱۷:۰۳ بعدازظهر
@@ -34,25 +33,30 @@ class HintWidget extends Widget
         $datesA = [];
         $dateLabel = [];
         for ($i = $this->days; $i > -1; $i--) {
-            $dates[date('Y-m-d', strtotime('-' . $i . ' day'))] = date(
-                'Y-m-d', strtotime('-' . $i . ' day'));
-            $datesA[$i] = date('Y-m-d',strtotime('-' . $i . ' day'));
+            $dates[date('Y-m-d', strtotime('-'.$i.' day'))] = date(
+                'Y-m-d', strtotime('-'.$i.' day'));
+            $datesA[$i] = date('Y-m-d', strtotime('-'.$i.' day'));
 
             // < Build Label >
             {
-                $l1=date('Y-m-d', strtotime('-' . $i . ' day')
+                $l1 = date('Y-m-d', strtotime('-'.$i.' day')
                 );
-                $l2=\Yii::$app->functions->convertdate($l1);
-                $l2=explode('/',$l2);
-                $l2=$l2[1].'-'.$l2[2];
+                $l2 = \Yii::$app->functions->convertdate($l1);
+                $l2 = explode('/', $l2);
+                $l2 = $l2[1].'-'.$l2[2];
             }
             // </ Build Label >
 
-            $dateLabel[\Yii::$app->functions->convertdate(date('Y-m-d', strtotime('-' . $i . ' day')))] =$l2;
+            $dateLabel[\Yii::$app->functions->convertdate(date('Y-m-d', strtotime('-'.$i.' day')))] = $l2;
 
         }
 
-        $model = Search::find()->select('COUNT(id) as count,created_at')->where(['between', 'created_at', $datesA[$this->days], $datesA[0]])->asArray()->all();
+        $model = Search::find()->select('COUNT(id) as count,created_at')->where([
+            'between',
+            'created_at',
+            $datesA[$this->days],
+            $datesA[0]
+        ])->asArray()->all();
 
         $model = ArrayHelper::index($model, 'created_at');
         $m = ArrayHelper::getColumn($model, 'count');

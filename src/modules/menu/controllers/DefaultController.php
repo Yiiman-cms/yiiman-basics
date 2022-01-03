@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\menu\controllers;
 
@@ -21,7 +28,6 @@ use yii\web\Response;
 class DefaultController extends \YiiMan\YiiBasics\lib\Controller
 {
     /**
-     *
      * @var $model SearchMenu
      */
     public $model;
@@ -48,9 +54,7 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
 
     /**
      * Displays a single Menu model.
-     *
-     * @param integer $id
-     *
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -75,7 +79,10 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
-                return $this->redirect(['index', 'id' => $model->id]);
+                return $this->redirect([
+                    'index',
+                    'id' => $model->id
+                ]);
             }
         }
 
@@ -90,9 +97,7 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
     /**
      * Updates an existing Menu model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     *
-     * @param integer $id
-     *
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -102,7 +107,10 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
-                return $this->redirect(['index', 'id' => $model->id]);
+                return $this->redirect([
+                    'index',
+                    'id' => $model->id
+                ]);
             }
         }
 
@@ -117,9 +125,7 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
     /**
      * Deletes an existing Menu model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     *
-     * @param integer $id
-     *
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -135,22 +141,21 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
         $post = Yii::$app->request->post();
         Yii::$app->response->format = Response::FORMAT_JSON;
         if (!empty($post)) {
-            $type=Menu::getType($post['type']);
+            $type = Menu::getType($post['type']);
             return ArrayHelper::map($type['model']::find()->all(), $type['modelMap'][0], $type['modelMap'][1]);
         }
-    }
-
-
-    protected function upload()
-    {
-
-
     }
 
     public function init()
     {
         parent::init();
         $this->model = new Menu();
-        $this->modelClass=$this->model::className();
+        $this->modelClass = $this->model::className();
+    }
+
+    protected function upload()
+    {
+
+
     }
 }

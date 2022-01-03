@@ -1,8 +1,10 @@
 <?php
 /**
- * @link https://github.com/yii2tech
- * @copyright Copyright (c) 2015 Yii2tech
- * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
+ * Copyright (c) 2015-2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
  */
 
 namespace YiiMan\YiiBasics\lib\sitemap;
@@ -10,10 +12,8 @@ namespace YiiMan\YiiBasics\lib\sitemap;
 /**
  * File is a helper to create the site map XML files.
  * Example:
- *
  * ```php
  * use yii2tech\sitemap\File;
- *
  * $siteMapFile = new File();
  * $siteMapFile->writeUrl(['site/index']);
  * $siteMapFile->writeUrl(['site/contact'], ['priority' => '0.4']);
@@ -25,12 +25,10 @@ namespace YiiMan\YiiBasics\lib\sitemap;
  * ...
  * $siteMapFile->close();
  * ```
- *
- * @see BaseFile
- * @see http://www.sitemaps.org/
- *
  * @author Paul Klimov <klimov.paul@gmail.com>
- * @since 1.0
+ * @see    http://www.sitemaps.org/
+ * @see    BaseFile
+ * @since  1.0
  */
 class File extends BaseFile
 {
@@ -48,6 +46,67 @@ class File extends BaseFile
      */
     public $defaultOptions = [];
 
+    /**
+     * Writes the URL block into the file.
+     * @param  string|array  $url      page URL or params.
+     * @param  array         $options  options list, valid options are:
+     *                                 - 'lastModified' - string|int, last modified date in format Y-m-d or timestamp.
+     *                                 by default current date will be used.
+     *                                 - 'changeFrequency' - string, page change frequency, the following values can be passed:
+     *                                 * always
+     *                                 * hourly
+     *                                 * daily
+     *                                 * weekly
+     *                                 * monthly
+     *                                 * yearly
+     *                                 * never
+     *                                 by default 'daily' will be used. You may use constants defined in this class here.
+     *                                 - 'priority' - string|float URL search priority in range 0..1, by default '0.5' will be used
+     * @return int the number of bytes written.
+     */
+    public function writeUrl($url, array $options = [])
+    {
+        $this->incrementEntriesCount();
+
+        if (!is_string($url)) {
+            $url = $this->getUrlManager()->createAbsoluteUrl($url);
+        }
+
+        $xmlCode = '<url>';
+        $xmlCode .= "<loc>{$url}</loc>";
+
+        $options = array_merge(
+            [
+                'lastModified'    => date('Y-m-d'),
+                'changeFrequency' => self::CHECK_FREQUENCY_DAILY,
+                'priority'        => '0.5',
+            ],
+            $this->defaultOptions,
+            $options
+        );
+        if (ctype_digit($options['lastModified'])) {
+            $options['lastModified'] = date('Y-m-d', $options['lastModified']);
+        }
+
+
+        if (!empty($options['images'])) {
+            foreach ($options['images'] as $img) {
+                $xmlCode .= <<<XML
+    <image:image>
+      <image:loc>{$img}</image:loc>
+    </image:image>
+XML;
+
+            }
+        }
+
+        $xmlCode .= "<lastmod>{$options['lastModified']}</lastmod>";
+        $xmlCode .= "<changefreq>{$options['changeFrequency']}</changefreq>";
+        $xmlCode .= "<priority>{$options['priority']}</priority>";
+
+        $xmlCode .= '</url>';
+        return $xmlCode;
+    }
 
     /**
      * {@inheritdoc}
@@ -65,69 +124,5 @@ class File extends BaseFile
     {
         $this->write('</urlset>');
         parent::beforeClose();
-    }
-
-    /**
-     * Writes the URL block into the file.
-     * @param string|array $url page URL or params.
-     * @param array $options options list, valid options are:
-     * - 'lastModified' - string|int, last modified date in format Y-m-d or timestamp.
-     *   by default current date will be used.
-     * - 'changeFrequency' - string, page change frequency, the following values can be passed:
-     *
-     *   * always
-     *   * hourly
-     *   * daily
-     *   * weekly
-     *   * monthly
-     *   * yearly
-     *   * never
-     *
-     *   by default 'daily' will be used. You may use constants defined in this class here.
-     * - 'priority' - string|float URL search priority in range 0..1, by default '0.5' will be used
-     * @return int the number of bytes written.
-     */
-    public function writeUrl($url, array $options = [])
-    {
-        $this->incrementEntriesCount();
-
-        if (!is_string($url)) {
-            $url = $this->getUrlManager()->createAbsoluteUrl($url);
-        }
-
-        $xmlCode = '<url>';
-        $xmlCode .= "<loc>{$url}</loc>";
-
-        $options = array_merge(
-            [
-                'lastModified' => date('Y-m-d'),
-                'changeFrequency' => self::CHECK_FREQUENCY_DAILY,
-                'priority' => '0.5',
-            ],
-            $this->defaultOptions,
-            $options
-        );
-        if (ctype_digit($options['lastModified'])) {
-            $options['lastModified'] = date('Y-m-d', $options['lastModified']);
-        }
-
-
-        if (!empty($options['images'])){
-            foreach ($options['images'] as $img){
-                $xmlCode .=<<<XML
-    <image:image>
-      <image:loc>{$img}</image:loc>
-    </image:image>
-XML;
-
-            }
-        }
-
-        $xmlCode .= "<lastmod>{$options['lastModified']}</lastmod>";
-        $xmlCode .= "<changefreq>{$options['changeFrequency']}</changefreq>";
-        $xmlCode .= "<priority>{$options['priority']}</priority>";
-
-        $xmlCode .= '</url>';
-        return $xmlCode;
     }
 }

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\gallery\models;
 
@@ -18,7 +25,14 @@ class SearchGalleryFkMediasCategories extends GalleryFkMediasCategories
     public function rules()
     {
         return [
-            [['id', 'media', 'category'], 'integer'],
+            [
+                [
+                    'id',
+                    'media',
+                    'category'
+                ],
+                'integer'
+            ],
         ];
     }
 
@@ -33,18 +47,16 @@ class SearchGalleryFkMediasCategories extends GalleryFkMediasCategories
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
     {
         $query = GalleryFkMediasCategories::find();
-        if (!empty( $_GET['lng'])){
-            $query=$query->where(['language'=> $_GET['lng']]);
-        }else{
-            $query=$query->where(['language_parent'=>null]);
+        if (!empty($_GET['lng'])) {
+            $query = $query->where(['language' => $_GET['lng']]);
+        } else {
+            $query = $query->where(['language_parent' => null]);
         }
         // add conditions that should always apply here
 
@@ -62,8 +74,8 @@ class SearchGalleryFkMediasCategories extends GalleryFkMediasCategories
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'media' => $this->media,
+            'id'       => $this->id,
+            'media'    => $this->media,
             'category' => $this->category,
         ]);
 

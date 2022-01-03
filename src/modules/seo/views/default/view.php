@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
@@ -8,14 +15,17 @@ use yii\widgets\DetailView;
 /* @var $model YiiMan\YiiBasics\modules\seo\models\SeoFlagContents */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('seo', 'سئوs'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = [
+    'label' => Yii::t('seo', 'سئوs'),
+    'url'   => ['index']
+];
 $this->params['breadcrumbs'][] = $this->title;
 \YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('seo', 'ثبت کلید واژه راهنما'),
     'success',
     null,
-    Yii::$app->Options->BackendUrl . '/seo/default/create'
+    Yii::$app->Options->BackendUrl.'/seo/default/create'
 );
 
 
@@ -24,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
     Yii::t('seo', 'ویرایش این مورد'),
     'info',
     null,
-    Yii::$app->Options->BackendUrl . '/seo/default/update?id=' . $model->id);
+    Yii::$app->Options->BackendUrl.'/seo/default/update?id='.$model->id);
 
 
 \YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
@@ -32,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
     Yii::t('seo', 'حذف این مورد'),
     'danger',
     null,
-    Yii::$app->Options->BackendUrl . '/seo/default/delete?id=' . $model->id);
+    Yii::$app->Options->BackendUrl.'/seo/default/delete?id='.$model->id);
 
 \YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
 
@@ -45,20 +55,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             [
                 'attribute' => 'link',
-                'val' => function ($model) {
+                'val'       => function ($model) {
                     if (!empty($model->link)) {
-                        return '<a href="' . $model->link . '" target="_blank">' . $model->link . '</a>';
+                        return '<a href="'.$model->link.'" target="_blank">'.$model->link.'</a>';
                     }
                 },
-                'format' => 'raw'
+                'format'    => 'raw'
             ],
             [
                 'attribute' => 'short_content',
-                'format' => 'raw'
+                'format'    => 'raw'
             ],
             [
                 'attribute' => 'status',
-                'value' => function ($model) {
+                'value'     => function ($model) {
                     /**
                      * @var $model \common\models\Neighbourhoods
                      */

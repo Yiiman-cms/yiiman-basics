@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\report\models;
 
@@ -46,7 +52,12 @@ class SearchReportModel extends \yii\db\ActiveRecord
          * @var $model ActiveRecord
          */
 
-        $out = [[array_keys($model->attributes), 'safe']];
+        $out = [
+            [
+                array_keys($model->attributes),
+                'safe'
+            ]
+        ];
         return array_merge_recursive($out, self::$extraRules);
     }
 
@@ -59,10 +70,8 @@ class SearchReportModel extends \yii\db\ActiveRecord
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     * @param BaseReportController $controller
-     *
+     * @param  array                 $params
+     * @param  BaseReportController  $controller
      * @return ActiveDataProvider
      */
     public function search($params, $controller)
@@ -85,7 +94,7 @@ class SearchReportModel extends \yii\db\ActiveRecord
         {
             if (!empty($this->attrs)) {
                 foreach ($this->attrs as $attr) {
-                    $this->attrs[$attr]=$this->filterVal($attr);
+                    $this->attrs[$attr] = $this->filterVal($attr);
                 }
             }
         }
@@ -104,7 +113,11 @@ class SearchReportModel extends \yii\db\ActiveRecord
         foreach (self::$attributes as $attr => $val) {
             if (!empty($params['SearchReportModel'][$attr])) {
                 if (!isset($customFilters[$attr])) {
-                    $filters[$attr] = ['like', $attr, $params['SearchReportModel'][$attr]];
+                    $filters[$attr] = [
+                        'like',
+                        $attr,
+                        $params['SearchReportModel'][$attr]
+                    ];
                 }
                 $this->{$attr} = $params['SearchReportModel'][$attr];
             }
@@ -118,24 +131,6 @@ class SearchReportModel extends \yii\db\ActiveRecord
 //            ->andFilterWhere(['like', 'level', $this->level]);
 
         return $dataProvider;
-    }
-
-    /**
-     * بررسی میکند آیا فیلتر نام برده شده ارسال شده است یا خیر
-     * @param $filterName
-     * @return bool
-     */
-    public function hasFilter($filterName)
-    {
-        $get = \Yii::$app->request->get();
-        if (!empty($get['SearchReportModel'][$filterName])) {
-            return true;
-        } else {
-            if (!empty($get['SearchReportModel']['attrs']) && !empty($get['SearchReportModel']['attrs'][$filterName])) {
-                return true;
-            }
-            return false;
-        }
     }
 
     /**
@@ -160,19 +155,36 @@ class SearchReportModel extends \yii\db\ActiveRecord
         }
     }
 
+    /**
+     * بررسی میکند آیا فیلتر نام برده شده ارسال شده است یا خیر
+     * @param $filterName
+     * @return bool
+     */
+    public function hasFilter($filterName)
+    {
+        $get = \Yii::$app->request->get();
+        if (!empty($get['SearchReportModel'][$filterName])) {
+            return true;
+        } else {
+            if (!empty($get['SearchReportModel']['attrs']) && !empty($get['SearchReportModel']['attrs'][$filterName])) {
+                return true;
+            }
+            return false;
+        }
+    }
 
     /**
      * PHP setter magic method.
      * This method is overridden so that AR attributes can be accessed like properties.
-     * @param string $name property name
-     * @param mixed $value property value
+     * @param  string  $name   property name
+     * @param  mixed   $value  property value
      */
     public function __set($name, $value)
     {
         try {
-            parent::__set($name,$value);
-        }catch (\Exception $e){
-            $this->{$name}=$value;
+            parent::__set($name, $value);
+        } catch (\Exception $e) {
+            $this->{$name} = $value;
         }
     }
 

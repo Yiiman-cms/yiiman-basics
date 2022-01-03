@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\systemlog\controllers;
 
@@ -18,7 +25,6 @@ use yii\filters\VerbFilter;
 class DefaultController extends \YiiMan\YiiBasics\lib\Controller
 {
     /**
-     *
      * @var $model SearchSystemlog
      */
     public $model;
@@ -30,7 +36,7 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class'   => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -44,7 +50,7 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
      */
     public function actionIndex()
     {
-        $post=Yii::$app->request->post();
+        $post = Yii::$app->request->post();
         $searchModel = new SearchSystemlog();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -64,21 +70,22 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
             } else {
                 $users = ArrayHelper::map($users, 'id', 'name');
             }
-            if ($searchModel->app_name=='app-backend'){
-                $users=$admins;
+            if ($searchModel->app_name == 'app-backend') {
+                $users = $admins;
             }
         }
         // </ user array >
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
-            'users' => $users
+            'users'        => $users
         ]);
     }
 
-    public function actionClear(){
-       $res= Yii::$app->db->createCommand('TRUNCATE TABLE module_systemlog;')->execute();
+    public function actionClear()
+    {
+        $res = Yii::$app->db->createCommand('TRUNCATE TABLE module_systemlog;')->execute();
         return $this->redirect(['index']);
     }
 

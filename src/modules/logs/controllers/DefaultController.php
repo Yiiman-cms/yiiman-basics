@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\logs\controllers;
 
@@ -13,12 +19,6 @@ use yii\web\NotFoundHttpException;
 
 class DefaultController extends \YiiMan\YiiBasics\lib\Controller
 {
-    
-
-    /**
-     * @var array log messages extracted to array as models, to use with data provider.
-     */
-    private $_models;
 
 
     /**
@@ -44,13 +44,15 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
      * See [[\yii\base\Controller::actions()]] for the format.
      */
     public $actions = [];
-
     /**
      * @var FlattenException|null Error while saving the panel
      * @since 2.0.10
      */
     protected $error;
-
+    /**
+     * @var array log messages extracted to array as models, to use with data provider.
+     */
+    private $_models;
 
     /**
      * Renders the index view for the module
@@ -63,16 +65,15 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
 
         return \Yii::$app->view->render('@vendor/yiisoft/yii2-debug/src/panels/log/detail.php', [
             'dataProvider' => $dataProvider,
-            'panel' => $this,
-            'searchModel' => $searchModel,
+            'panel'        => $this,
+            'searchModel'  => $searchModel,
         ]);
     }
 
     /**
      * Returns an array of models that represents logs of the current request.
      * Can be used with data providers, such as \yii\data\ArrayDataProvider.
-     *
-     * @param bool $refresh if need to build models from log messages and refresh them.
+     * @param  bool  $refresh  if need to build models from log messages and refresh them.
      * @return array models
      */
     protected function getModels($refresh = false)
@@ -82,11 +83,12 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
 
             foreach ($this->data['messages'] as $message) {
                 $this->_models[] = [
-                    'message' => $message[0],
-                    'level' => $message[1],
+                    'message'  => $message[0],
+                    'level'    => $message[1],
                     'category' => $message[2],
-                    'time' => $message[3] * 1000, // time in milliseconds
-                    'trace' => isset($message[4]) ? $message[4] : [],
+                    'time'     => $message[3] * 1000,
+                    // time in milliseconds
+                    'trace'    => isset($message[4]) ? $message[4] : [],
                 ];
             }
         }
@@ -95,8 +97,8 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
     }
 
     /**
-     * @param string $slug
-     * @param string $stamp
+     * @param  string  $slug
+     * @param  string  $stamp
      * @return string
      * @throws NotFoundHttpException
      */
@@ -110,38 +112,9 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
         }
     }
 
-    public function actionArchive($slug)
-    {
-        if ($this->find($slug, null)->archive(date('YmdHis'))) {
-            return $this->redirect(['history', 'slug' => $slug]);
-        } else {
-            throw new NotFoundHttpException('Log not found.');
-        }
-    }
-
-    public function actionHistory($slug)
-    {
-        $log = $this->find($slug, null);
-
-        return $this->render('history', [
-            'name' => $log->name,
-            'dataProvider' => new ArrayDataProvider([
-                'allModels' => $this->module->getHistory($log),
-                'sort' => [
-                    'attributes' => [
-                        'fileName',
-                        'size' => ['default' => SORT_DESC],
-                        'updatedAt' => ['default' => SORT_DESC],
-                    ],
-                    'defaultOrder' => ['updatedAt' => SORT_DESC],
-                ],
-            ]),
-        ]);
-    }
-
     /**
-     * @param string $slug
-     * @param null|string $stamp
+     * @param  string       $slug
+     * @param  null|string  $stamp
      * @return Log
      * @throws NotFoundHttpException
      */
@@ -152,5 +125,37 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
         } else {
             throw new NotFoundHttpException('Log not found.');
         }
+    }
+
+    public function actionArchive($slug)
+    {
+        if ($this->find($slug, null)->archive(date('YmdHis'))) {
+            return $this->redirect([
+                'history',
+                'slug' => $slug
+            ]);
+        } else {
+            throw new NotFoundHttpException('Log not found.');
+        }
+    }
+
+    public function actionHistory($slug)
+    {
+        $log = $this->find($slug, null);
+
+        return $this->render('history', [
+            'name'         => $log->name,
+            'dataProvider' => new ArrayDataProvider([
+                'allModels' => $this->module->getHistory($log),
+                'sort'      => [
+                    'attributes'   => [
+                        'fileName',
+                        'size'      => ['default' => SORT_DESC],
+                        'updatedAt' => ['default' => SORT_DESC],
+                    ],
+                    'defaultOrder' => ['updatedAt' => SORT_DESC],
+                ],
+            ]),
+        ]);
     }
 }

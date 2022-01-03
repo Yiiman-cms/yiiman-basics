@@ -1,8 +1,10 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
- * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * Copyright (c) 2008-2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
  */
 
 namespace YiiMan\YiiBasics\lib\i18n;
@@ -13,11 +15,8 @@ use yii\base\InvalidConfigException;
 
 /**
  * Locale provides various locale information via convenient methods.
- *
  * The class requires [PHP intl extension](https://secure.php.net/manual/en/book.intl.php) to be installed.
- *
  * @property string $currencySymbol This property is read-only.
- *
  * @since 2.0.14
  */
 class Locale extends Component
@@ -45,9 +44,8 @@ class Locale extends Component
 
     /**
      * Returns a currency symbol
-     *
-     * @param string $currencyCode the 3-letter ISO 4217 currency code to get symbol for. If null,
-     * method will attempt using currency code from [[locale]].
+     * @param  string  $currencyCode  the 3-letter ISO 4217 currency code to get symbol for. If null,
+     *                                method will attempt using currency code from [[locale]].
      * @return string
      */
     public function getCurrencySymbol($currencyCode = null)
@@ -55,7 +53,7 @@ class Locale extends Component
         $locale = $this->locale;
 
         if ($currencyCode !== null) {
-            $locale .= '@currency=' . $currencyCode;
+            $locale .= '@currency='.$currencyCode;
         }
 
         $formatter = new \NumberFormatter($locale, \NumberFormatter::CURRENCY);

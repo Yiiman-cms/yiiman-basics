@@ -1,4 +1,12 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
 namespace Upload;
 
 class Exception extends \RuntimeException
@@ -10,9 +18,8 @@ class Exception extends \RuntimeException
 
     /**
      * Constructor
-     *
-     * @param string                    $message  The Exception message
-     * @param \Upload\FileInfoInterface $fileInfo The related file instance
+     * @param  string                     $message   The Exception message
+     * @param  \Upload\FileInfoInterface  $fileInfo  The related file instance
      */
     public function __construct($message, \Upload\FileInfoInterface $fileInfo = null)
     {
@@ -23,7 +30,6 @@ class Exception extends \RuntimeException
 
     /**
      * Get related file
-     *
      * @return \Upload\FileInfoInterface
      */
     public function getFileInfo()

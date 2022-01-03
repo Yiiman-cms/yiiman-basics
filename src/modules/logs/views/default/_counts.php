@@ -1,6 +1,14 @@
 <?php
 /**
- * @var \yii\web\View $this
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
+/**
+ * @var \yii\web\View                 $this
  * @var \zhuravljov\yii\logreader\Log $log
  */
 
@@ -16,7 +24,7 @@ foreach ($log->getCounts() as $level => $count) {
         $class = $module->defaultLevelClass;
     }
     echo Html::tag('span', $count, [
-        'class' => 'label ' . $class,
+        'class' => 'label '.$class,
         'title' => $level,
     ]);
     echo ' ';

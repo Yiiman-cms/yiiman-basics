@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\FileSelectorWidget;
 use yii\helpers\Html;
@@ -11,7 +18,7 @@ use kartik\select2\Select2;
 
 $redactorOptions =
     [
-        'plugins' =>
+        'plugins'          =>
             [
                 'imagemanager',
                 'table',
@@ -21,16 +28,18 @@ $redactorOptions =
                 'fontsize',
                 'limiter'
             ],
-        'autosave' => false, // false or url
-        'autosaveName' => false,
-        'autosaveInterval' => 60, // seconds
+        'autosave'         => false,
+        // false or url
+        'autosaveName'     => false,
+        'autosaveInterval' => 60,
+        // seconds
         'autosaveOnChange' => false,
-        'autosaveFields' => false,
+        'autosaveFields'   => false,
 
-        'direction' => \YiiMan\YiiBasics\lib\i18n\Layout::run(),
-        'linkNofollow' => true,
+        'direction'      => \YiiMan\YiiBasics\lib\i18n\Layout::run(),
+        'linkNofollow'   => true,
         'dragFileUpload' => false,
-        'buttons' =>
+        'buttons'        =>
             [
                 'formatting',
                 'bold',
@@ -42,14 +51,23 @@ $redactorOptions =
                 'alignment',
                 'horizontalrule'
             ],
-        'deniedTags' =>
+        'deniedTags'     =>
             [
                 'script',
                 'style',
 
                 'php',
             ],
-        'removeEmpty' => ['p', 'img', 'a', 'h1', 'h2', 'span', 'i'], // or false;
+        'removeEmpty'    => [
+            'p',
+            'img',
+            'a',
+            'h1',
+            'h2',
+            'span',
+            'i'
+        ],
+        // or false;
     ];
 ?>
 
@@ -71,24 +89,24 @@ $redactorOptions =
                                 <?= $form->field($model, 'status')->widget(
                                     \kartik\select2\Select2::className(),
                                     [
-                                        'data' =>
+                                        'data'          =>
                                             [
-                                                $model::STATUS_ACTIVE => 'منتشر شده',
+                                                $model::STATUS_ACTIVE    => 'منتشر شده',
                                                 $model::STATUS_DE_ACTIVE => 'در حال بازبینی',
 
                                             ],
-                                        'options' => ['dir' => 'rtl'],
+                                        'options'       => ['dir' => 'rtl'],
                                         'pluginOptions' => ['dir' => 'rtl'],
-                                        'pluginEvents' => [
-                                            "change" => "function() {  }",
-                                            "select2:opening" => "function() {  }",
-                                            "select2:open" => "function() {  }",
-                                            "select2:closing" => "function() {  }",
-                                            "select2:close" => "function() {  }",
-                                            "select2:selecting" => "function() {  }",
-                                            "select2:select" => "function() {  }",
+                                        'pluginEvents'  => [
+                                            "change"              => "function() {  }",
+                                            "select2:opening"     => "function() {  }",
+                                            "select2:open"        => "function() {  }",
+                                            "select2:closing"     => "function() {  }",
+                                            "select2:close"       => "function() {  }",
+                                            "select2:selecting"   => "function() {  }",
+                                            "select2:select"      => "function() {  }",
                                             "select2:unselecting" => "function() {  }",
-                                            "select2:unselect" => "function() {  }"
+                                            "select2:unselect"    => "function() {  }"
                                         ]
                                     ]
                                 ) ?>
@@ -108,20 +126,24 @@ $redactorOptions =
                     <div class="col-md-12">
                         <h4 class="text-center">مشخصات</h4>
                         <div class="row">
-                            <div class="col-md-6"><?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?></div>
-                            <div class="col-md-6"><?= $form->field($model, 'sub_title')->textInput(['maxlength' => true]) ?></div>
+                            <div class="col-md-6"><?= $form->field($model,
+                                    'title')->textInput(['maxlength' => true]) ?></div>
+                            <div class="col-md-6"><?= $form->field($model,
+                                    'sub_title')->textInput(['maxlength' => true]) ?></div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <?= \YiiMan\YiiBasics\modules\slug\widgets\SlugField::run($form,$model) ?>
+                                <?= \YiiMan\YiiBasics\modules\slug\widgets\SlugField::run($form, $model) ?>
                             </div>
 
                         </div>
 
                         <div class="row">
-                            <div class="col-md-4"><?= $form->field($model, 'code')->textInput(['maxlength' => true]) ?></div>
+                            <div class="col-md-4"><?= $form->field($model,
+                                    'code')->textInput(['maxlength' => true]) ?></div>
 
-                            <div class="col-md-4"><?= $form->field($model, 'unit')->textInput(['maxlength' => true]) ?></div>
+                            <div class="col-md-4"><?= $form->field($model,
+                                    'unit')->textInput(['maxlength' => true]) ?></div>
 
                             <div class="col-md-4"><?= $form->field($model, 'weight')->textInput() ?></div>
                         </div>
@@ -129,9 +151,9 @@ $redactorOptions =
                             <div class="col-md-12">
                                 <?= \YiiMan\YiiBasics\widgets\redactor\widgets\Redactor::widget(
                                     [
-                                        'name' => 'description',
-                                        'fileUpload' => false,
-                                        'value' => $model->description,
+                                        'name'          => 'description',
+                                        'fileUpload'    => false,
+                                        'value'         => $model->description,
                                         'clientOptions' => $redactorOptions
 
                                     ]

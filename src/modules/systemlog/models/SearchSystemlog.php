@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\systemlog\models;
 
@@ -18,8 +25,28 @@ class SearchSystemlog extends Systemlog
     public function rules()
     {
         return [
-            [['id', 'level', 'language', 'language_parent', 'uid'], 'integer'],
-            [['category', 'log_time', 'prefix', 'message', 'ip', 'session_id', 'app_name'], 'safe'],
+            [
+                [
+                    'id',
+                    'level',
+                    'language',
+                    'language_parent',
+                    'uid'
+                ],
+                'integer'
+            ],
+            [
+                [
+                    'category',
+                    'log_time',
+                    'prefix',
+                    'message',
+                    'ip',
+                    'session_id',
+                    'app_name'
+                ],
+                'safe'
+            ],
         ];
     }
 
@@ -34,9 +61,7 @@ class SearchSystemlog extends Systemlog
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
@@ -66,20 +91,44 @@ class SearchSystemlog extends Systemlog
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'level' => $this->level,
-            'log_time' => $this->log_time,
-            'language' => $this->language,
+            'id'              => $this->id,
+            'level'           => $this->level,
+            'log_time'        => $this->log_time,
+            'language'        => $this->language,
             'language_parent' => $this->language_parent,
-            'uid' => $this->uid,
+            'uid'             => $this->uid,
         ]);
 
-        $query->andFilterWhere(['like', 'category', $this->category])
-            ->andFilterWhere(['like', 'prefix', $this->prefix])
-            ->andFilterWhere(['like', 'message', $this->message])
-            ->andFilterWhere(['like', 'ip', $this->ip])
-            ->andFilterWhere(['like', 'session_id', $this->session_id])
-            ->andFilterWhere(['like', 'app_name', $this->app_name]);
+        $query->andFilterWhere([
+            'like',
+            'category',
+            $this->category
+        ])
+            ->andFilterWhere([
+                'like',
+                'prefix',
+                $this->prefix
+            ])
+            ->andFilterWhere([
+                'like',
+                'message',
+                $this->message
+            ])
+            ->andFilterWhere([
+                'like',
+                'ip',
+                $this->ip
+            ])
+            ->andFilterWhere([
+                'like',
+                'session_id',
+                $this->session_id
+            ])
+            ->andFilterWhere([
+                'like',
+                'app_name',
+                $this->app_name
+            ]);
 
         return $dataProvider;
     }

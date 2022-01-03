@@ -1,34 +1,33 @@
 <?php
-/*
- * Copyright (c) 2022.
+/**
+ * Copyright (c) 2022-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
  * Site:https://yiiman.ir
  */
 
-	/**
-	 * Created by YiiMan.
-	 * Programmer: gholamreza beheshtian
-	 * Mobile:+989353466620 | +17272282283
-	 *
-	 * Site:https://yiiman.ir
-	 * Date: 03/22/2020
-	 * Time: 17:57 PM
-	 */
-	
-	use YiiMan\YiiBasics\widgets\mobileInput\assets\MobileInputAsset;
-	
-	/**
-	 * @var $this      \YiiMan\YiiBasics\lib\View
-	 * @var $name      string
-	 * @var $id        string
-	 * @var $country   string
-	 * @var $value     string
-	 */
-	$asset = MobileInputAsset::register( $this );
-	$utils = $asset->baseUrl . '/js/utils.js';
-	$js    = <<<JS
+/**
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ * Date: 03/22/2020
+ * Time: 17:57 PM
+ */
+
+use YiiMan\YiiBasics\widgets\mobileInput\assets\MobileInputAsset;
+
+/**
+ * @var $this      \YiiMan\YiiBasics\lib\View
+ * @var $name      string
+ * @var $id        string
+ * @var $country   string
+ * @var $value     string
+ */
+$asset = MobileInputAsset::register($this);
+$utils = $asset->baseUrl.'/js/utils.js';
+$js = <<<JS
 var phone = document.querySelector("#$id");
     var intl=window.intlTelInput(phone, {
     	utilsScript: "$utils",
@@ -51,7 +50,7 @@ var phone = document.querySelector("#$id");
 	   $('[name="$country"]').val(countryCode);
 });
 JS;
-	$this->registerJs( $js , $this::POS_END );
+$this->registerJs($js, $this::POS_END);
 ?>
 <input type="hidden" name="<?= $country ?>">
 <input id="<?= $id ?>" value="<?= $value ?>" class="mobileinput form-control" name="<?= $name ?>" type="tel">

@@ -1,9 +1,11 @@
 <?php
 
 /**
- * @link https://github.com/unclead/yii2-multiple-input
- * @copyright Copyright (c) 2014 unclead
- * @license https://github.com/unclead/yii2-multiple-input/blob/master/LICENSE.md
+ * Copyright (c) 2014-2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
  */
 
 namespace YiiMan\YiiBasics\widgets\multiRowInput\renderers;
@@ -89,15 +91,12 @@ abstract class BaseRenderer extends BaseObject implements RendererInterface
      * @var array|\Closure the HTML attributes for the table body rows. This can be either an array
      * specifying the common HTML attributes for all body rows, or an anonymous function that
      * returns an array of the HTML attributes. It should have the following signature:
-     *
      * ```php
      * function ($model, $index, $context)
      * ```
-     *
      * - `$model`: the current data model being rendered
      * - `$index`: the zero-based index of the data model in the model array
      * - `$context`: the widget object
-     *
      */
     public $rowOptions = [];
 
@@ -110,53 +109,34 @@ abstract class BaseRenderer extends BaseObject implements RendererInterface
      * @var array|string position of add button. By default button is rendered in the row.
      */
     public $addButtonPosition = self::POS_ROW;
-
-    /**
-     * @var TabularInput|MultipleInput
-     */
-    protected $context;
-
-    /**
-     * @var string
-     */
-    private $indexPlaceholder;
-
     /**
      * @var ActiveForm the instance of `ActiveForm` class.
      */
     public $form;
-
     /**
      * @var bool allow sorting.
      * @internal this property is used when need to allow sorting rows.
      */
     public $sortable = false;
-
     /**
      * @var bool whether to render inline error for all input. Default to `false`. Can be override in `columns`
      * @since 2.10
      */
     public $enableError = false;
-
     /**
      * @var bool whether to render clone button. Default to `false`.
      */
     public $cloneButton = false;
-
     /**
      * @var string|\Closure the HTML content that will be rendered after the buttons.
-     *
      * ```php
      * function ($model, $index, $context)
      * ```
-     *
      * - `$model`: the current data model being rendered
      * - `$index`: the zero-based index of the data model in the model array
      * - `$context`: the MultipleInput widget object
-     *
      */
     public $extraButtons;
-
     /**
      * @var array CSS grid classes for horizontal layout. This must be an array with these keys:
      *  - 'offsetClass' the offset grid class to append to the wrapper if no label is rendered
@@ -165,33 +145,41 @@ abstract class BaseRenderer extends BaseObject implements RendererInterface
      *  - 'errorClass' the error grid class
      */
     public $layoutConfig = [];
-
     /**
      * @var array
      */
     public $iconMap = [];
-
     /**
      * @var string
-     *
      * @todo Use bootstrap theme for BC. We can switch to default theme in major release
      */
     public $theme = self::THEME_BS;
-
     /**
      * @var array
      */
     public $jsExtraSettings = [];
-
     /**
      * @var array List of the locations of registered JavaScript code block or files in right order.
      */
-    public $jsPositions = [View::POS_HEAD, View::POS_BEGIN, View::POS_END, View::POS_READY, View::POS_LOAD];
-
+    public $jsPositions = [
+        View::POS_HEAD,
+        View::POS_BEGIN,
+        View::POS_END,
+        View::POS_READY,
+        View::POS_LOAD
+    ];
     /**
      * @var bool add a new line to the beginning of the list, not to the end
      */
     public $prepend = false;
+    /**
+     * @var TabularInput|MultipleInput
+     */
+    protected $context;
+    /**
+     * @var string
+     */
+    private $indexPlaceholder;
 
     /**
      * @inheritdoc
@@ -210,17 +198,6 @@ abstract class BaseRenderer extends BaseObject implements RendererInterface
         $this->prepareColumnClass();
         $this->prepareButtons();
         $this->prepareIndexPlaceholder();
-    }
-
-    private function prepareColumnClass()
-    {
-        if (!$this->columnClass) {
-            throw new InvalidConfigException('You must specify "columnClass"');
-        }
-
-        if (!class_exists($this->columnClass)) {
-            throw new InvalidConfigException('Column class "' . $this->columnClass. '" does not exist');
-        }
     }
 
     private function prepareMinOption()
@@ -258,6 +235,17 @@ abstract class BaseRenderer extends BaseObject implements RendererInterface
         // Maximum number of rows cannot be less then minimum number.
         if ($this->max < $this->min) {
             $this->max = $this->min;
+        }
+    }
+
+    private function prepareColumnClass()
+    {
+        if (!$this->columnClass) {
+            throw new InvalidConfigException('You must specify "columnClass"');
+        }
+
+        if (!class_exists($this->columnClass)) {
+            throw new InvalidConfigException('Column class "'.$this->columnClass.'" does not exist');
         }
     }
 
@@ -299,60 +287,36 @@ abstract class BaseRenderer extends BaseObject implements RendererInterface
         }
     }
 
-
-    /**
-     * Creates column objects and initializes them.
-     *
-     * @throws \yii\base\InvalidConfigException
-     */
-    protected function initColumns()
+    public function isBootstrapTheme()
     {
-        foreach ($this->columns as $i => $column) {
-            $definition = array_merge([
-                'class'         => $this->columnClass,
-                'renderer'      => $this,
-                'context'       => $this->context,
-            ], $column);
-
-            $this->addButtonOptions = (array)$this->addButtonOptions;
-
-            if (!isset($definition['attributeOptions'])) {
-                $definition['attributeOptions'] = $this->attributeOptions;
-            }
-
-            if (!isset($definition['enableError'])) {
-                $definition['enableError'] = $this->enableError;
-            }
-
-            $this->columns[$i] = Yii::createObject($definition);
-        }
+        return $this->theme === self::THEME_BS;
     }
 
     /**
-     * Render extra content in action column.
-     *
-     * @param $index
-     * @param $item
-     *
-     * @return string
+     * @param $action  - the control parameter, used as key into allowed types
+     * @return string - the relevant icon class
+     * @throws InvalidConfigException
      */
-    protected function getExtraButtons($index, $item)
+    protected function getIconClass($action)
     {
-        if (!$this->extraButtons) {
-            return '';
+        if (in_array($action, [
+            'add',
+            'remove',
+            'clone',
+            'drag-handle'
+        ])) {
+            return $this->iconMap[$action];
         }
 
-        if (is_callable($this->extraButtons)) {
-            $content = call_user_func($this->extraButtons, $item, $index, $this->context);
-        } else {
-            $content = $this->extraButtons;
+        if (YII_DEBUG) {
+            throw new InvalidConfigException('Out of bounds, "'.$action.'" not found in your iconMap');
         }
+        return '';
+    }
 
-        if (!is_string($content)) {
-            throw new InvalidParamException('Property "extraButtons" must return string.');
-        }
-
-        return $content;
+    private function prepareIndexPlaceholder()
+    {
+        $this->indexPlaceholder = 'multiple_index_'.$this->id;
     }
 
     public function render()
@@ -363,10 +327,10 @@ abstract class BaseRenderer extends BaseObject implements RendererInterface
         MultipleInputAsset::register($view);
 
         // Collect all js scripts which were added before rendering of our widget
-        $jsBefore= [];
+        $jsBefore = [];
         if (is_array($view->js)) {
             foreach ($view->js as $position => $scripts) {
-                foreach ((array)$scripts as $key => $js) {
+                foreach ((array) $scripts as $key => $js) {
                     if (!isset($jsBefore[$position])) {
                         $jsBefore[$position] = [];
                     }
@@ -375,7 +339,7 @@ abstract class BaseRenderer extends BaseObject implements RendererInterface
             }
         }
 
-        $content  = $this->internalRender();
+        $content = $this->internalRender();
 
         // Collect all js scripts which has to be appended to page before initialization widget
         $jsInit = [];
@@ -408,16 +372,16 @@ abstract class BaseRenderer extends BaseObject implements RendererInterface
         }
 
         $options = Json::encode(array_merge([
-            'id'                => $this->id,
-            'inputId'           => $this->context->options['id'],
-            'template'          => $template,
-            'jsInit'            => $jsInit,
-            'jsTemplates'       => $jsTemplates,
-            'max'               => $this->max,
-            'min'               => $this->min,
-            'attributes'        => $this->prepareJsAttributes(),
-            'indexPlaceholder'  => $this->getIndexPlaceholder(),
-            'prepend'           => $this->prepend
+            'id'               => $this->id,
+            'inputId'          => $this->context->options['id'],
+            'template'         => $template,
+            'jsInit'           => $jsInit,
+            'jsTemplates'      => $jsTemplates,
+            'max'              => $this->max,
+            'min'              => $this->min,
+            'attributes'       => $this->prepareJsAttributes(),
+            'indexPlaceholder' => $this->getIndexPlaceholder(),
+            'prepend'          => $this->prepend
         ], $this->jsExtraSettings));
 
         $js = "jQuery('#{$this->id}').multipleInput($options);";
@@ -428,6 +392,87 @@ abstract class BaseRenderer extends BaseObject implements RendererInterface
         }
 
         return $content;
+    }
+
+    /**
+     * Creates column objects and initializes them.
+     * @throws \yii\base\InvalidConfigException
+     */
+    protected function initColumns()
+    {
+        foreach ($this->columns as $i => $column) {
+            $definition = array_merge([
+                'class'    => $this->columnClass,
+                'renderer' => $this,
+                'context'  => $this->context,
+            ], $column);
+
+            $this->addButtonOptions = (array) $this->addButtonOptions;
+
+            if (!isset($definition['attributeOptions'])) {
+                $definition['attributeOptions'] = $this->attributeOptions;
+            }
+
+            if (!isset($definition['enableError'])) {
+                $definition['enableError'] = $this->enableError;
+            }
+
+            $this->columns[$i] = Yii::createObject($definition);
+        }
+    }
+
+    /**
+     * @return mixed
+     * @throws NotSupportedException
+     */
+    abstract protected function internalRender();
+
+    /**
+     * @return string
+     */
+    abstract protected function prepareTemplate();
+
+    /**
+     * Prepares attributes options for client side.
+     * @return array
+     */
+    protected function prepareJsAttributes()
+    {
+        $attributes = [];
+        foreach ($this->columns as $column) {
+            $model = $column->getModel();
+            $inputID = str_replace([
+                '-0',
+                '-0-'
+            ], '', $column->getElementId(0));
+            if ($this->form instanceof ActiveForm && $model instanceof Model) {
+                $field = $this->form->field($model, $column->name);
+                foreach ($column->attributeOptions as $name => $value) {
+                    if ($field->hasProperty($name)) {
+                        $field->$name = $value;
+                    }
+                }
+                $field->render('');
+                $attributeOptions = array_pop($this->form->attributes);
+                if (isset($attributeOptions['name']) && $attributeOptions['name'] === $column->name) {
+                    $attributes[$inputID] = ArrayHelper::merge($attributeOptions, $column->attributeOptions);
+                } else {
+                    $this->form->attributes[] = $attributeOptions;
+                }
+            } else {
+                $attributes[$inputID] = $column->attributeOptions;
+            }
+        }
+
+        return $attributes;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIndexPlaceholder()
+    {
+        return $this->indexPlaceholder;
     }
 
     private function registerJsSortable()
@@ -444,7 +489,6 @@ abstract class BaseRenderer extends BaseObject implements RendererInterface
     /**
      * Returns an array of JQuery sortable plugin options.
      * You can override this method extend plugin behaviour.
-     * 
      * @return array
      */
     protected function getJsSortableOptions()
@@ -467,23 +511,34 @@ abstract class BaseRenderer extends BaseObject implements RendererInterface
         ];
     }
 
-    /**
-     * @return mixed
-     * @throws NotSupportedException
-     */
-    abstract protected function internalRender();
+    public function isDefaultTheme()
+    {
+        return $this->theme === self::THEME_DEFAULT;
+    }
 
     /**
+     * Render extra content in action column.
+     * @param $index
+     * @param $item
      * @return string
      */
-    abstract protected function prepareTemplate();
-
-    /**
-     * @return mixed
-     */
-    public function getIndexPlaceholder()
+    protected function getExtraButtons($index, $item)
     {
-        return $this->indexPlaceholder;
+        if (!$this->extraButtons) {
+            return '';
+        }
+
+        if (is_callable($this->extraButtons)) {
+            $content = call_user_func($this->extraButtons, $item, $index, $this->context);
+        } else {
+            $content = $this->extraButtons;
+        }
+
+        if (!is_string($content)) {
+            throw new InvalidParamException('Property "extraButtons" must return string.');
+        }
+
+        return $content;
     }
 
     /**
@@ -516,71 +571,6 @@ abstract class BaseRenderer extends BaseObject implements RendererInterface
     protected function isAddButtonPositionRowBegin()
     {
         return in_array(self::POS_ROW_BEGIN, $this->addButtonPosition);
-    }
-
-    private function prepareIndexPlaceholder()
-    {
-        $this->indexPlaceholder = 'multiple_index_' . $this->id;
-    }
-
-    /**
-     * Prepares attributes options for client side.
-     *
-     * @return array
-     */
-    protected function prepareJsAttributes()
-    {
-        $attributes = [];
-        foreach ($this->columns as $column) {
-            $model = $column->getModel();
-            $inputID = str_replace(['-0', '-0-'], '', $column->getElementId(0));
-            if ($this->form instanceof ActiveForm && $model instanceof Model) {
-                $field = $this->form->field($model, $column->name);
-                foreach ($column->attributeOptions as $name => $value) {
-                    if ($field->hasProperty($name)) {
-                        $field->$name = $value;
-                    }
-                }
-                $field->render('');
-                $attributeOptions = array_pop($this->form->attributes);
-                if (isset($attributeOptions['name']) && $attributeOptions['name'] === $column->name) {
-                    $attributes[$inputID] = ArrayHelper::merge($attributeOptions, $column->attributeOptions);
-                } else {
-                    $this->form->attributes[] = $attributeOptions;
-                }
-            } else {
-                $attributes[$inputID] = $column->attributeOptions;
-            }
-        }
-
-        return $attributes;
-    }
-
-    /**
-     * @param $action - the control parameter, used as key into allowed types
-     * @return string - the relevant icon class
-     *
-     * @throws InvalidConfigException
-     */
-    protected function getIconClass($action) {
-        if (in_array($action, ['add', 'remove', 'clone', 'drag-handle'])) {
-            return $this->iconMap[$action];
-        }
-
-        if (YII_DEBUG) {
-            throw new InvalidConfigException('Out of bounds, "' . $action . '" not found in your iconMap');
-        }
-        return '';
-    }
-
-    public function isDefaultTheme()
-    {
-        return $this->theme === self::THEME_DEFAULT;
-    }
-
-    public function isBootstrapTheme()
-    {
-        return $this->theme === self::THEME_BS;
     }
 
 }

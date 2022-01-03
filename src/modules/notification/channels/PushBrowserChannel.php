@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\notification\channels;
 
@@ -14,7 +20,7 @@ class PushBrowserChannel extends ChannelBase
             'pushBrowserToken' =>
                 [
                     'label' => 'توکن',
-                    'hint' => 'توکن ارسال نوتیفیکیشن را وارد کنید'
+                    'hint'  => 'توکن ارسال نوتیفیکیشن را وارد کنید'
                 ]
         ];
 
@@ -23,8 +29,13 @@ class PushBrowserChannel extends ChannelBase
         return 'پوش مسیج مرورگر';
     }
 
-    public function sendNotification(string $message, string $name, array $params, ActiveRecord $receiver, int $type = 1)
-    {
+    public function sendNotification(
+        string $message,
+        string $name,
+        array $params,
+        ActiveRecord $receiver,
+        int $type = 1
+    ) {
         // TODO: Implement sendNotification() method.
     }
 }

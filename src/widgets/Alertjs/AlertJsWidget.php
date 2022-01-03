@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\widgets\Alertjs;
 
@@ -26,17 +32,6 @@ class AlertJsWidget extends Widget
     public $text = '';
     public $type = 'message';
 
-    private function registerAssets()
-    {
-        if (!self::$loaded) {
-
-            AlertJsAssets::$theme = $this->theme;
-            AlertJsAssets::register($this->view);
-        } else {
-            self::$loaded = true;
-        }
-    }
-
     public function run()
     {
         if (empty($this->text)) {
@@ -57,7 +52,13 @@ class AlertJsWidget extends Widget
                     ($attr == 'info') |
                     ($attr == 'danger')
                 ) {
-                    $attr = str_replace(['info', 'danger'], ['message', 'error'], $attr);
+                    $attr = str_replace([
+                        'info',
+                        'danger'
+                    ], [
+                        'message',
+                        'error'
+                    ], $attr);
                     $js .= <<<JS
 alertify.{$attr}('{$flash[0]}');
 JS;
@@ -72,5 +73,16 @@ JS;
 
         $this->view->registerJs($js, $this->view::POS_END);
 
+    }
+
+    private function registerAssets()
+    {
+        if (!self::$loaded) {
+
+            AlertJsAssets::$theme = $this->theme;
+            AlertJsAssets::register($this->view);
+        } else {
+            self::$loaded = true;
+        }
     }
 }

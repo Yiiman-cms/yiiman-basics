@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\rbac\models;
 
@@ -17,11 +24,10 @@ class AssignmentForm extends Model
     public $authManager;
 
     /**
-     *
-     * @param mixed $userId The id of user use for assign
-     * @param array $config
+     * @param  mixed  $userId  The id of user use for assign
+     * @param  array  $config
      */
-    public function __construct($userId, $config = array())
+    public function __construct($userId, $config = [])
     {
         parent::__construct($config);
         $this->userId = $userId;
@@ -38,8 +44,14 @@ class AssignmentForm extends Model
     {
         return
             [
-                [['userId'], 'required'],
-                [['roles'], 'default'],
+                [
+                    ['userId'],
+                    'required'
+                ],
+                [
+                    ['roles'],
+                    'default'
+                ],
             ];
     }
 
@@ -50,7 +62,7 @@ class AssignmentForm extends Model
     {
         return [
             'userId' => Yii::t('rbac', 'User ID'),
-            'roles' => Yii::t('rbac', 'Roles'),
+            'roles'  => Yii::t('rbac', 'Roles'),
         ];
     }
 

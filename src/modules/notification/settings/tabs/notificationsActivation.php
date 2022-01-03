@@ -1,6 +1,6 @@
 <?php
-/*
- * Copyright (c) 2022.
+/**
+ * Copyright (c) 2022-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
@@ -11,7 +11,6 @@
  * Created by YiiMan TM.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
- *
  * Site:https://yiiman.ir
  * Date: 03/25/2020
  * Time: 01:04 AM
@@ -20,7 +19,6 @@
 /**
  * @var $this \YiiMan\YiiBasics\lib\View
  * @var $model
- *
  */
 
 $notificationActs = \YiiMan\YiiBasics\lib\Core::getNotificationNames();

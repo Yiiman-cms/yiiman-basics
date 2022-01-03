@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\transactions\models;
 
@@ -19,9 +26,34 @@ class SearchTransactionsFactor extends TransactionsFactor
     public function rules()
     {
         return [
-            [['id', 'created_by', 'status', 'uid', 'tax_percent', 'discount_percent','total_price'], 'integer'],
-            [['created_at', 'payed_at'], 'safe'],
-            [['price', 'tax_price', 'discount_price', 'user_credit'], 'number'],
+            [
+                [
+                    'id',
+                    'created_by',
+                    'status',
+                    'uid',
+                    'tax_percent',
+                    'discount_percent',
+                    'total_price'
+                ],
+                'integer'
+            ],
+            [
+                [
+                    'created_at',
+                    'payed_at'
+                ],
+                'safe'
+            ],
+            [
+                [
+                    'price',
+                    'tax_price',
+                    'discount_price',
+                    'user_credit'
+                ],
+                'number'
+            ],
         ];
     }
 
@@ -36,9 +68,7 @@ class SearchTransactionsFactor extends TransactionsFactor
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
@@ -70,17 +100,17 @@ class SearchTransactionsFactor extends TransactionsFactor
         $query->andFilterWhere([
             'id' => $this->id,
 
-            'created_by' => $this->created_by,
-            'status' => $this->status,
-            'uid' => $this->uid,
-            'payed_at' => $this->payed_at,
-            'price' => $this->price,
-            'tax_price' => $this->tax_price,
-            'tax_percent' => $this->tax_percent,
-            'total_price' => $this->total_price,
-            'discount_price' => $this->discount_price,
+            'created_by'       => $this->created_by,
+            'status'           => $this->status,
+            'uid'              => $this->uid,
+            'payed_at'         => $this->payed_at,
+            'price'            => $this->price,
+            'tax_price'        => $this->tax_price,
+            'tax_percent'      => $this->tax_percent,
+            'total_price'      => $this->total_price,
+            'discount_price'   => $this->discount_price,
             'discount_percent' => $this->discount_percent,
-            'user_credit' => $this->user_credit,
+            'user_credit'      => $this->user_credit,
         ]);
         $query->andWhere('created_at like "'.$date.'%"');
         return $dataProvider;

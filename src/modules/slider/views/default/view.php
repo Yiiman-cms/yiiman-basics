@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
@@ -13,7 +20,7 @@ use yii\widgets\DetailView;
     Yii::t('slider', 'ثبت اسلاید'),
     'success',
     null,
-    Yii::$app->Options->BackendUrl . '/slider/default/create'
+    Yii::$app->Options->BackendUrl.'/slider/default/create'
 );
 
 
@@ -22,7 +29,7 @@ use yii\widgets\DetailView;
     Yii::t('slider', 'ویرایش این مورد'),
     'info',
     null,
-    Yii::$app->Options->BackendUrl . '/slider/default/update?id=' . $model->id);
+    Yii::$app->Options->BackendUrl.'/slider/default/update?id='.$model->id);
 
 
 \YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
@@ -30,11 +37,14 @@ use yii\widgets\DetailView;
     Yii::t('slider', 'حذف این مورد'),
     'danger',
     null,
-    Yii::$app->Options->BackendUrl . '/slider/default/delete?id=' . $model->id);
+    Yii::$app->Options->BackendUrl.'/slider/default/delete?id='.$model->id);
 
 
-$this->title = Yii::t('slider', 'اسلاید:  ' . $model->title);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('slider', 'اسلاید'), 'url' => ['index']];
+$this->title = Yii::t('slider', 'اسلاید:  '.$model->title);
+$this->params['breadcrumbs'][] = [
+    'label' => Yii::t('slider', 'اسلاید'),
+    'url'   => ['index']
+];
 $this->params['breadcrumbs'][] = $this->title;
 
 \YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
@@ -59,7 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'index',
                                     [
                                         'attribute' => 'status',
-                                        'value' => function ($model) {
+                                        'value'     => function ($model) {
                                             /**
                                              * @var $model \common\models\Neighbourhoods
                                              */
@@ -75,8 +85,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ],
                                     [
                                         'attribute' => 'data',
-                                        'format' => 'raw',
-                                        'value'=>function($model){
+                                        'format'    => 'raw',
+                                        'value'     => function ($model) {
                                             return \YiiMan\YiiBasics\theme\Widgets\Slider::widget();
                                         }
                                     ],

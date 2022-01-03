@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\testimotional\models;
 
@@ -18,8 +25,18 @@ class SearchTestimotional extends Testimotional
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['content', 'author', 'job'], 'safe'],
+            [
+                ['id'],
+                'integer'
+            ],
+            [
+                [
+                    'content',
+                    'author',
+                    'job'
+                ],
+                'safe'
+            ],
         ];
     }
 
@@ -34,9 +51,7 @@ class SearchTestimotional extends Testimotional
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
@@ -62,9 +77,21 @@ class SearchTestimotional extends Testimotional
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'content', $this->content])
-            ->andFilterWhere(['like', 'author', $this->author])
-            ->andFilterWhere(['like', 'job', $this->job]);
+        $query->andFilterWhere([
+            'like',
+            'content',
+            $this->content
+        ])
+            ->andFilterWhere([
+                'like',
+                'author',
+                $this->author
+            ])
+            ->andFilterWhere([
+                'like',
+                'job',
+                $this->job
+            ]);
 
         return $dataProvider;
     }

@@ -1,9 +1,11 @@
 <?php
 
 /**
- * @link https://github.com/unclead/yii2-multiple-input
- * @copyright Copyright (c) 2014 unclead
- * @license https://github.com/unclead/yii2-multiple-input/blob/master/LICENSE.md
+ * Copyright (c) 2014-2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
  */
 
 namespace YiiMan\YiiBasics\widgets\multiRowInput\components;
@@ -23,7 +25,6 @@ use YiiMan\YiiBasics\widgets\multiRowInput\renderers\BaseRenderer;
 
 /**
  * Class BaseColumn.
- *
  * @package YiiMan\YiiBasics\widgets\multiRowInput\components
  */
 abstract class BaseColumn extends BaseObject
@@ -72,9 +73,7 @@ abstract class BaseColumn extends BaseObject
     /**
      * @var array|\Closure items which used for rendering input with multiple choice, e.g. dropDownList. It can be an array
      * or anonymous function with following signature:
-     *
      * ```
-     *
      * 'columns' => [
      *     ...
      *     [
@@ -85,7 +84,6 @@ abstract class BaseColumn extends BaseObject
      *          ....
      *      ]
      * ...
-     *
      * ```
      */
     public $items;
@@ -124,7 +122,6 @@ abstract class BaseColumn extends BaseObject
      * @var array client-side options of the attribute, e.g. enableAjaxValidation.
      * You can use this property for custom configuration of the column (attribute).
      * By default, the column will use options which are defined on widget level.
-     *
      * @since 2.1
      */
     public $attributeOptions = [];
@@ -139,15 +136,12 @@ abstract class BaseColumn extends BaseObject
      * @var array|\Closure the HTML attributes for the indivdual table body column. This can be either an array
      * specifying the common HTML attributes for indivdual body column, or an anonymous function that
      * returns an array of the HTML attributes. It should have the following signature:
-     *
      * ```php
      * function ($model, $index, $context)
      * ```
-     *
      * - `$model`: the current data model being rendered
      * - `$index`: the zero-based index of the data model in the model array
      * - `$context`: the widget object
-     *
      * @since 2.18.0
      */
     public $columnOptions = [];
@@ -162,30 +156,6 @@ abstract class BaseColumn extends BaseObject
      * @var Model|ActiveRecordInterface|array
      */
     private $_model;
-
-
-    /**
-     * @return Model|ActiveRecordInterface|array
-     */
-    public function getModel()
-    {
-        return $this->_model;
-    }
-
-    /**
-     * @param Model|ActiveRecordInterface|array $model
-     */
-    public function setModel($model)
-    {
-        if ($this->ensureModel($model)) {
-            $this->_model = $model;
-        }
-    }
-
-    protected function ensureModel($model)
-    {
-        return true;
-    }
 
     /**
      * @inheritdoc
@@ -232,34 +202,9 @@ abstract class BaseColumn extends BaseObject
         return $this->type === self::TYPE_HIDDEN_INPUT;
     }
 
-
-    /**
-     * Prepares the value of column.
-     * @param array $contextParams the params who passed to closure:
-     * string $id the id of input element
-     * string $name the name of input element
-     * string $indexPlaceholder The index placeholder of multiple input. The {$indexPlaceholder} template will be replace by $index
-     * int $index The index of multiple input
-     * int $columnIndex The index of current model attributes
-     * @return mixed
-     */
-    protected function prepareValue($contextParams = [])
-    {
-        $data = $this->getModel();
-        if ($this->value instanceof \Closure) {
-            $value = call_user_func($this->value, $data, $contextParams);
-        } else {
-            $valuePreparer = new ValuePreparer($this->name, $this->defaultValue);
-            $value = $valuePreparer->prepare($data);
-        }
-
-        return $value;
-    }
-
     /**
      * Returns element id.
-     *
-     * @param null|int $index
+     * @param  null|int  $index
      * @return mixed
      */
     public function getElementId($index = null)
@@ -268,36 +213,47 @@ abstract class BaseColumn extends BaseObject
     }
 
     /**
-     * Returns element's name.
-     *
-     * @param int|null $index current row index
-     * @param bool $withPrefix whether to add prefix.
-     * @return string
-     */
-    abstract public function getElementName($index, $withPrefix = true);
-
-    /**
      * Normalization name.
-     *
      * @param $name
      * @return mixed
      */
     private function normalize($name)
     {
-        return str_replace(['[]', '][', '[', ']', ' ', '.'], ['', '-', '-', '', '-', '-'], strtolower($name));
+        return str_replace([
+            '[]',
+            '][',
+            '[',
+            ']',
+            ' ',
+            '.'
+        ], [
+            '',
+            '-',
+            '-',
+            '',
+            '-',
+            '-'
+        ], strtolower($name));
     }
 
     /**
+     * Returns element's name.
+     * @param  int|null  $index       current row index
+     * @param  bool      $withPrefix  whether to add prefix.
+     * @return string
+     */
+    abstract public function getElementName($index, $withPrefix = true);
+
+    /**
      * Renders the input.
-     *
-     * @param string $name the name of the input
-     * @param array $options the HTML options of input
-     * @param array $contextParams the params who passed to closure:
-     * string $id the id of input element
-     * string $name the name of input element
-     * string $indexPlaceholder The index placeholder of multiple input. The {$indexPlaceholder} template will be replace by $index
-     * int $index The index of multiple input
-     * int $columnIndex The index of current model attributes
+     * @param  string  $name           the name of the input
+     * @param  array   $options        the HTML options of input
+     * @param  array   $contextParams  the params who passed to closure:
+     *                                 string $id the id of input element
+     *                                 string $name the name of input element
+     *                                 string $indexPlaceholder The index placeholder of multiple input. The {$indexPlaceholder} template will be replace by $index
+     *                                 int $index The index of multiple input
+     *                                 int $columnIndex The index of current model attributes
      * @return string
      * @throws InvalidConfigException
      */
@@ -310,11 +266,12 @@ abstract class BaseColumn extends BaseObject
         }
 
         $options = ArrayHelper::merge($options, $optionsExt);
-        $method = 'render' . Inflector::camelize($this->type);
+        $method = 'render'.Inflector::camelize($this->type);
 
         // @see https://github.com/unclead/yii2-multiple-input/issues/261
         if (isset($contextParams['index']) && isset($contextParams['indexPlaceholder'])) {
-            $options = $this->replaceIndexPlaceholderInOptions($options, $contextParams['indexPlaceholder'], $contextParams['index']);
+            $options = $this->replaceIndexPlaceholderInOptions($options, $contextParams['indexPlaceholder'],
+                $contextParams['index']);
         }
 
         $value = null;
@@ -335,6 +292,29 @@ abstract class BaseColumn extends BaseObject
         return strtr($this->inputTemplate, ['{input}' => $input]);
     }
 
+    /**
+     * @return Model|ActiveRecordInterface|array
+     */
+    public function getModel()
+    {
+        return $this->_model;
+    }
+
+    /**
+     * @param  Model|ActiveRecordInterface|array  $model
+     */
+    public function setModel($model)
+    {
+        if ($this->ensureModel($model)) {
+            $this->_model = $model;
+        }
+    }
+
+    protected function ensureModel($model)
+    {
+        return true;
+    }
+
     private function replaceIndexPlaceholderInOptions($options, $indexPlaceholder, $index)
     {
         $result = [];
@@ -342,10 +322,10 @@ abstract class BaseColumn extends BaseObject
             if (is_array($value)) {
                 $result[$key] = $this->replaceIndexPlaceholderInOptions($value, $indexPlaceholder, $index);
             } elseif (is_string($value)) {
-                $result[$key] = str_replace('{' . $indexPlaceholder . '}', $index, $value);
+                $result[$key] = str_replace('{'.$indexPlaceholder.'}', $index, $value);
             } else {
                 if ($value instanceof JsExpression) {
-                    $value->expression = str_replace('{' . $indexPlaceholder . '}', $index, $value->expression);
+                    $value->expression = str_replace('{'.$indexPlaceholder.'}', $index, $value->expression);
                 }
 
                 $result[$key] = $value;
@@ -356,30 +336,31 @@ abstract class BaseColumn extends BaseObject
     }
 
     /**
-     * Renders drop down list.
-     *
-     * @param $name
-     * @param $value
-     * @param $options
-     * @return string
+     * Prepares the value of column.
+     * @param  array  $contextParams  the params who passed to closure:
+     *                                string $id the id of input element
+     *                                string $name the name of input element
+     *                                string $indexPlaceholder The index placeholder of multiple input. The {$indexPlaceholder} template will be replace by $index
+     *                                int $index The index of multiple input
+     *                                int $columnIndex The index of current model attributes
+     * @return mixed
      */
-    protected function renderDropDownList($name, $value, $options)
+    protected function prepareValue($contextParams = [])
     {
-        if ($this->renderer->isBootstrapTheme()) {
-            Html::addCssClass($options, 'form-control');
+        $data = $this->getModel();
+        if ($this->value instanceof \Closure) {
+            $value = call_user_func($this->value, $data, $contextParams);
+        } else {
+            $valuePreparer = new ValuePreparer($this->name, $this->defaultValue);
+            $value = $valuePreparer->prepare($data);
         }
 
-        if (!isset($options['tabindex'])) {
-            $options['tabindex'] = self::TABINDEX;
-        }
-
-        return Html::dropDownList($name, $value, $this->prepareItems($this->items), $options);
+        return $value;
     }
 
     /**
      * Returns the items for list.
-     *
-     * @param mixed $items
+     * @param  mixed  $items
      * @return array|Closure|mixed
      */
     private function prepareItems($items)
@@ -392,237 +373,10 @@ abstract class BaseColumn extends BaseObject
     }
 
     /**
-     * Renders list box.
-     *
-     * @param string $name the name of input
-     * @param mixed $value the value of input
-     * @param array $options the HTMl options of input
-     * @return string
-     */
-    protected function renderListBox($name, $value, $options)
-    {
-        if ($this->renderer->isBootstrapTheme()) {
-            Html::addCssClass($options, 'form-control');
-        }
-
-        if (!isset($options['tabindex'])) {
-            $options['tabindex'] = self::TABINDEX;
-        }
-
-        return Html::listBox($name, $value, $this->prepareItems($this->items), $options);
-    }
-
-    /**
-     * Renders hidden input.
-     *
-     * @param string $name the name of input
-     * @param mixed $value the value of input
-     * @param array $options the HTMl options of input
-     * @return string
-     */
-    protected function renderHiddenInput($name, $value, $options)
-    {
-        return Html::hiddenInput($name, $value, $options);
-    }
-
-    /**
-     * Renders hidden input.
-     *
-     * @param string $name the name of input
-     * @param mixed $value the value of input
-     * @param array $options the HTMl options of input
-     * @return string
-     */
-    protected function renderNumberInput($name, $value, $options)
-    {
-        return Html::input('number', $name, $value, $options);
-    }
-
-
-    /**
-     * Renders radio button.
-     *
-     * @param string $name the name of input
-     * @param mixed $value the value of input
-     * @param array $options the HTMl options of input
-     * @return string
-     */
-    protected function renderRadio($name, $value, $options)
-    {
-        if (!isset($options['tabindex'])) {
-            $options['tabindex'] = self::TABINDEX;
-        }
-        if (!isset($options['class'])) {
-            $options['class'] = ' form-control';
-        }
-
-        if (!isset($options['label'])) {
-            $options['label'] = '';
-        }
-
-        if (!array_key_exists('uncheck', $options)) {
-            $options['uncheck'] = 0;
-        }
-
-        $input = Html::radio($name, $value, $options);
-
-        return Html::tag('div', $input, ['class' => 'radio']);
-    }
-
-    /**
-     * Renders radio button list.
-     *
-     * @param string $name the name of input
-     * @param mixed $value the value of input
-     * @param array $options the HTMl options of input
-     * @return string
-     */
-    protected function renderRadioList($name, $value, $options)
-    {
-        if (!isset($options['tabindex'])) {
-            $options['tabindex'] = self::TABINDEX;
-        }
-
-        if (!isset($options['class'])) {
-            $options['class'] = ' form-control';
-        }
-        if (!array_key_exists('unselect', $options)) {
-            $options['unselect'] = '';
-        }
-
-        $options['item'] = function ($index, $label, $name, $checked, $value) use ($options) {
-            $content = Html::radio($name, $checked, [
-                'label' => $label,
-                'value' => $value,
-                'data-id' => ArrayHelper::getValue($options, 'id'),
-                'tabindex' => self::TABINDEX
-            ]);
-
-            return Html::tag('div', $content, ['class' => 'radio']);
-        };
-
-        $input = Html::radioList($name, $value, $this->prepareItems($this->items), $options);
-
-        return Html::tag('div', $input, ['class' => 'radio-list']);
-    }
-
-    /**
-     * Renders checkbox.
-     *
-     * @param string $name the name of input
-     * @param mixed $value the value of input
-     * @param array $options the HTMl options of input
-     * @return string
-     */
-    protected function renderCheckbox($name, $value, $options)
-    {
-        if (!isset($options['tabindex'])) {
-            $options['tabindex'] = self::TABINDEX;
-        }
-        if (!isset($options['class'])) {
-            $options['class'] = ' form-control';
-        }
-
-        if (!isset($options['label'])) {
-            $options['label'] = '';
-        }
-
-        if (!array_key_exists('uncheck', $options)) {
-            $options['uncheck'] = 0;
-        }
-
-        $input = Html::checkbox($name, $value, $options);
-
-        return Html::tag('div', $input, ['class' => 'checkbox']);
-    }
-
-    /**
-     * Renders checkbox list.
-     *
-     * @param string $name the name of input
-     * @param mixed $value the value of input
-     * @param array $options the HTMl options of input
-     * @return string
-     */
-    protected function renderCheckboxList($name, $value, $options)
-    {
-        if (!isset($options['tabindex'])) {
-            $options['tabindex'] = self::TABINDEX;
-        }
-        if (!isset($options['class'])) {
-            $options['class'] = ' form-control';
-        }
-        if (!array_key_exists('unselect', $options)) {
-            $options['unselect'] = '';
-        }
-
-        $options['item'] = function ($index, $label, $name, $checked, $value) use ($options) {
-            $content = Html::checkbox($name, $checked, [
-                'label' => $label,
-                'value' => $value,
-                'data-id' => ArrayHelper::getValue($options, 'id'),
-                'tabindex' => self::TABINDEX
-            ]);
-
-            return Html::tag('div', $content, ['class' => 'checkbox']);
-        };
-
-        $input = Html::checkboxList($name, $value, $this->prepareItems($this->items), $options);
-
-        return Html::tag('div', $input, ['class' => 'checkbox-list']);
-    }
-
-    /**
-     * Renders a text.
-     *
-     * @param string $name the name of input
-     * @param mixed $value the value of input
-     * @param array $options the HTMl options of input
-     * @return string
-     */
-    protected function renderStatic($name, $value, $options)
-    {
-        if (!isset($options['tabindex'])) {
-            $options['tabindex'] = self::TABINDEX;
-        }
-
-        if ($this->renderer->isBootstrapTheme()) {
-            Html::addCssClass($options, 'form-control-static');
-        }
-
-        return Html::tag('p', $value, $options);
-    }
-
-    /**
-     * Renders a drag&drop column.
-     *
-     * @param string $name the name of input
-     * @param mixed $value the value of input
-     * @param array $options the HTMl options of input
-     * @return string
-     */
-    protected function renderDragColumn($name, $value, $options)
-    {
-        /**
-         * Class was passed into options by TableRenderer->renderCellContent(),
-         * we can extract it here
-         */
-        $class = '';
-        if (array_key_exists('class', $options)) {
-            $class = ArrayHelper::remove($options, 'class');
-        }
-
-        $dragClass = implode(' ', [$class, 'drag-handle']);
-
-        return Html::tag('span', null, ['class' => $dragClass]);
-    }
-
-    /**
      * Renders an input.
-     *
-     * @param string $name the name of input
-     * @param mixed $value the value of input
-     * @param array $options the HTMl options of input
+     * @param  string  $name     the name of input
+     * @param  mixed   $value    the value of input
+     * @param  array   $options  the HTMl options of input
      * @return string
      * @throws InvalidConfigException
      */
@@ -651,11 +405,10 @@ abstract class BaseColumn extends BaseObject
 
     /**
      * Renders a widget.
-     *
-     * @param string $type
-     * @param string $name the name of input
-     * @param mixed $value the value of input
-     * @param array $options the HTMl options of input
+     * @param  string  $type
+     * @param  string  $name     the name of input
+     * @param  mixed   $value    the value of input
+     * @param  array   $options  the HTMl options of input
      * @return mixed
      */
     protected function renderWidget($type, $name, $value, $options)
@@ -667,25 +420,25 @@ abstract class BaseColumn extends BaseObject
         $model = $this->getModel();
         if ($model instanceof Model) {
             $widgetOptions = [
-                'model' => $model,
+                'model'     => $model,
                 'attribute' => $this->name,
-                'value' => $value,
-                'options' => [
-                    'id' => $this->normalize($name),
-                    'name' => $name,
+                'value'     => $value,
+                'options'   => [
+                    'id'       => $this->normalize($name),
+                    'name'     => $name,
                     'tabindex' => $tabindex,
-                    'value' => $value
+                    'value'    => $value
                 ]
             ];
         } else {
             $widgetOptions = [
-                'name' => $name,
-                'value' => $value,
+                'name'    => $name,
+                'value'   => $value,
                 'options' => [
-                    'id' => $this->normalize($name),
-                    'name' => $name,
+                    'id'       => $this->normalize($name),
+                    'name'     => $name,
                     'tabindex' => $tabindex,
-                    'value' => $value
+                    'value'    => $value
                 ]
             ];
         }
@@ -695,11 +448,9 @@ abstract class BaseColumn extends BaseObject
         return $type::widget($options);
     }
 
-
     /**
      * Renders an error.
-     *
-     * @param string $error
+     * @param  string  $error
      * @return string
      */
     public function renderError($error)
@@ -717,4 +468,243 @@ abstract class BaseColumn extends BaseObject
      * @return mixed
      */
     abstract public function getFirstError($index);
+
+    /**
+     * Renders drop down list.
+     * @param $name
+     * @param $value
+     * @param $options
+     * @return string
+     */
+    protected function renderDropDownList($name, $value, $options)
+    {
+        if ($this->renderer->isBootstrapTheme()) {
+            Html::addCssClass($options, 'form-control');
+        }
+
+        if (!isset($options['tabindex'])) {
+            $options['tabindex'] = self::TABINDEX;
+        }
+
+        return Html::dropDownList($name, $value, $this->prepareItems($this->items), $options);
+    }
+
+    /**
+     * Renders list box.
+     * @param  string  $name     the name of input
+     * @param  mixed   $value    the value of input
+     * @param  array   $options  the HTMl options of input
+     * @return string
+     */
+    protected function renderListBox($name, $value, $options)
+    {
+        if ($this->renderer->isBootstrapTheme()) {
+            Html::addCssClass($options, 'form-control');
+        }
+
+        if (!isset($options['tabindex'])) {
+            $options['tabindex'] = self::TABINDEX;
+        }
+
+        return Html::listBox($name, $value, $this->prepareItems($this->items), $options);
+    }
+
+    /**
+     * Renders hidden input.
+     * @param  string  $name     the name of input
+     * @param  mixed   $value    the value of input
+     * @param  array   $options  the HTMl options of input
+     * @return string
+     */
+    protected function renderHiddenInput($name, $value, $options)
+    {
+        return Html::hiddenInput($name, $value, $options);
+    }
+
+    /**
+     * Renders hidden input.
+     * @param  string  $name     the name of input
+     * @param  mixed   $value    the value of input
+     * @param  array   $options  the HTMl options of input
+     * @return string
+     */
+    protected function renderNumberInput($name, $value, $options)
+    {
+        return Html::input('number', $name, $value, $options);
+    }
+
+    /**
+     * Renders radio button.
+     * @param  string  $name     the name of input
+     * @param  mixed   $value    the value of input
+     * @param  array   $options  the HTMl options of input
+     * @return string
+     */
+    protected function renderRadio($name, $value, $options)
+    {
+        if (!isset($options['tabindex'])) {
+            $options['tabindex'] = self::TABINDEX;
+        }
+        if (!isset($options['class'])) {
+            $options['class'] = ' form-control';
+        }
+
+        if (!isset($options['label'])) {
+            $options['label'] = '';
+        }
+
+        if (!array_key_exists('uncheck', $options)) {
+            $options['uncheck'] = 0;
+        }
+
+        $input = Html::radio($name, $value, $options);
+
+        return Html::tag('div', $input, ['class' => 'radio']);
+    }
+
+    /**
+     * Renders radio button list.
+     * @param  string  $name     the name of input
+     * @param  mixed   $value    the value of input
+     * @param  array   $options  the HTMl options of input
+     * @return string
+     */
+    protected function renderRadioList($name, $value, $options)
+    {
+        if (!isset($options['tabindex'])) {
+            $options['tabindex'] = self::TABINDEX;
+        }
+
+        if (!isset($options['class'])) {
+            $options['class'] = ' form-control';
+        }
+        if (!array_key_exists('unselect', $options)) {
+            $options['unselect'] = '';
+        }
+
+        $options['item'] = function ($index, $label, $name, $checked, $value) use ($options) {
+            $content = Html::radio($name, $checked, [
+                'label'    => $label,
+                'value'    => $value,
+                'data-id'  => ArrayHelper::getValue($options, 'id'),
+                'tabindex' => self::TABINDEX
+            ]);
+
+            return Html::tag('div', $content, ['class' => 'radio']);
+        };
+
+        $input = Html::radioList($name, $value, $this->prepareItems($this->items), $options);
+
+        return Html::tag('div', $input, ['class' => 'radio-list']);
+    }
+
+    /**
+     * Renders checkbox.
+     * @param  string  $name     the name of input
+     * @param  mixed   $value    the value of input
+     * @param  array   $options  the HTMl options of input
+     * @return string
+     */
+    protected function renderCheckbox($name, $value, $options)
+    {
+        if (!isset($options['tabindex'])) {
+            $options['tabindex'] = self::TABINDEX;
+        }
+        if (!isset($options['class'])) {
+            $options['class'] = ' form-control';
+        }
+
+        if (!isset($options['label'])) {
+            $options['label'] = '';
+        }
+
+        if (!array_key_exists('uncheck', $options)) {
+            $options['uncheck'] = 0;
+        }
+
+        $input = Html::checkbox($name, $value, $options);
+
+        return Html::tag('div', $input, ['class' => 'checkbox']);
+    }
+
+    /**
+     * Renders checkbox list.
+     * @param  string  $name     the name of input
+     * @param  mixed   $value    the value of input
+     * @param  array   $options  the HTMl options of input
+     * @return string
+     */
+    protected function renderCheckboxList($name, $value, $options)
+    {
+        if (!isset($options['tabindex'])) {
+            $options['tabindex'] = self::TABINDEX;
+        }
+        if (!isset($options['class'])) {
+            $options['class'] = ' form-control';
+        }
+        if (!array_key_exists('unselect', $options)) {
+            $options['unselect'] = '';
+        }
+
+        $options['item'] = function ($index, $label, $name, $checked, $value) use ($options) {
+            $content = Html::checkbox($name, $checked, [
+                'label'    => $label,
+                'value'    => $value,
+                'data-id'  => ArrayHelper::getValue($options, 'id'),
+                'tabindex' => self::TABINDEX
+            ]);
+
+            return Html::tag('div', $content, ['class' => 'checkbox']);
+        };
+
+        $input = Html::checkboxList($name, $value, $this->prepareItems($this->items), $options);
+
+        return Html::tag('div', $input, ['class' => 'checkbox-list']);
+    }
+
+    /**
+     * Renders a text.
+     * @param  string  $name     the name of input
+     * @param  mixed   $value    the value of input
+     * @param  array   $options  the HTMl options of input
+     * @return string
+     */
+    protected function renderStatic($name, $value, $options)
+    {
+        if (!isset($options['tabindex'])) {
+            $options['tabindex'] = self::TABINDEX;
+        }
+
+        if ($this->renderer->isBootstrapTheme()) {
+            Html::addCssClass($options, 'form-control-static');
+        }
+
+        return Html::tag('p', $value, $options);
+    }
+
+    /**
+     * Renders a drag&drop column.
+     * @param  string  $name     the name of input
+     * @param  mixed   $value    the value of input
+     * @param  array   $options  the HTMl options of input
+     * @return string
+     */
+    protected function renderDragColumn($name, $value, $options)
+    {
+        /**
+         * Class was passed into options by TableRenderer->renderCellContent(),
+         * we can extract it here
+         */
+        $class = '';
+        if (array_key_exists('class', $options)) {
+            $class = ArrayHelper::remove($options, 'class');
+        }
+
+        $dragClass = implode(' ', [
+            $class,
+            'drag-handle'
+        ]);
+
+        return Html::tag('span', null, ['class' => $dragClass]);
+    }
 }

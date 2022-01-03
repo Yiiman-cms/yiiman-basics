@@ -1,5 +1,13 @@
 <?php
 /**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
+/**
  * Created by PhpStorm.
  * User: hamed
  * Date: 3/1/17
@@ -13,7 +21,7 @@ class Helper
 {
     public static function getFriendlyCurrency($price)
     {
-        return self::getFriendlyNumber($price) . ' تومان';
+        return self::getFriendlyNumber($price).' تومان';
     }
 
     public static function getFriendlyNumber($number)
@@ -44,9 +52,11 @@ class Helper
     public static function unifyMobileNumber($mobile)
     {
         if (preg_match("/^(9)\d{9}$/", $mobile)) {
-            $mobile = "98" . $mobile;
-        } else if (preg_match("/^(09)\d{9}$/", $mobile)) {
-            $mobile = "98" . substr($mobile, 1, strlen($mobile));
+            $mobile = "98".$mobile;
+        } else {
+            if (preg_match("/^(09)\d{9}$/", $mobile)) {
+                $mobile = "98".substr($mobile, 1, strlen($mobile));
+            }
         }
         return $mobile;
     }

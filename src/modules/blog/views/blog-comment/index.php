@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
@@ -9,7 +16,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel YiiMan\YiiBasics\modules\blog\models\SearchBlogComment */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('blog', 'دیدگاه ها') . ' ';
+$this->title = Yii::t('blog', 'دیدگاه ها').' ';
 $this->params['breadcrumbs'][] = $this->title;
 
 \YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
@@ -17,12 +24,12 @@ $this->params['breadcrumbs'][] = $this->title;
     Yii::t('blog', 'ثبت دیدگاه جدید'),
     'success',
     null,
-    Yii::$app->Options->BackendUrl . '/blog/default/create'
+    Yii::$app->Options->BackendUrl.'/blog/default/create'
 );
 \YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 
-$verified=  \Yii::t('site','منتشر شده');
-$unverified=  \Yii::t('site','جفنگ(منتشر نشده)');
+$verified = \Yii::t('site', 'منتشر شده');
+$unverified = \Yii::t('site', 'جفنگ(منتشر نشده)');
 $js = <<<JS
 function verifiedFunction(el){
     var verify= el.attr('verify')?true:false;
@@ -67,6 +74,7 @@ $this->registerJs($js, $this::POS_END);
     .glyphicon.glyphicon-ok {
         background-color: green;
     }
+
     .glyphicon.glyphicon-remove {
         background: red;
     }
@@ -84,8 +92,8 @@ $this->registerJs($js, $this::POS_END);
                     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
-                        'filterModel' => $searchModel,
-                        'rowOptions' => function ($model) {
+                        'filterModel'  => $searchModel,
+                        'rowOptions'   => function ($model) {
                             /**
                              * @var $model \YiiMan\YiiBasics\modules\blog\models\BlogComment
                              */
@@ -107,7 +115,7 @@ $this->registerJs($js, $this::POS_END);
                                     break;
                             }
                         },
-                        'columns' => [
+                        'columns'      => [
                             ['class' => 'yii\grid\SerialColumn'],
 
                             'message',
@@ -115,18 +123,18 @@ $this->registerJs($js, $this::POS_END);
                             'email:email',
                             [
                                 'attribute' => 'article',
-                                'format' => 'raw',
-                                'value' => function ($model) {
+                                'format'    => 'raw',
+                                'value'     => function ($model) {
                                     /**
                                      * @var $model \YiiMan\YiiBasics\modules\blog\models\BlogComment
                                      */
-                                    return '<a target="_blank" href="/article?id=' . $model->article . '">' . $model->article0->title . '</a>';
+                                    return '<a target="_blank" href="/article?id='.$model->article.'">'.$model->article0->title.'</a>';
                                 }
                             ],
                             //'created_at',
                             [
                                 'attribute' => 'status',
-                                'value' => function ($model) {
+                                'value'     => function ($model) {
                                     /**
                                      * @var $model
                                      */
@@ -145,11 +153,11 @@ $this->registerJs($js, $this::POS_END);
                             ],
 
                             [
-                                'class' => 'yii\grid\ActionColumn',
+                                'class'    => 'yii\grid\ActionColumn',
                                 'template' => '{view} {update} {delete} {verify} {un-verify}',
-                                'buttons' =>
+                                'buttons'  =>
                                     [
-                                        'verify' =>
+                                        'verify'    =>
                                             function ($url, $model, $key) {
                                                 /**
                                                  * @var $model \YiiMan\YiiBasics\modules\blog\models\BlogComment
@@ -160,13 +168,14 @@ $this->registerJs($js, $this::POS_END);
 
                                                     $options =
                                                         [
-                                                            'title' => $title,
+                                                            'title'              => $title,
                                                             'data-tippy-content' => $title,
-                                                            'data-pjax' => '1',
-                                                            'done' => 'verifiedFunction',
-                                                            'verify'=>'verify'
+                                                            'data-pjax'          => '1',
+                                                            'done'               => 'verifiedFunction',
+                                                            'verify'             => 'verify'
                                                         ];
-                                                    $icon = Html::tag('span', '', ['class' => "glyphicon glyphicon-ok"]);
+                                                    $icon = Html::tag('span', '',
+                                                        ['class' => "glyphicon glyphicon-ok"]);
                                                     return Html::a($icon, $url, $options);
                                                 } else {
                                                     return '';
@@ -183,13 +192,14 @@ $this->registerJs($js, $this::POS_END);
 
                                                     $options =
                                                         [
-                                                            'title' => $title,
+                                                            'title'              => $title,
                                                             'data-tippy-content' => $title,
-                                                            'data-pjax' => '1',
-                                                            'done' => 'verifiedFunction',
-                                                            'unverify'=>'unverify'
+                                                            'data-pjax'          => '1',
+                                                            'done'               => 'verifiedFunction',
+                                                            'unverify'           => 'unverify'
                                                         ];
-                                                    $icon = Html::tag('span', '', ['class' => "glyphicon glyphicon-remove"]);
+                                                    $icon = Html::tag('span', '',
+                                                        ['class' => "glyphicon glyphicon-remove"]);
                                                     return Html::a($icon, $url, $options);
                                                 } else {
                                                     return '';

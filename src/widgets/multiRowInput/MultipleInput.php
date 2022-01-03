@@ -1,9 +1,11 @@
 <?php
 
 /**
- * @link https://github.com/unclead/yii2-multiple-input
- * @copyright Copyright (c) 2014 unclead
- * @license https://github.com/unclead/yii2-multiple-input/blob/master/LICENSE.md
+ * Copyright (c) 2014-2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
  */
 
 namespace YiiMan\YiiBasics\widgets\multiRowInput;
@@ -22,20 +24,19 @@ use YiiMan\YiiBasics\widgets\multiRowInput\renderers\RendererInterface;
 
 /**
  * Widget for rendering multiple input for an attribute of model.
- *
  * @author Eugene Tupikov <unclead.nsk@gmail.com>
  */
 class MultipleInput extends InputWidget
 {
-    const POS_HEADER    = RendererInterface::POS_HEADER;
-    const POS_ROW       = RendererInterface::POS_ROW;
+    const POS_HEADER = RendererInterface::POS_HEADER;
+    const POS_ROW = RendererInterface::POS_ROW;
     const POS_ROW_BEGIN = RendererInterface::POS_ROW_BEGIN;
-    const POS_FOOTER    = RendererInterface::POS_FOOTER;
+    const POS_FOOTER = RendererInterface::POS_FOOTER;
 
     const THEME_DEFAULT = 'default';
-    const THEME_BS      = 'bootstrap';
+    const THEME_BS = 'bootstrap';
 
-    const ICONS_SOURCE_GLYPHICONS  = 'glyphicons';
+    const ICONS_SOURCE_GLYPHICONS = 'glyphicons';
     const ICONS_SOURCE_FONTAWESOME = 'fa';
 
     /**
@@ -99,15 +100,12 @@ class MultipleInput extends InputWidget
      * @var array|\Closure the HTML attributes for the table body rows. This can be either an array
      * specifying the common HTML attributes for all body rows, or an anonymous function that
      * returns an array of the HTML attributes. It should have the following signature:
-     *
      * ```php
      * function ($model, $index, $context)
      * ```
-     *
      * - `$model`: the current data model being rendered
      * - `$index`: the zero-based index of the data model in the model array
      * - `$context`: the MultipleInput widget object
-     *
      */
     public $rowOptions = [];
 
@@ -154,15 +152,12 @@ class MultipleInput extends InputWidget
 
     /**
      * @var string|\Closure the HTML content that will be rendered after the buttons.
-     *
      * ```php
      * function ($model, $index, $context)
      * ```
-     *
      * - `$model`: the current data model being rendered
      * - `$index`: the zero-based index of the data model in the model array
      * - `$context`: the MultipleInput widget object
-     *
      */
     public $extraButtons;
 
@@ -180,17 +175,17 @@ class MultipleInput extends InputWidget
      * --icon library classes mapped for various controls
      */
     public $iconMap = [
-        self::ICONS_SOURCE_GLYPHICONS => [
-            'drag-handle'   => 'glyphicon glyphicon-menu-hamburger',
-            'remove'        => 'glyphicon glyphicon-remove',
-            'add'           => 'glyphicon glyphicon-plus',
-            'clone'         => 'glyphicon glyphicon-duplicate',
+        self::ICONS_SOURCE_GLYPHICONS  => [
+            'drag-handle' => 'glyphicon glyphicon-menu-hamburger',
+            'remove'      => 'glyphicon glyphicon-remove',
+            'add'         => 'glyphicon glyphicon-plus',
+            'clone'       => 'glyphicon glyphicon-duplicate',
         ],
         self::ICONS_SOURCE_FONTAWESOME => [
-            'drag-handle'   => 'fa fa-bars',
-            'remove'        => 'fa fa-times',
-            'add'           => 'fa fa-plus',
-            'clone'         => 'fa fa-files-o',
+            'drag-handle' => 'fa fa-bars',
+            'remove'      => 'fa fa-times',
+            'add'         => 'fa fa-plus',
+            'clone'       => 'fa fa-files-o',
         ],
     ];
     /**
@@ -200,7 +195,6 @@ class MultipleInput extends InputWidget
 
     /**
      * @var string the CSS theme of the widget
-     *
      * @todo Use bootstrap theme for BC. We can switch to default theme in major release
      */
     public $theme = self::THEME_BS;
@@ -217,7 +211,6 @@ class MultipleInput extends InputWidget
 
     /**
      * Initialization.
-     *
      * @throws \yii\base\InvalidConfigException
      */
     public function init()
@@ -234,6 +227,25 @@ class MultipleInput extends InputWidget
         $this->initData();
 
         parent::init();
+    }
+
+    /**
+     * This function tries to guess the columns to show from the given data
+     * if [[columns]] are not explicitly specified.
+     */
+    protected function guessColumns()
+    {
+        if (empty($this->columns)) {
+            $column = [
+                'name' => $this->hasModel() ? $this->attribute : $this->name,
+                'type' => MultipleInputColumn::TYPE_TEXT_INPUT
+            ];
+
+            if ($this->enableGuessTitle && $this->hasModel()) {
+                $column['title'] = $this->model->getAttributeLabel($this->attribute);
+            }
+            $this->columns[] = $column;
+        }
     }
 
     /**
@@ -270,25 +282,6 @@ class MultipleInput extends InputWidget
     }
 
     /**
-     * This function tries to guess the columns to show from the given data
-     * if [[columns]] are not explicitly specified.
-     */
-    protected function guessColumns()
-    {
-        if (empty($this->columns)) {
-            $column = [
-                'name' => $this->hasModel() ? $this->attribute : $this->name,
-                'type' => MultipleInputColumn::TYPE_TEXT_INPUT
-            ];
-
-            if ($this->enableGuessTitle && $this->hasModel()) {
-                $column['title'] = $this->model->getAttributeLabel($this->attribute);
-            }
-            $this->columns[] = $column;
-        }
-    }
-
-    /**
      * Run widget.
      */
     public function run()
@@ -308,10 +301,10 @@ class MultipleInput extends InputWidget
      */
     protected function createRenderer()
     {
-        if($this->sortable) {
+        if ($this->sortable) {
             $drag = [
-                'name'  => 'drag',
-                'type'  => MultipleInputColumn::TYPE_DRAGCOLUMN,
+                'name'          => 'drag',
+                'type'          => MultipleInputColumn::TYPE_DRAGCOLUMN,
                 'headerOptions' => [
                     'style' => 'width: 20px;',
                 ]

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\rbac\models;
 
@@ -8,8 +15,7 @@ use YiiMan\YiiBasics\modules\rbac\Module;
 
 /**
  * @author John Martin <john.itvn@gmail.com>
- * @since 1.0.0
- *
+ * @since  1.0.0
  */
 class AssignmentSearch extends ModuleRbacAuthAssignment
 {
@@ -26,7 +32,14 @@ class AssignmentSearch extends ModuleRbacAuthAssignment
     {
         return
             [
-                [['item_name', 'user_id', 'created_at'], 'safe'],
+                [
+                    [
+                        'item_name',
+                        'user_id',
+                        'created_at'
+                    ],
+                    'safe'
+                ],
             ];
     }
 
@@ -59,8 +72,16 @@ class AssignmentSearch extends ModuleRbacAuthAssignment
             return $dataProvider;
         }
 
-        $query->andFilterWhere(['like', 'item_name', $this->item_name]);
-        $query->andFilterWhere(['like', 'user_id', $this->user_id]);
+        $query->andFilterWhere([
+            'like',
+            'item_name',
+            $this->item_name
+        ]);
+        $query->andFilterWhere([
+            'like',
+            'user_id',
+            $this->user_id
+        ]);
 
         return $dataProvider;
     }

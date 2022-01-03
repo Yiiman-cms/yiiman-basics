@@ -1,6 +1,6 @@
 <?php
-/*
- * Copyright (c) 2022.
+/**
+ * Copyright (c) 2022-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
@@ -11,7 +11,6 @@
  * Created by YiiMan TM.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
- *
  * Site:https://yiiman.ir
  * Date: 03/25/2020
  * Time: 01:04 AM
@@ -82,12 +81,12 @@ Yii::$app->view->registerJs($js, Yii::$app->view::POS_END);
             <div class="col-md-6">
                 <?php
                 $gates = [];
-                $gatesFiles = getFileList(__DIR__ . '/../Terminals');
+                $gatesFiles = getFileList(__DIR__.'/../Terminals');
                 foreach ($gatesFiles as $gate) {
 
                     if ($gate['type'] == 'text/x-php') {
                         $className = str_replace('.php', '', $gate['name']);
-                        $code='$gates[$className] = (new YiiMan\YiiBasics\modules\transactions\Terminals\\'.$className.')->title();';
+                        $code = '$gates[$className] = (new YiiMan\YiiBasics\modules\transactions\Terminals\\'.$className.')->title();';
 
                         eval($code);
 

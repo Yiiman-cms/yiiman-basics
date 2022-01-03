@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\location\controllers;
 
@@ -13,11 +20,12 @@ use yii\filters\VerbFilter;
 /**
  * LocationNeighbourhoodController implements the CRUD actions for LocationNeighbourhood model.
  */
-class NeighbourhoodController extends \YiiMan\YiiBasics\lib\Controller{
-	/**
-	*
-	* @var $model SearchLocationNeighbourhood	*/
-	public $model;
+class NeighbourhoodController extends \YiiMan\YiiBasics\lib\Controller
+{
+    /**
+     * @var $model SearchLocationNeighbourhood
+     */
+    public $model;
     /**
      * {@inheritdoc}
      */
@@ -50,14 +58,14 @@ class NeighbourhoodController extends \YiiMan\YiiBasics\lib\Controller{
 
     /**
      * Displays a single LocationNeighbourhood model.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
 
-        $model=$this->findModel($id);
+        $model = $this->findModel($id);
 
         return $this->render('view', [
             'model' => $model,
@@ -74,8 +82,11 @@ class NeighbourhoodController extends \YiiMan\YiiBasics\lib\Controller{
         $model = new LocationNeighbourhood;
 
         if ($model->load(Yii::$app->request->post())) {
-            if($model->save()){
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->save()) {
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
             }
         }
         return $this->render('create', [
@@ -86,16 +97,19 @@ class NeighbourhoodController extends \YiiMan\YiiBasics\lib\Controller{
     /**
      * Updates an existing LocationNeighbourhood model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
-        $model=$this->findModel($id);
+        $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post())) {
-            if( $model->save()){
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->save()) {
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
             }
         }
 
@@ -107,7 +121,7 @@ class NeighbourhoodController extends \YiiMan\YiiBasics\lib\Controller{
     /**
      * Deletes an existing LocationNeighbourhood model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -118,17 +132,15 @@ class NeighbourhoodController extends \YiiMan\YiiBasics\lib\Controller{
         return $this->redirect(['index']);
     }
 
-
-
-
-	protected function upload(){
-	
-	
-	}
-
-
-	public function init(){
+    public function init()
+    {
         parent::init();
-		$this->modelClass=new LocationNeighbourhood();
-	}
+        $this->modelClass = new LocationNeighbourhood();
+    }
+
+    protected function upload()
+    {
+
+
+    }
 }

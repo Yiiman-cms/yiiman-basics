@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\gallery\controllers;
 
@@ -13,11 +20,12 @@ use yii\filters\VerbFilter;
 /**
  * GalleryFkMediasCategoriesController implements the CRUD actions for GalleryFkMediasCategories model.
  */
-class GalleryFkMediasCategoriesController extends \YiiMan\YiiBasics\lib\Controller{
-	/**
-	*
-	* @var $model SearchGalleryFkMediasCategories	*/
-	public $model;
+class GalleryFkMediasCategoriesController extends \YiiMan\YiiBasics\lib\Controller
+{
+    /**
+     * @var $model SearchGalleryFkMediasCategories
+     */
+    public $model;
 
 
     /**
@@ -37,16 +45,16 @@ class GalleryFkMediasCategoriesController extends \YiiMan\YiiBasics\lib\Controll
 
     /**
      * Displays a single GalleryFkMediasCategories model.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
-        if (!empty($_GET['lng'])){
-            $model=$this->findModel($id,$_GET['lng']);
-        }else{
-            $model=$this->findModel($id);
+        if (!empty($_GET['lng'])) {
+            $model = $this->findModel($id, $_GET['lng']);
+        } else {
+            $model = $this->findModel($id);
         }
         return $this->render('view', [
             'model' => $model,
@@ -63,11 +71,14 @@ class GalleryFkMediasCategoriesController extends \YiiMan\YiiBasics\lib\Controll
         $model = new GalleryFkMediasCategories;
 
         if ($model->load(Yii::$app->request->post())) {
-            $language=Language::find()->where(['default'=>1])->one();
-            $model->language=$language->id;
-            if($model->save()){
-                $model->saveImage( 'image');
-                return $this->redirect(['view', 'id' => $model->id]);
+            $language = Language::find()->where(['default' => 1])->one();
+            $model->language = $language->id;
+            if ($model->save()) {
+                $model->saveImage('image');
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
             }
         }
         return $this->render('create', [
@@ -78,21 +89,24 @@ class GalleryFkMediasCategoriesController extends \YiiMan\YiiBasics\lib\Controll
     /**
      * Updates an existing GalleryFkMediasCategories model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
-        if (!empty($_GET['lng'])){
-            $model=$this->findModel($id,$_GET['lng']);
-        }else{
-            $model=$this->findModel($id);
+        if (!empty($_GET['lng'])) {
+            $model = $this->findModel($id, $_GET['lng']);
+        } else {
+            $model = $this->findModel($id);
         }
         if ($model->load(Yii::$app->request->post())) {
-            $model->saveImage( 'image');
-            if( $model->save()){
-                return $this->redirect(['view', 'id' => $model->id]);
+            $model->saveImage('image');
+            if ($model->save()) {
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
             }
         }
 
@@ -104,7 +118,7 @@ class GalleryFkMediasCategoriesController extends \YiiMan\YiiBasics\lib\Controll
     /**
      * Deletes an existing GalleryFkMediasCategories model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -115,17 +129,15 @@ class GalleryFkMediasCategoriesController extends \YiiMan\YiiBasics\lib\Controll
         return $this->redirect(['index']);
     }
 
-
-
-
-	protected function upload(){
-	
-	
-	}
-
-
-	public function init(){
+    public function init()
+    {
         parent::init();
-		$this->modelClass=new GalleryFkMediasCategories();
-	}
+        $this->modelClass = new GalleryFkMediasCategories();
+    }
+
+    protected function upload()
+    {
+
+
+    }
 }

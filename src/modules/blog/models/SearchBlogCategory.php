@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\blog\models;
 
@@ -17,8 +24,14 @@ class SearchBlogCategory extends BlogCategory
     {
         return
             [
-                ['title', 'string'],
-                ['id', 'integer']
+                [
+                    'title',
+                    'string'
+                ],
+                [
+                    'id',
+                    'integer'
+                ]
             ];
     }
 
@@ -33,9 +46,7 @@ class SearchBlogCategory extends BlogCategory
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
@@ -64,7 +75,11 @@ class SearchBlogCategory extends BlogCategory
         ]);
 
         $query
-            ->andFilterWhere(['like', 'name', $this->title]);
+            ->andFilterWhere([
+                'like',
+                'name',
+                $this->title
+            ]);
 
         return $dataProvider;
     }

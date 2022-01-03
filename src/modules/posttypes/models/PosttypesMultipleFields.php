@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\posttypes\models;
 
@@ -7,19 +14,14 @@ use Yii;
 
 /**
  * This is the model class for table "{{%module_posttypes_fields}}".
- *
- * @property string $key
- * @property string $value
- *
- * @property int $posttype_id
- * @property string $posttype
- * @property string $posttype_field_name
- *
- * @property string $multiple_field_name
- * @property int $multiple_field_id
- *
+ * @property string            $key
+ * @property string            $value
+ * @property int               $posttype_id
+ * @property string            $posttype
+ * @property string            $posttype_field_name
+ * @property string            $multiple_field_name
+ * @property int               $multiple_field_id
  * @property PosttypesMultiple $posttype_multiple0
- *
  */
 class PosttypesMultipleFields extends \YiiMan\YiiBasics\lib\ActiveRecord
 {
@@ -38,12 +40,44 @@ class PosttypesMultipleFields extends \YiiMan\YiiBasics\lib\ActiveRecord
     public function rules()
     {
         return [
-            [['key', 'value', 'posttype_id', 'posttype', 'posttype_field_name', 'multiple_field_name', 'multiple_field_id'], 'required'],
+            [
+                [
+                    'key',
+                    'value',
+                    'posttype_id',
+                    'posttype',
+                    'posttype_field_name',
+                    'multiple_field_name',
+                    'multiple_field_id'
+                ],
+                'required'
+            ],
 
-            [['posttype_id', 'multiple_field_id'], 'integer'],
-            [['key', 'value', 'posttype', 'posttype_field_name', 'multiple_field_name'], 'safe'],
+            [
+                [
+                    'posttype_id',
+                    'multiple_field_id'
+                ],
+                'integer'
+            ],
+            [
+                [
+                    'key',
+                    'value',
+                    'posttype',
+                    'posttype_field_name',
+                    'multiple_field_name'
+                ],
+                'safe'
+            ],
 
-            [['multiple_field_id'], 'exist', 'skipOnError' => true, 'targetClass' => \YiiMan\YiiBasics\modules\posttypes\models\PosttypesMultiple::className(), 'targetAttribute' => ['multiple_field_id' => 'id']],
+            [
+                ['multiple_field_id'],
+                'exist',
+                'skipOnError'     => true,
+                'targetClass'     => \YiiMan\YiiBasics\modules\posttypes\models\PosttypesMultiple::className(),
+                'targetAttribute' => ['multiple_field_id' => 'id']
+            ],
         ];
     }
 

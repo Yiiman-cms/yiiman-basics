@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\product\models;
 
@@ -18,8 +25,17 @@ class SearchProductCategory extends ProductCategory
     public function rules()
     {
         return [
-            [['id', 'parent'], 'integer'],
-            [['title'], 'safe'],
+            [
+                [
+                    'id',
+                    'parent'
+                ],
+                'integer'
+            ],
+            [
+                ['title'],
+                'safe'
+            ],
         ];
     }
 
@@ -34,20 +50,18 @@ class SearchProductCategory extends ProductCategory
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
     {
         $query = ProductCategory::find();
 
-        if ($this->hasLanguage){
-            if (!empty( $_GET['lng'])){
-                $query=$query->where(['language'=> $_GET['lng']]);
-            }else{
-                $query=$query->where(['language_parent'=>null]);
+        if ($this->hasLanguage) {
+            if (!empty($_GET['lng'])) {
+                $query = $query->where(['language' => $_GET['lng']]);
+            } else {
+                $query = $query->where(['language_parent' => null]);
             }
         }
         // add conditions that should always apply here
@@ -70,7 +84,11 @@ class SearchProductCategory extends ProductCategory
             'parent' => $this->parent,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title]);
+        $query->andFilterWhere([
+            'like',
+            'title',
+            $this->title
+        ]);
 
         return $dataProvider;
     }

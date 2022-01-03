@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use yii\helpers\Html;
 use yii\bootstrap\Modal;
@@ -16,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
     Yii::t('rbac', 'ثبت نقش'),
     'success',
     null,
-    Yii::$app->Options->BackendUrl . '/rbac/role/create'
+    Yii::$app->Options->BackendUrl.'/rbac/role/create'
 );
 ?>
 
@@ -32,26 +39,26 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?=
                         GridView::widget(
                             [
-                                'id' => 'crud-datatable',
-                                'dataProvider' => $dataProvider,
-                                'filterModel' => $searchModel,
-                                'pjax' => true,
-                                'columns' => require(__DIR__ . '/_columns.php'),
+                                'id'                => 'crud-datatable',
+                                'dataProvider'      => $dataProvider,
+                                'filterModel'       => $searchModel,
+                                'pjax'              => true,
+                                'columns'           => require(__DIR__.'/_columns.php'),
                                 'toggleDataOptions' => [
-                                    'all' => [
-                                        'icon' => 'resize-full',
+                                    'all'  => [
+                                        'icon'  => 'resize-full',
                                         'class' => 'btn btn-default',
                                         'label' => Yii::t('rbac', 'All'),
                                         'title' => Yii::t('rbac', 'Show all data')
                                     ],
                                     'page' => [
-                                        'icon' => 'resize-small',
+                                        'icon'  => 'resize-small',
                                         'class' => 'btn btn-default',
                                         'label' => Yii::t('rbac', 'Page'),
                                         'title' => Yii::t('rbac', 'Show first page data')
                                     ],
                                 ],
-                                'toolbar' => [
+                                'toolbar'           => [
                                     [
                                         'content' =>
 
@@ -60,20 +67,20 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 [''],
                                                 [
                                                     'data-pjax' => 1,
-                                                    'class' => 'btn btn-default',
-                                                    'title' => Yii::t('rbac', 'بازنشانی جست و جو')
+                                                    'class'     => 'btn btn-default',
+                                                    'title'     => Yii::t('rbac', 'بازنشانی جست و جو')
                                                 ]
-                                            ) .
-                                            '{toggleData}' .
+                                            ).
+                                            '{toggleData}'.
                                             '{export}'
                                     ],
                                 ],
-                                'striped' => true,
-                                'condensed' => true,
-                                'responsive' => true,
-                                'panel' => [
-                                    'type' => 'primary',
-                                    'heading' => '<i class="glyphicon glyphicon-list"></i> ' . $this->title,
+                                'striped'           => true,
+                                'condensed'         => true,
+                                'responsive'        => true,
+                                'panel'             => [
+                                    'type'    => 'primary',
+                                    'heading' => '<i class="glyphicon glyphicon-list"></i> '.$this->title,
 
                                     'after' => false,
                                 ]

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\transactions\models;
 
@@ -18,9 +25,27 @@ class SearchTransactionsUserCredits extends TransactionsUserCredits
     public function rules()
     {
         return [
-            [['id', 'uid', 'created_by', 'created_user_mode', 'factor'], 'integer'],
-            [['credit'], 'number'],
-            [['created_at', 'description'], 'safe'],
+            [
+                [
+                    'id',
+                    'uid',
+                    'created_by',
+                    'created_user_mode',
+                    'factor'
+                ],
+                'integer'
+            ],
+            [
+                ['credit'],
+                'number'
+            ],
+            [
+                [
+                    'created_at',
+                    'description'
+                ],
+                'safe'
+            ],
         ];
     }
 
@@ -35,20 +60,18 @@ class SearchTransactionsUserCredits extends TransactionsUserCredits
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
     {
         $query = TransactionsUserCredits::find();
 
-        if ($this->hasLanguage){
-            if (!empty( $_GET['lng'])){
-                $query=$query->where(['language'=> $_GET['lng']]);
-            }else{
-                $query=$query->where(['language_parent'=>null]);
+        if ($this->hasLanguage) {
+            if (!empty($_GET['lng'])) {
+                $query = $query->where(['language' => $_GET['lng']]);
+            } else {
+                $query = $query->where(['language_parent' => null]);
             }
         }
         // add conditions that should always apply here
@@ -67,16 +90,20 @@ class SearchTransactionsUserCredits extends TransactionsUserCredits
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'credit' => $this->credit,
-            'uid' => $this->uid,
-            'created_at' => $this->created_at,
-            'created_by' => $this->created_by,
+            'id'                => $this->id,
+            'credit'            => $this->credit,
+            'uid'               => $this->uid,
+            'created_at'        => $this->created_at,
+            'created_by'        => $this->created_by,
             'created_user_mode' => $this->created_user_mode,
-            'factor' => $this->factor,
+            'factor'            => $this->factor,
         ]);
 
-        $query->andFilterWhere(['like', 'description', $this->description]);
+        $query->andFilterWhere([
+            'like',
+            'description',
+            $this->description
+        ]);
 
         return $dataProvider;
     }

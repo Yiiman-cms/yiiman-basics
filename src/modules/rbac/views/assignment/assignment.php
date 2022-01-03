@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\rbac\models\ModuleRbacAuthAssignment;
 use yii\helpers\Html;
@@ -6,7 +13,7 @@ use yii\widgets\ActiveForm;
 
 /** Get all roles */
 /**
- * @var $this \YiiMan\YiiBasics\lib\View
+ * @var $this  \YiiMan\YiiBasics\lib\View
  * @var $model ModuleRbacAuthAssignment
  * @var $roles []
  * @var $users []
@@ -14,7 +21,10 @@ use yii\widgets\ActiveForm;
 $authManager = Yii::$app->authManager;
 $this->title = Yii::t('rbac', 'انتساب نقش به کاربر');
 
-$this->params['breadcrumbs'][] = ['label' => Yii::t('rbac', 'انتساب نقش به کاربران'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = [
+    'label' => Yii::t('rbac', 'انتساب نقش به کاربران'),
+    'url'   => ['index']
+];
 $this->params['breadcrumbs'][] = $this->title;
 $form = ActiveForm::begin();
 ?>
@@ -34,10 +44,10 @@ $form = ActiveForm::begin();
                                 <?= $form->field($model, 'users')->widget(
                                     \kartik\select2\Select2::className(),
                                     [
-                                        'data' => $users,
+                                        'data'          => $users,
                                         'pluginOptions' =>
                                             [
-                                                'dir' => 'rtl',
+                                                'dir'      => 'rtl',
                                                 'multiple' => true
                                             ]
                                     ]

@@ -1,11 +1,18 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
 namespace AngularFilemanager\LocalBridge;
 
 use function realpath;
 
 /**
  * Translate class
- *
  * For simple translation to alternative languages
  * @author Jakub Ďuraš <jakub@duras.me>
  */
@@ -15,14 +22,14 @@ class Translate
 
     public function __construct($lang)
     {
-    	
-    	
-        if (!file_exists(realpath( __DIR__.'/../lang/'.$lang.'.json'))) {
+
+
+        if (!file_exists(realpath(__DIR__.'/../lang/'.$lang.'.json'))) {
             throw new \Exception('No language file for chosen language');
             return;
         }
 
-        $json = file_get_contents(realpath( __DIR__.'/../lang/'.$lang.'.json'));
+        $json = file_get_contents(realpath(__DIR__.'/../lang/'.$lang.'.json'));
 
         $this->strings = json_decode($json, true);
     }

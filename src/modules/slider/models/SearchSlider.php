@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\slider\models;
 
@@ -18,8 +25,21 @@ class SearchSlider extends Slider
     public function rules()
     {
         return [
-            [['id', 'index', 'status'], 'integer'],
-            [['title', 'data'], 'safe'],
+            [
+                [
+                    'id',
+                    'index',
+                    'status'
+                ],
+                'integer'
+            ],
+            [
+                [
+                    'title',
+                    'data'
+                ],
+                'safe'
+            ],
         ];
     }
 
@@ -34,20 +54,18 @@ class SearchSlider extends Slider
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
     {
         $query = Slider::find();
 
-        if ($this->hasLanguage){
-            if (!empty( $_GET['lng'])){
-                $query=$query->where(['language'=> $_GET['lng']]);
-            }else{
-                $query=$query->where(['language_parent'=>null]);
+        if ($this->hasLanguage) {
+            if (!empty($_GET['lng'])) {
+                $query = $query->where(['language' => $_GET['lng']]);
+            } else {
+                $query = $query->where(['language_parent' => null]);
             }
         }
         // add conditions that should always apply here
@@ -66,13 +84,21 @@ class SearchSlider extends Slider
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'index' => $this->index,
+            'id'     => $this->id,
+            'index'  => $this->index,
             'status' => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'data', $this->data]);
+        $query->andFilterWhere([
+            'like',
+            'title',
+            $this->title
+        ])
+            ->andFilterWhere([
+                'like',
+                'data',
+                $this->data
+            ]);
 
         return $dataProvider;
     }

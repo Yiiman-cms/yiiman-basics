@@ -1,12 +1,14 @@
 <?php
 
 /**
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @package   yii2-money
- * @version   1.2.3
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
  */
-	
-	namespace YiiMan\YiiBasics\widgets\Money;
+
+namespace YiiMan\YiiBasics\widgets\Money;
 
 use kartik\base\InputWidget;
 use Yii;
@@ -15,9 +17,7 @@ use yii\helpers\Html;
 /**
  * MaskMoney is an input widget styled for Bootstrap 3 based on the jQuery-maskMoney plugin, which offers a simple way
  * to create masks to your currency form fields.
- *
  * Usage example:
- *
  * ~~~
  * use kartik\money\MaskMoney;
  * echo MaskMoney::widget([
@@ -28,7 +28,6 @@ use yii\helpers\Html;
  *    ],
  * ]);
  * ~~~
- *
  * @see    https://github.com/plentz/jquery-maskmoney
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  * @since  1.0
@@ -67,35 +66,6 @@ class MaskMoney extends InputWidget
     }
 
     /**
-     * Renders a text input for widget display along with an internal hidden input to validate and save the raw number
-     * (float) data.
-     */
-    protected function renderInput()
-    {
-        $name = isset($this->displayInputName) ? $this->displayInputName : $this->_displayOptions['id'];
-        Html::addCssClass($this->_displayOptions, 'form-control');
-        $input = Html::textInput($name, $this->value, $this->_displayOptions);
-        $input .= $this->hasModel() ?
-            Html::activeHiddenInput($this->model, $this->attribute, $this->options) :
-            Html::hiddenInput($this->name, $this->value, $this->options);
-        echo $input;
-    }
-
-    /**
-     * Validates app level formatter settings and sets plugin defaults.
-     *
-     * @param string $paramFrom the property setting in `Yii::$app->formatter`
-     * @param string $paramTo   the setting in jQuery-maskMoney [[pluginOptions]]
-     */
-    protected function setDefaultFormat($paramFrom, $paramTo)
-    {
-        $formatter = Yii::$app->formatter;
-        if (empty($this->pluginOptions[$paramTo]) && !empty($formatter->$paramFrom)) {
-            $this->pluginOptions[$paramTo] = $formatter->$paramFrom;
-        }
-    }
-
-    /**
      * Initializes default plugin options based on global settings as setup in `Yii::$app->params['maskMoneyOptions']`,
      * else defaults the `decimalSeparator` and `thousandSeparator` from `Yii::$app->formatter` settings.
      */
@@ -110,6 +80,19 @@ class MaskMoney extends InputWidget
     }
 
     /**
+     * Validates app level formatter settings and sets plugin defaults.
+     * @param  string  $paramFrom  the property setting in `Yii::$app->formatter`
+     * @param  string  $paramTo    the setting in jQuery-maskMoney [[pluginOptions]]
+     */
+    protected function setDefaultFormat($paramFrom, $paramTo)
+    {
+        $formatter = Yii::$app->formatter;
+        if (empty($this->pluginOptions[$paramTo]) && !empty($formatter->$paramFrom)) {
+            $this->pluginOptions[$paramTo] = $formatter->$paramFrom;
+        }
+    }
+
+    /**
      * Registers the client assets for [[MaskMoney]] widget.
      */
     public function registerAssets()
@@ -117,8 +100,8 @@ class MaskMoney extends InputWidget
         $view = $this->getView();
         MaskMoneyAsset::register($view);
         $sid = $this->options['id'];
-        $id = 'jQuery("#' . $this->_displayOptions['id'] . '")';
-        $idSave = 'jQuery("#' . $sid . '")';
+        $id = 'jQuery("#'.$this->_displayOptions['id'].'")';
+        $idSave = 'jQuery("#'.$sid.'")';
         $plugin = $this->pluginName;
         $this->registerPlugin($plugin, $id);
         $debug = YII_DEBUG ? "\n\tconsole.log('Unmasked Output ({$sid}): ' + out);" : '';
@@ -133,6 +116,21 @@ var val = parseFloat({$idSave}.val());
 });
 JS;
         $view->registerJs($js);
+    }
+
+    /**
+     * Renders a text input for widget display along with an internal hidden input to validate and save the raw number
+     * (float) data.
+     */
+    protected function renderInput()
+    {
+        $name = isset($this->displayInputName) ? $this->displayInputName : $this->_displayOptions['id'];
+        Html::addCssClass($this->_displayOptions, 'form-control');
+        $input = Html::textInput($name, $this->value, $this->_displayOptions);
+        $input .= $this->hasModel() ?
+            Html::activeHiddenInput($this->model, $this->attribute, $this->options) :
+            Html::hiddenInput($this->name, $this->value, $this->options);
+        echo $input;
     }
 
 }

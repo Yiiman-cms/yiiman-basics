@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
@@ -15,11 +22,11 @@ use yii\widgets\Pjax;
     Yii::t('systemlog', 'پاکسازی'),
     'danger',
     null,
-    Yii::$app->Options->BackendUrl . '/systemlog/default/clear'
+    Yii::$app->Options->BackendUrl.'/systemlog/default/clear'
 );
 \YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 
-$this->title = Yii::t('systemlog', 'لاگ های ثبت شده') . ' ';
+$this->title = Yii::t('systemlog', 'لاگ های ثبت شده').' ';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <style>
@@ -50,18 +57,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
-                        'filterModel' => $searchModel,
-                        'columns' => [
+                        'filterModel'  => $searchModel,
+                        'columns'      => [
                             ['class' => 'yii\grid\SerialColumn'],
                             [
-                                'class' => 'kartik\grid\ExpandRowColumn',
-                                'width' => '50px',
-                                'value' => function ($model, $key, $index, $column) {
+                                'class'  => 'kartik\grid\ExpandRowColumn',
+                                'width'  => '50px',
+                                'value'  => function ($model, $key, $index, $column) {
                                     return GridView::ROW_COLLAPSED;
                                 },
                                 // show row expanded for even numbered keys
                                 'detail' => function ($model) use ($searchModel) {
-                                    return Yii::$app->controller->renderPartial('_message', ['model' => $model, 'searchModel' => $searchModel]);
+                                    return Yii::$app->controller->renderPartial('_message', [
+                                        'model'       => $model,
+                                        'searchModel' => $searchModel
+                                    ]);
                                 },
 
                                 'headerOptions' => ['class' => 'kartik-sheet-style'],
@@ -69,24 +79,24 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                             [
                                 'attribute' => 'level',
-                                'value' => function ($model) {
+                                'value'     => function ($model) {
                                     return \YiiMan\YiiBasics\modules\systemlog\models\DbTarget::getHTMLLevelLabel($model->level);
                                 },
-                                'format' => 'raw',
-                                'filter' => \YiiMan\YiiBasics\modules\systemlog\models\DbTarget::LEVEL_LABELS
+                                'format'    => 'raw',
+                                'filter'    => \YiiMan\YiiBasics\modules\systemlog\models\DbTarget::LEVEL_LABELS
                             ],
                             'category',
                             [
                                 'attribute' => 'log_time',
-                                'filter' => false,
-                                'value' => function ($model) {
+                                'filter'    => false,
+                                'value'     => function ($model) {
                                     return Yii::$app->functions->convertdatetime($model->log_time);
                                 }
                             ],
                             [
                                 'attribute' => 'uid',
-                                'filter' => $users,
-                                'value' => function ($model) use ($searchModel) {
+                                'filter'    => $users,
+                                'value'     => function ($model) use ($searchModel) {
                                     if ($searchModel->app_name == 'app-backend') {
                                         $user = \YiiMan\YiiBasics\modules\useradmin\models\User::findOne($model->uid);
                                         if (!empty($user)) {
@@ -106,8 +116,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                             [
                                 'attribute' => 'app_name',
-                                'filter' => \YiiMan\YiiBasics\lib\Core::getAppsList(),
-                                'value' => function ($model) {
+                                'filter'    => \YiiMan\YiiBasics\lib\Core::getAppsList(),
+                                'value'     => function ($model) {
                                     return \YiiMan\YiiBasics\lib\Core::getAppsList()[$model->app_name];
                                 }
                             ],

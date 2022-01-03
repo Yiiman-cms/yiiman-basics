@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use yii\db\Schema;
 use yii\db\Migration;
@@ -19,13 +26,13 @@ class m220103_042037_module_gallery_fk_medias_categories extends Migration
         $this->createTable(
             '{{%module_gallery_fk_medias_categories}}',
             [
-                'id'=> $this->primaryKey(11),
-                'media'=> $this->integer(11)->notNull(),
-                'category'=> $this->integer(11)->notNull(),
-            ],$tableOptions
+                'id'       => $this->primaryKey(11),
+                'media'    => $this->integer(11)->notNull(),
+                'category' => $this->integer(11)->notNull(),
+            ], $tableOptions
         );
-        $this->createIndex('media','{{%module_gallery_fk_medias_categories}}',['media'],false);
-        $this->createIndex('category','{{%module_gallery_fk_medias_categories}}',['category'],false);
+        $this->createIndex('media', '{{%module_gallery_fk_medias_categories}}', ['media'], false);
+        $this->createIndex('category', '{{%module_gallery_fk_medias_categories}}', ['category'], false);
 
     }
 

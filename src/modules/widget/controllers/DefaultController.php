@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\widget\controllers;
 
@@ -21,7 +28,6 @@ use yii\web\Response;
 class DefaultController extends \YiiMan\YiiBasics\lib\Controller
 {
     /**
-     *
      * @var $model SearchWidget
      */
     public $model;
@@ -32,22 +38,22 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
      */
     public function actionIndex()
     {
-        $files = getFileList(Yii::getAlias('@system') . '/theme/pageSchema');
+        $files = getFileList(Yii::getAlias('@system').'/theme/pageSchema');
 
 
         $searchModel = new SearchWidget();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
-            'files' => $files
+            'files'        => $files
         ]);
     }
 
     /**
      * Displays a single Widget model.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -62,38 +68,18 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
     }
 
     /**
-     * Creates a new Widget model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate($loc)
-    {
-        $model = new Widget;
-        $model->shortCode=$loc;
-
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->save()) {
-                Yii::$app->session->addFlash('success','ویجت با موفقیت ایجاد شد');
-                return $this->redirect(['index']);
-            }
-        }
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
-
-
-
-    /**
      * Finds the Skills model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $lng
-     * @param integer $id
+     * @param  integer  $lng
+     * @param  integer  $id
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($loc, $lng = null)
     {
-        $parentLoc=Widget::find()->where(['shortCode'=>$loc,'language_parent'=>null])->one();
+        $parentLoc = Widget::find()->where([
+            'shortCode'       => $loc,
+            'language_parent' => null
+        ])->one();
 
         if (empty($lng) && !empty($_GET['lng'])) {
             $lng = $_GET['lng'];
@@ -123,7 +109,7 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
         if (empty($lng)) {
             // < زبانی برای جست و جو به مدل داده نشده است >
             {
-                if (($this->model = $this->modelClass::findOne(['shortCode'=>$loc])) !== null) {
+                if (($this->model = $this->modelClass::findOne(['shortCode' => $loc])) !== null) {
                     return $this->model;
                 }
             }
@@ -131,32 +117,41 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
         } else {
             // < آی دی یک زبان اعلام شده >
             {
-                $this->model = $this->modelClass::find()->where(['shortCode'=>$loc, 'language' => $lng])->one();
+                $this->model = $this->modelClass::find()->where([
+                    'shortCode' => $loc,
+                    'language'  => $lng
+                ])->one();
                 if (empty($this->model)) {
                     // < آی دی ارائه شده زبان درخواست شده را در بانک داده ندارد >
                     {
-                        $this->model = $this->modelClass::find()->where(['language_parent' => $parentLoc->id, 'language' => $lng])->one();
+                        $this->model = $this->modelClass::find()->where([
+                            'language_parent' => $parentLoc->id,
+                            'language'        => $lng
+                        ])->one();
                     }
                     // </ آی دی ارائه شده زبان درخواست شده را در بانک داده ندارد >
                 }
                 if (empty($this->model)) {
                     // < زبان و آی دی مورد نظر هنوز پیدا نشده است >
                     {
-                        $baseModel = $this->modelClass::find()->where(['shortCode' => $loc, 'language_parent' => null])->one();
+                        $baseModel = $this->modelClass::find()->where([
+                            'shortCode'       => $loc,
+                            'language_parent' => null
+                        ])->one();
                         if (empty($baseModel)) {
                             $baseModel = $this->modelClass::find()->where(['shortCode' => $loc])->one();
                             if (!empty($baseModel)) {
                                 if (!empty($baseModel->language_parent)) {
                                     $redirectUrl = str_replace(
                                         [
-                                            '?id=' . $_GET['id'],
-                                            '&id=' . $_GET['id'],
+                                            '?id='.$_GET['id'],
+                                            '&id='.$_GET['id'],
                                         ],
                                         [
-                                            '?id=' . $baseModel->language_parent,
-                                            '&id=' . $baseModel->language_parent,
+                                            '?id='.$baseModel->language_parent,
+                                            '&id='.$baseModel->language_parent,
                                         ], Yii::$app->request->url);
-                                    header('Location: ' . $redirectUrl);
+                                    header('Location: '.$redirectUrl);
                                     exit();
                                 }
                             }
@@ -194,12 +189,31 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
         }
     }
 
+    /**
+     * Creates a new Widget model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreate($loc)
+    {
+        $model = new Widget;
+        $model->shortCode = $loc;
 
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {
+                Yii::$app->session->addFlash('success', 'ویجت با موفقیت ایجاد شد');
+                return $this->redirect(['index']);
+            }
+        }
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+    }
 
     /**
      * Updates an existing Widget model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -208,7 +222,7 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
         $model = $this->findModel($loc);
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
-                Yii::$app->session->addFlash('success','ویجت با موفقیت ویرایش شد');
+                Yii::$app->session->addFlash('success', 'ویجت با موفقیت ویرایش شد');
                 return $this->redirect(['index']);
             }
         }
@@ -221,7 +235,7 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
     /**
      * Deletes an existing Widget model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -232,16 +246,19 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
         return $this->redirect(['index']);
     }
 
-    public function actionLayout($mode = 'json',$layout='',$model='')
+    public function actionLayout($mode = 'json', $layout = '', $model = '')
     {
         if ($mode == 'json') {
             Yii::$app->response->format = Response::FORMAT_JSON;
         }
 
         $content = '<MMODELwidget><content></content></MMODELwidget>';
-        if (!empty($layout)){
-            $fullHTML = $this->renderPartial('@frontend/views/layouts/'.$layout.'.php', ['content' => $content,'model'=>$model]);
-        }else{
+        if (!empty($layout)) {
+            $fullHTML = $this->renderPartial('@frontend/views/layouts/'.$layout.'.php', [
+                'content' => $content,
+                'model'   => $model
+            ]);
+        } else {
             $fullHTML = $this->renderPartial('@frontend/views/layouts/main.php', ['content' => $content]);
         }
 
@@ -256,28 +273,31 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
         // < add Styles >
         {
             if (!empty(Components::$styles['full'])) {
-                $fullHTML = '<style>' . Components::$styles['full'] . '</style>' . $fullHTML;
+                $fullHTML = '<style>'.Components::$styles['full'].'</style>'.$fullHTML;
             }
 
             if (!empty(Components::$styles['widget'])) {
-                $widgetHTML = '<style>' . Components::$styles['widget'] . '</style>' . $widgetHTML;
+                $widgetHTML = '<style>'.Components::$styles['widget'].'</style>'.$widgetHTML;
             }
         }
         // </ add Styles >
 
 
-        return ['full' => $fullHTML, 'widget' => $widgetHTML];
-    }
-
-    protected function upload()
-    {
-
-
+        return [
+            'full'   => $fullHTML,
+            'widget' => $widgetHTML
+        ];
     }
 
     public function init()
     {
         parent::init();
         $this->modelClass = new Widget();
+    }
+
+    protected function upload()
+    {
+
+
     }
 }

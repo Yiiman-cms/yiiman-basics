@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
@@ -14,10 +21,10 @@ use yii\widgets\Pjax;
     Yii::t('ticket', 'ثبت دپارتمان'),
     'success',
     null,
-    Yii::$app->Options->BackendUrl . '/ticket/ticket-departments/create'
+    Yii::$app->Options->BackendUrl.'/ticket/ticket-departments/create'
 );
 
-$this->title = Yii::t('ticket', 'دپارتمان ها') . ' ';
+$this->title = Yii::t('ticket', 'دپارتمان ها').' ';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -36,15 +43,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
-                        'filterModel' => $searchModel,
-                        'columns' => [
+                        'filterModel'  => $searchModel,
+                        'columns'      => [
                             ['class' => 'yii\grid\SerialColumn'],
 //                            ['class' => '\YiiMan\YiiBasics\lib\i18n\LanguageColumn'],
                             'title',
                             [
                                 'attribute' => 'status',
-                                'format' => 'raw',
-                                'value' => function ($model) {
+                                'format'    => 'raw',
+                                'value'     => function ($model) {
 
                                     switch ($model->status) {
                                         case $model::STATUS_ACTIVE:

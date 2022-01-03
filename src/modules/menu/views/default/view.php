@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
@@ -7,15 +14,18 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model YiiMan\YiiBasics\modules\menu\models\Menu */
 
-$this->title = \Yii::t('menu', 'اطلاعات منوی: ') . $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('menu', 'لیست منوهای سایت'), 'url' => ['index']];
+$this->title = \Yii::t('menu', 'اطلاعات منوی: ').$model->title;
+$this->params['breadcrumbs'][] = [
+    'label' => Yii::t('menu', 'لیست منوهای سایت'),
+    'url'   => ['index']
+];
 $this->params['breadcrumbs'][] = $this->title;
 \YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('menu', 'ثبت منو'),
     'success',
     null,
-    Yii::$app->Options->BackendUrl . '/menu/default/create'
+    Yii::$app->Options->BackendUrl.'/menu/default/create'
 );
 
 
@@ -24,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
     Yii::t('menu', 'ویرایش این مورد'),
     'info',
     null,
-    Yii::$app->Options->BackendUrl . '/menu/default/update?id=' . $model->id);
+    Yii::$app->Options->BackendUrl.'/menu/default/update?id='.$model->id);
 
 
 \YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
@@ -32,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
     Yii::t('menu', 'حذف این مورد'),
     'danger',
     null,
-    Yii::$app->Options->BackendUrl . '/menu/default/delete?id=' . $model->id);
+    Yii::$app->Options->BackendUrl.'/menu/default/delete?id='.$model->id);
 
 \YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
 \YiiMan\YiiBasics\widgets\multiRowInput\assets\FontAwesomeAsset::register($this);
@@ -48,14 +58,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'location',
             [
                 'attribute' => 'icon',
-                'value' => function ($model) {
+                'value'     => function ($model) {
                     return '<i class="'.$model->icon.'"></i>';
                 },
-                'format'=>'raw'
+                'format'    => 'raw'
             ],
             [
                 'attribute' => 'status',
-                'value' => function ($model) {
+                'value'     => function ($model) {
 
                     switch ($model->status) {
                         case 1:

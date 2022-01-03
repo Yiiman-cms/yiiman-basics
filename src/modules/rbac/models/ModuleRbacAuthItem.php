@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\rbac\models;
 
@@ -8,21 +15,19 @@ use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%module_rbac_auth_item}}".
- *
- * @property string $name
- * @property int $type
- * @property string $description
- * @property string $rule_name
- * @property resource $data
- * @property int $created_at
- * @property int $updated_at
- * @property string $module_en
- * @property string $module_fa
- *
+ * @property string               $name
+ * @property int                  $type
+ * @property string               $description
+ * @property string               $rule_name
+ * @property resource             $data
+ * @property int                  $created_at
+ * @property int                  $updated_at
+ * @property string               $module_en
+ * @property string               $module_fa
  * @property RbacAuthAssignment[] $rbacAuthAssignments
- * @property RbacAuthRule $ruleName
- * @property RbacAuthItemChild[] $rbacAuthItemChildren
- * @property RbacAuthItemChild[] $rbacAuthItemChildren0
+ * @property RbacAuthRule         $ruleName
+ * @property RbacAuthItemChild[]  $rbacAuthItemChildren
+ * @property RbacAuthItemChild[]  $rbacAuthItemChildren0
  * @property ModuleRbacAuthItem[] $children
  * @property ModuleRbacAuthItem[] $parents
  */
@@ -48,14 +53,59 @@ class ModuleRbacAuthItem extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'type'], 'required'],
-            [['type', 'created_at', 'updated_at'], 'integer'],
-            [['description', 'data'], 'string'],
-            [['name', 'rule_name'], 'string', 'max' => 64],
-            [['module_en', 'module_fa'], 'string', 'max' => 255],
-            [['name'], 'unique'],
-            [['permissions'], 'safe'],
-            [['rule_name'], 'exist', 'skipOnError' => true, 'targetClass' => \YiiMan\YiiBasics\modules\rbac\models\ModuleRbacAuthRule::className(), 'targetAttribute' => ['rule_name' => 'name']],
+            [
+                [
+                    'name',
+                    'type'
+                ],
+                'required'
+            ],
+            [
+                [
+                    'type',
+                    'created_at',
+                    'updated_at'
+                ],
+                'integer'
+            ],
+            [
+                [
+                    'description',
+                    'data'
+                ],
+                'string'
+            ],
+            [
+                [
+                    'name',
+                    'rule_name'
+                ],
+                'string',
+                'max' => 64
+            ],
+            [
+                [
+                    'module_en',
+                    'module_fa'
+                ],
+                'string',
+                'max' => 255
+            ],
+            [
+                ['name'],
+                'unique'
+            ],
+            [
+                ['permissions'],
+                'safe'
+            ],
+            [
+                ['rule_name'],
+                'exist',
+                'skipOnError'     => true,
+                'targetClass'     => \YiiMan\YiiBasics\modules\rbac\models\ModuleRbacAuthRule::className(),
+                'targetAttribute' => ['rule_name' => 'name']
+            ],
         ];
     }
 
@@ -65,16 +115,16 @@ class ModuleRbacAuthItem extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'name' => Yii::t('rbac', 'Name'),
-            'type' => Yii::t('rbac', 'Type'),
+            'name'        => Yii::t('rbac', 'Name'),
+            'type'        => Yii::t('rbac', 'Type'),
             'description' => Yii::t('rbac', 'Description'),
-            'rule_name' => Yii::t('rbac', 'Rule Name'),
-            'ruleName' => Yii::t('rbac', 'Rule Name'),
-            'data' => Yii::t('rbac', 'Data'),
-            'created_at' => Yii::t('rbac', 'Created At'),
-            'updated_at' => Yii::t('rbac', 'Updated At'),
-            'module_en' => Yii::t('rbac', 'Module En'),
-            'module_fa' => Yii::t('rbac', 'Module Fa'),
+            'rule_name'   => Yii::t('rbac', 'Rule Name'),
+            'ruleName'    => Yii::t('rbac', 'Rule Name'),
+            'data'        => Yii::t('rbac', 'Data'),
+            'created_at'  => Yii::t('rbac', 'Created At'),
+            'updated_at'  => Yii::t('rbac', 'Updated At'),
+            'module_en'   => Yii::t('rbac', 'Module En'),
+            'module_fa'   => Yii::t('rbac', 'Module Fa'),
         ];
     }
 
@@ -115,7 +165,8 @@ class ModuleRbacAuthItem extends ActiveRecord
      */
     public function getChildren()
     {
-        return $this->hasMany(ModuleRbacAuthItem::className(), ['name' => 'child'])->viaTable('{{%module_rbac_auth_item_child}}', ['parent' => 'name']);
+        return $this->hasMany(ModuleRbacAuthItem::className(),
+            ['name' => 'child'])->viaTable('{{%module_rbac_auth_item_child}}', ['parent' => 'name']);
     }
 
     /**
@@ -123,14 +174,15 @@ class ModuleRbacAuthItem extends ActiveRecord
      */
     public function getParents()
     {
-        return $this->hasMany(ModuleRbacAuthItem::className(), ['name' => 'parent'])->viaTable('{{%module_rbac_auth_item_child}}', ['child' => 'name']);
+        return $this->hasMany(ModuleRbacAuthItem::className(),
+            ['name' => 'parent'])->viaTable('{{%module_rbac_auth_item_child}}', ['child' => 'name']);
     }
 
 
     public function save($runValidation = true, $attributeNames = null)
     {
-        $this->type = self::TYPE_ROLE ;
-        empty($this->created_at)??$this->created_at = date('Y-m-d H:i:s');
+        $this->type = self::TYPE_ROLE;
+        empty($this->created_at) ?? $this->created_at = date('Y-m-d H:i:s');
         $save = parent::save($runValidation, $attributeNames); // TODO: Change the autogenerated stub
         if ($save) {
             $post = $_POST;

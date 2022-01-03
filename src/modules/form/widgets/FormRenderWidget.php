@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\form\widgets;
 
@@ -15,7 +21,7 @@ class FormRenderWidget extends Widget
     {
         $model = Form::findOne($this->id);
 
-        if (empty($model)){
+        if (empty($model)) {
             return;
         }
         // https://formbuilder.online/
@@ -47,7 +53,7 @@ JS;
         echo '
 
 
-<form enctype="multipart/form-data" action="'.\Yii::$app->urlManager->createUrl(['/form-save']).'" method="post" id="build-wrap-' . $model->id . '" style="display: block"  >
+<form enctype="multipart/form-data" action="'.\Yii::$app->urlManager->createUrl(['/form-save']).'" method="post" id="build-wrap-'.$model->id.'" style="display: block"  >
 <input type="hidden" name="formId" value="'.$model->id.'" />
 </form>
 

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use yii\db\Schema;
 use yii\db\Migration;
@@ -19,13 +26,13 @@ class m220103_042230_module_hint extends Migration
         $this->createTable(
             '{{%module_hint}}',
             [
-                'id'=> $this->primaryKey(11),
-                'date'=> $this->date()->notNull(),
-                'count'=> $this->integer(11)->notNull()->defaultValue(0),
-                'url'=> $this->string(255)->notNull()->defaultValue(''),
-                'table'=> $this->string(255)->null()->defaultValue(null),
-                'table_id'=> $this->integer(11)->null()->defaultValue(null),
-            ],$tableOptions
+                'id'       => $this->primaryKey(11),
+                'date'     => $this->date()->notNull(),
+                'count'    => $this->integer(11)->notNull()->defaultValue(0),
+                'url'      => $this->string(255)->notNull()->defaultValue(''),
+                'table'    => $this->string(255)->null()->defaultValue(null),
+                'table_id' => $this->integer(11)->null()->defaultValue(null),
+            ], $tableOptions
         );
 
     }

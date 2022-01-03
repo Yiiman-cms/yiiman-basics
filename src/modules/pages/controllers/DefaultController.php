@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\pages\controllers;
 
@@ -23,7 +30,6 @@ use yii\web\Response;
 class DefaultController extends \YiiMan\YiiBasics\lib\Controller
 {
     /**
-     *
      * @var $model SearchPages
      */
     public $model;
@@ -60,9 +66,7 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
 
     /**
      * Displays a single Pages model.
-     *
-     * @param integer $id
-     *
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -83,17 +87,17 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
      */
     public function actionCreate()
     {
-        foreach (Pages::getAllTemplates() as $template=> $item) {
+        foreach (Pages::getAllTemplates() as $template => $item) {
 
             $model = new Pages();
-            $model->title='برگه ی جدید';
-            $model->template=$template;
-            $model->status=0;
-            $model->created_at=date('Y-m-d H:i:s');
-            $model->content='<h1>'.  \Yii::t('pages','به صفحه ی جدید خود سلام کنید') .'</h1>';
-            if($model->save()){
+            $model->title = 'برگه ی جدید';
+            $model->template = $template;
+            $model->status = 0;
+            $model->created_at = date('Y-m-d H:i:s');
+            $model->content = '<h1>'.\Yii::t('pages', 'به صفحه ی جدید خود سلام کنید').'</h1>';
+            if ($model->save()) {
                 return $this->redirect(['/pages/widget?id='.$model->id]);
-            }else{
+            } else {
                 echo '<pre>';
                 var_dump($model->errors);
                 die();
@@ -106,9 +110,7 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
     /**
      * Updates an existing Pages model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     *
-     * @param integer $id
-     *
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -118,9 +120,12 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->updated_at = date('Y-m-d H:i:s');
-            if ($model->save() ) {
+            if ($model->save()) {
 
-                return $this->redirect(['index', 'id' => $model->id]);
+                return $this->redirect([
+                    'index',
+                    'id' => $model->id
+                ]);
             }
         }
 
@@ -135,29 +140,21 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
     /**
      * Deletes an existing Pages model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     *
-     * @param integer $id
-     *
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)
     {
         $model = Pages::findOne($id);
-        if (!empty($model)){
-            $name=$model->title;
+        if (!empty($model)) {
+            $name = $model->title;
             $model->delete();
-            Yii::$app->session->addFlash('success','این صفحه ('.$name.') با موفقیت حذف شد');
-        }else{
-            Yii::$app->session->addFlash('success','صفحه از قبل حذف شده بود');
+            Yii::$app->session->addFlash('success', 'این صفحه ('.$name.') با موفقیت حذف شد');
+        } else {
+            Yii::$app->session->addFlash('success', 'صفحه از قبل حذف شده بود');
         }
         return $this->redirect(['index']);
-    }
-
-    protected function upload()
-    {
-
-
     }
 
     public function init()
@@ -165,5 +162,11 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
         parent::init();
         $this->modelClass = Pages::className();
         $this->model = new SearchPages();
+    }
+
+    protected function upload()
+    {
+
+
     }
 }

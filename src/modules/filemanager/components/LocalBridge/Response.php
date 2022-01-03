@@ -1,9 +1,16 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
 namespace AngularFilemanager\LocalBridge;
 
 /**
  * Response class
- *
  * HTTP response to requests handled in REST API in callback
  * Chaineable
  * @author Jakub Ďuraš <jakub@duras.me>
@@ -37,22 +44,8 @@ class Response
     private $body = null;
 
     /**
-     * HTTP Status according to http://tools.ietf.org/html/rfc7231
-     * @param   integer $statusCode
-     * @param   string  $status     without status code
-     * @return  object              this
-     */
-    public function setStatus($statusCode, $status)
-    {
-        $this->statusCode = $statusCode;
-        $this->status = $status;
-
-        return $this;
-    }
-
-    /**
      * Add additional HTTP header
-     * @param    string  $header
+     * @param  string  $header
      * @return   object  this
      */
     public function addHeaders($header)
@@ -63,31 +56,21 @@ class Response
     }
 
     /**
-     * @param mixed $body used instead of data if set
+     * @return mixed data which should be later encoded to body
      */
-    public function setBody($body)
+    public function getData()
     {
-        $this->body = $body;
-
-        return $this;
+        return $this->data;
     }
 
     /**
-     * @param mixed $data any data which should be later encoded to body
+     * @param  mixed  $data  any data which should be later encoded to body
      */
     public function setData($data)
     {
         $this->data = $data;
 
         return $this;
-    }
-
-    /**
-     * @return mixed data which should be later encoded to body
-     */
-    public function getData()
-    {
-        return $this->data;
     }
 
     /**
@@ -107,15 +90,39 @@ class Response
     }
 
     /**
+     * @param  mixed  $body  used instead of data if set
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+
+        return $this;
+    }
+
+    /**
      * HTTP Status according to http://tools.ietf.org/html/rfc7231 in form of array
      * @return array associative, e.g. ['code' => 200, 'status' => 'OK']
      */
     public function getStatus()
     {
         return [
-            'code' => $this->statusCode,
+            'code'   => $this->statusCode,
             'status' => $this->status
         ];
+    }
+
+    /**
+     * HTTP Status according to http://tools.ietf.org/html/rfc7231
+     * @param  integer  $statusCode
+     * @param  string   $status  without status code
+     * @return  object              this
+     */
+    public function setStatus($statusCode, $status)
+    {
+        $this->statusCode = $statusCode;
+        $this->status = $status;
+
+        return $this;
     }
 
     /**

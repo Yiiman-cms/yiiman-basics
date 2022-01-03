@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
@@ -12,7 +19,7 @@ use yii\widgets\Pjax;
 
 \YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 
-$this->title = Yii::t('widget', 'مدیریت ویجت ها ') . ' ';
+$this->title = Yii::t('widget', 'مدیریت ویجت ها ').' ';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -59,21 +66,21 @@ $this->params['breadcrumbs'][] = $this->title;
                             $idial = \yii\helpers\ArrayHelper::index($model, 'shortCode');
                         }
                         foreach ($widgets as $location => $label) {
-                            $locations[] = $location . '"';
+                            $locations[] = $location.'"';
                             $attrs = ' data-desc="برای ویرایش کلیک کنید"';
                             if (!empty($idial[$location])) {
                                 $attrs .= ' status="notempty" ';
                             }
                             if (!empty($idial[$location])) {
-                                $links[] = Yii::$app->urlManager->createUrl(['/widget/default/update?loc=' . $location]) . '" ' . $attrs;
-                            }else{
-                                $links[] = Yii::$app->urlManager->createUrl(['/widget/default/create?loc=' . $location]) . '" ' . $attrs;
+                                $links[] = Yii::$app->urlManager->createUrl(['/widget/default/update?loc='.$location]).'" '.$attrs;
+                            } else {
+                                $links[] = Yii::$app->urlManager->createUrl(['/widget/default/create?loc='.$location]).'" '.$attrs;
                             }
                         }
 
                         foreach ($files as $file) {
                             echo '<div class="col-md-4"> <imgFrame>';
-                            $image = file_get_contents(Yii::getAlias('@system') . '/theme/pageSchema/' . $file['name']);
+                            $image = file_get_contents(Yii::getAlias('@system').'/theme/pageSchema/'.$file['name']);
                             $image = str_replace($locations, $links, $image);
                             $image = str_replace('href=""', 'href="#"', $image);
                             echo $image;

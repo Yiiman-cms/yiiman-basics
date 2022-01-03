@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\lib\hquery;
 
@@ -7,16 +14,13 @@ use YiiMan\YiiBasics\lib\hquery\Exception\DiscoveryFailedException;
 
 /**
  * Finds an HTTP Asynchronous Client.
- *
  * @author Joel Wurtz <joel.wurtz@gmail.com>
  */
 final class HttpAsyncClientDiscovery extends ClassDiscovery
 {
     /**
      * Finds an HTTP Async Client.
-     *
      * @return HttpAsyncClient
-     *
      * @throws Exception\NotFoundException
      */
     public static function find()

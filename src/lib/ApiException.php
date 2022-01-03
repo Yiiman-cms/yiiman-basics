@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Copyright (c) 2018-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
@@ -11,7 +11,7 @@ namespace YiiMan\YiiBasics\lib;
 
 class ApiException extends BaseRuntimeException
 {
-	public function getName()
+    public function getName()
     {
         return 'ApiException';
     }

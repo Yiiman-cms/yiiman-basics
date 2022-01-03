@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace johnitvn\rbacplus;
 
@@ -7,56 +14,51 @@ use yii\base\Module as BaseModule;
 
 /**
  * Description of Module
- *
  * @author John Martin <john.itvn@gmail.com>
- * @since 1.0.0
+ * @since  1.0.0
  */
-class Module extends BaseModule {
+class Module extends BaseModule
+{
 
     /**
-     *
      * @var string $userModelClassName The user model class.
      * Default it will get from `Yii::$app->getUser()->identityClass`
      */
     public $userModelClassName;
 
     /**
-     *
      * @var string $userModelIdField the id field name of user model.
      * Default is id
      */
     public $userModelIdField = 'id';
 
     /**
-     *
      * @var string $userModelLoginField the login field name of user model.
      * Default is username
      */
     public $userModelLoginField = 'username';
 
     /**
-     *
      * @var string $userModelLoginFieldLabel The login field's label of user model.
-     * Default is Username  
+     * Default is Username
      */
     public $userModelLoginFieldLabel;
 
     /**
-     *
      * @var array|null $userModelExtraDataColumks the array of extra colums of user model want to show in
-     * assignment index view. 
+     * assignment index view.
      */
     public $userModelExtraDataColumls;
 
     /**
      * Callback before create controller
-     * @var mixed 
+     * @var mixed
      */
     public $beforeCreateController = null;
 
     /**
      * Callback before create action
-     * @var type 
+     * @var type
      */
     public $beforeAction = null;
 
@@ -64,7 +66,8 @@ class Module extends BaseModule {
      * Initilation module
      * @return void
      */
-    public function init() {
+    public function init()
+    {
         parent::init();
         if ($this->userModelClassName == null) {
             if (Yii::$app->has('user')) {
@@ -79,14 +82,16 @@ class Module extends BaseModule {
         }
     }
 
-    public function createController($route) {
+    public function createController($route)
+    {
         if ($this->beforeCreateController !== null && !call_user_func($this->beforeCreateController, $route)) {
             return false;
         }
         return parent::createController($route);
     }
 
-    public function beforeAction($action) {
+    public function beforeAction($action)
+    {
         if ($this->beforeAction !== null && !call_user_func($this->beforeAction, $action)) {
             return false;
         }

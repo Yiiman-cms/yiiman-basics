@@ -1,9 +1,11 @@
 <?php
 
 /**
- * @link https://github.com/unclead/yii2-multiple-input
- * @copyright Copyright (c) 2014 unclead
- * @license https://github.com/unclead/yii2-multiple-input/blob/master/LICENSE.md
+ * Copyright (c) 2014-2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
  */
 
 namespace YiiMan\YiiBasics\widgets\multiRowInput\components;
@@ -15,7 +17,6 @@ use yii\helpers\ArrayHelper;
 
 /**
  * Class ValuePreparer.
- *
  * @package YiiMan\YiiBasics\widgets\multiRowInput\components
  */
 class ValuePreparer
@@ -32,8 +33,8 @@ class ValuePreparer
 
     /**
      * ValuePreparer constructor.
-     * @param string|null $name
-     * @param mixed|null $defaultValue
+     * @param  string|null  $name
+     * @param  mixed|null   $defaultValue
      */
     public function __construct($name = null, $defaultValue = null)
     {
@@ -43,7 +44,6 @@ class ValuePreparer
 
     /**
      * @param $data Prepared data
-     *
      * @return int|mixed|null|string
      */
     public function prepare($data)
@@ -64,7 +64,7 @@ class ValuePreparer
             $value = $data->{$this->name};
         } elseif (is_array($data)) {
             $value = ArrayHelper::getValue($data, $this->name, null);
-        } elseif(is_string($data) || is_numeric($data)) {
+        } elseif (is_string($data) || is_numeric($data)) {
             $value = $data;
         }
 

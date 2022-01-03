@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\notification\base;
 
@@ -19,15 +25,14 @@ interface ChannelBaseInterface
     const INPUT_TXT = 'text';
     const INPUT_RADIO = 'radio';
 
-    const STATUS_SENT=1;
-    const STATUS_WAIT=2;
-    const STATUS_IN_DEBUG_MODE=3;
-    const STATUS_SEND_ERROR=4;
-    const STATUS_SEND_DISABLED_BY_ADMIN=5;
-    const STATUS_SEND_DISABLED_BY_USER=6;
+    const STATUS_SENT = 1;
+    const STATUS_WAIT = 2;
+    const STATUS_IN_DEBUG_MODE = 3;
+    const STATUS_SEND_ERROR = 4;
+    const STATUS_SEND_DISABLED_BY_ADMIN = 5;
+    const STATUS_SEND_DISABLED_BY_USER = 6;
 
     /**
-     *
      * نام کانال را بازگردانی میکند
      * @return string
      */
@@ -46,12 +51,18 @@ interface ChannelBaseInterface
     public function renderJs(): string;
 
     /**
-     * @param string $name نام کنش مورد نظر
-     * @param array $params لیست پارامتر های تعریف شده برای کنش و مقادیر آنها
-     * @param ActiveRecord $receiver مدل کاربر دریافت کننده
-     * @param int $type نوع ارسال داده
-     * @param string $message متن پیغام
+     * @param  string        $name      نام کنش مورد نظر
+     * @param  array         $params    لیست پارامتر های تعریف شده برای کنش و مقادیر آنها
+     * @param  ActiveRecord  $receiver  مدل کاربر دریافت کننده
+     * @param  int           $type      نوع ارسال داده
+     * @param  string        $message   متن پیغام
      * @return mixed
      */
-    public function sendNotification(string $message,string $name, array $params,ActiveRecord $receiver, int $type = 1);
+    public function sendNotification(
+        string $message,
+        string $name,
+        array $params,
+        ActiveRecord $receiver,
+        int $type = 1
+    );
 }

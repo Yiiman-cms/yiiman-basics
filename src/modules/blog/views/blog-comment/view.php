@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
@@ -8,14 +15,17 @@ use yii\widgets\DetailView;
 /* @var $model YiiMan\YiiBasics\modules\blog\models\BlogComment */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('blog', 'وبلاگ'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = [
+    'label' => Yii::t('blog', 'وبلاگ'),
+    'url'   => ['index']
+];
 $this->params['breadcrumbs'][] = $this->title;
 \YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('blog', 'ثبت دیدگاه'),
     'success',
     null,
-    Yii::$app->Options->BackendUrl . '/blog/default/create'
+    Yii::$app->Options->BackendUrl.'/blog/default/create'
 );
 
 
@@ -24,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
     Yii::t('blog', 'ویرایش این مورد'),
     'info',
     null,
-    Yii::$app->Options->BackendUrl . '/blog/default/update?id=' . $model->id);
+    Yii::$app->Options->BackendUrl.'/blog/default/update?id='.$model->id);
 
 
 \YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
@@ -32,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
     Yii::t('blog', 'حذف این مورد'),
     'danger',
     null,
-    Yii::$app->Options->BackendUrl . '/blog/default/delete?id=' . $model->id);
+    Yii::$app->Options->BackendUrl.'/blog/default/delete?id='.$model->id);
 
 
 ?>
@@ -46,25 +56,25 @@ $this->params['breadcrumbs'][] = $this->title;
             'email:email',
             [
                 'attribute' => 'created_at',
-                'value' => function ($model) {
-                    return Yii::$app->functions->convertdatetime($model->created_at) . ' - ' .
+                'value'     => function ($model) {
+                    return Yii::$app->functions->convertdatetime($model->created_at).' - '.
                         Yii::$app->functions->timeLeft($model->created_at);
                 }
             ],
             [
                 'attribute' => 'article',
-                'format' => 'raw',
-                'value' => function ($model) {
+                'format'    => 'raw',
+                'value'     => function ($model) {
                     /**
                      * @var $model \YiiMan\YiiBasics\modules\blog\models\BlogComment
                      */
-                    return '<a target="_blank" href="/article?id=' . $model->article . '">' . $model->article0->title . '</a>';
+                    return '<a target="_blank" href="/article?id='.$model->article.'">'.$model->article0->title.'</a>';
                 }
             ],
             //'created_at',
             [
                 'attribute' => 'status',
-                'value' => function ($model) {
+                'value'     => function ($model) {
                     /**
                      * @var $model
                      */

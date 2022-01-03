@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
@@ -9,7 +16,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel YiiMan\YiiBasics\modules\slug\models\SearchSlug */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('slug', 'Slug') . ' ';
+$this->title = Yii::t('slug', 'Slug').' ';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -31,8 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
-                        'filterModel' => $searchModel,
-                        'columns' => [
+                        'filterModel'  => $searchModel,
+                        'columns'      => [
                             ['class' => 'yii\grid\SerialColumn'],
 
                             'slug',

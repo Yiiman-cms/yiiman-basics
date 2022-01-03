@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\useradmin\models;
 
@@ -11,22 +18,21 @@ use Yii;
 
 /**
  * User model
- *
  * @property integer $id
- * @property string $username
- * @property string $password_hash
- * @property string $password_reset_token
- * @property string $email
- * @property string $auth_key
- * @property string $nickName
- * @property string $bio
+ * @property string  $username
+ * @property string  $password_hash
+ * @property string  $password_reset_token
+ * @property string  $email
+ * @property string  $auth_key
+ * @property string  $nickName
+ * @property string  $bio
  * @property integer $status
  * @property integer $superadmin
  * @property integer $created_at
  * @property integer $updated_at
- * @property string $password write-only password
- * @property string $verification
- * @property string $image
+ * @property string  $password write-only password
+ * @property string  $verification
+ * @property string  $image
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -47,38 +53,12 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
-        return
-            [
-                [['status'], 'integer'],
-                [['email'], 'trim'],
-                [['nickName'], 'string', 'max' => 50],
-                [['email'], 'email'],
-                [['email'], 'string', 'max' => 255],
-                [['image'], 'file'],
-                [['password'], 'string', 'max' => 30, 'min' => 6]
-            ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public static function findIdentity($id)
     {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
-    }
-
-    public function attributeLabels()
-    {
-
-        return [
-            'username' => 'Username',
-            'nickName' => \Yii::t('useradmin', 'نام نمایشی'),
-            'email' => \Yii::t('useradmin', 'ایمیل'),
-            'password' => \Yii::t('useradmin', 'رمز عبور'),
-            'status' => \Yii::t('useradmin', 'وضعیت'),
-        ];
+        return static::findOne([
+            'id'     => $id,
+            'status' => self::STATUS_ACTIVE
+        ]);
     }
 
     /**
@@ -91,21 +71,20 @@ class User extends ActiveRecord implements IdentityInterface
 
     /**
      * Finds user by username
-     *
-     * @param string $email
-     *
+     * @param  string  $email
      * @return \common\models\User|null
      */
     public static function findByEmail($email)
     {
-        return static::findOne(['email' => $email, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne([
+            'email'  => $email,
+            'status' => self::STATUS_ACTIVE
+        ]);
     }
 
     /**
      * Finds user by password reset token
-     *
-     * @param string $token password reset token
-     *
+     * @param  string  $token  password reset token
      * @return static|null
      */
     public static function findByPasswordResetToken($token)
@@ -117,16 +96,14 @@ class User extends ActiveRecord implements IdentityInterface
         return static::findOne(
             [
                 'password_reset_token' => $token,
-                'status' => self::STATUS_ACTIVE,
+                'status'               => self::STATUS_ACTIVE,
             ]
         );
     }
 
     /**
      * Finds out if password reset token is valid
-     *
-     * @param string $token password reset token
-     *
+     * @param  string  $token  password reset token
      * @return bool
      */
     public static function isPasswordResetTokenValid($token)
@@ -135,10 +112,64 @@ class User extends ActiveRecord implements IdentityInterface
             return false;
         }
 
-        $timestamp = (int)substr($token, strrpos($token, '_') + 1);
+        $timestamp = (int) substr($token, strrpos($token, '_') + 1);
         $expire = Yii::$app->params['user.passwordResetTokenExpire'];
 
         return $timestamp + $expire >= time();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
+        return
+            [
+                [
+                    ['status'],
+                    'integer'
+                ],
+                [
+                    ['email'],
+                    'trim'
+                ],
+                [
+                    ['nickName'],
+                    'string',
+                    'max' => 50
+                ],
+                [
+                    ['email'],
+                    'email'
+                ],
+                [
+                    ['email'],
+                    'string',
+                    'max' => 255
+                ],
+                [
+                    ['image'],
+                    'file'
+                ],
+                [
+                    ['password'],
+                    'string',
+                    'max' => 30,
+                    'min' => 6
+                ]
+            ];
+    }
+
+    public function attributeLabels()
+    {
+
+        return [
+            'username' => 'Username',
+            'nickName' => \Yii::t('useradmin', 'نام نمایشی'),
+            'email'    => \Yii::t('useradmin', 'ایمیل'),
+            'password' => \Yii::t('useradmin', 'رمز عبور'),
+            'status'   => \Yii::t('useradmin', 'وضعیت'),
+        ];
     }
 
     /**
@@ -152,24 +183,22 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * {@inheritdoc}
      */
-    public function getAuthKey()
-    {
-        return $this->auth_key;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function validateAuthKey($authKey)
     {
         return $this->getAuthKey() === $authKey;
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function getAuthKey()
+    {
+        return $this->auth_key;
+    }
+
+    /**
      * Validates password
-     *
-     * @param string $password password to validate
-     *
+     * @param  string  $password  password to validate
      * @return bool if password provided is valid for current user
      */
     public function validatePassword($password)
@@ -179,8 +208,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     /**
      * Generates password hash from password and sets it to the model
-     *
-     * @param string $password
+     * @param  string  $password
      */
     public function setPassword($password)
     {
@@ -200,7 +228,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function generatePasswordResetToken()
     {
-        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+        $this->password_reset_token = Yii::$app->security->generateRandomString().'_'.time();
     }
 
     /**

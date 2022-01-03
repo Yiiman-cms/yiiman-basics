@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\blog\controllers;
 
@@ -15,7 +22,6 @@ use yii\filters\VerbFilter;
 class BlogCommentController extends \YiiMan\YiiBasics\lib\Controller
 {
     /**
-     *
      * @var $model SearchBlogComment
      */
     public $model;
@@ -28,7 +34,7 @@ class BlogCommentController extends \YiiMan\YiiBasics\lib\Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class'   => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -46,14 +52,14 @@ class BlogCommentController extends \YiiMan\YiiBasics\lib\Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
      * Displays a single BlogComment model.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -62,6 +68,22 @@ class BlogCommentController extends \YiiMan\YiiBasics\lib\Controller
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+    }
+
+    /**
+     * Finds the BlogComment model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param  integer  $id
+     * @return BlogComment the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id, $lang = null)
+    {
+        if (($this->model = BlogComment::findOne($id)) !== null) {
+            return $this->model;
+        }
+
+        throw new NotFoundHttpException(Yii::t('blog', 'The requested page does not exist.'));
     }
 
     /**
@@ -75,7 +97,10 @@ class BlogCommentController extends \YiiMan\YiiBasics\lib\Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
             }
         }
 
@@ -87,7 +112,7 @@ class BlogCommentController extends \YiiMan\YiiBasics\lib\Controller
     /**
      * Updates an existing BlogComment model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -97,7 +122,10 @@ class BlogCommentController extends \YiiMan\YiiBasics\lib\Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
             }
         }
 
@@ -109,7 +137,7 @@ class BlogCommentController extends \YiiMan\YiiBasics\lib\Controller
     /**
      * Deletes an existing BlogComment model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -120,34 +148,18 @@ class BlogCommentController extends \YiiMan\YiiBasics\lib\Controller
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the BlogComment model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return BlogComment the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id, $lang = null)
-    {
-        if (($this->model = BlogComment::findOne($id)) !== null) {
-            return $this->model;
-        }
-
-        throw new NotFoundHttpException(Yii::t('blog', 'The requested page does not exist.'));
-    }
-
     public function actionVerify($id)
     {
         $model = BlogComment::findOne($id);
         $model->status = $model::STATUS_ACTIVE;
         $model->save();
-        if ($model->save()){
+        if ($model->save()) {
 
             return 'انجام شد';
-        }else{
-            $text='';
-            foreach ($model->getErrorSummary(true) as $error => $t){
-                $text .=$error.' : '.$t;
+        } else {
+            $text = '';
+            foreach ($model->getErrorSummary(true) as $error => $t) {
+                $text .= $error.' : '.$t;
             }
             return $text;
         }
@@ -157,23 +169,16 @@ class BlogCommentController extends \YiiMan\YiiBasics\lib\Controller
     {
         $model = BlogComment::findOne($id);
         $model->status = $model::STATUS_DE_ACTIVE;
-        if ($model->save()){
+        if ($model->save()) {
 
             return 'انجام شد';
-        }else{
-           $text='';
-           foreach ($model->getErrorSummary(true) as $error){
-               $text .=$error;
-           }
-           return $text;
+        } else {
+            $text = '';
+            foreach ($model->getErrorSummary(true) as $error) {
+                $text .= $error;
+            }
+            return $text;
         }
-
-    }
-
-
-    protected function upload()
-    {
-
 
     }
 
@@ -181,5 +186,11 @@ class BlogCommentController extends \YiiMan\YiiBasics\lib\Controller
     {
         parent::init();
         $this->model = new SearchBlogComment();
+    }
+
+    protected function upload()
+    {
+
+
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * Copyright (c) 2018-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
@@ -16,7 +16,7 @@ use yii\helpers\Inflector;
 
 /**
  * @author Nghia Nguyen <yiidevelop@hotmail.com>
- * @since 2.0
+ * @since  2.0
  */
 class FileUploadModel extends \yii\base\Model
 {
@@ -29,7 +29,11 @@ class FileUploadModel extends \yii\base\Model
     public function rules()
     {
         return [
-            ['file', 'file', 'extensions' => Yii::$app->controller->module->fileAllowExtensions]
+            [
+                'file',
+                'file',
+                'extensions' => Yii::$app->controller->module->fileAllowExtensions
+            ]
         ];
     }
 
@@ -41,23 +45,23 @@ class FileUploadModel extends \yii\base\Model
         return false;
     }
 
+    public function getFileName()
+    {
+        if (!$this->_fileName) {
+            $fileName = substr(uniqid(md5(rand()), true), 0, 10);
+            $fileName .= '-'.Inflector::slug($this->file->baseName);
+            $fileName .= '.'.$this->file->extension;
+            $this->_fileName = $fileName;
+        }
+        return $this->_fileName;
+    }
+
     public function getResponse()
     {
         return [
             'filelink' => Yii::$app->controller->module->getUrl($this->getFileName()),
             'filename' => $this->getFileName()
         ];
-    }
-
-    public function getFileName()
-    {
-        if (!$this->_fileName) {
-            $fileName = substr(uniqid(md5(rand()), true), 0, 10);
-            $fileName .= '-' . Inflector::slug($this->file->baseName);
-            $fileName .= '.' . $this->file->extension;
-            $this->_fileName = $fileName;
-        }
-        return $this->_fileName;
     }
 
     public function beforeValidate()

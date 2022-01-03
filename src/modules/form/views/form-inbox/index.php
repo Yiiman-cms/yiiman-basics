@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
@@ -32,15 +39,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
-                        'filterModel' => $searchModel,
-                        'columns' => [
+                        'filterModel'  => $searchModel,
+                        'columns'      => [
                             ['class' => 'yii\grid\SerialColumn'],
                             ['class' => '\YiiMan\YiiBasics\lib\i18n\LanguageColumn'],
                             'ip',
                             [
                                 'attribute' => 'status',
-                                'format' => 'raw',
-                                'value' => function ($model) {
+                                'format'    => 'raw',
+                                'value'     => function ($model) {
                                     /**
                                      * @var $model \YiiMan\YiiBasics\modules\form\models\FormInbox
                                      */
@@ -58,14 +65,16 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                             [
                                 'attribute' => 'created_at',
-                                'value' => function ($model) {
+                                'value'     => function ($model) {
                                     return Yii::$app->functions->convertdatetime($model->created_at);
                                 }
                             ],
                             //'title',
                             //'form',
 
-                            ['class' => 'YiiMan\YiiBasics\lib\ActionColumn','template'=>'{view} {delete}'],
+                            ['class'    => 'YiiMan\YiiBasics\lib\ActionColumn',
+                             'template' => '{view} {delete}'
+                            ],
                         ],
                     ]); ?>
                     <?php Pjax::end(); ?>

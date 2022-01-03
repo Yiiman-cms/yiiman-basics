@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\parameters\controllers;
 
@@ -18,11 +25,9 @@ use yii\web\Response;
 class DefaultController extends \YiiMan\YiiBasics\lib\Controller
 {
     /**
-     *
      * @var $model SearchParameters
      */
     public $model;
-
 
 
     /**
@@ -37,7 +42,13 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
         if (!empty($post)) {
             if (!empty($post['keys'])) {
                 foreach ($post['keys'] as $key => $item) {
-                    $key = str_replace([' ', '-'], ['', '_'], $key);
+                    $key = str_replace([
+                        ' ',
+                        '-'
+                    ], [
+                        '',
+                        '_'
+                    ], $key);
                     $model = Parameters::findOne(['key' => $key]);
                     if (!empty($model)) {
                         $model->val = nl2br($item['val']);
@@ -52,30 +63,74 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
             if (!empty($post['new'])) {
                 foreach ($post['new'] as $item) {
                     if (!empty($item['key'])) {
-                        $key = str_replace([' ', '-'], ['', '_'], $item['key']);
+                        $key = str_replace([
+                            ' ',
+                            '-'
+                        ], [
+                            '',
+                            '_'
+                        ], $item['key']);
                         $model = Parameters::findOne(['key' => $key]);
                         if (empty($model)) {
                             $model = new Parameters();
-                            $model->key = str_replace(['}}', '{{'], '', $key);
+                            $model->key = str_replace([
+                                '}}',
+                                '{{'
+                            ], '', $key);
                             $model->val = nl2br($item['val']);
                             $model->save();
                         }
                     }
                 }
             }
-        }else{
+        } else {
             $this->actionInsert();
         }
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
+    public function actionInsert()
+    {
+        foreach (Parameters::getAllParameters(false) as $p) {
+
+            $model = Parameters::findOne(['key' => $p['key']]);
+            if (empty($model)) {
+                if (empty($p['private'])) {
+                    $p['private'] = 0;
+                }
+                if (empty($p['protected'])) {
+                    $p['protected'] = 0;
+                }
+                if (empty($p['val'])) {
+                    $p['val'] = '0';
+                }
+                if (empty($p['editor'])) {
+                    $p['editor'] = 0;
+                }
+
+                if (empty($p['description'])) {
+                    $p['description'] = ' ';
+                }
+
+                $model = new Parameters();
+                $model->key = $p['key'];
+                $model->description = nl2br($p['description']);
+                $model->private = $p['private'];
+                $model->protected = $p['protected'];
+                $model->val = $p['val'];
+                $model->editor = $p['editor'];
+                $model->save();
+            }
+        }
+    }
+
     /**
      * Displays a single Parameters model.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -89,41 +144,6 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
         ]);
     }
 
-
-    public function actionInsert(){
-        foreach (Parameters::getAllParameters(false) as $p){
-
-            $model=Parameters::findOne(['key'=>$p['key']]);
-            if (empty($model)){
-                if (empty($p['private'])){
-                    $p['private']=0;
-                }
-                if (empty($p['protected'])){
-                    $p['protected']=0;
-                }
-                if (empty($p['val'])){
-                    $p['val']='0';
-                }
-                if (empty($p['editor'])){
-                    $p['editor']=0;
-                }
-
-                if (empty($p['description'])){
-                    $p['description']=' ';
-                }
-
-                $model=new Parameters();
-                $model->key=$p['key'];
-                $model->description=nl2br($p['description']);
-                $model->private=$p['private'];
-                $model->protected=$p['protected'];
-                $model->val=$p['val'];
-                $model->editor=$p['editor'];
-                $model->save();
-            }
-        }
-    }
-
     /**
      * Creates a new Parameters model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -135,7 +155,10 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
             }
         }
         return $this->render('create', [
@@ -146,7 +169,7 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
     /**
      * Updates an existing Parameters model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -155,7 +178,10 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
             }
         }
 
@@ -167,7 +193,7 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
     /**
      * Deletes an existing Parameters model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -176,13 +202,6 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
-    }
-
-
-    protected function upload()
-    {
-
-
     }
 
     public function actionRemove()
@@ -194,12 +213,21 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
             $model = Parameters::findOne($id);
             if (!empty($model)) {
                 if ($model->delete()) {
-                    return ['status' => 'removed', 'data' => $id];
+                    return [
+                        'status' => 'removed',
+                        'data'   => $id
+                    ];
                 } else {
-                    return ['status' => 'errors', 'messages' => $model->errors];
+                    return [
+                        'status'   => 'errors',
+                        'messages' => $model->errors
+                    ];
                 }
             } else {
-                return ['status' => 'error', 'message' => \Yii::t('parameters', 'مورد در بانک داده یافت نشد')];
+                return [
+                    'status'  => 'error',
+                    'message' => \Yii::t('parameters', 'مورد در بانک داده یافت نشد')
+                ];
             }
         }
     }
@@ -218,8 +246,8 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
         Yii::$app->response->format = Response::FORMAT_JSON;
         if (!empty($post['key'])) {
 
-            $model=Parameters::findOne(['key'=>$post['key']]);
-            if (empty($model)){
+            $model = Parameters::findOne(['key' => $post['key']]);
+            if (empty($model)) {
 
                 $model = new Parameters();
                 $model->key = $post['key'];
@@ -232,7 +260,7 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
                 } else {
                     return ['status' => 'error'];
                 }
-            }else{
+            } else {
                 $model->val = $post['val'];
                 $model->description = $post['description'];
                 if ($model->save()) {
@@ -249,5 +277,11 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
     {
         parent::init();
         $this->modelClass = new Parameters();
+    }
+
+    protected function upload()
+    {
+
+
     }
 }

@@ -1,14 +1,21 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 /**
- * @var $this    \YiiMan\YiiBasics\lib\View
- * @var $id      integer
- * @var $value   string
- * @var $name    string
+ * @var $this         \YiiMan\YiiBasics\lib\View
+ * @var $id           integer
+ * @var $value        string
+ * @var $name         string
  * @var $origModel    \YiiMan\YiiBasics\lib\ActiveRecord
- * @var $options []
+ * @var $options      []
  */
-$id=!empty($origModel->id)?$origModel->id:'0';
+$id = !empty($origModel->id) ? $origModel->id : '0';
 $bu = Yii::$app->urlManager->createUrl(['/slug/default/check']);
 $js = <<<JS
 	var slugok=true;
@@ -76,5 +83,6 @@ $this->registerJs($js, $this::POS_END);
 </style>
 <input type="text" name="<?= $name ?>" class="form-control" value="<?= $value ?>" id="<?= $id ?>">
 <span id="<?= $id ?>hinthelp">
-<a class="slug-link" href="<?= Yii::$app->Options->URL.'/'.$value ?>" target="_blank"><?= Yii::$app->Options->URL.'/'.$value ?></a>
+<a class="slug-link" href="<?= Yii::$app->Options->URL.'/'.$value ?>"
+   target="_blank"><?= Yii::$app->Options->URL.'/'.$value ?></a>
 </span>

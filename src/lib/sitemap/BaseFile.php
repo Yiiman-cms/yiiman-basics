@@ -1,8 +1,10 @@
 <?php
 /**
- * @link https://github.com/yii2tech
- * @copyright Copyright (c) 2015 Yii2tech
- * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
+ * Copyright (c) 2015-2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
  */
 
 namespace YiiMan\YiiBasics\lib\sitemap;
@@ -16,15 +18,12 @@ use yii\web\UrlManager;
 
 /**
  * BaseFile is a base class for the sitemap XML files.
- *
- * @see http://www.sitemaps.org/
- *
- * @property int $entriesCount the count of entries written into the file, this property is read-only.
- * @property bool $isEntriesLimitReached whether the max entries limit is already reached or not.
- * @property UrlManager|array|string $urlManager the URL manager object or the application component ID of the URL manager.
- *
+ * @see    http://www.sitemaps.org/
+ * @property int                     $entriesCount          the count of entries written into the file, this property is read-only.
+ * @property bool                    $isEntriesLimitReached whether the max entries limit is already reached or not.
+ * @property UrlManager|array|string $urlManager            the URL manager object or the application component ID of the URL manager.
  * @author Paul Klimov <klimov.paul@gmail.com>
- * @since 1.0
+ * @since  1.0
  */
 abstract class BaseFile extends BaseObject
 {
@@ -69,103 +68,9 @@ abstract class BaseFile extends BaseObject
     }
 
     /**
-     * @return int the count of entries written into the file.
-     */
-    public function getEntriesCount()
-    {
-        return $this->_entriesCount;
-    }
-
-    /**
-     * @param UrlManager|array|string $urlManager
-     */
-    public function setUrlManager($urlManager)
-    {
-        $this->_urlManager = $urlManager;
-    }
-
-    /**
-     * @return UrlManager
-     */
-    public function getUrlManager()
-    {
-        if (!is_object($this->_urlManager)) {
-            $this->_urlManager = Instance::ensure($this->_urlManager, UrlManager::className());
-        }
-        return $this->_urlManager;
-    }
-
-    /**
-     * @return bool whether the max entries limit is already reached or not.
-     */
-    public function getIsEntriesLimitReached()
-    {
-        return ($this->_entriesCount >= self::MAX_ENTRIES_COUNT);
-    }
-
-    /**
-     * Increments the internal entries count.
-     * @throws Exception if limit exceeded.
-     * @return int new entries count value.
-     */
-    protected function incrementEntriesCount()
-    {
-        $this->_entriesCount++;
-        if ($this->_entriesCount > self::MAX_ENTRIES_COUNT) {
-            throw new Exception('Entries count exceeds limit of "' . self::MAX_ENTRIES_COUNT . '".');
-        }
-        return $this->_entriesCount;
-    }
-
-    /**
-     * Returns the full file name.
-     * @return string full file name.
-     */
-    public function getFullFileName()
-    {
-        return Yii::getAlias($this->fileBasePath) . DIRECTORY_SEPARATOR . $this->fileName;
-    }
-
-    /**
-     * Resolves given file path, making sure it exists and writeable.
-     * @throws Exception on failure.
-     * @param string $path file path.
-     * @return bool success.
-     */
-    protected function resolvePath($path)
-    {
-        FileHelper::createDirectory($path, $this->filePermissions);
-        if (!is_dir($path)) {
-            throw new Exception("Unable to resolve path: '{$path}'!");
-        } elseif (!is_writable($path)) {
-            throw new Exception("Path: '{$path}' should be writeable!");
-        }
-        return true;
-    }
-
-    /**
-     * Opens the related file for writing.
-     * @throws Exception on failure.
-     * @return bool success.
-     */
-    public function open()
-    {
-        if ($this->_fileHandler === null) {
-            $this->resolvePath(dirname($this->getFullFileName()));
-            
-            $this->_fileHandler = fopen($this->getFullFileName(), 'w+');
-            if ($this->_fileHandler === false) {
-                throw new Exception('Unable to create/open file "' . $this->getFullFileName() . '".');
-            }
-            $this->afterOpen();
-        }
-        return true;
-    }
-
-    /**
      * Close the related file if it was opened.
-     * @throws Exception if file exceed max allowed size.
      * @return bool success.
+     * @throws Exception if file exceed max allowed size.
      */
     public function close()
     {
@@ -183,19 +88,108 @@ abstract class BaseFile extends BaseObject
     }
 
     /**
+     * This method is invoked before the file is actually closed.
+     * You can override this method to perform some finalization.
+     */
+    protected function beforeClose()
+    {
+        // blank
+    }
+
+    /**
+     * Returns the full file name.
+     * @return string full file name.
+     */
+    public function getFullFileName()
+    {
+        return Yii::getAlias($this->fileBasePath).DIRECTORY_SEPARATOR.$this->fileName;
+    }
+
+    /**
+     * @return int the count of entries written into the file.
+     */
+    public function getEntriesCount()
+    {
+        return $this->_entriesCount;
+    }
+
+    /**
+     * @return UrlManager
+     */
+    public function getUrlManager()
+    {
+        if (!is_object($this->_urlManager)) {
+            $this->_urlManager = Instance::ensure($this->_urlManager, UrlManager::className());
+        }
+        return $this->_urlManager;
+    }
+
+    /**
+     * @param  UrlManager|array|string  $urlManager
+     */
+    public function setUrlManager($urlManager)
+    {
+        $this->_urlManager = $urlManager;
+    }
+
+    /**
+     * @return bool whether the max entries limit is already reached or not.
+     */
+    public function getIsEntriesLimitReached()
+    {
+        return ($this->_entriesCount >= self::MAX_ENTRIES_COUNT);
+    }
+
+    /**
      * Writes the given content to the file.
-     * @throws Exception on failure.
-     * @param string $content content to be written.
+     * @param  string  $content  content to be written.
      * @return int the number of bytes written.
+     * @throws Exception on failure.
      */
     public function write($content)
     {
         $this->open();
         $bytesWritten = fwrite($this->_fileHandler, $content);
         if ($bytesWritten === false) {
-            throw new Exception('Unable to write file "' . $this->getFullFileName() . '".');
+            throw new Exception('Unable to write file "'.$this->getFullFileName().'".');
         }
         return $bytesWritten;
+    }
+
+    /**
+     * Opens the related file for writing.
+     * @return bool success.
+     * @throws Exception on failure.
+     */
+    public function open()
+    {
+        if ($this->_fileHandler === null) {
+            $this->resolvePath(dirname($this->getFullFileName()));
+
+            $this->_fileHandler = fopen($this->getFullFileName(), 'w+');
+            if ($this->_fileHandler === false) {
+                throw new Exception('Unable to create/open file "'.$this->getFullFileName().'".');
+            }
+            $this->afterOpen();
+        }
+        return true;
+    }
+
+    /**
+     * Resolves given file path, making sure it exists and writeable.
+     * @param  string  $path  file path.
+     * @return bool success.
+     * @throws Exception on failure.
+     */
+    protected function resolvePath($path)
+    {
+        FileHelper::createDirectory($path, $this->filePermissions);
+        if (!is_dir($path)) {
+            throw new Exception("Unable to resolve path: '{$path}'!");
+        } elseif (!is_writable($path)) {
+            throw new Exception("Path: '{$path}' should be writeable!");
+        }
+        return true;
     }
 
     /**
@@ -211,11 +205,16 @@ abstract class BaseFile extends BaseObject
     }
 
     /**
-     * This method is invoked before the file is actually closed.
-     * You can override this method to perform some finalization.
+     * Increments the internal entries count.
+     * @return int new entries count value.
+     * @throws Exception if limit exceeded.
      */
-    protected function beforeClose()
+    protected function incrementEntriesCount()
     {
-        // blank
+        $this->_entriesCount++;
+        if ($this->_entriesCount > self::MAX_ENTRIES_COUNT) {
+            throw new Exception('Entries count exceeds limit of "'.self::MAX_ENTRIES_COUNT.'".');
+        }
+        return $this->_entriesCount;
     }
 }

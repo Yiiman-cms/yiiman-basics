@@ -1,8 +1,10 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
- * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * Copyright (c) 2008-2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
  */
 
 namespace YiiMan\YiiBasics\lib\i18n;
@@ -11,24 +13,23 @@ use Yii;
 
 /**
  * GettextPoFile represents a PO Gettext message file.
- *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @since 2.0
+ * @since  2.0
  */
 class GettextPoFile extends GettextFile
 {
     /**
      * Loads messages from a PO file.
-     * @param string $filePath file path
-     * @param string $context message context
+     * @param  string  $filePath  file path
+     * @param  string  $context   message context
      * @return array message translations. Array keys are source messages and array values are translated messages:
-     * source message => translated message.
+     *                            source message => translated message.
      */
     public function load($filePath, $context)
     {
         $pattern = '/(msgctxt\s+"(.*?(?<!\\\\))")?\s+' // context
-            . 'msgid\s+((?:".*(?<!\\\\)"\s*)+)\s+' // message ID, i.e. original string
-            . 'msgstr\s+((?:".*(?<!\\\\)"\s*)+)/'; // translated string
+            .'msgid\s+((?:".*(?<!\\\\)"\s*)+)\s+' // message ID, i.e. original string
+            .'msgstr\s+((?:".*(?<!\\\\)"\s*)+)/'; // translated string
         $content = file_get_contents($filePath);
         $matches = [];
         $matchCount = preg_match_all($pattern, $content, $matches);
@@ -46,11 +47,39 @@ class GettextPoFile extends GettextFile
     }
 
     /**
+     * Decodes special characters in a message.
+     * @param  string  $string  message to be decoded
+     * @return string the decoded message
+     */
+    protected function decode($string)
+    {
+        $string = preg_replace(
+            [
+                '/"\s+"/',
+                '/\\\\n/',
+                '/\\\\r/',
+                '/\\\\t/',
+                '/\\\\"/'
+            ],
+            [
+                '',
+                "\n",
+                "\r",
+                "\t",
+                '"'
+            ],
+            $string
+        );
+
+        return substr(rtrim($string), 1, -1);
+    }
+
+    /**
      * Saves messages to a PO file.
-     * @param string $filePath file path
-     * @param array $messages message translations. Array keys are source messages and array values are
-     * translated messages: source message => translated message. Note if the message has a context,
-     * the message ID must be prefixed with the context with chr(4) as the separator.
+     * @param  string  $filePath  file path
+     * @param  array   $messages  message translations. Array keys are source messages and array values are
+     *                            translated messages: source message => translated message. Note if the message has a context,
+     *                            the message ID must be prefixed with the context with chr(4) as the separator.
      */
     public function save($filePath, $messages)
     {
@@ -63,51 +92,45 @@ class GettextPoFile extends GettextFile
             '"PO-Revision-Date: \n"',
             '"Last-Translator: \n"',
             '"Language-Team: \n"',
-            '"Language: ' . $language . '\n"',
+            '"Language: '.$language.'\n"',
             '"MIME-Version: 1.0\n"',
-            '"Content-Type: text/plain; charset=' . Yii::$app->charset . '\n"',
+            '"Content-Type: text/plain; charset='.Yii::$app->charset.'\n"',
             '"Content-Transfer-Encoding: 8bit\n"',
         ];
-        $content = implode("\n", $headers) . "\n\n";
+        $content = implode("\n", $headers)."\n\n";
         foreach ($messages as $id => $message) {
             $separatorPosition = strpos($id, chr(4));
             if ($separatorPosition !== false) {
-                $content .= 'msgctxt "' . substr($id, 0, $separatorPosition) . "\"\n";
+                $content .= 'msgctxt "'.substr($id, 0, $separatorPosition)."\"\n";
                 $id = substr($id, $separatorPosition + 1);
             }
-            $content .= 'msgid "' . $this->encode($id) . "\"\n";
-            $content .= 'msgstr "' . $this->encode($message) . "\"\n\n";
+            $content .= 'msgid "'.$this->encode($id)."\"\n";
+            $content .= 'msgstr "'.$this->encode($message)."\"\n\n";
         }
         file_put_contents($filePath, $content);
     }
 
     /**
      * Encodes special characters in a message.
-     * @param string $string message to be encoded
+     * @param  string  $string  message to be encoded
      * @return string the encoded message
      */
     protected function encode($string)
     {
         return str_replace(
-            ['"', "\n", "\t", "\r"],
-            ['\\"', '\\n', '\\t', '\\r'],
+            [
+                '"',
+                "\n",
+                "\t",
+                "\r"
+            ],
+            [
+                '\\"',
+                '\\n',
+                '\\t',
+                '\\r'
+            ],
             $string
         );
-    }
-
-    /**
-     * Decodes special characters in a message.
-     * @param string $string message to be decoded
-     * @return string the decoded message
-     */
-    protected function decode($string)
-    {
-        $string = preg_replace(
-            ['/"\s+"/', '/\\\\n/', '/\\\\r/', '/\\\\t/', '/\\\\"/'],
-            ['', "\n", "\r", "\t", '"'],
-            $string
-        );
-
-        return substr(rtrim($string), 1, -1);
     }
 }

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\FileSelectorWidget;
 use YiiMan\YiiBasics\modules\setting\widgets\ImageField;
@@ -31,8 +38,9 @@ use kartik\select2\Select2;
                                     <?= $form->field($model, 'parent')
                                         ->widget(Select2::className(),
                                             [
-                                                'data' =>
-                                                    ArrayHelper::map(\YiiMan\YiiBasics\modules\blog\models\BlogCategory::find()->all(), 'id', 'title'),
+                                                'data'    =>
+                                                    ArrayHelper::map(\YiiMan\YiiBasics\modules\blog\models\BlogCategory::find()->all(),
+                                                        'id', 'title'),
                                                 'options' => ['placeholder' => \Yii::t('blog', 'انتخاب کنید')]
                                             ]
                                         ) ?>

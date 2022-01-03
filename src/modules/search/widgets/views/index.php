@@ -1,10 +1,18 @@
 <?php
-	/**
-	 * @var $dateLabels
-	 * @var $dateArray
-	 * @var $max
-	 */
-	$js = <<<JS
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
+/**
+ * @var $dateLabels
+ * @var $dateArray
+ * @var $max
+ */
+$js = <<<JS
 dataRoundedLineChart =
 {
 	labels:
@@ -44,14 +52,14 @@ dataRoundedLineChart =
             md.startAnimationForLineChart(RoundedLineChart);
 
 JS;
-	$this->registerJs( $js , $this::POS_END );
+$this->registerJs($js, $this::POS_END);
 ?>
 
 <div class="card card-chart">
-	<div class="card-header card-header-rose">
-		<div id="roundedLineChart" class="ct-chart"></div>
-	</div>
-	<div class="card-body">
-		<h4 class="card-title"><?= \Yii::t('hint','آمار جست و جوهای انجام شده در سایت') ?></h4>
-	</div>
+    <div class="card-header card-header-rose">
+        <div id="roundedLineChart" class="ct-chart"></div>
+    </div>
+    <div class="card-body">
+        <h4 class="card-title"><?= \Yii::t('hint', 'آمار جست و جوهای انجام شده در سایت') ?></h4>
+    </div>
 </div>

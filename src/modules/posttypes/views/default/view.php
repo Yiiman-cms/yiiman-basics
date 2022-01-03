@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\FileSelectorWidget;
 use yii\helpers\Html;
@@ -40,7 +47,7 @@ $posttype = $model->postType;
     Yii::t('posttypes', 'ثبت '),
     'success',
     null,
-    Yii::$app->Options->BackendUrl . 'pt/create/' . $posttype
+    Yii::$app->Options->BackendUrl.'pt/create/'.$posttype
 );
 
 
@@ -49,7 +56,7 @@ $posttype = $model->postType;
     Yii::t('posttypes', 'ویرایش این مورد'),
     'info',
     null,
-    Yii::$app->Options->BackendUrl . 'pt/update/' . $posttype . '/' . $model->id);
+    Yii::$app->Options->BackendUrl.'pt/update/'.$posttype.'/'.$model->id);
 
 
 \YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
@@ -57,11 +64,14 @@ $posttype = $model->postType;
     Yii::t('posttypes', 'حذف این مورد'),
     'danger',
     null,
-    Yii::$app->Options->BackendUrl . 'pt/delete/' . $posttype . '/' . $model->id);
+    Yii::$app->Options->BackendUrl.'pt/delete/'.$posttype.'/'.$model->id);
 
 
-$this->title = Yii::t('posttypes', 'بازبینی:  ') . $model->title;
-$this->params['breadcrumbs'][] = ['label' => \YiiMan\YiiBasics\modules\posttypes\models\Posttypes::getConfigs()['items'][$_GET['posttype']]['labels']['sum'], 'url' => ['/pt/' . $_GET['posttype']]];
+$this->title = Yii::t('posttypes', 'بازبینی:  ').$model->title;
+$this->params['breadcrumbs'][] = [
+    'label' => \YiiMan\YiiBasics\modules\posttypes\models\Posttypes::getConfigs()['items'][$_GET['posttype']]['labels']['sum'],
+    'url'   => ['/pt/'.$_GET['posttype']]
+];
 $this->params['breadcrumbs'][] = $this->title;
 
 \YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
@@ -73,10 +83,11 @@ $this->params['breadcrumbs'][] = $this->title;
         border-radius: 5px;
         box-shadow: 0 5px 15px -8px rgba(0, 0, 0, .24), 0 8px 10px -5px rgba(0, 0, 0, .2);
     }
+
     .navbar.bg-dark {
         color: #fff;
         background-color: #212121 !important;
-        box-shadow: 0 4px 20px 0 rgba(0,0,0,.14),0 7px 12px -5px rgba(33,33,33,.46);
+        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 12px -5px rgba(33, 33, 33, .46);
         padding: 10px;
         border-radius: 5px;
         margin: 18px 0;

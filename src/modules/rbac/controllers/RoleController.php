@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\rbac\controllers;
 
@@ -35,7 +42,7 @@ class RoleController extends \YiiMan\YiiBasics\lib\Controller
         return $this->render(
             'index',
             [
-                'searchModel' => $searchModel,
+                'searchModel'  => $searchModel,
                 'dataProvider' => $dataProvider,
             ]
         );
@@ -43,9 +50,7 @@ class RoleController extends \YiiMan\YiiBasics\lib\Controller
 
     /**
      * Displays a single Role model.
-     *
-     * @param string $name
-     *
+     * @param  string  $name
      * @return mixed
      */
     public function actionView($name)
@@ -55,21 +60,30 @@ class RoleController extends \YiiMan\YiiBasics\lib\Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
 
             return [
-                'title' => $name,
+                'title'   => $name,
                 'content' => $this->renderPartial(
                     'view',
                     [
                         'model' => $this->findModel($name),
                     ]
                 ),
-                'footer' => Html::button(
+                'footer'  => Html::button(
                         Yii::t('rbac', 'Close'),
-                        ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]
-                    ) .
+                        [
+                            'class'        => 'btn btn-default pull-left',
+                            'data-dismiss' => "modal"
+                        ]
+                    ).
                     Html::a(
                         Yii::t('rbac', 'Edit'),
-                        ['update', 'name' => $name],
-                        ['class' => 'btn btn-primary', 'role' => 'modal-remote']
+                        [
+                            'update',
+                            'name' => $name
+                        ],
+                        [
+                            'class' => 'btn btn-primary',
+                            'role'  => 'modal-remote'
+                        ]
                     )
             ];
         } else {
@@ -79,6 +93,25 @@ class RoleController extends \YiiMan\YiiBasics\lib\Controller
                     'model' => $this->findModel($name),
                 ]
             );
+        }
+    }
+
+    /**
+     * Finds the Role model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param  string  $name
+     * @return Role the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($name, $lng = null)
+    {
+        if (($model = ModuleRbacAuthItem::findOne([
+                'name' => $name,
+                'type' => ModuleRbacAuthItem::TYPE_ROLE
+            ])) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException(Yii::t('rbac', 'The requested page does not exist.'));
         }
     }
 
@@ -94,7 +127,10 @@ class RoleController extends \YiiMan\YiiBasics\lib\Controller
         $model = new ModuleRbacAuthItem();
 
         if ($model->load($request->post()) && $model->save()) {
-            return $this->redirect(['update', 'name' => $model->name]);
+            return $this->redirect([
+                'update',
+                'name' => $model->name
+            ]);
         }
         return $this->render(
             'create',
@@ -110,9 +146,7 @@ class RoleController extends \YiiMan\YiiBasics\lib\Controller
      * Updates an existing Role model.
      * For ajax request will return json object
      * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
-     *
-     * @param string $name
-     *
+     * @param  string  $name
      * @return mixed
      */
     public function actionUpdate($name)
@@ -138,9 +172,7 @@ class RoleController extends \YiiMan\YiiBasics\lib\Controller
      * Delete an existing Role model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
-     *
-     * @param string $name
-     *
+     * @param  string  $name
      * @return mixed
      */
     public function actionDelete($name)
@@ -182,24 +214,6 @@ class RoleController extends \YiiMan\YiiBasics\lib\Controller
         Yii::$app->session->addFlash('success', 'نقش و همه ی زیر مجموعه های آن با موفقیت حذف شد');
 
         return $this->redirect(['index']);
-    }
-
-    /**
-     * Finds the Role model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     *
-     * @param string $name
-     *
-     * @return Role the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($name, $lng = null)
-    {
-        if (($model = ModuleRbacAuthItem::findOne(['name' => $name, 'type' => ModuleRbacAuthItem::TYPE_ROLE])) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException(Yii::t('rbac', 'The requested page does not exist.'));
-        }
     }
 
 }

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\blog\controllers;
 
@@ -20,7 +27,6 @@ use yii\filters\VerbFilter;
 class BlogCategoriesController extends \YiiMan\YiiBasics\lib\Controller
 {
     /**
-     *
      * @var $model SearchBlogArticles
      */
     public $enableCsrfValidation = false;
@@ -47,9 +53,7 @@ class BlogCategoriesController extends \YiiMan\YiiBasics\lib\Controller
 
     /**
      * Displays a single BlogArticles model.
-     *
-     * @param integer $id
-     *
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -76,7 +80,10 @@ class BlogCategoriesController extends \YiiMan\YiiBasics\lib\Controller
             if ($model->save()) {
 
 
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
             }
         } else {
             if (!empty($post['content'])) {
@@ -95,7 +102,6 @@ class BlogCategoriesController extends \YiiMan\YiiBasics\lib\Controller
 
     /**
      * @param $id
-     *
      * @return string|\yii\web\Response
      * @throws \yii\base\InvalidConfigException
      * @throws \yii\web\NotFoundHttpException
@@ -106,7 +112,10 @@ class BlogCategoriesController extends \YiiMan\YiiBasics\lib\Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
             }
         }
 
@@ -121,9 +130,7 @@ class BlogCategoriesController extends \YiiMan\YiiBasics\lib\Controller
     /**
      * Deletes an existing BlogArticles model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     *
-     * @param integer $id
-     *
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */

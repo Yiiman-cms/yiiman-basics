@@ -1,45 +1,45 @@
 <?php
-/*
- * Copyright (c) 2022.
+/**
+ * Copyright (c) 2022-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
  * Site:https://yiiman.ir
  */
 
-	/**
-	 * Created by YiiMan TM.
-	 * Programmer: gholamreza beheshtian
-	 * Mobile:+989353466620 | +17272282283
-	 *
-	 * Site:https://yiiman.ir
-	 * Date: 12/30/2018
-	 * Time: 4:09 AM
-	 */
-	/**
-	 * @var $this \yii\web\View
-	 * @var $id            string
-	 * @var $label         string
-	 * @var $name          string
-	 * @var $value         string
-	 * @var $attribute     string
-	 * @var $model         \yii\db\ActiveRecord
-	 */
-	
-	use YiiMan\YiiBasics\modules\filemanager\assets\FileManagerAsset;
-	use YiiMan\YiiBasics\modules\filemanager\assets\LightBoxAssets;
-	use yii\bootstrap\Modal;
-	use yii\helpers\BaseHtml;
-	use yii\web\View;
-	
-	$modal     = $id . 'Modal';
-	$idWidget  = $id . 'Widget';
-	$UploadUrl=Yii::$app->Options->UploadUrl;
-	$inputId=BaseHtml::getInputId( $model , $attribute);
-	LightBoxAssets::register( $this);
-	$this->registerJs( 'var selectMediaArray=\'\';',View::POS_HEAD);
-	
-	$js=<<<JS
+/**
+ * Created by YiiMan TM.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ * Date: 12/30/2018
+ * Time: 4:09 AM
+ */
+
+/**
+ * @var $this          \yii\web\View
+ * @var $id            string
+ * @var $label         string
+ * @var $name          string
+ * @var $value         string
+ * @var $attribute     string
+ * @var $model         \yii\db\ActiveRecord
+ */
+
+use YiiMan\YiiBasics\modules\filemanager\assets\FileManagerAsset;
+use YiiMan\YiiBasics\modules\filemanager\assets\LightBoxAssets;
+use yii\bootstrap\Modal;
+use yii\helpers\BaseHtml;
+use yii\web\View;
+
+$modal = $id.'Modal';
+$idWidget = $id.'Widget';
+$UploadUrl = Yii::$app->Options->UploadUrl;
+$inputId = BaseHtml::getInputId($model, $attribute);
+LightBoxAssets::register($this);
+$this->registerJs('var selectMediaArray=\'\';', View::POS_HEAD);
+
+$js = <<<JS
 	var hasMedia$id ='';
 	$('body').prepend(
 	     "<div id='$modal' class='media-modal fade modal' role='dialog' tabindex='-1'>"+
@@ -97,54 +97,55 @@ if (typeof window.addEventListener != 'undefined') {
 	  }
 	});
 JS;
-$this->registerJs( $js,View::POS_END);
-	?>
+$this->registerJs($js, View::POS_END);
+?>
 
 <div class="row">
-	<div class="col-md-12" id="gallery<?= $id ?>">
-	<?php
-		if (!empty( $model->{$attribute})){
-			
-			$items=explode( ' ' , $model->{$attribute});
-			?>
-			<script>
-				var hasMedia<?= $id ?>='yes';
-			</script>
-			<div class="demo-gallery">
-				<ul id="lightgallery<?= $id ?>" class="list-unstyled row">
-					<?php
-						foreach($items as $item){
-							if (!empty( $item)){
-							
-							?>
-							<li class="col-xs-6 col-sm-4 col-md-3"  data-src="<?= $UploadUrl.'/'.$item ?>" data-sub-html="" data-pinterest-text="" data-tweet-text="">
-								<a href="">
-									<img class="img-responsive" src="<?= $UploadUrl.'/'.$item ?>">
-								</a>
-							</li>
-					<?php
-							}
-						}
-					?>
-				</ul>
-			</div>
-		<?php
-		}
-	?>
-	</div>
+    <div class="col-md-12" id="gallery<?= $id ?>">
+        <?php
+        if (!empty($model->{$attribute})) {
+
+            $items = explode(' ', $model->{$attribute});
+            ?>
+            <script>
+                var hasMedia<?= $id ?>= 'yes';
+            </script>
+            <div class="demo-gallery">
+                <ul id="lightgallery<?= $id ?>" class="list-unstyled row">
+                    <?php
+                    foreach ($items as $item) {
+                        if (!empty($item)) {
+
+                            ?>
+                            <li class="col-xs-6 col-sm-4 col-md-3" data-src="<?= $UploadUrl.'/'.$item ?>"
+                                data-sub-html="" data-pinterest-text="" data-tweet-text="">
+                                <a href="">
+                                    <img class="img-responsive" src="<?= $UploadUrl.'/'.$item ?>">
+                                </a>
+                            </li>
+                            <?php
+                        }
+                    }
+                    ?>
+                </ul>
+            </div>
+            <?php
+        }
+        ?>
+    </div>
 </div>
 <div class="row">
-	<div class="col-md-12">
-		<div class="input-group">
-			<?= \yii\helpers\Html::activeInput('hidden', $model, $attribute,[]); ?>
-			
-			<span class="input-group-btn">
+    <div class="col-md-12">
+        <div class="input-group">
+            <?= \yii\helpers\Html::activeInput('hidden', $model, $attribute, []); ?>
+
+            <span class="input-group-btn">
          <button class="btn btn-primary" type="button" data-toggle="modal"
                  data-target="#<?= $modal ?>">
-	         <i class="fa fa-folder-open"></i>انتخاب <?=  $label ?>
+	         <i class="fa fa-folder-open"></i>انتخاب <?= $label ?>
          </button>
     </span>
-		</div>
-	</div>
+        </div>
+    </div>
 </div>
 

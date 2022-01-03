@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\gallery\models;
 
@@ -18,8 +25,23 @@ class SearchGalleryCategories extends GalleryCategories
     public function rules()
     {
         return [
-            [['id', 'parent', 'language', 'language_parent'], 'integer'],
-            [['title', 'description', 'image'], 'safe'],
+            [
+                [
+                    'id',
+                    'parent',
+                    'language',
+                    'language_parent'
+                ],
+                'integer'
+            ],
+            [
+                [
+                    'title',
+                    'description',
+                    'image'
+                ],
+                'safe'
+            ],
         ];
     }
 
@@ -34,18 +56,16 @@ class SearchGalleryCategories extends GalleryCategories
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
     {
         $query = GalleryCategories::find();
-        if (!empty( $_GET['lng'])){
-            $query=$query->where(['language'=> $_GET['lng']]);
-        }else{
-            $query=$query->where(['language_parent'=>null]);
+        if (!empty($_GET['lng'])) {
+            $query = $query->where(['language' => $_GET['lng']]);
+        } else {
+            $query = $query->where(['language_parent' => null]);
         }
         // add conditions that should always apply here
 
@@ -63,15 +83,27 @@ class SearchGalleryCategories extends GalleryCategories
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'parent' => $this->parent,
-            'language' => $this->language,
+            'id'              => $this->id,
+            'parent'          => $this->parent,
+            'language'        => $this->language,
             'language_parent' => $this->language_parent,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'image', $this->image]);
+        $query->andFilterWhere([
+            'like',
+            'title',
+            $this->title
+        ])
+            ->andFilterWhere([
+                'like',
+                'description',
+                $this->description
+            ])
+            ->andFilterWhere([
+                'like',
+                'image',
+                $this->image
+            ]);
 
         return $dataProvider;
     }

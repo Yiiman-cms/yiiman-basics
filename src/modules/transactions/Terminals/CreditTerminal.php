@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\transactions\Terminals;
 
@@ -20,8 +26,12 @@ class CreditTerminal extends BaseTerminal
         // TODO: Implement initTokens() method.
     }
 
-    public function get_before_pay_serial(float $price, TransactionsFactor $factor, Transactions $transaction,$callbackUrl)
-    {
+    public function get_before_pay_serial(
+        float $price,
+        TransactionsFactor $factor,
+        Transactions $transaction,
+        $callbackUrl
+    ) {
         return 0;
     }
 
@@ -30,10 +40,10 @@ class CreditTerminal extends BaseTerminal
         TransactionsFactor $factorModel,
         Transactions $transactionModel,
         string $callbackUrl
-    )
-    {
+    ) {
         $transactionModel->factor0->changeStatus(TransactionsFactor::STATUS_PAYED);
-        $transactionModel->factor0->uid0->chargeUser(-$transactionModel->factor0->total_price, 'کسر مبلغ بابت فاکتور شماره ' . $transactionModel->factor);
+        $transactionModel->factor0->uid0->chargeUser(-$transactionModel->factor0->total_price,
+            'کسر مبلغ بابت فاکتور شماره '.$transactionModel->factor);
         return true;
     }
 

@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\FileSelectorWidget;
 use YiiMan\YiiBasics\modules\menu\models\Menu;
@@ -17,14 +23,15 @@ use kartik\select2\Select2;
 $this->registerJs($this->render('script/form.js'), $this::POS_END);
 ?>
 <script>
-    var Menutypes =<?= json_encode(\YiiMan\YiiBasics\modules\menu\models\Menu::getTypes()) ?>;
-    var relatedUrl='<?= Yii::$app->urlManager->createUrl(['/menu/default/related-data']) ?>';
+    var Menutypes = <?= json_encode(\YiiMan\YiiBasics\modules\menu\models\Menu::getTypes()) ?>;
+    var relatedUrl = '<?= Yii::$app->urlManager->createUrl(['/menu/default/related-data']) ?>';
 </script>
 <style>
     #menu-url {
         direction: ltr;
         text-align: left;
     }
+
     .form-control.iconpicker-search {
         direction: ltr;
         text-align: left;
@@ -45,24 +52,24 @@ $this->registerJs($this->render('script/form.js'), $this::POS_END);
                                 <?= $form->field($model, 'status')->widget(
                                     \kartik\select2\Select2::className(),
                                     [
-                                        'data' =>
+                                        'data'          =>
                                             [
                                                 1 => \Yii::t('menu', 'منتشر شده'),
                                                 0 => \Yii::t('menu', 'بازبینی'),
 
                                             ],
-                                        'options' => ['dir' => 'ltr'],
+                                        'options'       => ['dir' => 'ltr'],
                                         'pluginOptions' => ['dir' => 'ltr'],
-                                        'pluginEvents' => [
-                                            "change" => "function() {  }",
-                                            "select2:opening" => "function() {  }",
-                                            "select2:open" => "function() {  }",
-                                            "select2:closing" => "function() {  }",
-                                            "select2:close" => "function() {  }",
-                                            "select2:selecting" => "function() {  }",
-                                            "select2:select" => "function() {  }",
+                                        'pluginEvents'  => [
+                                            "change"              => "function() {  }",
+                                            "select2:opening"     => "function() {  }",
+                                            "select2:open"        => "function() {  }",
+                                            "select2:closing"     => "function() {  }",
+                                            "select2:close"       => "function() {  }",
+                                            "select2:selecting"   => "function() {  }",
+                                            "select2:select"      => "function() {  }",
                                             "select2:unselecting" => "function() {  }",
-                                            "select2:unselect" => "function() {  }"
+                                            "select2:unselect"    => "function() {  }"
                                         ]
                                     ]
                                 );
@@ -111,7 +118,7 @@ $this->registerJs($this->render('script/form.js'), $this::POS_END);
                                         'data' =>
                                             ArrayHelper::merge(
                                                 [
-                                                    0 => \Yii::t('menu', 'یکی را انتخاب کنید'),
+                                                    0     => \Yii::t('menu', 'یکی را انتخاب کنید'),
                                                     'url' => \Yii::t('menu', 'لینک'),
                                                 ],
                                                 ArrayHelper::map(Menu::getTypes(), 'name', 'label'))
@@ -120,7 +127,8 @@ $this->registerJs($this->render('script/form.js'), $this::POS_END);
                                 <?= $form->field($model, 'index')->textInput(
                                     ['type' => 'number']
                                 ) ?>
-                                <?php $form->field($model, 'icon')->widget(\YiiMan\YiiBasics\widgets\fontAwesomePicker\FontAwesomeFontPickerWidget::className()) ?>
+                                <?php $form->field($model,
+                                    'icon')->widget(\YiiMan\YiiBasics\widgets\fontAwesomePicker\FontAwesomeFontPickerWidget::className()) ?>
                             </div>
                             <div class="col-md-6">
                                 <?= $form->field($model, 'related_id')->widget(
@@ -144,7 +152,6 @@ $this->registerJs($this->render('script/form.js'), $this::POS_END);
                                     ]
                                 ) ?>
                             </div>
-
 
 
                         </div>

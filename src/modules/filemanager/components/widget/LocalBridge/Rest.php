@@ -1,9 +1,16 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
 namespace AngularFilemanager\LocalBridge;
 
 /**
  * REST class
- *
  * For server side REST API implementation (POST, GET, PUT, DELETE as CRUD)
  * Chaineable
  * @author Jakub Ďuraš <jakub@duras.me>
@@ -23,13 +30,18 @@ class Rest
 
     /**
      * Add callback for specific HTTP method (post, get, put, delete)
-     * @param  string $method    name of the HTTP method
-     * @param  array  $arguments expects only one argument, callback, with number of arguments based on request method ($queries, $body['data'], $body['files'])
+     * @param  string  $method     name of the HTTP method
+     * @param  array   $arguments  expects only one argument, callback, with number of arguments based on request method ($queries, $body['data'], $body['files'])
      * @return object            this
      */
     public function __call($method, $arguments)
     {
-        if (!in_array($method, ['post', 'get', 'put', 'delete'])) {
+        if (!in_array($method, [
+            'post',
+            'get',
+            'put',
+            'delete'
+        ])) {
             throw new Exception('REST method "'.$method.'" not supported.');
         }
 
@@ -40,7 +52,7 @@ class Rest
 
     /**
      * Should authentication be required
-     * @param boolean $option defaults to true
+     * @param  boolean  $option  defaults to true
      */
     public function setRequireAuthentication($option = true)
     {
@@ -51,7 +63,7 @@ class Rest
 
     /**
      * Add callback called before every request
-     * @param  callable $callback arguments: $queries, $body['data'], $body['files']
+     * @param  callable  $callback  arguments: $queries, $body['data'], $body['files']
      * @return object this
      */
     public function before($callback)
@@ -63,7 +75,7 @@ class Rest
 
     /**
      * Add callback called after every request
-     * @param  callable $callback arguments: $queries, $body['data'], $body['files']
+     * @param  callable  $callback  arguments: $queries, $body['data'], $body['files']
      * @return object this
      */
     public function after($callback)
@@ -89,7 +101,7 @@ class Rest
         $request_method = $_SERVER['REQUEST_METHOD'];
 
         $body = [
-            'data' => null,
+            'data'  => null,
             'files' => []
         ];
         $queries = [];
@@ -140,6 +152,43 @@ class Rest
     }
 
     /**
+     * Check wheter client is authorized and returns Response object with autorization request if not
+     * @return mixed Response object if client is not authorized, otherwise nothing
+     */
+    private function verifyAuthentication()
+    {
+        $authenticated = false;
+        $headers = getallheaders();
+
+        if (isset($headers['Authorization'])) {
+            $token = str_replace('Token ', '', $headers['Authorization']);
+
+            $authenticated = token::verify($token);
+        }
+
+        if ($authenticated === false) {
+            $response = new Response();
+            $response->setStatus(401, 'Unauthorized')
+                ->addHeaders('WWW-Authenticate: Token');
+
+            return $response;
+        }
+    }
+
+    /**
+     * Use Response object to modify headers and output body
+     * @param  Response  $response
+     */
+    private function respond(Response $response)
+    {
+//        foreach ($response->getHeaders() as $header) {
+//            header($header);
+//        }
+
+        echo $response->getBody();
+    }
+
+    /**
      * Uses _POST and _FILES superglobals if available,
      * otherwise tries to parse JSON body if Content Type header is set to application/json,
      * otherwise manually parses body as form data
@@ -168,45 +217,8 @@ class Rest
         }
 
         return [
-            'data' => $data,
+            'data'  => $data,
             'files' => $files
         ];
-    }
-
-    /**
-     * Check wheter client is authorized and returns Response object with autorization request if not
-     * @return mixed Response object if client is not authorized, otherwise nothing
-     */
-    private function verifyAuthentication()
-    {
-        $authenticated = false;
-        $headers = getallheaders();
-
-        if (isset($headers['Authorization'])) {
-            $token = str_replace('Token ', '', $headers['Authorization']);
-
-            $authenticated = token::verify($token);
-        }
-
-        if ($authenticated === false) {
-            $response = new Response();
-            $response->setStatus(401, 'Unauthorized')
-                     ->addHeaders('WWW-Authenticate: Token');
-
-            return $response;
-        }
-    }
-
-    /**
-        * Use Response object to modify headers and output body
-        * @param  Response $response
-        */
-    private function respond(Response $response)
-    {
-//        foreach ($response->getHeaders() as $header) {
-//            header($header);
-//        }
-
-        echo $response->getBody();
     }
 }

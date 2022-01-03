@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\blog\models;
 
@@ -18,8 +25,24 @@ class SearchBlogComment extends BlogComment
     public function rules()
     {
         return [
-            [['id', 'article', 'status'], 'integer'],
-            [['message', 'name', 'email', 'website', 'created_at'], 'safe'],
+            [
+                [
+                    'id',
+                    'article',
+                    'status'
+                ],
+                'integer'
+            ],
+            [
+                [
+                    'message',
+                    'name',
+                    'email',
+                    'website',
+                    'created_at'
+                ],
+                'safe'
+            ],
         ];
     }
 
@@ -34,9 +57,7 @@ class SearchBlogComment extends BlogComment
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
@@ -59,16 +80,32 @@ class SearchBlogComment extends BlogComment
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'article' => $this->article,
+            'id'         => $this->id,
+            'article'    => $this->article,
             'created_at' => $this->created_at,
-            'status' => $this->status,
+            'status'     => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'message', $this->message])
-            ->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'website', $this->website]);
+        $query->andFilterWhere([
+            'like',
+            'message',
+            $this->message
+        ])
+            ->andFilterWhere([
+                'like',
+                'name',
+                $this->name
+            ])
+            ->andFilterWhere([
+                'like',
+                'email',
+                $this->email
+            ])
+            ->andFilterWhere([
+                'like',
+                'website',
+                $this->website
+            ]);
 
         return $dataProvider;
     }

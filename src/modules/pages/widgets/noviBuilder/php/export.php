@@ -1,98 +1,116 @@
 <?php
-    include_once("zip.php");
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
-    if ( isset($_POST['dir']) && isset($_POST['name'])) {
-        $project_dir = $_POST['dir'];
-        $sourceUrl = "../" . $project_dir;
-        $project_name =  preg_replace("/\s+/", "-", strtolower(preg_replace('/[\?|\||\\|\/|\:|\*|\>|\<|\.|\"|\,]/', "", $_POST['name'])));;
-        $destination = '../temp/' . $project_name . '.zip';
+include_once("zip.php");
 
-        if (!file_exists("../temp/")) {
-          mkdir("../temp/", 0777);
-        }
+if (isset($_POST['dir']) && isset($_POST['name'])) {
+    $project_dir = $_POST['dir'];
+    $sourceUrl = "../".$project_dir;
+    $project_name = preg_replace("/\s+/", "-",
+        strtolower(preg_replace('/[\?|\||\\|\/|\:|\*|\>|\<|\.|\"|\,]/', "", $_POST['name'])));;
+    $destination = '../temp/'.$project_name.'.zip';
 
-        if (file_exists($destination)){
-          unlink($destination);
-        }
-
-        if (zip($sourceUrl, $destination)){
-            echo json_encode(array( "download_file" => "temp/" . basename($destination)));
-        }
+    if (!file_exists("../temp/")) {
+        mkdir("../temp/", 0777);
     }
 
+    if (file_exists($destination)) {
+        unlink($destination);
+    }
 
-    function zip($source, $destination)
-    {
-        $ignoreDirs = array("media", "elements", "preview", "novi");
-        if (!file_exists($source)) {
-            return false;
-        }
+    if (zip($sourceUrl, $destination)) {
+        echo json_encode(["download_file" => "temp/".basename($destination)]);
+    }
+}
 
-        $zip = new Zip();
-        $zip->setZipFile($destination);
 
-        $source = str_replace('\\', '/', realpath($source));
+function zip($source, $destination)
+{
+    $ignoreDirs = [
+        "media",
+        "elements",
+        "preview",
+        "novi"
+    ];
+    if (!file_exists($source)) {
+        return false;
+    }
 
-        if (is_dir($source))
-        {
-            $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($source), RecursiveIteratorIterator::SELF_FIRST);
+    $zip = new Zip();
+    $zip->setZipFile($destination);
 
-            foreach ($files as $file)
-            {
-                $file = str_replace('\\', '/', $file);
+    $source = str_replace('\\', '/', realpath($source));
 
-                // Ignore "." and ".." folders
-                if( in_array(substr($file, strrpos($file, '/')+1), array('.', '..')) )
-                    continue;
+    if (is_dir($source)) {
+        $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($source),
+            RecursiveIteratorIterator::SELF_FIRST);
 
-                $file = str_replace('\\', '/', realpath($file));
+        foreach ($files as $file) {
+            $file = str_replace('\\', '/', $file);
 
-                if (is_dir($file))
-                {
-                    $dirName = str_replace($source . '/', '', $file . '/');
-                    $isIgnoredDir = false;
+            // Ignore "." and ".." folders
+            if (in_array(substr($file, strrpos($file, '/') + 1), [
+                '.',
+                '..'
+            ])) {
+                continue;
+            }
 
-                    foreach ($ignoreDirs as $dir){
-                         if (strpos($dirName, $dir . "/") !== false){
-                            $isIgnoredDir = true;
-                            break;
-                         }
+            $file = str_replace('\\', '/', realpath($file));
+
+            if (is_dir($file)) {
+                $dirName = str_replace($source.'/', '', $file.'/');
+                $isIgnoredDir = false;
+
+                foreach ($ignoreDirs as $dir) {
+                    if (strpos($dirName, $dir."/") !== false) {
+                        $isIgnoredDir = true;
+                        break;
                     }
-
-                    if (!$isIgnoredDir){
-                        $zip->addDirectory($dirName);
-                    }
-
                 }
-                else if (is_file($file))
-                {
-                    $relativeFile = str_replace($source . '/', '', $file);
-                    if (!preg_match('/^[^\/]*\..*/', $relativeFile)){
+
+                if (!$isIgnoredDir) {
+                    $zip->addDirectory($dirName);
+                }
+
+            } else {
+                if (is_file($file)) {
+                    $relativeFile = str_replace($source.'/', '', $file);
+                    if (!preg_match('/^[^\/]*\..*/', $relativeFile)) {
                         $isFileFromIgnoredDir = false;
 
-                        foreach ($ignoreDirs as $dir){
-                             if (strpos($relativeFile, $dir . "/") !== false){
+                        foreach ($ignoreDirs as $dir) {
+                            if (strpos($relativeFile, $dir."/") !== false) {
                                 $isFileFromIgnoredDir = true;
                                 break;
-                             }
+                            }
                         }
 
-                        if (!$isFileFromIgnoredDir){
+                        if (!$isFileFromIgnoredDir) {
                             $zip->addFile(file_get_contents($file), $relativeFile, 0, null, false);
                         }
-                    }else if (preg_match('/^[^\/]*\.(html|xml|txt)$/', $relativeFile)){
-                      $zip->addFile(file_get_contents($file), $relativeFile, 0, null, false);
+                    } else {
+                        if (preg_match('/^[^\/]*\.(html|xml|txt)$/', $relativeFile)) {
+                            $zip->addFile(file_get_contents($file), $relativeFile, 0, null, false);
+                        }
                     }
                 }
             }
         }
-        else if (is_file($source))
-        {
+    } else {
+        if (is_file($source)) {
             $zip->addFile(file_get_contents($source), basename($source), 0, null, false);
-        } 
-
-        $zip->finalize();
-
-        return true;
+        }
     }
+
+    $zip->finalize();
+
+    return true;
+}
 

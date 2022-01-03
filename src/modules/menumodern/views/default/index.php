@@ -1,9 +1,16 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 /**
  * @var $this \YiiMan\YiiBasics\lib\View
  */
-$assets=\YiiMan\YiiBasics\modules\menumodern\assets\RuleAsset::register($this);
+$assets = \YiiMan\YiiBasics\modules\menumodern\assets\RuleAsset::register($this);
 \YiiMan\YiiBasics\widgets\fontAwesomePicker\assets\FontAwesomeFontPickerAssets::register($this);
 $this->title = 'تنظیم منوها';
 $p = '';
@@ -124,8 +131,8 @@ $p .= <<<HTML
 HTML;
 
 echo $p;
-$loadUrl = Yii::$app->Options->BackendUrl . '/menumodern/default/indexx';
-$ruleUrl=$assets->baseUrl.'/ruler-combined-solid.svg';
+$loadUrl = Yii::$app->Options->BackendUrl.'/menumodern/default/indexx';
+$ruleUrl = $assets->baseUrl.'/ruler-combined-solid.svg';
 $js = <<<JS
 	
 	  var ruleUrl='{$ruleUrl}';
@@ -148,7 +155,7 @@ lpage();
 JS;
 
 $this->registerJs($js, $this::POS_END);
-$this->registerJs(file_get_contents(__DIR__ . '/../../assets/jquery-ui.min.js'), $this::POS_END);
+$this->registerJs(file_get_contents(__DIR__.'/../../assets/jquery-ui.min.js'), $this::POS_END);
 ?>
 <div class="menu-index" remove="false" new="false">
 </div>
@@ -161,8 +168,8 @@ $this->registerJs(file_get_contents(__DIR__ . '/../../assets/jquery-ui.min.js'),
     </p>
     <p>
         میتوانید نوار منو را با استفاده از آیکون
-            <img height="15" width="15" src="<?= $ruleUrl ?>" alt="">
-         به اینطرف و انطرف بکشید(درگ کنید)
+        <img height="15" width="15" src="<?= $ruleUrl ?>" alt="">
+        به اینطرف و انطرف بکشید(درگ کنید)
     </p>
 </div>
 

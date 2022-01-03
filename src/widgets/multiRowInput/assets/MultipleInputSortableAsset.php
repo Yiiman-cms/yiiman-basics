@@ -1,9 +1,11 @@
 <?php
 
 /**
- * @link https://github.com/unclead/yii2-multiple-input
- * @copyright Copyright (c) 2014 unclead
- * @license https://github.com/unclead/yii2-multiple-input/blob/master/LICENSE.md
+ * Copyright (c) 2014-2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
  */
 
 namespace YiiMan\YiiBasics\widgets\multiRowInput\assets;
@@ -22,7 +24,7 @@ class MultipleInputSortableAsset extends AssetBundle
 
     public function init()
     {
-        $this->sourcePath = __DIR__ . '/src/';
+        $this->sourcePath = __DIR__.'/src/';
 
         $this->js = [
             YII_DEBUG ? 'js/jquery-sortable.js' : 'js/jquery-sortable.min.js'

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\transactions\models;
 
@@ -18,9 +25,35 @@ class SearchTransactions extends Transactions
     public function rules()
     {
         return [
-            [['id', 'uid', 'status', 'pay_module_id', 'created_user_mode', 'created_from_uid', 'factor'], 'integer'],
-            [['terminal', 'description', 'created_at', 'payed_at', 'terminal_pre_pay_serial', 'terminal_after_pay_serial', 'terminal_final_transaction_serial', 'pay_module'], 'safe'],
-            [['price'], 'number'],
+            [
+                [
+                    'id',
+                    'uid',
+                    'status',
+                    'pay_module_id',
+                    'created_user_mode',
+                    'created_from_uid',
+                    'factor'
+                ],
+                'integer'
+            ],
+            [
+                [
+                    'terminal',
+                    'description',
+                    'created_at',
+                    'payed_at',
+                    'terminal_pre_pay_serial',
+                    'terminal_after_pay_serial',
+                    'terminal_final_transaction_serial',
+                    'pay_module'
+                ],
+                'safe'
+            ],
+            [
+                ['price'],
+                'number'
+            ],
         ];
     }
 
@@ -35,20 +68,18 @@ class SearchTransactions extends Transactions
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
     {
         $query = Transactions::find();
 
-        if ($this->hasLanguage){
-            if (!empty( $_GET['lng'])){
-                $query=$query->where(['language'=> $_GET['lng']]);
-            }else{
-                $query=$query->where(['language_parent'=>null]);
+        if ($this->hasLanguage) {
+            if (!empty($_GET['lng'])) {
+                $query = $query->where(['language' => $_GET['lng']]);
+            } else {
+                $query = $query->where(['language_parent' => null]);
             }
         }
         // add conditions that should always apply here
@@ -67,24 +98,48 @@ class SearchTransactions extends Transactions
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'uid' => $this->uid,
-            'created_at' => $this->created_at,
-            'payed_at' => $this->payed_at,
-            'status' => $this->status,
-            'pay_module_id' => $this->pay_module_id,
+            'id'                => $this->id,
+            'uid'               => $this->uid,
+            'created_at'        => $this->created_at,
+            'payed_at'          => $this->payed_at,
+            'status'            => $this->status,
+            'pay_module_id'     => $this->pay_module_id,
             'created_user_mode' => $this->created_user_mode,
-            'created_from_uid' => $this->created_from_uid,
-            'price' => $this->price,
-            'factor' => $this->factor,
+            'created_from_uid'  => $this->created_from_uid,
+            'price'             => $this->price,
+            'factor'            => $this->factor,
         ]);
 
-        $query->andFilterWhere(['like', 'terminal', $this->terminal])
-            ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'terminal_pre_pay_serial', $this->terminal_pre_pay_serial])
-            ->andFilterWhere(['like', 'terminal_after_pay_serial', $this->terminal_after_pay_serial])
-            ->andFilterWhere(['like', 'terminal_final_transaction_serial', $this->terminal_final_transaction_serial])
-            ->andFilterWhere(['like', 'pay_module', $this->pay_module]);
+        $query->andFilterWhere([
+            'like',
+            'terminal',
+            $this->terminal
+        ])
+            ->andFilterWhere([
+                'like',
+                'description',
+                $this->description
+            ])
+            ->andFilterWhere([
+                'like',
+                'terminal_pre_pay_serial',
+                $this->terminal_pre_pay_serial
+            ])
+            ->andFilterWhere([
+                'like',
+                'terminal_after_pay_serial',
+                $this->terminal_after_pay_serial
+            ])
+            ->andFilterWhere([
+                'like',
+                'terminal_final_transaction_serial',
+                $this->terminal_final_transaction_serial
+            ])
+            ->andFilterWhere([
+                'like',
+                'pay_module',
+                $this->pay_module
+            ]);
 
         return $dataProvider;
     }

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -13,10 +20,10 @@ use yii\widgets\Pjax;
     Yii::t('ticket', 'ثبت تیکت ها'),
     'success',
     null,
-    Yii::$app->Options->BackendUrl . '/ticket/default/create'
+    Yii::$app->Options->BackendUrl.'/ticket/default/create'
 );
 
-$this->title = Yii::t('ticket', 'تیکت ها') . ' ';
+$this->title = Yii::t('ticket', 'تیکت ها').' ';
 $this->params['breadcrumbs'][] = $this->title;
 
 $viewUrl = Yii::$app->urlManager->createUrl(['/ticket/default/update?id=']);
@@ -48,33 +55,33 @@ $this->registerJs($js, $this::POS_END);
 
                         <?= GridView::widget([
                             'dataProvider' => $dataProvider,
-                            'filterModel' => $searchModel,
-                            'columns' =>
+                            'filterModel'  => $searchModel,
+                            'columns'      =>
                                 [
                                     'serial',
                                     'subject',
                                     [
                                         'attribute' => 'created_at',
-                                        'value' => function ($model) {
+                                        'value'     => function ($model) {
                                             return Yii::$app->functions->convertdatetime($model->created_at);
                                         }
                                     ],
                                     [
                                         'attribute' => 'updated_at',
-                                        'value' => function ($model) {
+                                        'value'     => function ($model) {
                                             return Yii::$app->functions->convertdatetime($model->updated_at);
                                         }
                                     ],
                                     //'updated_by',
                                     [
                                         'attribute' => 'status',
-                                        'value' => function ($model) {
+                                        'value'     => function ($model) {
                                             /**
                                              * @var $model \YiiMan\YiiBasics\modules\ticket\models\Ticket
                                              */
                                             return $model::statuses_html[$model->status];
                                         },
-                                        'format' => 'raw'
+                                        'format'    => 'raw'
                                     ],
                                     //'department',
                                     //'deleted_at',

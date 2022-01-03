@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
@@ -14,11 +21,11 @@ use yii\widgets\Pjax;
     Yii::t('gallery', 'ثبت پوشه ها'),
     'success',
     null,
-    Yii::$app->Options->BackendUrl . '/gallery/default/create'
+    Yii::$app->Options->BackendUrl.'/gallery/default/create'
 );
 \YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 
-$this->title = Yii::t('gallery', 'پوشه ها') . ' ';
+$this->title = Yii::t('gallery', 'پوشه ها').' ';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -36,17 +43,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
-                        'filterModel' => $searchModel,
-                        'columns' => [
+                        'filterModel'  => $searchModel,
+                        'columns'      => [
                             ['class' => 'yii\grid\SerialColumn'],
                             ['class' => '\YiiMan\YiiBasics\lib\i18n\LanguageColumn'],
                             'title',
                             'description:ntext',
                             [
                                 'attribute' => 'image',
-                                'format' => 'raw',
-                                'value' => function ($model) {
-                                    return MediaViewWidget::widget(['attribute' => 'image', 'model' => $model, 'count' => 1]);
+                                'format'    => 'raw',
+                                'value'     => function ($model) {
+                                    return MediaViewWidget::widget([
+                                        'attribute' => 'image',
+                                        'model'     => $model,
+                                        'count'     => 1
+                                    ]);
                                 }
                             ],
                             'parent',

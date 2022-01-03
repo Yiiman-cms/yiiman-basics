@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\lib\Core;
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
@@ -17,7 +24,7 @@ use \YiiMan\YiiBasics\modules\posttypes\models\Posttypes;
     Yii::t('posttypes', 'ثبت '),
     'success',
     null,
-    Yii::$app->Options->BackendUrl . 'pt/create/' . $posttype
+    Yii::$app->Options->BackendUrl.'pt/create/'.$posttype
 );
 \YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 
@@ -41,8 +48,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
-                        'filterModel' => $searchModel,
-                        'columns' => include_once __DIR__ . '/attributes.php',
+                        'filterModel'  => $searchModel,
+                        'columns'      => include_once __DIR__.'/attributes.php',
                     ]); ?>
                     <?php Pjax::end(); ?>
                 </div>

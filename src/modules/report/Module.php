@@ -1,6 +1,6 @@
 <?php
-/*
- * Copyright (c) 2022.
+/**
+ * Copyright (c) 2022-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
@@ -36,6 +36,21 @@ class Module extends \yii\base\Module
     public $config = [];
 
     /**
+     * Translates a message. This is just a wrapper of Yii::t
+     * @param         $category
+     * @param         $message
+     * @param  array  $params
+     * @param  null   $language
+     * @return string
+     * @see Yii::t
+     */
+    public static function t($category, $message, $params = [], $language = null)
+    {
+
+        return Yii::t($category, $message, $params, $language);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function init()
@@ -58,7 +73,6 @@ class Module extends \yii\base\Module
         $this->registerTranslations();
         // $this->initComponents();
     }
-
 
     /**
      * TranslationTrait manages methods for all translations used in Krajee extensions
@@ -96,30 +110,6 @@ class Module extends \yii\base\Module
 
     }
 
-    protected function registerTranslations()
-    {
-        Yii::$app->i18n->translations[$this->name] = [
-            'class'          => 'yii\i18n\PhpMessageSource',
-            'sourceLanguage' => Yii::$app->language,
-            'basePath'       => '@system/modules/'.$this->name.'/messages',
-            'fileMap'        => [
-                $this->name => 'module.php',
-            ],
-        ];
-    }
-
-    public function initComponents()
-    {
-        $Option =
-            [
-                'class' => 'YiiMan\Setting\module\components\Options',
-            ];
-
-
-        //Yii::$app->components['pdf']= $pdf;
-        Yii::$app->setComponents([$Option]);
-    }
-
     public function initModules()
     {
         if (!empty($this->config['modules'])) {
@@ -153,18 +143,27 @@ class Module extends \yii\base\Module
 
     }
 
-    /**
-     * Translates a message. This is just a wrapper of Yii::t
-     * @param         $category
-     * @param         $message
-     * @param  array  $params
-     * @param  null   $language
-     * @return string
-     * @see Yii::t
-     */
-    public static function t($category, $message, $params = [], $language = null)
+    protected function registerTranslations()
     {
+        Yii::$app->i18n->translations[$this->name] = [
+            'class'          => 'yii\i18n\PhpMessageSource',
+            'sourceLanguage' => Yii::$app->language,
+            'basePath'       => '@system/modules/'.$this->name.'/messages',
+            'fileMap'        => [
+                $this->name => 'module.php',
+            ],
+        ];
+    }
 
-        return Yii::t($category, $message, $params, $language);
+    public function initComponents()
+    {
+        $Option =
+            [
+                'class' => 'YiiMan\Setting\module\components\Options',
+            ];
+
+
+        //Yii::$app->components['pdf']= $pdf;
+        Yii::$app->setComponents([$Option]);
     }
 }

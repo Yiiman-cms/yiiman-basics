@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\notification\channels;
 
@@ -21,16 +27,21 @@ class PanelNotificationChannel extends ChannelBase
         return 'نمایش اطلاعیه در پنل';
     }
 
-    public function sendNotification(string $message, string $name, array $params, ActiveRecord $receiver, int $type = 1)
-    {
-        if ($receiver instanceof User){
-            if (class_exists('YiiMan\YiiBasics\modules\user\models\UserNotifications')){
+    public function sendNotification(
+        string $message,
+        string $name,
+        array $params,
+        ActiveRecord $receiver,
+        int $type = 1
+    ) {
+        if ($receiver instanceof User) {
+            if (class_exists('YiiMan\YiiBasics\modules\user\models\UserNotifications')) {
                 UserNotifications::addUserNotifications(
                     $message,
                     $receiver->id,
                     UserNotifications::TYPE_WARNING
                 );
-            }else{
+            } else {
                 \Yii::error('class UserNotifications not exist in user module for send notifications in user panel');
             }
         }

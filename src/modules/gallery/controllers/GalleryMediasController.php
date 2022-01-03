@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\gallery\controllers;
 
@@ -18,7 +25,6 @@ use yii\web\Response;
 class GalleryMediasController extends \YiiMan\YiiBasics\lib\Controller
 {
     /**
-     *
      * @var $model SearchGalleryMedias
      */
     public $model;
@@ -34,14 +40,14 @@ class GalleryMediasController extends \YiiMan\YiiBasics\lib\Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
      * Displays a single GalleryMedias model.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -71,7 +77,10 @@ class GalleryMediasController extends \YiiMan\YiiBasics\lib\Controller
             $model->language = $language->id;
             if ($model->save()) {
                 $model->saveImage('image');
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
             }
         }
         return $this->render('create', [
@@ -82,7 +91,7 @@ class GalleryMediasController extends \YiiMan\YiiBasics\lib\Controller
     /**
      * Updates an existing GalleryMedias model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -96,7 +105,10 @@ class GalleryMediasController extends \YiiMan\YiiBasics\lib\Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->saveImage('image');
             if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
             }
         }
 
@@ -108,7 +120,7 @@ class GalleryMediasController extends \YiiMan\YiiBasics\lib\Controller
     /**
      * Deletes an existing GalleryMedias model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -117,13 +129,6 @@ class GalleryMediasController extends \YiiMan\YiiBasics\lib\Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
-    }
-
-
-    protected function upload()
-    {
-
-
     }
 
     public function actionUpload()
@@ -138,37 +143,39 @@ class GalleryMediasController extends \YiiMan\YiiBasics\lib\Controller
 
             foreach ($files as $modelClass => $file) {
                 $attribute = array_keys($file['name'])[0];
-                $path = Yii::$app->Options->UploadDir . '/tmp/' . Yii::$app->user->id . '/' . $modelClass;
+                $path = Yii::$app->Options->UploadDir.'/tmp/'.Yii::$app->user->id.'/'.$modelClass;
                 if (!realpath($path)) {
                     @mkdir($path, 0777, true);
                 }
                 $fileName = uniqid();
 
 
-                $fileExtension = explode('.', is_array($file['name'][$attribute]) ? $file['name'][$attribute][0] : $file['name'][$attribute]);
+                $fileExtension = explode('.',
+                    is_array($file['name'][$attribute]) ? $file['name'][$attribute][0] : $file['name'][$attribute]);
                 if (empty($fileExtension)) {
                     $fileExtension = '';
                 } else {
-                    $fileExtension = '.' . $fileExtension[count($fileExtension) - 1];
+                    $fileExtension = '.'.$fileExtension[count($fileExtension) - 1];
                 }
-                move_uploaded_file(is_array($file['tmp_name'][$attribute]) ? $file['tmp_name'][$attribute][0] : $file['tmp_name'][$attribute], $path . '/' . $fileName . $fileExtension);
+                move_uploaded_file(is_array($file['tmp_name'][$attribute]) ? $file['tmp_name'][$attribute][0] : $file['tmp_name'][$attribute],
+                    $path.'/'.$fileName.$fileExtension);
                 $cookie = Yii::$app->cookie->tmpFiles;
                 $cookie2 = Yii::$app->cookie->tmpFiles;
                 // < Empty Expired Data >
                 {
                     if (count(ArrayHelper::toArray($cookie)) > 11) {
 
-                        $tmp = Yii::$app->Options->UploadDir . '/tmp/';
+                        $tmp = Yii::$app->Options->UploadDir.'/tmp/';
                         $files = getFileList($tmp); // get all file names
                         if (!empty($files)) {
                             foreach ($files as $userDir) { // iterate files
-                                $ClassDirs = getFileList($tmp . '/' . $userDir['name']);
+                                $ClassDirs = getFileList($tmp.'/'.$userDir['name']);
                                 if (!empty($ClassDirs)) {
                                     foreach ($ClassDirs as $classDir) {
-                                        $tempFFiles = getFileList($tmp . '/' . $userDir['name'] . '/' . $classDir['name']);
+                                        $tempFFiles = getFileList($tmp.'/'.$userDir['name'].'/'.$classDir['name']);
                                         if (!empty($tempFFiles)) {
                                             foreach ($tempFFiles as $f) {
-                                                $fName = $tmp . $userDir['name'] . '/' . $classDir['name'] . '/' . $f['name'];
+                                                $fName = $tmp.$userDir['name'].'/'.$classDir['name'].'/'.$f['name'];
                                                 @unlink($fName);
                                             }
                                         }
@@ -184,15 +191,15 @@ class GalleryMediasController extends \YiiMan\YiiBasics\lib\Controller
                 if (empty($cookie)) {
                     $tmpFile =
                         [
-                            'fileName' => $fileName,
+                            'fileName'      => $fileName,
                             'fileExtension' => $fileExtension,
-                            'created_at' => time(),
-                            'maxcount' => !empty($get['maxcount']) ? $get['maxcount'] : 1,
-                            'id' => !empty($get['id']) ? $get['id'] : '',
-                            'model' => $modelClass,
-                            'attr' => $attribute,
-                            'type' => is_array($file['type'][$attribute]) ? $file['type'][$attribute][0] : $file['type'][$attribute],
-                            'size' => is_array($file['size'][$attribute]) ? $file['size'][$attribute][0] : $file['size'][$attribute],
+                            'created_at'    => time(),
+                            'maxcount'      => !empty($get['maxcount']) ? $get['maxcount'] : 1,
+                            'id'            => !empty($get['id']) ? $get['id'] : '',
+                            'model'         => $modelClass,
+                            'attr'          => $attribute,
+                            'type'          => is_array($file['type'][$attribute]) ? $file['type'][$attribute][0] : $file['type'][$attribute],
+                            'size'          => is_array($file['size'][$attribute]) ? $file['size'][$attribute][0] : $file['size'][$attribute],
                         ];
                     $tmpFiles = [];
                     $tmpFiles[] = $tmpFile;
@@ -213,10 +220,10 @@ class GalleryMediasController extends \YiiMan\YiiBasics\lib\Controller
                             }
 
                             if ($expired) {
-                                $files = glob($path . '/*'); // get all file names
+                                $files = glob($path.'/*'); // get all file names
                                 foreach ($files as $f) { // iterate files
                                     if (is_file($f)) {
-                                        if ($path . '/' . $fileName . $fileExtension == $f) {
+                                        if ($path.'/'.$fileName.$fileExtension == $f) {
                                             continue;
                                         }
                                         @unlink($f); // delete file
@@ -225,15 +232,15 @@ class GalleryMediasController extends \YiiMan\YiiBasics\lib\Controller
 
                                 $tmpFile =
                                     [
-                                        'fileName' => $fileName,
+                                        'fileName'      => $fileName,
                                         'fileExtension' => $fileExtension,
-                                        'created_at' => time(),
-                                        'model' => $modelClass,
-                                        'maxcount' => !empty($get['maxcount']) ? $get['maxcount'] : 1,
-                                        'id' => !empty($get['id']) ? $get['id'] : '',
-                                        'attr' => $attribute,
-                                        'type' => is_array($file['type'][$attribute]) ? $file['type'][$attribute][0] : $file['type'][$attribute],
-                                        'size' => is_array($file['size'][$attribute]) ? $file['size'][$attribute][0] : $file['size'][$attribute],
+                                        'created_at'    => time(),
+                                        'model'         => $modelClass,
+                                        'maxcount'      => !empty($get['maxcount']) ? $get['maxcount'] : 1,
+                                        'id'            => !empty($get['id']) ? $get['id'] : '',
+                                        'attr'          => $attribute,
+                                        'type'          => is_array($file['type'][$attribute]) ? $file['type'][$attribute][0] : $file['type'][$attribute],
+                                        'size'          => is_array($file['size'][$attribute]) ? $file['size'][$attribute][0] : $file['size'][$attribute],
                                     ];
                                 $tmpFiles = [];
                                 $tmpFiles[] = $tmpFile;
@@ -242,15 +249,15 @@ class GalleryMediasController extends \YiiMan\YiiBasics\lib\Controller
                             } else {
                                 $tmpFile =
                                     [
-                                        'fileName' => $fileName,
+                                        'fileName'      => $fileName,
                                         'fileExtension' => $fileExtension,
-                                        'created_at' => time(),
-                                        'maxcount' => !empty($get['maxcount']) ? $get['maxcount'] : 1,
-                                        'id' => !empty($get['id']) ? $get['id'] : '',
-                                        'model' => $modelClass,
-                                        'attr' => $attribute,
-                                        'type' => is_array($file['type'][$attribute]) ? $file['type'][$attribute][0] : $file['type'][$attribute],
-                                        'size' => is_array($file['size'][$attribute]) ? $file['size'][$attribute][0] : $file['size'][$attribute],
+                                        'created_at'    => time(),
+                                        'maxcount'      => !empty($get['maxcount']) ? $get['maxcount'] : 1,
+                                        'id'            => !empty($get['id']) ? $get['id'] : '',
+                                        'model'         => $modelClass,
+                                        'attr'          => $attribute,
+                                        'type'          => is_array($file['type'][$attribute]) ? $file['type'][$attribute][0] : $file['type'][$attribute],
+                                        'size'          => is_array($file['size'][$attribute]) ? $file['size'][$attribute][0] : $file['size'][$attribute],
                                     ];
 
                                 $cookie2[] = $tmpFile;
@@ -259,15 +266,15 @@ class GalleryMediasController extends \YiiMan\YiiBasics\lib\Controller
                         } else {
                             $tmpFile =
                                 [
-                                    'fileName' => $fileName,
+                                    'fileName'      => $fileName,
                                     'fileExtension' => $fileExtension,
-                                    'created_at' => time(),
-                                    'maxcount' => !empty($get['maxcount']) ? $get['maxcount'] : 1,
-                                    'id' => !empty($get['id']) ? $get['id'] : '',
-                                    'model' => $modelClass,
-                                    'attr' => $attribute,
-                                    'type' => is_array($file['type'][$attribute]) ? $file['type'][$attribute][0] : $file['type'][$attribute],
-                                    'size' => is_array($file['size'][$attribute]) ? $file['size'][$attribute][0] : $file['size'][$attribute],
+                                    'created_at'    => time(),
+                                    'maxcount'      => !empty($get['maxcount']) ? $get['maxcount'] : 1,
+                                    'id'            => !empty($get['id']) ? $get['id'] : '',
+                                    'model'         => $modelClass,
+                                    'attr'          => $attribute,
+                                    'type'          => is_array($file['type'][$attribute]) ? $file['type'][$attribute][0] : $file['type'][$attribute],
+                                    'size'          => is_array($file['size'][$attribute]) ? $file['size'][$attribute][0] : $file['size'][$attribute],
                                 ];
                             $tmpFiles = [];
                             $tmpFiles[] = $tmpFile;
@@ -279,16 +286,6 @@ class GalleryMediasController extends \YiiMan\YiiBasics\lib\Controller
         }
 
         return ['status' => true];
-    }
-
-
-    private function deleteFilesInDir($path)
-    {
-        $files = glob($path . '/*'); // get all file names
-        foreach ($files as $file) { // iterate files
-            if (is_file($file))
-                unlink($file); // delete file
-        }
     }
 
     public function actionRemoveMedia()
@@ -305,9 +302,12 @@ class GalleryMediasController extends \YiiMan\YiiBasics\lib\Controller
         }
         $src = $extension;
 
-        $model = GalleryMedias::findOne(['file_name' => $src, 'language_parent' => null]);
+        $model = GalleryMedias::findOne([
+            'file_name'       => $src,
+            'language_parent' => null
+        ]);
         if (!empty($model)) {
-            $fileDir = Yii::$app->Options->UploadDir . '/dl/' . $model->className . '/' . $model->file_name . $model->extension;
+            $fileDir = Yii::$app->Options->UploadDir.'/dl/'.$model->className.'/'.$model->file_name.$model->extension;
             @unlink($fileDir);
             $model->delete();
             return ['status' => 'success'];
@@ -328,16 +328,26 @@ class GalleryMediasController extends \YiiMan\YiiBasics\lib\Controller
         }
         $src = $extension;
 
-        $model = GalleryMedias::findOne(['file_name' => $src, 'language_parent' => null]);
+        $model = GalleryMedias::findOne([
+            'file_name'       => $src,
+            'language_parent' => null
+        ]);
         if (!empty($model)) {
 
-            $models = GalleryMedias::find()->where(['table' => $model->table, 'language' => $model->language, 'table_id' => $model->table_id])->all();
+            $models = GalleryMedias::find()->where([
+                'table'    => $model->table,
+                'language' => $model->language,
+                'table_id' => $model->table_id
+            ])->all();
 
             foreach ($models as $item) {
                 $item->default = 0;
                 $item->save();
             }
-            $model = GalleryMedias::findOne(['file_name' => $src, 'language_parent' => null]);
+            $model = GalleryMedias::findOne([
+                'file_name'       => $src,
+                'language_parent' => null
+            ]);
             $model->default = 1;
             $model->save();
 
@@ -346,10 +356,25 @@ class GalleryMediasController extends \YiiMan\YiiBasics\lib\Controller
         }
     }
 
-
     public function init()
     {
         parent::init();
         $this->modelClass = new GalleryMedias();
+    }
+
+    protected function upload()
+    {
+
+
+    }
+
+    private function deleteFilesInDir($path)
+    {
+        $files = glob($path.'/*'); // get all file names
+        foreach ($files as $file) { // iterate files
+            if (is_file($file)) {
+                unlink($file);
+            } // delete file
+        }
     }
 }

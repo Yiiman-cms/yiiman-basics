@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\blog\models;
 
@@ -18,8 +25,23 @@ class SearchBlogArticles extends BlogArticles
     public function rules()
     {
         return [
-            [['id', 'author', 'status'], 'integer'],
-            [['title', 'content', 'image', 'created_at'], 'safe'],
+            [
+                [
+                    'id',
+                    'author',
+                    'status'
+                ],
+                'integer'
+            ],
+            [
+                [
+                    'title',
+                    'content',
+                    'image',
+                    'created_at'
+                ],
+                'safe'
+            ],
         ];
     }
 
@@ -34,9 +56,7 @@ class SearchBlogArticles extends BlogArticles
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
@@ -65,8 +85,16 @@ class SearchBlogArticles extends BlogArticles
             'status' => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'content', $this->content]);
+        $query->andFilterWhere([
+            'like',
+            'title',
+            $this->title
+        ])
+            ->andFilterWhere([
+                'like',
+                'content',
+                $this->content
+            ]);
 
         return $dataProvider;
     }

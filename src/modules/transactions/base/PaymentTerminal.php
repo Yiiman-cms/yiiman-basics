@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\transactions\base;
 
@@ -23,11 +29,10 @@ class PaymentTerminal extends \YiiMan\YiiBasics\modules\transactions\base\BaseTe
     }
 
 
-
     /**
-     * @param TransactionsFactor $factor
-     * @param Transactions $transactions
-     * @param string $callbackUrl
+     * @param  TransactionsFactor  $factor
+     * @param  Transactions        $transactions
+     * @param  string              $callbackUrl
      * @return mixed|void
      */
     public function start(TransactionsFactor $factor, Transactions $transactions, string $callbackUrl)
@@ -37,41 +42,44 @@ class PaymentTerminal extends \YiiMan\YiiBasics\modules\transactions\base\BaseTe
         }
         if (\Yii::$app->user->identity->credit >= $factor->price) {
             $transactions->factor0->changeStatus(TransactionsFactor::STATUS_PAYED);
-            $transactions->factor0->uid0->chargeUser(-$transactions->factor0->total_price, 'کسر مبلغ بابت فاکتور شماره ' . $transactions->factor);
-            return TransactionsUserCredits::addCredit($factor->id, \Yii::$app->user->id, $factor->price, $transactions->description);
+            $transactions->factor0->uid0->chargeUser(-$transactions->factor0->total_price,
+                'کسر مبلغ بابت فاکتور شماره '.$transactions->factor);
+            return TransactionsUserCredits::addCredit($factor->id, \Yii::$app->user->id, $factor->price,
+                $transactions->description);
 
         }
 
 
         $gate = \Yii::$app->Options->paymentGate;
-        return (new ('YiiMan\YiiBasics\modules\transactions\Terminals\\' . $gate))->start($factor, $transactions, $callbackUrl);
+        return (new ('YiiMan\YiiBasics\modules\transactions\Terminals\\'.$gate))->start($factor, $transactions,
+            $callbackUrl);
     }
 
     public function verify(Transactions $transactions)
     {
         $gate = \Yii::$app->Options->paymentGate;
-        return (new ('YiiMan\YiiBasics\modules\transactions\Terminals\\' . $gate))->verify($transactions);
+        return (new ('YiiMan\YiiBasics\modules\transactions\Terminals\\'.$gate))->verify($transactions);
     }
 
     /**
-     * @param float $price
-     * @param TransactionsFactor $factor
-     * @param Transactions $transaction
-     * @param string $callbackUrl
+     * @param  float               $price
+     * @param  TransactionsFactor  $factor
+     * @param  Transactions        $transaction
+     * @param  string              $callbackUrl
      * @return mixed
      * @throws BadRequestHttpException
      */
     function get_before_pay_serial(float $price, TransactionsFactor $factor, Transactions $transaction, $callbackUrl)
     {
         $gate = \Yii::$app->Options->paymentGate;
-        return (new ('YiiMan\YiiBasics\modules\transactions\Terminals\\' . $gate))->get_before_pay_serial( $price,  $factor,  $transaction, $callbackUrl);
+        return (new ('YiiMan\YiiBasics\modules\transactions\Terminals\\'.$gate))->get_before_pay_serial($price, $factor,
+            $transaction, $callbackUrl);
     }
 
     function title()
     {
         return 'زرین پال';
     }
-
 
 
 }

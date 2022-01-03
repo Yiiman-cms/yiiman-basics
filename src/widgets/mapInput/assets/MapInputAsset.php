@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\widgets\mapInput\assets;
 
@@ -10,14 +17,14 @@ class MapInputAsset extends \yii\web\AssetBundle
     public $sourcePath = '@system/widgets/mapInput/assets';
 
     public $depends =
-    [
-        'yii\web\JqueryAsset',
-    ];
+        [
+            'yii\web\JqueryAsset',
+        ];
 
     public $jsOptions =
-    [
-        'position' => \yii\web\View::POS_END,
-    ];
+        [
+            'position' => \yii\web\View::POS_END,
+        ];
 
     public function __construct($config = [])
     {
@@ -34,9 +41,9 @@ class MapInputAsset extends \yii\web\AssetBundle
 
     private function getGoogleMapScriptUrl()
     {
-        $scriptUrl  =  "https//maps.googleapis.com/maps/api/js?";
+        $scriptUrl = "https//maps.googleapis.com/maps/api/js?";
         $scriptUrl .= http_build_query([
-            'key' => self::$key,
+            'key'       => self::$key,
             'libraries' => 'places',
         ]);
         return $scriptUrl;

@@ -1,6 +1,6 @@
 <?php
-/*
- * Copyright (c) 2022.
+/**
+ * Copyright (c) 2022-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
@@ -11,7 +11,6 @@
  * Created by YiiMan TM.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
- *
  * Site:https://yiiman.ir
  * Date: 03/25/2020
  * Time: 01:04 AM
@@ -27,7 +26,6 @@ $js = <<<JS
     
 JS;
 Yii::$app->view->registerJs($js, Yii::$app->view::POS_END);
-
 
 
 $js = <<<JS
@@ -50,6 +48,7 @@ Yii::$app->view->registerJs($js, Yii::$app->view::POS_END);
     #nav_tab.cats li {
         width: 100%;
     }
+
     .nav-notifs {
         display: block;
         border: 1px #00000012 solid;
@@ -149,6 +148,7 @@ Yii::$app->view->registerJs($js, Yii::$app->view::POS_END);
         box-shadow: rgba(0, 0, 0, 0.14) 0px 4px 20px 0px, rgba(156, 39, 176, 0.46) 0px 7px 12px -5px;
         margin-bottom: 12px;
     }
+
     .parameters-box {
         background: #d1d4dd40;
         border-radius: 5px;
@@ -176,24 +176,24 @@ Yii::$app->view->registerJs($js, Yii::$app->view::POS_END);
             <div class="col-md-6">
                 <?php
                 $gates = [];
-                $gatesFiles = getFileList(__DIR__ . '/../channels');
+                $gatesFiles = getFileList(__DIR__.'/../channels');
                 $gatesFields = [];
                 foreach ($gatesFiles as $gate) {
                     error_reporting(2048);
                     if ($gate['type'] == 'text/x-php') {
                         $className = str_replace('.php', '', $gate['name']);
-                        $code = '$gates[\''.$className.'\'] = (new YiiMan\YiiBasics\modules\notification\channels\\' . $className . ')->title();';
-                        try{
+                        $code = '$gates[\''.$className.'\'] = (new YiiMan\YiiBasics\modules\notification\channels\\'.$className.')->title();';
+                        try {
 
                             eval($code);
-                        }catch (Exception $t){
-                            $e=$t;
+                        } catch (Exception $t) {
+                            $e = $t;
                         }
-                        $code = '$gatesFields[\''.$className.'\'] =["label"=>$gates[\''.$className.'\'],"content"=> (new YiiMan\YiiBasics\modules\notification\channels\\' . $className . ')->renderForm($form)];';
-                        try{
+                        $code = '$gatesFields[\''.$className.'\'] =["label"=>$gates[\''.$className.'\'],"content"=> (new YiiMan\YiiBasics\modules\notification\channels\\'.$className.')->renderForm($form)];';
+                        try {
                             eval($code);
-                        }catch (Exception $t){
-                            $e=$t;
+                        } catch (Exception $t) {
+                            $e = $t;
                         }
                     }
                 }
@@ -203,7 +203,8 @@ Yii::$app->view->registerJs($js, Yii::$app->view::POS_END);
                 $model->addRule([$attr], 'trim');
                 $model->addRule([$attr], 'string', ['max' => 50]);
                 echo $form->field($model, $attr)->checkboxList($gates)->hint(
-                    Yii::t('settings', 'کانال های ارسال اطلاعیه به کاربران را فعال یا غیر فعال کنید - بدیهیست در صورت غیر فعال سازی هر کانال, هیچ کدام از اطلاعیه ها روی این کانال ارسال نمیشوند.')
+                    Yii::t('settings',
+                        'کانال های ارسال اطلاعیه به کاربران را فعال یا غیر فعال کنید - بدیهیست در صورت غیر فعال سازی هر کانال, هیچ کدام از اطلاعیه ها روی این کانال ارسال نمیشوند.')
                 )->label('کانال های ارسال اطلاعیه');
                 ?>
             </div>
@@ -229,7 +230,8 @@ Yii::$app->view->registerJs($js, Yii::$app->view::POS_END);
             <div class="card-content ">
                 <ul id="nav_tab" class="nav nav-pills nav-pills-warning nav-notifs">
                     <li>
-                        <a class="active show" href="#channelNotificationTexts" data-toggle="tab">پیکربندی اطلاعیه ها</a>
+                        <a class="active show" href="#channelNotificationTexts" data-toggle="tab">پیکربندی اطلاعیه
+                            ها</a>
                     </li>
                     <?php
                     if (!empty($gatesFields)) {
@@ -247,7 +249,11 @@ Yii::$app->view->registerJs($js, Yii::$app->view::POS_END);
                     ?>
                 </ul>
                 <div class="tab-content content-notif">
-                    <?= Yii::$app->view->render('@system/modules/notification/settings/tabs/notificationsTexts', ['model' => $model, 'form' => $form, 'gates' => $gates]) ?>
+                    <?= Yii::$app->view->render('@system/modules/notification/settings/tabs/notificationsTexts', [
+                        'model' => $model,
+                        'form'  => $form,
+                        'gates' => $gates
+                    ]) ?>
                     <?php
                     if (!empty($gatesFields)) {
                         foreach ($gatesFields as $name => $body) {

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
@@ -11,7 +18,7 @@ use yii\widgets\Pjax;
 /**
  * @var $model \YiiMan\YiiBasics\modules\pages\models\Pages
  */
-$this->title = Yii::t('pages', 'صفحات') . ' ';
+$this->title = Yii::t('pages', 'صفحات').' ';
 $this->params['breadcrumbs'][] = $this->title;
 $this->registerJs($this->render('script/app.js'), $this::POS_END);
 $this->registerJs($this->render('script/app.js'), $this::POS_END);
@@ -20,7 +27,7 @@ $this->registerJs($this->render('script/app.js'), $this::POS_END);
     Yii::t('pages', 'ثبت صفحه'),
     'success',
     null,
-    Yii::$app->Options->BackendUrl . '/pages/default/create'
+    Yii::$app->Options->BackendUrl.'/pages/default/create'
 );
 \YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 $setDefaultURL = Yii::$app->urlManager->createUrl(['/pages/default/set-default']);
@@ -92,7 +99,8 @@ $this->registerJs($js, \YiiMan\YiiBasics\lib\View::POS_END);
                     <div class="card card-nav-tabs" data-id="<?= $model->id ?>">
                         <div class="card-body ">
                             <h4 class="text-center"><?= $model->title ?></h4>
-                            <h5 class="h5-default" <?= empty($model->default) ? 'style="display:none"' : '' ?>><?= \Yii::t('site', 'صفحه ی نخست') ?></h5>
+                            <h5 class="h5-default" <?= empty($model->default) ? 'style="display:none"' : '' ?>><?= \Yii::t('site',
+                                    'صفحه ی نخست') ?></h5>
                             <hr>
                             <?php
                             if ($model->status == $model::STATUS_ACTIVE) {
@@ -109,7 +117,7 @@ $this->registerJs($js, \YiiMan\YiiBasics\lib\View::POS_END);
                                 <li>
                                     <a
                                             href="<?= Yii::$app->urlManager->createUrl(
-                                                ['/pages/default/delete?id=' . $model->id]
+                                                ['/pages/default/delete?id='.$model->id]
                                             ) ?>" class="pull-left btn btn-danger btn-round"
                                             data-confirm="Are you sure you want to delete this item?"
                                             data-method="post"><span class="glyphicon glyphicon-trash"></span></a>
@@ -121,7 +129,7 @@ $this->registerJs($js, \YiiMan\YiiBasics\lib\View::POS_END);
                                     //                                    /pages/widget?id=6
 
                                     Yii::$app->urlManager->createUrl(
-                                        ['/pages/widget?id=' . $model->id]
+                                        ['/pages/widget?id='.$model->id]
                                     ) ?>"
                                        class="pull-right btn btn-success btn-round" title="ویرایشگر بصری"><span
                                                 class="glyphicon glyphicon-pencil"></span></a>
@@ -132,7 +140,7 @@ $this->registerJs($js, \YiiMan\YiiBasics\lib\View::POS_END);
                                     //                                    /pages/widget?id=6
 
                                     Yii::$app->urlManager->createUrl(
-                                        ['/pages/default/set-default?id=' . $model->id]
+                                        ['/pages/default/set-default?id='.$model->id]
                                     ) ?>"
                                        done="actionDefault(<?= $model->id ?>)"
                                        class="pull-right " style="font-size: 10px;margin-top: 14px;"

@@ -1,6 +1,14 @@
 <?php
 /**
- * @var \yii\web\View $this
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
+/**
+ * @var \yii\web\View               $this
  * @var \yii\data\ArrayDataProvider $dataProvider
  */
 
@@ -13,14 +21,14 @@ $this->params['breadcrumbs'][] = 'Logs';
 ?>
     <div class="logreader-index">
         <?= GridView::widget([
-            'layout' => '{items}',
+            'layout'       => '{items}',
             'tableOptions' => ['class' => 'table'],
             'dataProvider' => $dataProvider,
-            'columns' => [
+            'columns'      => [
                 [
                     'attribute' => 'name',
-                    'format' => 'raw',
-                    'value' => function (Log $log) {
+                    'format'    => 'raw',
+                    'value'     => function (Log $log) {
                         return Html::tag('h5', join("\n", [
                             Html::encode($log->name),
                             '<br/>',
@@ -29,45 +37,51 @@ $this->params['breadcrumbs'][] = 'Logs';
                     },
                 ],
                 [
-                    'attribute' => 'counts',
-                    'format' => 'raw',
+                    'attribute'     => 'counts',
+                    'format'        => 'raw',
                     'headerOptions' => ['class' => 'sort-ordinal'],
-                    'value' => function (Log $log) {
+                    'value'         => function (Log $log) {
                         return $this->render('_counts', ['log' => $log]);
                     },
                 ],
                 [
-                    'attribute' => 'size',
-                    'format' => 'shortSize',
+                    'attribute'     => 'size',
+                    'format'        => 'shortSize',
                     'headerOptions' => ['class' => 'sort-ordinal'],
                 ],
                 [
-                    'attribute' => 'updatedAt',
-                    'format' => 'relativeTime',
+                    'attribute'     => 'updatedAt',
+                    'format'        => 'relativeTime',
                     'headerOptions' => ['class' => 'sort-numerical'],
                 ],
                 [
-                    'class' => '\yii\grid\ActionColumn',
-                    'template' => '{history} {view} {archive}',
+                    'class'      => '\yii\grid\ActionColumn',
+                    'template'   => '{history} {view} {archive}',
                     'urlCreator' => function ($action, Log $log) {
-                        return [$action, 'slug' => $log->slug];
+                        return [
+                            $action,
+                            'slug' => $log->slug
+                        ];
                     },
-                    'buttons' => [
+                    'buttons'    => [
                         'history' => function ($url) {
                             return Html::a('History', $url, [
                                 'class' => 'btn btn-xs btn-default',
                             ]);
                         },
-                        'view' => function ($url, Log $log) {
+                        'view'    => function ($url, Log $log) {
                             return !$log->isExist ? '' : Html::a('View', $url, [
-                                'class' => 'btn btn-xs btn-default',
+                                'class'  => 'btn btn-xs btn-default',
                                 'target' => '_blank',
                             ]);
                         },
                         'archive' => function ($url, Log $log) {
                             return !$log->isExist ? '' : Html::a('Archive', $url, [
                                 'class' => 'btn btn-xs btn-default',
-                                'data' => ['method' => 'post', 'confirm' => 'Are you sure?'],
+                                'data'  => [
+                                    'method'  => 'post',
+                                    'confirm' => 'Are you sure?'
+                                ],
                             ]);
                         },
                     ],

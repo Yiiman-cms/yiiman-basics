@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\widget\models;
 
@@ -18,8 +25,22 @@ class SearchWidget extends Widget
     public function rules()
     {
         return [
-            [['id', 'language', 'language_parent'], 'integer'],
-            [['content', 'shortCode', 'title'], 'safe'],
+            [
+                [
+                    'id',
+                    'language',
+                    'language_parent'
+                ],
+                'integer'
+            ],
+            [
+                [
+                    'content',
+                    'shortCode',
+                    'title'
+                ],
+                'safe'
+            ],
         ];
     }
 
@@ -34,18 +55,16 @@ class SearchWidget extends Widget
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
     {
         $query = Widget::find();
-        if (!empty( $_GET['lng'])){
-            $query=$query->where(['language'=> $_GET['lng']]);
-        }else{
-            $query=$query->where(['language_parent'=>null]);
+        if (!empty($_GET['lng'])) {
+            $query = $query->where(['language' => $_GET['lng']]);
+        } else {
+            $query = $query->where(['language_parent' => null]);
         }
         // add conditions that should always apply here
 
@@ -63,14 +82,26 @@ class SearchWidget extends Widget
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'language' => $this->language,
+            'id'              => $this->id,
+            'language'        => $this->language,
             'language_parent' => $this->language_parent,
         ]);
 
-        $query->andFilterWhere(['like', 'content', $this->content])
-            ->andFilterWhere(['like', 'shortCode', $this->shortCode])
-            ->andFilterWhere(['like', 'title', $this->title]);
+        $query->andFilterWhere([
+            'like',
+            'content',
+            $this->content
+        ])
+            ->andFilterWhere([
+                'like',
+                'shortCode',
+                $this->shortCode
+            ])
+            ->andFilterWhere([
+                'like',
+                'title',
+                $this->title
+            ]);
 
         return $dataProvider;
     }

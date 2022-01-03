@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
@@ -14,11 +21,14 @@ use yii\widgets\DetailView;
     Yii::t('form', 'حذف این مورد'),
     'danger',
     null,
-    Yii::$app->Options->BackendUrl . '/form-inbox/default/delete?id=' . $model->id);
+    Yii::$app->Options->BackendUrl.'/form-inbox/default/delete?id='.$model->id);
 
 
-$this->title = Yii::t('form', 'اطلاعات ثبت شده:  ' . $model->title);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('form', 'فرم ساز'), 'url' => ['index']];
+$this->title = Yii::t('form', 'اطلاعات ثبت شده:  '.$model->title);
+$this->params['breadcrumbs'][] = [
+    'label' => Yii::t('form', 'فرم ساز'),
+    'url'   => ['index']
+];
 $this->params['breadcrumbs'][] = $this->title;
 
 \YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
@@ -45,30 +55,30 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 'ip',
                                                 [
                                                     'attribute' => 'ip',
-                                                    'value' => function ($model) {
+                                                    'value'     => function ($model) {
                                                         try {
-                                                            $details = json_decode(file_get_contents("https://api.ipdata.co/" . $model->ip . "?api-key=test"));
+                                                            $details = json_decode(file_get_contents("https://api.ipdata.co/".$model->ip."?api-key=test"));
                                                             echo '<pre>';
                                                             var_dump($details);
                                                             die();
                                                             if (!empty($details)) {
 
-                                                                return $details->country . '--' . $details->city;
+                                                                return $details->country.'--'.$details->city;
                                                             }
                                                         } catch (\Exception $e) {
                                                         }
                                                     },
-                                                    'label' =>   \Yii::t('form','مکان کاربر')
+                                                    'label'     => \Yii::t('form', 'مکان کاربر')
                                                 ],
                                                 [
                                                     'attribute' => 'created_at',
-                                                    'value' => function ($model) {
+                                                    'value'     => function ($model) {
                                                         return Yii::$app->functions->convertdatetime($model->created_at);
                                                     }
                                                 ],
                                                 [
                                                     'attribute' => 'status',
-                                                    'value' => function ($model) {
+                                                    'value'     => function ($model) {
                                                         /**
                                                          * @var $model \YiiMan\YiiBasics\modules\form\models\FormInbox
                                                          */
@@ -85,7 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                 [
                                                     'attribute' => 'form',
-                                                    'value' => function ($model) {
+                                                    'value'     => function ($model) {
                                                         /**
                                                          * @var $model \YiiMan\YiiBasics\modules\form\models\FormInbox
                                                          */

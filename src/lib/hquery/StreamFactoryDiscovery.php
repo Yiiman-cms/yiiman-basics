@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\lib\hquery;
 
@@ -7,16 +14,13 @@ use Http\Message\StreamFactory;
 
 /**
  * Finds a Stream Factory.
- *
  * @author Михаил Красильников <m.krasilnikov@yandex.ru>
  */
 final class StreamFactoryDiscovery extends ClassDiscovery
 {
     /**
      * Finds a Stream Factory.
-     *
      * @return StreamFactory
-     *
      * @throws Exception\NotFoundException
      */
     public static function find()

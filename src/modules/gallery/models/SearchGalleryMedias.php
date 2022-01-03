@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\gallery\models;
 
@@ -18,9 +25,29 @@ class SearchGalleryMedias extends GalleryMedias
     public function rules()
     {
         return [
-            [['id', 'table_id', 'category', 'language', 'language_parent'], 'integer'],
-            [['type', 'table', 'description', 'file_name'], 'safe'],
-            [['file_size'], 'number'],
+            [
+                [
+                    'id',
+                    'table_id',
+                    'category',
+                    'language',
+                    'language_parent'
+                ],
+                'integer'
+            ],
+            [
+                [
+                    'type',
+                    'table',
+                    'description',
+                    'file_name'
+                ],
+                'safe'
+            ],
+            [
+                ['file_size'],
+                'number'
+            ],
         ];
     }
 
@@ -35,18 +62,16 @@ class SearchGalleryMedias extends GalleryMedias
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
     {
         $query = GalleryMedias::find();
-        if (!empty( $_GET['lng'])){
-            $query=$query->where(['language'=> $_GET['lng']]);
-        }else{
-            $query=$query->where(['language_parent'=>null]);
+        if (!empty($_GET['lng'])) {
+            $query = $query->where(['language' => $_GET['lng']]);
+        } else {
+            $query = $query->where(['language_parent' => null]);
         }
         // add conditions that should always apply here
 
@@ -64,18 +89,34 @@ class SearchGalleryMedias extends GalleryMedias
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'table_id' => $this->table_id,
-            'file_size' => $this->file_size,
-            'category' => $this->category,
-            'language' => $this->language,
+            'id'              => $this->id,
+            'table_id'        => $this->table_id,
+            'file_size'       => $this->file_size,
+            'category'        => $this->category,
+            'language'        => $this->language,
             'language_parent' => $this->language_parent,
         ]);
 
-        $query->andFilterWhere(['like', 'type', $this->type])
-            ->andFilterWhere(['like', 'table', $this->table])
-            ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'file_name', $this->file_name]);
+        $query->andFilterWhere([
+            'like',
+            'type',
+            $this->type
+        ])
+            ->andFilterWhere([
+                'like',
+                'table',
+                $this->table
+            ])
+            ->andFilterWhere([
+                'like',
+                'description',
+                $this->description
+            ])
+            ->andFilterWhere([
+                'like',
+                'file_name',
+                $this->file_name
+            ]);
 
         return $dataProvider;
     }

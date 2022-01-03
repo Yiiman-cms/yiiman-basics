@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
@@ -13,7 +20,7 @@ use yii\widgets\DetailView;
     Yii::t('ticket', 'ثبت دپارتمان ها'),
     'success',
     null,
-    Yii::$app->Options->BackendUrl . '/ticket/ticket-departments/create'
+    Yii::$app->Options->BackendUrl.'/ticket/ticket-departments/create'
 );
 
 
@@ -22,7 +29,7 @@ use yii\widgets\DetailView;
     Yii::t('ticket', 'ویرایش این مورد'),
     'info',
     null,
-    Yii::$app->Options->BackendUrl . '/ticket/ticket-departments/update?id=' . $model->id);
+    Yii::$app->Options->BackendUrl.'/ticket/ticket-departments/update?id='.$model->id);
 
 
 \YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
@@ -30,11 +37,14 @@ use yii\widgets\DetailView;
     Yii::t('ticket', 'حذف این مورد'),
     'danger',
     null,
-    Yii::$app->Options->BackendUrl . '/ticket/ticket-departments/delete?id=' . $model->id);
+    Yii::$app->Options->BackendUrl.'/ticket/ticket-departments/delete?id='.$model->id);
 
 
-$this->title = Yii::t('ticket', 'دپارتمان ها:  ' . $model->title);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('ticket', 'دپارتمان ها'), 'url' => ['index']];
+$this->title = Yii::t('ticket', 'دپارتمان ها:  '.$model->title);
+$this->params['breadcrumbs'][] = [
+    'label' => Yii::t('ticket', 'دپارتمان ها'),
+    'url'   => ['index']
+];
 $this->params['breadcrumbs'][] = $this->title;
 
 \YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
@@ -53,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'title',
                                 [
                                     'attribute' => 'status',
-                                    'value' => function ($model) {
+                                    'value'     => function ($model) {
                                         /**
                                          * @var $model \common\models\Neighbourhoods
                                          */

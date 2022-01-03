@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\widgets\CodeMirror;
 
@@ -30,14 +36,14 @@ class CodeMirrorWidget extends InputWidget
     public function run()
     {
 
-        $translateUrl=\Yii::$app->urlManager->createUrl(['/language/default/translate']);
-        $parameterValueUrl=\Yii::$app->urlManager->createUrl(['/parameters/default/filter']);
-        $parameterValueAddUrl=\Yii::$app->urlManager->createUrl(['/parameters/default/ajax-add']);
-        if (!empty($this->model->language)){
-            $language=Language::findOne($this->model->language);
-            $lang=strtolower( $language->shortCode);
-        }else{
-            $lang=strtolower( \Yii::$app->language);
+        $translateUrl = \Yii::$app->urlManager->createUrl(['/language/default/translate']);
+        $parameterValueUrl = \Yii::$app->urlManager->createUrl(['/parameters/default/filter']);
+        $parameterValueAddUrl = \Yii::$app->urlManager->createUrl(['/parameters/default/ajax-add']);
+        if (!empty($this->model->language)) {
+            $language = Language::findOne($this->model->language);
+            $lang = strtolower($language->shortCode);
+        } else {
+            $lang = strtolower(\Yii::$app->language);
         }
         $this->view->registerCssFile('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
         $js = <<<JS
@@ -209,7 +215,8 @@ JS;
 
         if (!empty($this->modes)) {
             foreach ($this->modes as $mode) {
-                $this->view->registerJsFile($asset->baseUrl . '/mode/' . $mode, ['depends' => CodeMirrorAssets::className()]);
+                $this->view->registerJsFile($asset->baseUrl.'/mode/'.$mode,
+                    ['depends' => CodeMirrorAssets::className()]);
             }
         }
 
@@ -237,7 +244,6 @@ iframe {
         $out .= '<div class="row"><div class="col-md-12">';
         $out .= Html::textarea($this->name, $this->value, ['id' => $this->id]);
         $out .= '</div></div>';
-
 
 
         return $out;

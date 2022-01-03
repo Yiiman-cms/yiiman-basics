@@ -1,4 +1,12 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
 namespace YiiMan\YiiBasics\widgets;
 
 use yii\base\InvalidCallException;
@@ -15,6 +23,7 @@ class ActiveForm extends \yii\widgets\ActiveForm
     {
 
     }
+
     public function init()
     {
 

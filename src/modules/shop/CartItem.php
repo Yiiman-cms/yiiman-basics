@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\shop;
 
@@ -34,15 +41,6 @@ class CartItem
     }
 
     /**
-     * Returns the price of the item
-     * @return integer|float
-     */
-    public function getPrice()
-    {
-        return $this->product->{$this->params['productFieldPrice']};
-    }
-
-    /**
      * Returns the product, AR model
      * @return object
      */
@@ -61,6 +59,15 @@ class CartItem
     }
 
     /**
+     * Returns the price of the item
+     * @return integer|float
+     */
+    public function getPrice()
+    {
+        return $this->product->{$this->params['productFieldPrice']};
+    }
+
+    /**
      * Returns the quantity of the item
      * @return integer
      */
@@ -71,7 +78,7 @@ class CartItem
 
     /**
      * Sets the quantity of the item
-     * @param integer $quantity
+     * @param  integer  $quantity
      * @return void
      */
     public function setQuantity($quantity)

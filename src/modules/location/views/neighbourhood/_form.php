@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\FileSelectorWidget;
 use yii\helpers\Html;
@@ -51,12 +58,14 @@ use kartik\select2\Select2;
                                 <?= $form->field($model, 'city')->widget(
                                     \kartik\select2\Select2::className(),
                                     [
-                                        'data' => \yii\helpers\ArrayHelper::map(
+                                        'data'          => \yii\helpers\ArrayHelper::map(
                                             \YiiMan\YiiBasics\modules\location\models\LocationCity::find()->where(['language_parent' => null])->all(),
                                             'id',
                                             'name'
                                         ),
-                                        'pluginOptions' => ['dir' => 'rtl', 'placeholder' => 'لطفا انتخاب کنید']
+                                        'pluginOptions' => ['dir'         => 'rtl',
+                                                            'placeholder' => 'لطفا انتخاب کنید'
+                                        ]
                                     ]
                                 ) ?>                                        </div>
                         </div>
@@ -70,7 +79,7 @@ use kartik\select2\Select2;
                     <h4 class="text-center">مشخصات</h4>
                     <div class="row">
                         <div class="col-md-6 pull-right">
-                            <?= $form->field($model,'name')->textInput() ?>
+                            <?= $form->field($model, 'name')->textInput() ?>
                         </div>
                     </div>
                 </div>

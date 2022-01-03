@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\ticket\models;
 
@@ -18,8 +25,24 @@ class SearchTicketMessages extends TicketMessages
     public function rules()
     {
         return [
-            [['id', 'ticket', 'language', 'language_parent'], 'integer'],
-            [['message', 'created_at', 'created_by', 'file'], 'safe'],
+            [
+                [
+                    'id',
+                    'ticket',
+                    'language',
+                    'language_parent'
+                ],
+                'integer'
+            ],
+            [
+                [
+                    'message',
+                    'created_at',
+                    'created_by',
+                    'file'
+                ],
+                'safe'
+            ],
         ];
     }
 
@@ -34,20 +57,18 @@ class SearchTicketMessages extends TicketMessages
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
     {
         $query = TicketMessages::find();
 
-        if ($this->hasLanguage){
-            if (!empty( $_GET['lng'])){
-                $query=$query->where(['language'=> $_GET['lng']]);
-            }else{
-                $query=$query->where(['language_parent'=>null]);
+        if ($this->hasLanguage) {
+            if (!empty($_GET['lng'])) {
+                $query = $query->where(['language' => $_GET['lng']]);
+            } else {
+                $query = $query->where(['language_parent' => null]);
             }
         }
         // add conditions that should always apply here
@@ -66,16 +87,28 @@ class SearchTicketMessages extends TicketMessages
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'ticket' => $this->ticket,
-            'created_at' => $this->created_at,
-            'language' => $this->language,
+            'id'              => $this->id,
+            'ticket'          => $this->ticket,
+            'created_at'      => $this->created_at,
+            'language'        => $this->language,
             'language_parent' => $this->language_parent,
         ]);
 
-        $query->andFilterWhere(['like', 'message', $this->message])
-            ->andFilterWhere(['like', 'created_by', $this->created_by])
-            ->andFilterWhere(['like', 'file', $this->file]);
+        $query->andFilterWhere([
+            'like',
+            'message',
+            $this->message
+        ])
+            ->andFilterWhere([
+                'like',
+                'created_by',
+                $this->created_by
+            ])
+            ->andFilterWhere([
+                'like',
+                'file',
+                $this->file
+            ]);
 
         return $dataProvider;
     }

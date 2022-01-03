@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\FileSelectorWidget;
 use yii\helpers\Html;
@@ -28,24 +35,24 @@ use kartik\select2\Select2;
                                 <?= $form->field($model, 'status')->widget(
                                     \kartik\select2\Select2::className(),
                                     [
-                                        'data' =>
+                                        'data'          =>
                                             [
                                                 1 => 'منتشر شده',
                                                 0 => 'در حال بازبینی',
 
                                             ],
-                                        'options' => ['dir' => 'rtl'],
+                                        'options'       => ['dir' => 'rtl'],
                                         'pluginOptions' => ['dir' => 'rtl'],
-                                        'pluginEvents' => [
-                                            "change" => "function() {  }",
-                                            "select2:opening" => "function() {  }",
-                                            "select2:open" => "function() {  }",
-                                            "select2:closing" => "function() {  }",
-                                            "select2:close" => "function() {  }",
-                                            "select2:selecting" => "function() {  }",
-                                            "select2:select" => "function() {  }",
+                                        'pluginEvents'  => [
+                                            "change"              => "function() {  }",
+                                            "select2:opening"     => "function() {  }",
+                                            "select2:open"        => "function() {  }",
+                                            "select2:closing"     => "function() {  }",
+                                            "select2:close"       => "function() {  }",
+                                            "select2:selecting"   => "function() {  }",
+                                            "select2:select"      => "function() {  }",
                                             "select2:unselecting" => "function() {  }",
-                                            "select2:unselect" => "function() {  }"
+                                            "select2:unselect"    => "function() {  }"
                                         ]
                                     ]
                                 ) ?>
@@ -77,7 +84,8 @@ use kartik\select2\Select2;
                             </div>
 
                             <div class="col-md-12">
-                                <?= $form->field($model, 'short_content')->widget(\YiiMan\YiiBasics\widgets\redactor\widgets\Redactor::className()) ?>
+                                <?= $form->field($model,
+                                    'short_content')->widget(\YiiMan\YiiBasics\widgets\redactor\widgets\Redactor::className()) ?>
                             </div>
                         </div>
                     </div>

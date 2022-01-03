@@ -1,12 +1,20 @@
 <?php
 /**
- * @var $this \YiiMan\YiiBasics\lib\View
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
+/**
+ * @var $this  \YiiMan\YiiBasics\lib\View
  * @var $model Menu
  */
 
-$this->registerJs(file_get_contents(__DIR__ . '/../../assets/form.js'), $this::POS_END);
+$this->registerJs(file_get_contents(__DIR__.'/../../assets/form.js'), $this::POS_END);
 $this->registerJs(
-    file_get_contents(__DIR__ . '/../../assets/contentType.js'),
+    file_get_contents(__DIR__.'/../../assets/contentType.js'),
     $this::POS_END
 );
 
@@ -23,7 +31,7 @@ use kartik\select2\Select2;
         if (Yii::$app->controller->action->id == 'create') {
             echo 'menumodern/default/create';
         } else {
-            echo 'menumodern/default/update?id=' . $model->id;
+            echo 'menumodern/default/update?id='.$model->id;
         }
         ?>';
 </script>
@@ -48,19 +56,20 @@ use kartik\select2\Select2;
             <?= $form->field($model, 'menuType', ['options' => ['onChange' => 'menuType();']])->dropDownList(
                 [
                     'parent' => 'منوی سطح 1',
-                    'right' => 'تب منو',
-                    'child' => 'منوی داخلی تب منو(سطح 1)',
+                    'right'  => 'تب منو',
+                    'child'  => 'منوی داخلی تب منو(سطح 1)',
                     'child2' => 'منوی داخلی تب منو(سطح 2)',
                 ]
             ) ?>
             <hr>
-            <?= \YiiMan\YiiBasics\modules\slug\widgets\SlugField::run($form,$model) ?>
-            <?= $form->field($model, 'menuContentType', ['options' => ['onChange' => 'menuContentType();']])->dropDownList(
+            <?= \YiiMan\YiiBasics\modules\slug\widgets\SlugField::run($form, $model) ?>
+            <?= $form->field($model, 'menuContentType',
+                ['options' => ['onChange' => 'menuContentType();']])->dropDownList(
                 [
                     'data' =>
                         ArrayHelper::merge(
                             [
-                                0 => \Yii::t('menu', 'یکی را انتخاب کنید'),
+                                0     => \Yii::t('menu', 'یکی را انتخاب کنید'),
                                 'url' => \Yii::t('menu', 'لینک'),
                             ],
                             ArrayHelper::map(Menu::getTypes(), 'name', 'label'))
@@ -75,7 +84,12 @@ use kartik\select2\Select2;
                 echo $form->field(
                     $model,
                     'parent',
-                    ['options' => ['hidden' => 'hidden', 'id' => 'parent']]
+                    [
+                        'options' => [
+                            'hidden' => 'hidden',
+                            'id'     => 'parent'
+                        ]
+                    ]
                 )
                     ->dropDownList(
                         [
@@ -93,7 +107,12 @@ use kartik\select2\Select2;
                 echo $form->field(
                     $model,
                     'right',
-                    ['options' => ['hidden' => 'hidden', 'id' => 'right']]
+                    [
+                        'options' => [
+                            'hidden' => 'hidden',
+                            'id'     => 'right'
+                        ]
+                    ]
                 )
                     ->dropDownList(
                         ArrayHelper::map(
@@ -106,7 +125,12 @@ use kartik\select2\Select2;
                 echo $form->field(
                     $model,
                     'child',
-                    ['options' => ['hidden' => 'hidden', 'id' => 'child']]
+                    [
+                        'options' => [
+                            'hidden' => 'hidden',
+                            'id'     => 'child'
+                        ]
+                    ]
                 )
                     ->dropDownList(
                         $model->menuType == 'child2' ?
@@ -124,7 +148,7 @@ use kartik\select2\Select2;
             <?= $form->field($model, 'url', ['options' => ['id' => 'address']])->widget(
                 Select2::classname(),
                 [
-                    'data' => ['' => ''] + ArrayHelper::map(BlogCategory::find()->all(), 'id', 'title'),
+                    'data'    => ['' => ''] + ArrayHelper::map(BlogCategory::find()->all(), 'id', 'title'),
                     'options' => [
                         'dir' => 'rtl'
                     ],
@@ -155,7 +179,8 @@ use kartik\select2\Select2;
                     مراجعه نمایید و آیکون مورد نظر خود را انتخاب نمایید. سپس نام کلاس آیکون که برای مثال fa-home می باشد
                     را
                     در اینجا وارد کنید.</p>
-                <?= $form->field($model, 'icon')->widget(\YiiMan\YiiBasics\widgets\fontAwesomePicker\FontAwesomeFontPickerWidget::className(),
+                <?= $form->field($model,
+                    'icon')->widget(\YiiMan\YiiBasics\widgets\fontAwesomePicker\FontAwesomeFontPickerWidget::className(),
                     [
                         'pluginOptions' =>
                             [
@@ -167,16 +192,19 @@ use kartik\select2\Select2;
 
 
             <?= $form->field($model, 'enable', ['options' => ['id' => 'enable']])->dropDownList(
-                ['1' => Yii::t('menumodern', 'قابل نمایش برای عموم'), '0' => Yii::t('menumodern', 'غیر قابل نمایش برای عموم')]
+                [
+                    '1' => Yii::t('menumodern', 'قابل نمایش برای عموم'),
+                    '0' => Yii::t('menumodern', 'غیر قابل نمایش برای عموم')
+                ]
             ) ?>
         </div>
     </div>
     <div class="form-group">
         <?= Html::submitButton(
-            $model->isNewRecord ? Yii::t('menumodern', 'ایجاد') : Yii::t('menumodern', 'بروزرسانی') . ' ' . $model->name,
+            $model->isNewRecord ? Yii::t('menumodern', 'ایجاد') : Yii::t('menumodern', 'بروزرسانی').' '.$model->name,
             [
                 'class' => $model->isNewRecord ? 'btn btn-success floatBtn' : 'btn btn-success floatBtn',
-                'id' => 'submitBtn'
+                'id'    => 'submitBtn'
             ]
         ) ?>
     </div>

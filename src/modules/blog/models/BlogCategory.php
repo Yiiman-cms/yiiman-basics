@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\blog\models;
 
@@ -8,24 +15,22 @@ use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%module_blog_comment}}".
- *
- * @property int $id
+ * @property int    $id
  * @property string $title
- * @property int $parent
+ * @property int    $parent
  */
 class BlogCategory extends ActiveRecord
 {
     private static $configs = [];
 
+    public static function getConfigs()
+    {
+        return self::$configs;
+    }
 
     public static function setConfigs($array)
     {
         self::$configs = $array;
-    }
-
-    public static function getConfigs()
-    {
-        return self::$configs;
     }
 
     /**
@@ -42,8 +47,14 @@ class BlogCategory extends ActiveRecord
     public function rules()
     {
         return [
-            [['title'], 'required'],
-            [['parent'], 'integer'],
+            [
+                ['title'],
+                'required'
+            ],
+            [
+                ['parent'],
+                'integer'
+            ],
         ];
     }
 
@@ -51,8 +62,8 @@ class BlogCategory extends ActiveRecord
     {
         return
             [
-                'id' => Yii::t('blog', 'شناسه'),
-                'title' => Yii::t('blog', 'عنوان'),
+                'id'     => Yii::t('blog', 'شناسه'),
+                'title'  => Yii::t('blog', 'عنوان'),
                 'parent' => Yii::t('blog', 'دسته ی مادر'),
             ];
     }

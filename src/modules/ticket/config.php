@@ -1,16 +1,16 @@
-<?php /*
- * Copyright (c) 2022.
+<?php /**
+ * Copyright (c) 2022-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
  * Site:https://yiiman.ir
- */ /**
+ */
+
+/**
  * Site: https://yiiman.ir
  * AuthorName: gholamreza beheshtian
  * AuthorNumber:+989353466620 | +17272282283
  * AuthorCompany: YiiMan
- *
- *
  */
 
 use YiiMan\YiiBasics\lib\Triggers;
@@ -22,26 +22,33 @@ $dir = basename(__DIR__);
 
 $conf =
     [
-        'name' => $dir,
-        'name_fa' => 'تیکت ها',
-        'type' => ['backend'],
-        'namespace' => 'YiiMan\YiiBasics\modules\\' . $dir,
-        'address' => '',
-        'menu' =>
+        'name'      => $dir,
+        'name_fa'   => 'تیکت ها',
+        'type'      => ['backend'],
+        'namespace' => 'YiiMan\YiiBasics\modules\\'.$dir,
+        'address'   => '',
+        'menu'      =>
 
             [
-                'name' => $dir,
+                'name'  => $dir,
                 'title' => 'تیکت',
                 'items' =>
                     [
-                        ['name' => '', 'title' => 'تیکت ها',], ['name' => 'ticket-departments', 'title' => 'دپارتمان ها',],]
+                        ['name'  => '',
+                         'title' => 'تیکت ها',
+                        ],
+                        [
+                            'name'  => 'ticket-departments',
+                            'title' => 'دپارتمان ها',
+                        ],
+                    ]
             ]
         ,
     ];
 
 /* < Hooks > */
 {
-    if (!defined('MTHJK_' . $dir)) {
+    if (!defined('MTHJK_'.$dir)) {
         /* </ Add translates > */
         {
             Event::on(
@@ -49,10 +56,10 @@ $conf =
                 Application::EVENT_BEFORE_REQUEST,
                 function () use ($conf) {
                     Yii::$app->i18n->translations[$conf['name']] = [
-                        'class' => 'yii\i18n\PhpMessageSource',
+                        'class'          => 'yii\i18n\PhpMessageSource',
                         'sourceLanguage' => 'fa-IR',
-                        'basePath' => '@system/modules/' . $conf['name'] . '/messages',
-                        'fileMap' => [
+                        'basePath'       => '@system/modules/'.$conf['name'].'/messages',
+                        'fileMap'        => [
                             $conf['name'] => 'module.php',
                         ],
                     ];
@@ -136,7 +143,7 @@ EOT;
 }
 /* </ Hooks > */
 
-if (!defined('MTHJK_' . $dir)) {
-    define('MTHJK_' . $dir, '1');
+if (!defined('MTHJK_'.$dir)) {
+    define('MTHJK_'.$dir, '1');
 }
 return $conf;

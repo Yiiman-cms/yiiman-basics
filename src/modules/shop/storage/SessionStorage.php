@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\shop\storage;
 
@@ -25,7 +32,7 @@ class SessionStorage implements StorageInterface
     }
 
     /**
-     * @param \devanych\cart\models\CartItem[] $items
+     * @param  \devanych\cart\models\CartItem[]  $items
      * @return void
      */
     public function save(array $items)

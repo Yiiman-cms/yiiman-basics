@@ -1,34 +1,60 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
 namespace YiiMan\YiiBasics\modules\useradmin\models;
+
 use Yii;
 use yii\base\Model;
 use common\models\Settings;
 use common\config\components\EMAIL;
-class PasswordResetRequestForm extends Model {
+
+class PasswordResetRequestForm extends Model
+{
     public $email;
-    public function rules() {
+
+    public function rules()
+    {
         return [
-                ['email', 'trim'],
-                ['email', 'required'],
-                ['email', 'email'],
-                [
-                    'email',
-                    'exist',
-                    'targetClass' => Users::className(),
-                    'filter' => [
-                        'group_id' => Yii::$app->params['users.groupUser'],
-                        'status' => Yii::$app->params['users.statusActive'],
-                    ],
-                    'message' => Yii::t('base', 'There is no user with this email address.')
+            [
+                'email',
+                'trim'
+            ],
+            [
+                'email',
+                'required'
+            ],
+            [
+                'email',
+                'email'
+            ],
+            [
+                'email',
+                'exist',
+                'targetClass' => Users::className(),
+                'filter'      => [
+                    'group_id' => Yii::$app->params['users.groupUser'],
+                    'status'   => Yii::$app->params['users.statusActive'],
                 ],
+                'message'     => Yii::t('base', 'There is no user with this email address.')
+            ],
         ];
     }
-    public function attributeLabels() {
+
+    public function attributeLabels()
+    {
         return [
             'email' => Yii::t('base', 'Email'),
         ];
     }
-    public function sendEmail() {
+
+    public function sendEmail()
+    {
         $user = Users::findByEmail($this->email);
         if (!$user) {
             return false;

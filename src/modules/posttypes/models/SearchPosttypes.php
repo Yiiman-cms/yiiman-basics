@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\posttypes\models;
 
@@ -19,8 +26,26 @@ class SearchPosttypes extends Posttypes
     public function rules()
     {
         return [
-            [['id', 'language', 'language_parent', 'status'], 'integer'],
-            [['title', 'postType', 'created_at', 'updated_at', 'created_by', 'content'], 'safe'],
+            [
+                [
+                    'id',
+                    'language',
+                    'language_parent',
+                    'status'
+                ],
+                'integer'
+            ],
+            [
+                [
+                    'title',
+                    'postType',
+                    'created_at',
+                    'updated_at',
+                    'created_by',
+                    'content'
+                ],
+                'safe'
+            ],
         ];
     }
 
@@ -35,9 +60,7 @@ class SearchPosttypes extends Posttypes
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
@@ -45,19 +68,18 @@ class SearchPosttypes extends Posttypes
         $query = Posttypes::find();
 
 
-
-        if ($this->hasLanguage){
-            if (!empty( $_GET['lng'])){
-                $query=$query->where(['language'=> $_GET['lng']]);
-            }else{
-                $query=$query->where(['language_parent'=>null]);
+        if ($this->hasLanguage) {
+            if (!empty($_GET['lng'])) {
+                $query = $query->where(['language' => $_GET['lng']]);
+            } else {
+                $query = $query->where(['language_parent' => null]);
             }
         }
         // add conditions that should always apply here
 
 
-        if (!empty($_GET['posttype'])){
-            $query->andWhere(['postType'=> $_GET['posttype']]);
+        if (!empty($_GET['posttype'])) {
+            $query->andWhere(['postType' => $_GET['posttype']]);
         }
 
         $dataProvider = new ActiveDataProvider([
@@ -74,18 +96,34 @@ class SearchPosttypes extends Posttypes
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'language' => $this->language,
+            'id'              => $this->id,
+            'language'        => $this->language,
             'language_parent' => $this->language_parent,
-            'status' => $this->status,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'status'          => $this->status,
+            'created_at'      => $this->created_at,
+            'updated_at'      => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'postType', $this->postType])
-            ->andFilterWhere(['like', 'created_by', $this->created_by])
-            ->andFilterWhere(['like', 'content', $this->content]);
+        $query->andFilterWhere([
+            'like',
+            'title',
+            $this->title
+        ])
+            ->andFilterWhere([
+                'like',
+                'postType',
+                $this->postType
+            ])
+            ->andFilterWhere([
+                'like',
+                'created_by',
+                $this->created_by
+            ])
+            ->andFilterWhere([
+                'like',
+                'content',
+                $this->content
+            ]);
 
         return $dataProvider;
     }

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\blog\models;
 
@@ -12,18 +19,17 @@ use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%module_blog_articles}}".
- *
- * @property int $id
- * @property string $title
- * @property string $content
- * @property string $image
- * @property string $created_at
- * @property int $author
- * @property int $enable_comment
- * @property int $status
- * @property int $likeCount
- * @property int $commentCount
- * @property User $author0
+ * @property int                                                $id
+ * @property string                                             $title
+ * @property string                                             $content
+ * @property string                                             $image
+ * @property string                                             $created_at
+ * @property int                                                $author
+ * @property int                                                $enable_comment
+ * @property int                                                $status
+ * @property int                                                $likeCount
+ * @property int                                                $commentCount
+ * @property User                                               $author0
  * @property \YiiMan\YiiBasics\modules\blog\models\BlogArticles $prevArticle0
  * @property \YiiMan\YiiBasics\modules\blog\models\BlogArticles $nextArticle0
  */
@@ -31,16 +37,9 @@ class BlogArticles extends ActiveRecord
 {
     const STATUS_ACTIVE = 1;
     const STATUS_DE_ACTIVE = 0;
+    public static $parentalComments = [];
     public $tags;
     public $seo_description;
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return '{{%module_blog_articles}}';
-    }
 
     /**
      * {@inheritdoc}
@@ -49,12 +48,45 @@ class BlogArticles extends ActiveRecord
     {
         return
             [
-                [['title', 'content', 'created_at', 'author', 'status'], 'required'],
-                [['content'], 'string'],
-                [['created_at'], 'safe'],
-                [['author', 'status', 'language', 'enable_comment'], 'integer'],
-                [['title', 'seo_description'], 'string', 'max' => 255],
-                [['tags'], 'safe'],
+                [
+                    [
+                        'title',
+                        'content',
+                        'created_at',
+                        'author',
+                        'status'
+                    ],
+                    'required'
+                ],
+                [
+                    ['content'],
+                    'string'
+                ],
+                [
+                    ['created_at'],
+                    'safe'
+                ],
+                [
+                    [
+                        'author',
+                        'status',
+                        'language',
+                        'enable_comment'
+                    ],
+                    'integer'
+                ],
+                [
+                    [
+                        'title',
+                        'seo_description'
+                    ],
+                    'string',
+                    'max' => 255
+                ],
+                [
+                    ['tags'],
+                    'safe'
+                ],
             ];
     }
 
@@ -64,15 +96,15 @@ class BlogArticles extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('blog', 'شناسه'),
-            'title' => Yii::t('blog', 'موضوع'),
-            'content' => Yii::t('blog', 'محتوا'),
-            'image' => Yii::t('blog', 'تصویر شاخص'),
-            'created_at' => Yii::t('blog', 'زمان ایجاد'),
-            'author' => Yii::t('blog', 'نویسنده'),
-            'status' => Yii::t('blog', 'وضعیت انتشار'),
+            'id'              => Yii::t('blog', 'شناسه'),
+            'title'           => Yii::t('blog', 'موضوع'),
+            'content'         => Yii::t('blog', 'محتوا'),
+            'image'           => Yii::t('blog', 'تصویر شاخص'),
+            'created_at'      => Yii::t('blog', 'زمان ایجاد'),
+            'author'          => Yii::t('blog', 'نویسنده'),
+            'status'          => Yii::t('blog', 'وضعیت انتشار'),
             'seo_description' => Yii::t('blog', 'تضیحات سئو'),
-            'tags' => Yii::t('blog', 'برچسب ها'),
+            'tags'            => Yii::t('blog', 'برچسب ها'),
         ];
     }
 
@@ -113,7 +145,10 @@ class BlogArticles extends ActiveRecord
     public function getCommentCount()
     {
         return BlogComment::find()->where(
-            ['article' => $this->id, 'status' => BlogComment::STATUS_ACTIVE]
+            [
+                'article' => $this->id,
+                'status'  => BlogComment::STATUS_ACTIVE
+            ]
         )->count();
     }
 
@@ -121,9 +156,9 @@ class BlogArticles extends ActiveRecord
     {
         $slug = Slug::getSlug($this);
         if (!empty($slug)) {
-            return Yii::$app->Options->URL . '/' . $slug;
+            return Yii::$app->Options->URL.'/'.$slug;
         } else {
-            return Yii::$app->Options->URL . '/article/' . $this->id;
+            return Yii::$app->Options->URL.'/article/'.$this->id;
         }
     }
 
@@ -139,23 +174,34 @@ class BlogArticles extends ActiveRecord
 
     public function getNextArticle0()
     {
-        return $this->find()->where(['>', 'id', $this->id])->one();
+        return $this->find()->where([
+            '>',
+            'id',
+            $this->id
+        ])->one();
     }
 
     public function getPrevArticle0()
     {
-        return $this->find()->where(['<', 'id', $this->id])->orderBy('id desc')->one();
+        return $this->find()->where([
+            '<',
+            'id',
+            $this->id
+        ])->orderBy('id desc')->one();
     }
 
     /**
      * پست های محبوب را بازگردانی میکند
-     * @param int $limit
+     * @param  int  $limit
      * @return BlogArticles[]|null
      */
     public function papulates($limit = 3)
     {
         $hint = Hint::find()
-            ->select(['table_id', 'SUM(`count`) as count'])
+            ->select([
+                'table_id',
+                'SUM(`count`) as count'
+            ])
             ->where(['table' => $this::tableName()])
             ->groupBy('table_id')
             ->limit($limit)
@@ -166,25 +212,20 @@ class BlogArticles extends ActiveRecord
         }
         $ids = ArrayHelper::getColumn($hint, 'table_id');
         return $this::find()
-            ->where(['id' => $ids, 'status' => self::STATUS_ACTIVE])
+            ->where([
+                'id'     => $ids,
+                'status' => self::STATUS_ACTIVE
+            ])
             ->all();
     }
-
 
     /**
-     * @return array|\YiiMan\YiiBasics\modules\menu\models\Menu[]|\yii\db\ActiveRecord[]
+     * {@inheritdoc}
      */
-    private function getAllCommented()
+    public static function tableName()
     {
-
-        return BlogComment::find()
-            ->where(['status' => self::STATUS_ACTIVE, 'article' => $this->id])
-            ->orderBy(['index' => SORT_ASC])
-            ->asArray()
-            ->all();
+        return '{{%module_blog_articles}}';
     }
-
-    public static $parentalComments = [];
 
     private function getAllActiveForWidget($location)
     {
@@ -199,7 +240,23 @@ class BlogArticles extends ActiveRecord
         return $all;
     }
 
-    private  function buildItemComment($items, $id)
+    /**
+     * @return array|\YiiMan\YiiBasics\modules\menu\models\Menu[]|\yii\db\ActiveRecord[]
+     */
+    private function getAllCommented()
+    {
+
+        return BlogComment::find()
+            ->where([
+                'status'  => self::STATUS_ACTIVE,
+                'article' => $this->id
+            ])
+            ->orderBy(['index' => SORT_ASC])
+            ->asArray()
+            ->all();
+    }
+
+    private function buildItemComment($items, $id)
     {
 
         $parental = ArrayHelper::index($items, 'parent');

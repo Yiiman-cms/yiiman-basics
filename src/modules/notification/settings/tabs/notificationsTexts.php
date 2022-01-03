@@ -1,6 +1,6 @@
 <?php
-/*
- * Copyright (c) 2022.
+/**
+ * Copyright (c) 2022-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
@@ -11,7 +11,6 @@
  * Created by YiiMan TM.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
- *
  * Site:https://yiiman.ir
  * Date: 03/25/2020
  * Time: 01:04 AM
@@ -20,7 +19,6 @@
 /**
  * @var $this \YiiMan\YiiBasics\lib\View
  * @var $model
- *
  */
 
 $notificationActs = \YiiMan\YiiBasics\lib\Core::getNotificationNames();
@@ -73,9 +71,9 @@ $notificationActs = \YiiMan\YiiBasics\lib\Core::getNotificationNames();
 
                                                 <?php
                                                 if (!empty($hint)) {
-                                                    echo '<h4>' . $hint . '</h4><hr>';
+                                                    echo '<h4>'.$hint.'</h4><hr>';
                                                 }
-                                                $attr = $actName . '_text';
+                                                $attr = $actName.'_text';
                                                 echo '<h4>متن پیام را با استفاده از پارامترهایی که به شما داده شده است تنظیم کنید</h4>';
                                                 //$model->addRule([$attr], 'required');
                                                 echo $form->field($model, $attr)->textarea()->label(false);
@@ -91,7 +89,8 @@ $notificationActs = \YiiMan\YiiBasics\lib\Core::getNotificationNames();
                                                                 <li <?= \YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget::attribute
                                                                 (
                                                                     \Yii::t
-                                                                    ('settings', 'Dynamic Parameter: ({p}) with value: ({v}) can change in system>parameters menu',
+                                                                    ('settings',
+                                                                        'Dynamic Parameter: ({p}) with value: ({v}) can change in system>parameters menu',
                                                                         [
                                                                             'p' => $name,
                                                                             'v' => $popup
@@ -112,10 +111,12 @@ $notificationActs = \YiiMan\YiiBasics\lib\Core::getNotificationNames();
                                                            href="<?= Yii::$app->urlManager->createUrl(['/parameters']) ?>">پارامتر
                                                             های تعریف شده ی شما</a></h4>
                                                     <ul>
-                                                        <li <?= \YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget::attribute(\Yii::t('settings', 'user\'s (first name + last name)')) ?>>
+                                                        <li <?= \YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget::attribute(\Yii::t('settings',
+                                                            'user\'s (first name + last name)')) ?>>
                                                             {{fullname}}
                                                         </li>
-                                                        <li <?= \YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget::attribute(\Yii::t('settings', 'Site title')) ?>>
+                                                        <li <?= \YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget::attribute(\Yii::t('settings',
+                                                            'Site title')) ?>>
                                                             {{siteTitle}}
                                                         </li>
                                                         <?php
@@ -124,7 +125,8 @@ $notificationActs = \YiiMan\YiiBasics\lib\Core::getNotificationNames();
                                                             <li <?= \YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget::attribute
                                                             (
                                                                 \Yii::t
-                                                                ('settings', 'Dynamic Parameter: ({p}) with value: ({v}) can change in system>parameters menu',
+                                                                ('settings',
+                                                                    'Dynamic Parameter: ({p}) with value: ({v}) can change in system>parameters menu',
                                                                     [
                                                                         'p' => $param['description'],
                                                                         'v' => $param['val']

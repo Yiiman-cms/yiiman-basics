@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\seo\models;
 
@@ -18,8 +25,22 @@ class SearchSeoFlagContents extends SeoFlagContents
     public function rules()
     {
         return [
-            [['id', 'status'], 'integer'],
-            [['title', 'full_content', 'short_content', 'slug'], 'safe'],
+            [
+                [
+                    'id',
+                    'status'
+                ],
+                'integer'
+            ],
+            [
+                [
+                    'title',
+                    'full_content',
+                    'short_content',
+                    'slug'
+                ],
+                'safe'
+            ],
         ];
     }
 
@@ -34,9 +55,7 @@ class SearchSeoFlagContents extends SeoFlagContents
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
@@ -63,10 +82,26 @@ class SearchSeoFlagContents extends SeoFlagContents
             'status' => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'full_content', $this->full_content])
-            ->andFilterWhere(['like', 'short_content', $this->short_content])
-            ->andFilterWhere(['like', 'slug', $this->slug]);
+        $query->andFilterWhere([
+            'like',
+            'title',
+            $this->title
+        ])
+            ->andFilterWhere([
+                'like',
+                'full_content',
+                $this->full_content
+            ])
+            ->andFilterWhere([
+                'like',
+                'short_content',
+                $this->short_content
+            ])
+            ->andFilterWhere([
+                'like',
+                'slug',
+                $this->slug
+            ]);
 
         return $dataProvider;
     }

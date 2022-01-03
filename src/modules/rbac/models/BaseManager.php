@@ -1,8 +1,10 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
- * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * Copyright (c) 2008-2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
  */
 
 namespace YiiMan\YiiBasics\modules\rbac\models;
@@ -17,16 +19,13 @@ use yii\base\InvalidValueException;
 
 /**
  * BaseManager is a base class implementing [[ManagerInterface]] for RBAC management.
- *
  * For more details and usage information on DbManager, see the [guide article on security authorization](guide:security-authorization).
- *
- * @property Role[] $defaultRoleInstances Default roles. The array is indexed by the role names. This property
- * is read-only.
- * @property string[] $defaultRoles Default roles. Note that the type of this property differs in getter and
- * setter. See [[getDefaultRoles()]] and [[setDefaultRoles()]] for details.
- *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @since 2.0
+ * @property string[] $defaultRoles         Default roles. Note that the type of this property differs in getter and
+ * setter. See [[getDefaultRoles()]] and [[setDefaultRoles()]] for details.
+ * @property Role[]   $defaultRoleInstances Default roles. The array is indexed by the role names. This property
+ * is read-only.
+ * @since  2.0
  */
 abstract class BaseManager extends Component implements ManagerInterface
 {
@@ -36,89 +35,6 @@ abstract class BaseManager extends Component implements ManagerInterface
      */
     protected $defaultRoles = [];
 
-
-    /**
-     * Returns the named auth item.
-     * @param string $name the auth item name.
-     * @return Item the auth item corresponding to the specified name. Null is returned if no such item.
-     */
-    abstract protected function getItem($name);
-
-    /**
-     * Returns the items of the specified type.
-     * @param int $type the auth item type (either [[Item::TYPE_ROLE]] or [[Item::TYPE_PERMISSION]]
-     * @return Item[] the auth items of the specified type.
-     */
-    abstract protected function getItems($type);
-
-    /**
-     * Adds an auth item to the RBAC system.
-     * @param Item $item the item to add
-     * @return bool whether the auth item is successfully added to the system
-     * @throws \Exception if data validation or saving fails (such as the name of the role or permission is not unique)
-     */
-    abstract protected function addItem($item);
-
-    /**
-     * Adds a rule to the RBAC system.
-     * @param Rule $rule the rule to add
-     * @return bool whether the rule is successfully added to the system
-     * @throws \Exception if data validation or saving fails (such as the name of the rule is not unique)
-     */
-    abstract protected function addRule($rule);
-
-    /**
-     * Removes an auth item from the RBAC system.
-     * @param Item $item the item to remove
-     * @return bool whether the role or permission is successfully removed
-     * @throws \Exception if data validation or saving fails (such as the name of the role or permission is not unique)
-     */
-    abstract protected function removeItem($item);
-
-    /**
-     * Removes a rule from the RBAC system.
-     * @param Rule $rule the rule to remove
-     * @return bool whether the rule is successfully removed
-     * @throws \Exception if data validation or saving fails (such as the name of the rule is not unique)
-     */
-    abstract protected function removeRule($rule);
-
-    /**
-     * Updates an auth item in the RBAC system.
-     * @param string $name the name of the item being updated
-     * @param Item $item the updated item
-     * @return bool whether the auth item is successfully updated
-     * @throws \Exception if data validation or saving fails (such as the name of the role or permission is not unique)
-     */
-    abstract protected function updateItem($name, $item);
-
-    /**
-     * Updates a rule to the RBAC system.
-     * @param string $name the name of the rule being updated
-     * @param Rule $rule the updated rule
-     * @return bool whether the rule is successfully updated
-     * @throws \Exception if data validation or saving fails (such as the name of the rule is not unique)
-     */
-    abstract protected function updateRule($name, $rule);
-
-    /**
-     * {@inheritdoc}
-     */
-    public function createRole($name)
-    {
-        $item=new Item();
-        $item->name=$name;
-        $item->type=$item::TYPE_ROLE;
-        $item->module_en=null;
-        $item->module_fa=null;
-        $item->description='';
-        $role = new Role(
-            $item
-        );
-        $role->name = $name;
-        return $role;
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -126,8 +42,8 @@ abstract class BaseManager extends Component implements ManagerInterface
     {
         $permission = new Permission();
         $permission->name = $name;
-        $permission->module_en='';
-        $permission->module_fa='';
+        $permission->module_en = '';
+        $permission->module_fa = '';
         $permission->type = Item::TYPE_PERMISSION;
         return $permission;
     }
@@ -137,7 +53,7 @@ abstract class BaseManager extends Component implements ManagerInterface
      */
     public function add($object)
     {
-        if ($object instanceof Item||$object instanceof AuthItem||$object instanceof Role) {
+        if ($object instanceof Item || $object instanceof AuthItem || $object instanceof Role) {
             if ($object->ruleName && $this->getRule($object->ruleName) === null) {
                 $rule = \Yii::createObject($object->ruleName);
                 $rule->name = $object->ruleName;
@@ -153,6 +69,22 @@ abstract class BaseManager extends Component implements ManagerInterface
     }
 
     /**
+     * Adds a rule to the RBAC system.
+     * @param  Rule  $rule  the rule to add
+     * @return bool whether the rule is successfully added to the system
+     * @throws \Exception if data validation or saving fails (such as the name of the rule is not unique)
+     */
+    abstract protected function addRule($rule);
+
+    /**
+     * Adds an auth item to the RBAC system.
+     * @param  Item  $item  the item to add
+     * @return bool whether the auth item is successfully added to the system
+     * @throws \Exception if data validation or saving fails (such as the name of the role or permission is not unique)
+     */
+    abstract protected function addItem($item);
+
+    /**
      * {@inheritdoc}
      */
     public function remove($object)
@@ -165,6 +97,22 @@ abstract class BaseManager extends Component implements ManagerInterface
 
         throw new InvalidArgumentException('Removing unsupported object type.');
     }
+
+    /**
+     * Removes an auth item from the RBAC system.
+     * @param  Item  $item  the item to remove
+     * @return bool whether the role or permission is successfully removed
+     * @throws \Exception if data validation or saving fails (such as the name of the role or permission is not unique)
+     */
+    abstract protected function removeItem($item);
+
+    /**
+     * Removes a rule from the RBAC system.
+     * @param  Rule  $rule  the rule to remove
+     * @return bool whether the rule is successfully removed
+     * @throws \Exception if data validation or saving fails (such as the name of the rule is not unique)
+     */
+    abstract protected function removeRule($rule);
 
     /**
      * {@inheritdoc}
@@ -187,6 +135,24 @@ abstract class BaseManager extends Component implements ManagerInterface
     }
 
     /**
+     * Updates an auth item in the RBAC system.
+     * @param  string  $name  the name of the item being updated
+     * @param  Item    $item  the updated item
+     * @return bool whether the auth item is successfully updated
+     * @throws \Exception if data validation or saving fails (such as the name of the role or permission is not unique)
+     */
+    abstract protected function updateItem($name, $item);
+
+    /**
+     * Updates a rule to the RBAC system.
+     * @param  string  $name  the name of the rule being updated
+     * @param  Rule    $rule  the updated rule
+     * @return bool whether the rule is successfully updated
+     * @throws \Exception if data validation or saving fails (such as the name of the rule is not unique)
+     */
+    abstract protected function updateRule($name, $rule);
+
+    /**
      * {@inheritdoc}
      */
     public function getRole($name)
@@ -196,9 +162,16 @@ abstract class BaseManager extends Component implements ManagerInterface
     }
 
     /**
+     * Returns the named auth item.
+     * @param  string  $name  the auth item name.
+     * @return Item the auth item corresponding to the specified name. Null is returned if no such item.
+     */
+    abstract protected function getItem($name);
+
+    /**
      * {@inheritdoc}
      */
-    public function getPermission($name,$type=Item::TYPE_PERMISSION)
+    public function getPermission($name, $type = Item::TYPE_PERMISSION)
     {
         $item = $this->getItem($name);
 
@@ -214,8 +187,25 @@ abstract class BaseManager extends Component implements ManagerInterface
     }
 
     /**
+     * Returns the items of the specified type.
+     * @param  int  $type  the auth item type (either [[Item::TYPE_ROLE]] or [[Item::TYPE_PERMISSION]]
+     * @return Item[] the auth items of the specified type.
+     */
+    abstract protected function getItems($type);
+
+    /**
+     * Get default roles
+     * @return string[] default roles
+     * @since 2.0.14
+     */
+    public function getDefaultRoles()
+    {
+        return $this->defaultRoles;
+    }
+
+    /**
      * Set default roles
-     * @param string[]|\Closure $roles either array of roles or a callable returning it
+     * @param  string[]|\Closure  $roles  either array of roles or a callable returning it
      * @throws InvalidArgumentException when $roles is neither array nor Closure
      * @throws InvalidValueException when Closure return is not an array
      * @since 2.0.14
@@ -236,16 +226,6 @@ abstract class BaseManager extends Component implements ManagerInterface
     }
 
     /**
-     * Get default roles
-     * @return string[] default roles
-     * @since 2.0.14
-     */
-    public function getDefaultRoles()
-    {
-        return $this->defaultRoles;
-    }
-
-    /**
      * Returns defaultRoles as array of Role objects.
      * @return Role[] default roles. The array is indexed by the role names
      * @since 2.0.12
@@ -263,6 +243,24 @@ abstract class BaseManager extends Component implements ManagerInterface
     /**
      * {@inheritdoc}
      */
+    public function createRole($name)
+    {
+        $item = new Item();
+        $item->name = $name;
+        $item->type = $item::TYPE_ROLE;
+        $item->module_en = null;
+        $item->module_fa = null;
+        $item->description = '';
+        $role = new Role(
+            $item
+        );
+        $role->name = $name;
+        return $role;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getPermissions()
     {
         return $this->getItems(Item::TYPE_PERMISSION);
@@ -270,14 +268,12 @@ abstract class BaseManager extends Component implements ManagerInterface
 
     /**
      * Executes the rule associated with the specified auth item.
-     *
      * If the item does not specify a rule, this method will return true. Otherwise, it will
      * return the value of [[Rule::execute()]].
-     *
-     * @param string|int $user the user ID. This should be either an integer or a string representing
-     * the unique identifier of a user. See [[\yii\web\User::id]].
-     * @param Item $item the auth item that needs to execute its rule
-     * @param array $params parameters passed to [[CheckAccessInterface::checkAccess()]] and will be passed to the rule
+     * @param  string|int  $user    the user ID. This should be either an integer or a string representing
+     *                              the unique identifier of a user. See [[\yii\web\User::id]].
+     * @param  Item        $item    the auth item that needs to execute its rule
+     * @param  array       $params  parameters passed to [[CheckAccessInterface::checkAccess()]] and will be passed to the rule
      * @return bool the return value of [[Rule::execute()]]. If the auth item does not specify a rule, true will be returned.
      * @throws InvalidConfigException if the auth item has an invalid rule.
      */
@@ -296,8 +292,7 @@ abstract class BaseManager extends Component implements ManagerInterface
 
     /**
      * Checks whether array of $assignments is empty and [[defaultRoles]] property is empty as well.
-     *
-     * @param Assignment[] $assignments array of user's assignments
+     * @param  Assignment[]  $assignments  array of user's assignments
      * @return bool whether array of $assignments is empty and [[defaultRoles]] property is empty as well
      * @since 2.0.11
      */

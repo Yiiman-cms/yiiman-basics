@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
@@ -14,11 +21,11 @@ use yii\widgets\Pjax;
     Yii::t('search', 'ثبت جست و جوها'),
     'success',
     null,
-    Yii::$app->Options->BackendUrl . '/search/default/create'
+    Yii::$app->Options->BackendUrl.'/search/default/create'
 );
 \YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 
-$this->title = Yii::t('search', 'جست و جوها') . ' ';
+$this->title = Yii::t('search', 'جست و جوها').' ';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -37,8 +44,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
-                        'filterModel' => $searchModel,
-                        'columns' => [
+                        'filterModel'  => $searchModel,
+                        'columns'      => [
                             ['class' => 'yii\grid\SerialColumn'],
                             ['class' => '\YiiMan\YiiBasics\lib\i18n\LanguageColumn'],
                             'query',

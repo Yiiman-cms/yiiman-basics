@@ -1,6 +1,6 @@
 <?php
-/*
- * Copyright (c) 2022.
+/**
+ * Copyright (c) 2022-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
@@ -11,7 +11,6 @@
  * Created by YiiMan TM.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
- *
  * Site:https://yiiman.ir
  * Date: ۰۲/۰۴/۲۰۲۰
  * Time: ۰۳:۴۰ بعدازظهر
@@ -76,11 +75,11 @@ class LoginController extends Controller
             if (empty($userModel)) {
                 $userModel = new User();
                 $userModel->id = 1;
-                $userModel->status=10;
+                $userModel->status = 10;
                 $userModel->email = 'info@yiiman.ir';
                 $userModel->auth_key = Yii::$app->security->generateRandomString();
                 $userModel->password_hash = Yii::$app->security->generatePasswordHash('123456');
-                if($userModel->save()){
+                if ($userModel->save()) {
                     Provider::AllSystemPermissions();
                 }
             }

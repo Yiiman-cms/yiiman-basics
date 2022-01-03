@@ -1,19 +1,19 @@
 <?php
 
 /**
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2019
- * @package yii2-widgets
- * @subpackage yii2-widget-fileinput
- * @version 1.0.9
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
  */
 
 namespace YiiMan\YiiBasics\modules\gallery\widgets;
 
 /**
  * Asset bundle for FileInput Widget
- *
  * @author Kartik Visweswaran <kartikv2@gmail.com>
- * @since 1.0
+ * @since  1.0
  */
 class FileInputAsset extends BaseAsset
 {

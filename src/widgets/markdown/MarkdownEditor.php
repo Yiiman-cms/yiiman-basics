@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\widgets\markdown;
 
@@ -10,7 +17,6 @@ use yii\widgets\InputWidget;
 
 /**
  * Class MarkdownEditor
- *
  * @package YiiMan\YiiBasics\widgets\markdown
  */
 class MarkdownEditor extends InputWidget
@@ -41,19 +47,18 @@ class MarkdownEditor extends InputWidget
     {
         $view = $this->getView();
         MarkdownEditorAsset::register($view);
-        $varName = Inflector::variablize('editor_' . $this->id);
-        $script = "var {$varName} = new SimpleMDE(" . $this->getEditorOptions() . ');';
+        $varName = Inflector::variablize('editor_'.$this->id);
+        $script = "var {$varName} = new SimpleMDE(".$this->getEditorOptions().');';
         $view->registerJs($script);
     }
 
     /**
      * Return editor options in json format
-     *
      * @return string
      */
     protected function getEditorOptions()
     {
-        $this->editorOptions['element'] = new JsExpression('document.getElementById("' . $this->options['id'] . '")');
+        $this->editorOptions['element'] = new JsExpression('document.getElementById("'.$this->options['id'].'")');
 
         return Json::encode($this->editorOptions);
     }

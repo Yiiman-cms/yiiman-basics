@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\form\controllers;
 
@@ -21,7 +28,6 @@ class FormInboxController extends \YiiMan\YiiBasics\lib\Controller
     public $formId;
 
     /**
-     *
      * @var $model SearchFormInbox
      */
     public $model;
@@ -53,15 +59,15 @@ class FormInboxController extends \YiiMan\YiiBasics\lib\Controller
         $form = Form::findOne($_GET['formId']);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
-            'form' => $form
+            'form'         => $form
         ]);
     }
 
     /**
      * Displays a single FormInbox model.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -80,9 +86,9 @@ class FormInboxController extends \YiiMan\YiiBasics\lib\Controller
             $fields = ArrayHelper::index($fields, 'name');
             $inboxData = json_decode($model->details);
 
-            if (!empty($inboxData)){
+            if (!empty($inboxData)) {
                 foreach ($inboxData as $name => $val) {
-                    if ($name=='formId'){
+                    if ($name == 'formId') {
                         continue;
                     }
                     $data = $fields[$name];
@@ -95,25 +101,25 @@ class FormInboxController extends \YiiMan\YiiBasics\lib\Controller
                             break;
                         case 'radio-group':
                         case 'checkbox-group':
-                           $data->values=ArrayHelper::index($data->values,'value');
+                            $data->values = ArrayHelper::index($data->values, 'value');
 
                             $dataArray[$data->label] = '';
                             foreach ($val as $v) {
-                                $dataArray[$data->label] .= $data->values[$v]->label . ',';
+                                $dataArray[$data->label] .= $data->values[$v]->label.',';
                             }
                             break;
                         case 'date':
                             $dataArray[$data->label] = Yii::$app->functions->convertdate($val);
                             break;
                         case 'file':
-                            $dataArray[$data->label]='<p><a target="_blank" href="'.Yii::$app->Options->UploadUrl.'/dl/form/'.$val.'">'.$val.'</a></p>';
+                            $dataArray[$data->label] = '<p><a target="_blank" href="'.Yii::$app->Options->UploadUrl.'/dl/form/'.$val.'">'.$val.'</a></p>';
                             break;
                         case 'select':
-                        $data->values=ArrayHelper::index($data->values,'value');
-                        if ($data->multiple && is_array($val)) {
+                            $data->values = ArrayHelper::index($data->values, 'value');
+                            if ($data->multiple && is_array($val)) {
                                 $dataArray[$data->label] = '';
                                 foreach ($val as $v) {
-                                    $dataArray[$data->label] .= $data->values[$v]->label . ',';
+                                    $dataArray[$data->label] .= $data->values[$v]->label.',';
                                 }
                             } else {
                                 $dataArray[$data->label] = $data->values[$val]->label;
@@ -136,7 +142,7 @@ class FormInboxController extends \YiiMan\YiiBasics\lib\Controller
         // </ Calculate Data >
 
         return $this->render('view', [
-            'model' => $model,
+            'model'     => $model,
             'dataArray' => $dataArray
         ]);
     }
@@ -152,7 +158,10 @@ class FormInboxController extends \YiiMan\YiiBasics\lib\Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
             }
         }
         return $this->render('create', [
@@ -163,7 +172,7 @@ class FormInboxController extends \YiiMan\YiiBasics\lib\Controller
     /**
      * Updates an existing FormInbox model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -172,7 +181,10 @@ class FormInboxController extends \YiiMan\YiiBasics\lib\Controller
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
             }
         }
 
@@ -184,7 +196,7 @@ class FormInboxController extends \YiiMan\YiiBasics\lib\Controller
     /**
      * Deletes an existing FormInbox model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -195,18 +207,16 @@ class FormInboxController extends \YiiMan\YiiBasics\lib\Controller
         return $this->redirect(['index']);
     }
 
-
-    protected function upload()
-    {
-
-
-    }
-
-
     public function init()
     {
         parent::init();
 
         $this->modelClass = new FormInbox();
+    }
+
+    protected function upload()
+    {
+
+
     }
 }

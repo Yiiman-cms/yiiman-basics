@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
@@ -14,14 +21,15 @@ use yii\widgets\Pjax;
     Yii::t('parameters', 'ثبت '),
     'success',
     null,
-    Yii::$app->Options->BackendUrl . '/parameters/default/create'
+    Yii::$app->Options->BackendUrl.'/parameters/default/create'
 );
 \YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 
-$this->title = Yii::t('parameters', 'پارامتر ها') . ' ';
+$this->title = Yii::t('parameters', 'پارامتر ها').' ';
 $this->params['breadcrumbs'][] = $this->title;
 $DeleteText = \Yii::t('parameters', 'حذف این ردیف');
-$KeyText = \Yii::t('parameters', 'نام کلید را به صورت پیوسته و فقط به صورت لاتین وارد کنید(در غیر اینصورت قابل استفاده نخواهد بود)');
+$KeyText = \Yii::t('parameters',
+    'نام کلید را به صورت پیوسته و فقط به صورت لاتین وارد کنید(در غیر اینصورت قابل استفاده نخواهد بود)');
 $ValText = \Yii::t('parameters', 'مقدار کلید را ثبت کنید');
 $DescriptionLabel = \Yii::t('parameters', 'توضیحات');
 $ValLabel = \Yii::t('parameters', 'مقدار');
@@ -82,7 +90,8 @@ $form = \yii\bootstrap\ActiveForm::begin();
                                 <div class="row">
                                     <div class="col-md-4">
                                         <button class="btn btn-round btn-success"
-                                                id="add-row" <?= \YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget::attribute(\Yii::t('parameters', 'کلید جدید')) ?>>
+                                                id="add-row" <?= \YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget::attribute(\Yii::t('parameters',
+                                            'کلید جدید')) ?>>
                                                     <span class="material-icons">
                                                         add
                                                     </span>
@@ -90,14 +99,17 @@ $form = \yii\bootstrap\ActiveForm::begin();
                                     </div>
                                     <div class="col-md-8">
                                         <button class="btn btn-round btn-success " style="float: left"
-                                            <?= \YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget::attribute(\Yii::t('parameters', 'ذخیره ی موارد')) ?>>
+                                            <?= \YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget::attribute(\Yii::t('parameters',
+                                                'ذخیره ی موارد')) ?>>
                                             <?= \Yii::t('parameters', 'ذخیره') ?>
                                         </button>
                                     </div>
                                 </div>
                             </div>
-                            <p><?= \Yii::t('parameters', 'در این بخش میتوانید کلید هایی تعریف کنید که در ویجت ها قابل استفاده باشند') ?></p>
-                            <p><?= \Yii::t('parameters', 'مقادیر این بخش در مموری ذخیره میشوند و با سرعت بالا قابل فراخوانی هستند') ?></p>
+                            <p><?= \Yii::t('parameters',
+                                    'در این بخش میتوانید کلید هایی تعریف کنید که در ویجت ها قابل استفاده باشند') ?></p>
+                            <p><?= \Yii::t('parameters',
+                                    'مقادیر این بخش در مموری ذخیره میشوند و با سرعت بالا قابل فراخوانی هستند') ?></p>
                             <ul class="p-errors"></ul>
                             <div class="row">
                                 <div class="col-md-12">
@@ -126,9 +138,11 @@ $form = \yii\bootstrap\ActiveForm::begin();
                                                             <?php
                                                             if (empty($model->editor)) {
 
-                                                                echo Html::input('text', 'keys[' . $model->key . '][val]', $model->val, ['class' => 'form-control']);
+                                                                echo Html::input('text', 'keys['.$model->key.'][val]',
+                                                                    $model->val, ['class' => 'form-control']);
                                                             } else {
-                                                                echo Html::textarea('keys[' . $model->key . '][val]', $model->val, ['class' => 'form-control']);
+                                                                echo Html::textarea('keys['.$model->key.'][val]',
+                                                                    $model->val, ['class' => 'form-control']);
                                                             }
 
                                                             ?>
@@ -140,7 +154,8 @@ $form = \yii\bootstrap\ActiveForm::begin();
                                                                 <div class="rm-btn">
                                                                     <button class="rm-btn btn-round btn btn-danger"
                                                                             data-mode="db"
-                                                                        <?= \YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget::attribute(\Yii::t('parameters', 'حذف این ردیف')) ?>
+                                                                        <?= \YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget::attribute(\Yii::t('parameters',
+                                                                            'حذف این ردیف')) ?>
                                                                             data-id="<?= $model->id ?>">
                                                                     <span class="material-icons">
                                                                          clear
@@ -165,8 +180,14 @@ $form = \yii\bootstrap\ActiveForm::begin();
                                                         ?>
                                                         <tr id="db2-<?= $model->id ?>">
                                                             <td colspan="2">
-                                                                <label for=""><?= \Yii::t('parameters', 'توضیحات') ?></label>
-                                                                <?= Html::input('text', 'keys[' . $model->key . '][description]', $model->description, ['class' => 'form-control', 'label' => \Yii::t('parameters', 'توضیحات')]) ?>
+                                                                <label for=""><?= \Yii::t('parameters',
+                                                                        'توضیحات') ?></label>
+                                                                <?= Html::input('text',
+                                                                    'keys['.$model->key.'][description]',
+                                                                    $model->description, [
+                                                                        'class' => 'form-control',
+                                                                        'label' => \Yii::t('parameters', 'توضیحات')
+                                                                    ]) ?>
                                                             </td>
                                                         </tr>
                                                         <?php

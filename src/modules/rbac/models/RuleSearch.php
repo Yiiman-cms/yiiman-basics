@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\rbac\models;
 
@@ -7,39 +14,46 @@ use yii\data\ArrayDataProvider;
 
 /**
  * @author John Martin <john.itvn@gmail.com>
- * @since 1.0.0
+ * @since  1.0.0
  */
-class RuleSearch extends Rule {
+class RuleSearch extends Rule
+{
 
     /**
-     *
-     * @var string 
+     * @var string
      */
     public $name;
 
     /**
      * @inheritdoc
      */
-    public function rules() {
+    public function rules()
+    {
         return [
-            [['name'], 'safe']
+            [
+                ['name'],
+                'safe'
+            ]
         ];
     }
 
     /**
      * Search authitem
-     * @param array $params
+     * @param  array  $params
      * @return \yii\data\ActiveDataProvider|\yii\data\ArrayDataProvider
      */
-    public function search($params) {
+    public function search($params)
+    {
         $this->load($params);
         $authManager = Yii::$app->authManager;
         $models = [];
         foreach ($authManager->getRules() as $name => $item) {
             if ($this->name == null || empty($this->name)) {
                 $models[$name] = new Rule($item);
-            } else if (strpos($name, $this->name) !== FALSE) {
-                $models[$name] = new Rule($item);
+            } else {
+                if (strpos($name, $this->name) !== false) {
+                    $models[$name] = new Rule($item);
+                }
             }
         }
         return new ArrayDataProvider([

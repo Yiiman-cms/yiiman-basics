@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\parameters\models;
 
@@ -18,8 +25,18 @@ class SearchParameters extends Parameters
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['key', 'val', 'description'], 'safe'],
+            [
+                ['id'],
+                'integer'
+            ],
+            [
+                [
+                    'key',
+                    'val',
+                    'description'
+                ],
+                'safe'
+            ],
         ];
     }
 
@@ -34,18 +51,16 @@ class SearchParameters extends Parameters
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
     {
         $query = Parameters::find();
-        if (!empty( $_GET['lng'])){
-            $query=$query->where(['language'=> $_GET['lng']]);
-        }else{
-            $query=$query->where(['language_parent'=>null]);
+        if (!empty($_GET['lng'])) {
+            $query = $query->where(['language' => $_GET['lng']]);
+        } else {
+            $query = $query->where(['language_parent' => null]);
         }
         // add conditions that should always apply here
 
@@ -66,9 +81,21 @@ class SearchParameters extends Parameters
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'key', $this->key])
-            ->andFilterWhere(['like', 'val', $this->val])
-            ->andFilterWhere(['like', 'description', $this->description]);
+        $query->andFilterWhere([
+            'like',
+            'key',
+            $this->key
+        ])
+            ->andFilterWhere([
+                'like',
+                'val',
+                $this->val
+            ])
+            ->andFilterWhere([
+                'like',
+                'description',
+                $this->description
+            ]);
 
         return $dataProvider;
     }

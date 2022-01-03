@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 /**
  * @var $this \yii\bootstrap\Widget
@@ -17,13 +24,13 @@ class FormGeneratorWidget extends InputWidget
     {
         // https://formbuilder.online/
         // https://formbuilder.online/docs/development/#install-dependencies
-        $asset=FormGeneratorAssets::register($this->view);
-        $details='';
+        $asset = FormGeneratorAssets::register($this->view);
+        $details = '';
 
         $name = $this->model->formName();
 
-        if (!empty($this->model->details)){
-            $details='formBuilder.actions.setData(`'.$this->model->details.'`);';
+        if (!empty($this->model->details)) {
+            $details = 'formBuilder.actions.setData(`'.$this->model->details.'`);';
         }
 
         $js = <<<JS
@@ -60,7 +67,7 @@ JS;
         echo '
 
 <div id="build-wrap"></div>
-<textarea style="display: none"  name="' . $name . '[details]" id="form-data'.$name.'"></textarea>
+<textarea style="display: none"  name="'.$name.'[details]" id="form-data'.$name.'"></textarea>
 
 ';
     }

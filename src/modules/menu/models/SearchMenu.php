@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\menu\models;
 
@@ -18,8 +25,24 @@ class SearchMenu extends Menu
     public function rules()
     {
         return [
-            [['id', 'location', 'status'], 'integer'],
-            [['title', 'url', 'slug', 'icon', 'image'], 'safe'],
+            [
+                [
+                    'id',
+                    'location',
+                    'status'
+                ],
+                'integer'
+            ],
+            [
+                [
+                    'title',
+                    'url',
+                    'slug',
+                    'icon',
+                    'image'
+                ],
+                'safe'
+            ],
         ];
     }
 
@@ -34,9 +57,7 @@ class SearchMenu extends Menu
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
@@ -62,13 +83,29 @@ class SearchMenu extends Menu
             'id' => $this->id,
             'location' => $this->location,
             'status' => $this->status,
-          
+
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'url', $this->url])
-            ->andFilterWhere(['like', 'slug', $this->slug])
-            ->andFilterWhere(['like', 'icon', $this->icon]);
+        $query->andFilterWhere([
+            'like',
+            'title',
+            $this->title
+        ])
+            ->andFilterWhere([
+                'like',
+                'url',
+                $this->url
+            ])
+            ->andFilterWhere([
+                'like',
+                'slug',
+                $this->slug
+            ])
+            ->andFilterWhere([
+                'like',
+                'icon',
+                $this->icon
+            ]);
         return $dataProvider;
     }
 }

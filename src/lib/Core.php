@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\lib;
 
@@ -36,47 +42,48 @@ class Core
     public static $dbHost;
     public static $dbUsername;
     public static $dbPassword;
+    public static $hasRBAC = false;
+    public static $superAdminID = 1;
+    public static $LogLevel = [
+        'error',
+        'warning'
+    ];
     private static $dashboardStat = [];
     private static $configKeys = [];
     private static $notificationNames = [];
     private static $permissions = [];
-    private static $appIDS=
+    private static $appIDS =
         [
-            'app-backend'=>'ادمین پنل',
-            'app-console'=>'کنسول',
-            'app-frontend'=>'فرانت سایت'
+            'app-backend'  => 'ادمین پنل',
+            'app-console'  => 'کنسول',
+            'app-frontend' => 'فرانت سایت'
         ];
-    public static $hasRBAC = false;
-    public static $superAdminID = 1;
-    public static $LogLevel=['error', 'warning'];
 
     /**
      * آیدی های برنامه های نوشته شده در این پروژه را مشخص کنید تا بتوان آنها را در ماژول ثبت لاگ متمایز نمود.
-     * @param string[] $array
+     * @param  string[]  $array
      */
-    public static function setAppsList($array=
-    [
-        'app-backend'=>'ادمین پنل',
-        'app-console'=>'کنسول',
-        'app-frontend'=>'فرانت سایت'
-    ]
-    ){
-        self::$appIDS=$array;
+    public static function setAppsList(
+        $array =
+        [
+            'app-backend'  => 'ادمین پنل',
+            'app-console'  => 'کنسول',
+            'app-frontend' => 'فرانت سایت'
+        ]
+    ) {
+        self::$appIDS = $array;
     }
 
 
-    public static function getAppsList(){
+    public static function getAppsList()
+    {
         return self::$appIDS;
     }
 
     /**
      * آرایه ای شامل پارامتر های مدنظر که به صورت یکجا ثبت میشود
      * این آرایه ها در هر جای سیستم قابل بازخوانی هستند، همچنین به طور خودکار بر روی ویجت های ورود محتوی برای استفاده درج میشوند
-     *
-     *
      * Sample Array:
-     *
-     *
      * [
      *      [
      *          'description'=>'',
@@ -89,8 +96,6 @@ class Core
      *          'val'=>'',
      *      ],
      * ]
-     *
-     *
      * @param $array
      */
     public static function addParameters($array)
@@ -116,15 +121,9 @@ class Core
 
     /**
      * لیست کامپوننت هایی که باید در ویرایشر صفحات و ویجت ها ظاهر شوند را وارد کنید
-     *
      * این کامپوننت ها باید در پوشه ی زیر موجود باشند:
-     *
      * crm_include\theme\components
-     *
-     *
      * آرایه ی نمونه:
-     *
-     *
      * [
      *      [
      *           'name' => 'جدول',
@@ -138,7 +137,6 @@ class Core
      *                  ],
      *      ]
      * ]
-     *
      * @param $array
      */
     public static function setComponents($array)
@@ -148,7 +146,6 @@ class Core
 
     /**
      * یک استایل را به IFRAME باز شده در ماژول ویرایش برگه در بک اند اضافه میکند
-     *
      * این ماژول دو حالت نمایش تمام صفحه و فقط ویجت دارد، که برای هر کدام میتوانید استایل جدا تعریف کنید
      * @param $full
      * @param $justWidget
@@ -170,10 +167,6 @@ class Core
 
     /**
      * انواع اسلاگ و اکشن مربوطه را به سیستم اعلام میکند، تا در صورتی که صفحه ای با اسلاگ مربوطه یافت شد، سیستم مورد را به اکشن مربوطه ارجاع دهد
-     *
-     *
-     *
-     *
      * @param $array
      */
     public static function addSlug($array)
@@ -183,7 +176,6 @@ class Core
 
     /**
      * تایپ های مختلف منو را مشخص کنید، و به اکشن مربوطه ارجاع دهید
-     *
      * [
      *       [
      *           'name' => 'page',
@@ -202,7 +194,6 @@ class Core
      *           'modelMap' => ['id', 'title']
      *       ],
      *   ]
-     *
      * @param $array
      */
     public static function addMenuTypes($array)
@@ -220,9 +211,7 @@ class Core
 
     /**
      * اگر قصد دارید روی اکشن خاصی آمار بازدید ثبت شود، آن اکشن را اینجا ثبت کنید
-     *
      * آرایه ی نمونه:
-     *
      *  [
      *       'controller_class_name' =>['action_name' => 'table_name']
      *  ]
@@ -237,8 +226,6 @@ class Core
 
     /**
      * مشخص کنید نتایج جست و جو به چه شکل نمایش داده شود، و از کدام مدل ها دریافت شود
-     *
-     *
      * [
      *      'view' => 'search',
      *      'types' =>
@@ -261,14 +248,11 @@ class Core
      *                                                              'author' => function ($id) {
      *                                                                      //someCode...
      *                                                                  },
-     *
      *                                                           ],
-     *
      *                                  ],
      *                      ]
      *                  ]
      * ]
-     *
      * @param $array
      */
     public static function addSearchItems($array)
@@ -278,8 +262,6 @@ class Core
 
     /**
      * مشخص کنید نتایج صفحه ی دسته بندی ها به چه شکل نمایش داده شود
-     *
-     *
      * @param $array
      */
     public static function addCategoryItems($array)
@@ -317,10 +299,37 @@ class Core
     }
 
     /**
+     * مجوز هایی که در سامانه وجود دارد را تنظیم کنید
+     * @param  array[]  $permissions
+     */
+    public static function Permissions(
+        $permissions =
+        [
+            [
+                'name'        => 'start',
+                'description' => 'test'
+            ]
+        ]
+    ) {
+        self::$permissions = $permissions;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getPermissions(): array
+    {
+        return self::$permissions;
+    }
+
+    public static function getNotificationNames()
+    {
+        return self::$notificationNames;
+    }
+
+    /**
      *  * این تابع انواع بخش هایی که برای انها نوتیفیکیشن ارسال میشود را تعریف میکند.
-     *
      * نمونه ی آرایه ی مورد قبول:
-     *
      * ```php
      * [
      *      'ticket'=>//module name
@@ -345,63 +354,36 @@ class Core
      * ]
      * ```
      * @param $array
-     *
      */
-    public static function setNotificationNames($array =
-                                                [
-                                                    'ticket' =>//module name (optional)
-                                                        [
-                                                            'label' => 'تیکت ها',//module label
-                                                            'items' =>
-                                                                [
-                                                                    'ticket_answer' => //module act name (required)
-                                                                        [
-                                                                            'label' => 'پاسخ به تیکت',//module act label
-                                                                            'hint' => 'ارسال اطلاعیه در زمان پاسخ به تیکت',//module act hint
-                                                                            'params' =>// dynamic parameters
-                                                                                [
-                                                                                    [
-                                                                                        'name' => 'نام',
-                                                                                        'family' => 'نام خانوادگی',
-                                                                                    ]
-                                                                                ]
-                                                                        ]
-                                                                ]
-                                                        ]
-                                                ]
-    )
-    {
+    public static function setNotificationNames(
+        $array =
+        [
+            'ticket' =>//module name (optional)
+                [
+                    'label' => 'تیکت ها',
+                    //module label
+                    'items' =>
+                        [
+                            'ticket_answer' => //module act name (required)
+                                [
+                                    'label'  => 'پاسخ به تیکت',
+                                    //module act label
+                                    'hint'   => 'ارسال اطلاعیه در زمان پاسخ به تیکت',
+                                    //module act hint
+                                    'params' =>// dynamic parameters
+                                        [
+                                            [
+                                                'name'   => 'نام',
+                                                'family' => 'نام خانوادگی',
+                                            ]
+                                        ]
+                                ]
+                        ]
+                ]
+        ]
+    ) {
 
         self::$notificationNames = $array;
-    }
-
-    /**
-     * مجوز هایی که در سامانه وجود دارد را تنظیم کنید
-     * @param array[] $permissions
-     */
-    public static function Permissions($permissions =
-                                       [
-                                           [
-                                               'name' => 'start',
-                                               'description' => 'test'
-                                           ]
-                                       ]
-    )
-    {
-        self::$permissions = $permissions;
-    }
-
-    /**
-     * @return array
-     */
-    public static function getPermissions(): array
-    {
-        return self::$permissions;
-    }
-
-    public static function getNotificationNames()
-    {
-        return self::$notificationNames;
     }
 
 

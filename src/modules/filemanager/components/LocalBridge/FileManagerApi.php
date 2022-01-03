@@ -1,11 +1,18 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
 namespace AngularFilemanager\LocalBridge;
 
 use Yii;
 
 /**
  * File Manager API Class
- *
  * Made for PHP Local filesystem bridge for angular-filemanager to handle file manipulations
  * @author Jakub Ďuraš <jakub@duras.me>
  */
@@ -20,21 +27,21 @@ class FileManagerApi
         if ($muteErrors) {
             ini_set('display_errors', 0);
         }
-	    
-        $this->basePath = $basePath ?:Yii::$app->Options->UploadDir ;
-	    
-        
+
+        $this->basePath = $basePath ?: Yii::$app->Options->UploadDir;
+
+
         $this->translate = new Translate($lang);
     }
 
     public function postHandler($query, $request, $files)
     {
         $t = $this->translate;
-        
+
         // Probably file upload
         if (!isset($request['action'])
             && (isset($_SERVER["CONTENT_TYPE"])
-            && strpos($_SERVER["CONTENT_TYPE"], 'multipart/form-data') !== false)
+                && strpos($_SERVER["CONTENT_TYPE"], 'multipart/form-data') !== false)
         ) {
             $uploaded = $this->uploadAction($request['destination'], $files);
             if ($uploaded === true) {
@@ -166,39 +173,6 @@ class FileManagerApi
                     $response = $this->simpleErrorResponse($t->extraction_failed);
                 }
                 break;
-            
-            default:
-                $response = $this->simpleErrorResponse($t->function_not_implemented);
-                break;
-        }
-
-        return $response;
-    }
-
-    public function getHandler($queries)
-    {
-        $t = $this->translate;
-
-        switch ($queries['action']) {
-            case 'download':
-                $downloaded = $this->downloadAction($queries['path']);
-                if ($downloaded === true) {
-                    exit;
-                } else {
-                    $response = $this->simpleErrorResponse($t->file_not_found);
-                }
-                
-                break;
-
-            case 'downloadMultiple':
-                $downloaded = $this->downloadMultipleAction($queries['items'], $queries['toFilename']);
-                if ($downloaded === true) {
-                    exit;
-                } else {
-                    $response = $this->simpleErrorResponse($t->file_not_found);
-                }
-
-                break;
 
             default:
                 $response = $this->simpleErrorResponse($t->function_not_implemented);
@@ -206,74 +180,19 @@ class FileManagerApi
         }
 
         return $response;
-    }
-
-    private function downloadAction($path)
-    {
-        $file_name = basename($path);
-        $path = $this->canonicalizePath($this->basePath . $path);
-
-        if (!file_exists($path)) {
-            return false;
-        }
-
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mime_type = finfo_file($finfo, $path);
-        finfo_close($finfo);
-
-        if (ob_get_level()) {
-            ob_end_clean();
-        }
-
-        header("Content-Disposition: attachment; filename=\"$file_name\"");
-        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-        header("Content-Type: $mime_type");
-        header('Pragma: public');
-        header('Content-Length: ' . filesize($path));
-        readfile($path);
-
-        return true;
-    }
-
-    private function downloadMultipleAction($items, $archiveName)
-    {
-        $archivePath = tempnam('../', 'archive');
-
-        $zip = new \ZipArchive();
-        if ($zip->open($archivePath, \ZipArchive::CREATE) !== true) {
-            unlink($archivePath);
-            return false;
-        }
-
-        foreach ($items as $path) {
-            $zip->addFile($this->basePath . $path, basename($path));
-        }
-
-        $zip->close();
-
-        header("Content-Disposition: attachment; filename=\"$archiveName\"");
-        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-        header("Content-Type: application/zip");
-        header('Pragma: public');
-        header('Content-Length: ' . filesize($archivePath));
-        readfile($archivePath);
-
-        unlink($archivePath);
-
-        return true;
     }
 
     private function uploadAction($path, $files)
     {
-        $path = $this->canonicalizePath($this->basePath . $path);
+        $path = $this->canonicalizePath($this->basePath.$path);
 
         foreach ($_FILES as $file) {
             $fileInfo = pathinfo($file['name']);
-            $fileName = $this->normalizeName($fileInfo['filename']) . '.' . $fileInfo['extension'];
+            $fileName = $this->normalizeName($fileInfo['filename']).'.'.$fileInfo['extension'];
 
             $uploaded = move_uploaded_file(
                 $file['tmp_name'],
-                $path . DIRECTORY_SEPARATOR . $fileName
+                $path.DIRECTORY_SEPARATOR.$fileName
             );
             if ($uploaded === false) {
                 return false;
@@ -283,231 +202,52 @@ class FileManagerApi
         return true;
     }
 
-    private function listAction($path)
+    private function canonicalizePath($path)
     {
-    	  
-    	  
-    	   
-        $files = array_values(array_filter(
-            scandir($this->basePath . $path),
-            function ($path) {
-                return !($path === '.' || $path === '..');
-            }
-        ));
+        $dirSep = DIRECTORY_SEPARATOR;
+        $wrongDirSep = DIRECTORY_SEPARATOR === '/' ? '\\' : '/';
 
-        $files = array_map(function ($file) use ($path) {
-            $file = $this->canonicalizePath(
-                $this->basePath . $path . DIRECTORY_SEPARATOR . $file
-            );
-            $date = new \DateTime('@' . filemtime($file));
+        // Replace incorrect dir separators
+        $path = str_replace($wrongDirSep, $dirSep, $path);
 
-            return [
-                'name' => basename($file),
-                'rights' => $this->parsePerms(fileperms($file)),
-                'size' => filesize($file),
-                'date' => $date->format('Y-m-d H:i:s'),
-                'type' => is_dir($file) ? 'dir' : 'file'
-            ];
-        }, $files);
-
-        return $files;
-    }
-
-    private function renameAction($oldPath, $newPath)
-    {
-        $oldPath = $this->basePath . $oldPath;
-        $newPath = $this->basePath . $newPath;
-
-        if (! file_exists($oldPath)) {
-            return 'notfound';
-        }
-
-        return rename($oldPath, $newPath);
-    }
-
-    private function moveAction($oldPaths, $newPath)
-    {
-        $newPath = $this->basePath . $this->canonicalizePath($newPath) . DIRECTORY_SEPARATOR;
-
-        foreach ($oldPaths as $oldPath) {
-            if (!file_exists($this->basePath . $oldPath)) {
-                return false;
+        $path = explode($dirSep, $path);
+        $stack = [];
+        foreach ($path as $seg) {
+            if ($seg == '..') {
+                // Ignore this segment, remove last segment from stack
+                array_pop($stack);
+                continue;
             }
 
-            $renamed = rename($this->basePath . $oldPath, $newPath . basename($oldPath));
-            if ($renamed === false) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private function copyAction($oldPaths, $newPath)
-    {
-        $newPath = $this->basePath . $this->canonicalizePath($newPath) . DIRECTORY_SEPARATOR;
-
-        foreach ($oldPaths as $oldPath) {
-            if (!file_exists($this->basePath . $oldPath)) {
-                return false;
+            if ($seg == '.') {
+                // Ignore this segment
+                continue;
             }
 
-            $copied = copy(
-                $this->basePath . $oldPath,
-                $newPath . basename($oldPath)
-            );
-            if ($copied === false) {
-                return false;
-            }
+            $stack[] = $seg;
         }
 
-        return true;
+        // Remove last /
+        if (empty($stack[count($stack) - 1])) {
+            array_pop($stack);
+        }
+
+        return implode($dirSep, $stack);
     }
 
-    private function removeAction($paths)
+    /**
+     * Creates ASCII name
+     * @param  string name encoded in UTF-8
+     * @return string name containing only numbers, chars without diacritics, underscore and dash
+     * @copyright Jakub Vrána, https://php.vrana.cz/
+     */
+    private function normalizeName($name)
     {
-        foreach ($paths as $path) {
-            $path = $this->canonicalizePath($this->basePath . $path);
-
-            if (is_dir($path)) {
-                $dirEmpty = (new \FilesystemIterator($path))->valid();
-
-                if ($dirEmpty) {
-                    return 'notempty';
-                } else {
-                    $removed = rmdir($path);
-                }
-            } else {
-                $removed = unlink($path);
-            }
-
-            if ($removed === false) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private function editAction($path, $content)
-    {
-        $path = $this->basePath . $path;
-        return file_put_contents($path, $content);
-    }
-
-    private function getContentAction($path)
-    {
-        $path = $this->basePath . $path;
-
-        if (! file_exists($path)) {
-            return false;
-        }
-
-        return file_get_contents($path);
-    }
-
-    private function createFolderAction($path)
-    {
-        $path = $this->basePath . $path;
-
-        if (file_exists($path) && is_dir($path)) {
-            return 'exists';
-        }
-
-        return mkdir($path);
-    }
-
-    private function changePermissionsAction($paths, $permissions, $recursive)
-    {
-        foreach ($paths as $path) {
-            if (!file_exists($this->basePath . $path)) {
-                return 'missing';
-            }
-
-            if (is_dir($path) && $recursive === true) {
-                $iterator = new RecursiveIteratorIterator(
-                    new RecursiveDirectoryIterator($path),
-                    RecursiveIteratorIterator::SELF_FIRST
-                );
-
-                foreach ($iterator as $item) {
-                    $changed = chmod($this->basePath . $item, octdec($permissions));
-                    
-                    if ($changed === false) {
-                        return false;
-                    }
-                }
-            }
-
-            return chmod($this->basePath . $path, octdec($permissions));
-        }
-    }
-
-    private function compressAction($paths, $destination, $archiveName)
-    {
-        $archivePath = $this->basePath . $destination . $archiveName;
-
-        $zip = new \ZipArchive();
-        if ($zip->open($archivePath, \ZipArchive::CREATE) !== true) {
-            return false;
-        }
-
-        foreach ($paths as $path) {
-            $fullPath = $this->basePath . $path;
-
-            if (is_dir($fullPath)) {
-                $dirs = [
-                    [
-                        'dir' => basename($path),
-                        'path' => $this->canonicalizePath($this->basePath . $path),
-                    ]
-                ];
-
-                while (count($dirs)) {
-                    $dir = current($dirs);
-                    $zip->addEmptyDir($dir['dir']);
-
-                    $dh = opendir($dir['path']);
-                    while ($file = readdir($dh)) {
-                        if ($file != '.' && $file != '..') {
-                            $filePath = $dir['path'] . DIRECTORY_SEPARATOR . $file;
-                            if (is_file($filePath)) {
-                                $zip->addFile(
-                                    $dir['path'] . DIRECTORY_SEPARATOR . $file,
-                                    $dir['dir'] . '/' . basename($file)
-                                );
-                            } elseif (is_dir($filePath)) {
-                                $dirs[] = [
-                                    'dir' => $dir['dir'] . '/' . $file,
-                                    'path' => $dir['path'] . DIRECTORY_SEPARATOR . $file
-                                ];
-                            }
-                        }
-                    }
-                    closedir($dh);
-                    array_shift($dirs);
-                }
-            } else {
-                $zip->addFile($path, basename($path));
-            }
-        }
-
-        return $zip->close();
-    }
-
-    private function extractAction($destination, $archivePath, $folderName)
-    {
-        $archivePath = $this->basePath . $archivePath;
-        $folderPath = $this->basePath . $this->canonicalizePath($destination) . DIRECTORY_SEPARATOR . $folderName;
-
-        $zip = new \ZipArchive;
-        if ($zip->open($archivePath) === false) {
-            return 'unsupported';
-        }
-
-        mkdir($folderPath);
-        $zip->extractTo($folderPath);
-        return $zip->close();
+        $name = preg_replace('~[^\\pL0-9_]+~u', '-', $name);
+        $name = trim($name, "-");
+        $name = iconv("utf-8", "us-ascii//TRANSLIT", $name);
+        $name = preg_replace('~[^-a-z0-9_]+~', '', $name);
+        return $name;
     }
 
     private function simpleSuccessResponse()
@@ -530,11 +270,40 @@ class FileManagerApi
             ->setData([
                 'result' => [
                     'success' => false,
-                    'error' => $message
+                    'error'   => $message
                 ]
             ]);
 
         return $response;
+    }
+
+    private function listAction($path)
+    {
+
+
+        $files = array_values(array_filter(
+            scandir($this->basePath.$path),
+            function ($path) {
+                return !($path === '.' || $path === '..');
+            }
+        ));
+
+        $files = array_map(function ($file) use ($path) {
+            $file = $this->canonicalizePath(
+                $this->basePath.$path.DIRECTORY_SEPARATOR.$file
+            );
+            $date = new \DateTime('@'.filemtime($file));
+
+            return [
+                'name'   => basename($file),
+                'rights' => $this->parsePerms(fileperms($file)),
+                'size'   => filesize($file),
+                'date'   => $date->format('Y-m-d H:i:s'),
+                'type'   => is_dir($file) ? 'dir' : 'file'
+            ];
+        }, $files);
+
+        return $files;
     }
 
     private function parsePerms($perms)
@@ -569,72 +338,308 @@ class FileManagerApi
         $info .= (($perms & 0x0100) ? 'r' : '-');
         $info .= (($perms & 0x0080) ? 'w' : '-');
         $info .= (($perms & 0x0040) ?
-                    (($perms & 0x0800) ? 's' : 'x' ) :
-                    (($perms & 0x0800) ? 'S' : '-'));
+            (($perms & 0x0800) ? 's' : 'x') :
+            (($perms & 0x0800) ? 'S' : '-'));
 
         // Group
         $info .= (($perms & 0x0020) ? 'r' : '-');
         $info .= (($perms & 0x0010) ? 'w' : '-');
         $info .= (($perms & 0x0008) ?
-                    (($perms & 0x0400) ? 's' : 'x' ) :
-                    (($perms & 0x0400) ? 'S' : '-'));
+            (($perms & 0x0400) ? 's' : 'x') :
+            (($perms & 0x0400) ? 'S' : '-'));
 
         // World
         $info .= (($perms & 0x0004) ? 'r' : '-');
         $info .= (($perms & 0x0002) ? 'w' : '-');
         $info .= (($perms & 0x0001) ?
-                    (($perms & 0x0200) ? 't' : 'x' ) :
-                    (($perms & 0x0200) ? 'T' : '-'));
+            (($perms & 0x0200) ? 't' : 'x') :
+            (($perms & 0x0200) ? 'T' : '-'));
 
         return $info;
     }
 
-    private function canonicalizePath($path)
+    private function renameAction($oldPath, $newPath)
     {
-        $dirSep = DIRECTORY_SEPARATOR;
-        $wrongDirSep = DIRECTORY_SEPARATOR === '/' ? '\\' : '/';
+        $oldPath = $this->basePath.$oldPath;
+        $newPath = $this->basePath.$newPath;
 
-        // Replace incorrect dir separators
-        $path = str_replace($wrongDirSep, $dirSep, $path);
-
-        $path = explode($dirSep, $path);
-        $stack = array();
-        foreach ($path as $seg) {
-            if ($seg == '..') {
-                // Ignore this segment, remove last segment from stack
-                array_pop($stack);
-                continue;
-            }
-
-            if ($seg == '.') {
-                // Ignore this segment
-                continue;
-            }
-
-            $stack[] = $seg;
+        if (!file_exists($oldPath)) {
+            return 'notfound';
         }
 
-        // Remove last /
-        if (empty($stack[count($stack) - 1])) {
-            array_pop($stack);
-        }
-
-        return implode($dirSep, $stack);
+        return rename($oldPath, $newPath);
     }
 
-    /**
-    * Creates ASCII name
-    *
-    * @param string name encoded in UTF-8
-    * @return string name containing only numbers, chars without diacritics, underscore and dash
-    * @copyright Jakub Vrána, https://php.vrana.cz/
-    */
-    private function normalizeName($name)
+    private function moveAction($oldPaths, $newPath)
     {
-        $name = preg_replace('~[^\\pL0-9_]+~u', '-', $name);
-        $name = trim($name, "-");
-        $name = iconv("utf-8", "us-ascii//TRANSLIT", $name);
-        $name = preg_replace('~[^-a-z0-9_]+~', '', $name);
-        return $name;
+        $newPath = $this->basePath.$this->canonicalizePath($newPath).DIRECTORY_SEPARATOR;
+
+        foreach ($oldPaths as $oldPath) {
+            if (!file_exists($this->basePath.$oldPath)) {
+                return false;
+            }
+
+            $renamed = rename($this->basePath.$oldPath, $newPath.basename($oldPath));
+            if ($renamed === false) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private function copyAction($oldPaths, $newPath)
+    {
+        $newPath = $this->basePath.$this->canonicalizePath($newPath).DIRECTORY_SEPARATOR;
+
+        foreach ($oldPaths as $oldPath) {
+            if (!file_exists($this->basePath.$oldPath)) {
+                return false;
+            }
+
+            $copied = copy(
+                $this->basePath.$oldPath,
+                $newPath.basename($oldPath)
+            );
+            if ($copied === false) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private function removeAction($paths)
+    {
+        foreach ($paths as $path) {
+            $path = $this->canonicalizePath($this->basePath.$path);
+
+            if (is_dir($path)) {
+                $dirEmpty = (new \FilesystemIterator($path))->valid();
+
+                if ($dirEmpty) {
+                    return 'notempty';
+                } else {
+                    $removed = rmdir($path);
+                }
+            } else {
+                $removed = unlink($path);
+            }
+
+            if ($removed === false) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private function editAction($path, $content)
+    {
+        $path = $this->basePath.$path;
+        return file_put_contents($path, $content);
+    }
+
+    private function getContentAction($path)
+    {
+        $path = $this->basePath.$path;
+
+        if (!file_exists($path)) {
+            return false;
+        }
+
+        return file_get_contents($path);
+    }
+
+    private function createFolderAction($path)
+    {
+        $path = $this->basePath.$path;
+
+        if (file_exists($path) && is_dir($path)) {
+            return 'exists';
+        }
+
+        return mkdir($path);
+    }
+
+    private function changePermissionsAction($paths, $permissions, $recursive)
+    {
+        foreach ($paths as $path) {
+            if (!file_exists($this->basePath.$path)) {
+                return 'missing';
+            }
+
+            if (is_dir($path) && $recursive === true) {
+                $iterator = new RecursiveIteratorIterator(
+                    new RecursiveDirectoryIterator($path),
+                    RecursiveIteratorIterator::SELF_FIRST
+                );
+
+                foreach ($iterator as $item) {
+                    $changed = chmod($this->basePath.$item, octdec($permissions));
+
+                    if ($changed === false) {
+                        return false;
+                    }
+                }
+            }
+
+            return chmod($this->basePath.$path, octdec($permissions));
+        }
+    }
+
+    private function compressAction($paths, $destination, $archiveName)
+    {
+        $archivePath = $this->basePath.$destination.$archiveName;
+
+        $zip = new \ZipArchive();
+        if ($zip->open($archivePath, \ZipArchive::CREATE) !== true) {
+            return false;
+        }
+
+        foreach ($paths as $path) {
+            $fullPath = $this->basePath.$path;
+
+            if (is_dir($fullPath)) {
+                $dirs = [
+                    [
+                        'dir'  => basename($path),
+                        'path' => $this->canonicalizePath($this->basePath.$path),
+                    ]
+                ];
+
+                while (count($dirs)) {
+                    $dir = current($dirs);
+                    $zip->addEmptyDir($dir['dir']);
+
+                    $dh = opendir($dir['path']);
+                    while ($file = readdir($dh)) {
+                        if ($file != '.' && $file != '..') {
+                            $filePath = $dir['path'].DIRECTORY_SEPARATOR.$file;
+                            if (is_file($filePath)) {
+                                $zip->addFile(
+                                    $dir['path'].DIRECTORY_SEPARATOR.$file,
+                                    $dir['dir'].'/'.basename($file)
+                                );
+                            } elseif (is_dir($filePath)) {
+                                $dirs[] = [
+                                    'dir'  => $dir['dir'].'/'.$file,
+                                    'path' => $dir['path'].DIRECTORY_SEPARATOR.$file
+                                ];
+                            }
+                        }
+                    }
+                    closedir($dh);
+                    array_shift($dirs);
+                }
+            } else {
+                $zip->addFile($path, basename($path));
+            }
+        }
+
+        return $zip->close();
+    }
+
+    private function extractAction($destination, $archivePath, $folderName)
+    {
+        $archivePath = $this->basePath.$archivePath;
+        $folderPath = $this->basePath.$this->canonicalizePath($destination).DIRECTORY_SEPARATOR.$folderName;
+
+        $zip = new \ZipArchive;
+        if ($zip->open($archivePath) === false) {
+            return 'unsupported';
+        }
+
+        mkdir($folderPath);
+        $zip->extractTo($folderPath);
+        return $zip->close();
+    }
+
+    public function getHandler($queries)
+    {
+        $t = $this->translate;
+
+        switch ($queries['action']) {
+            case 'download':
+                $downloaded = $this->downloadAction($queries['path']);
+                if ($downloaded === true) {
+                    exit;
+                } else {
+                    $response = $this->simpleErrorResponse($t->file_not_found);
+                }
+
+                break;
+
+            case 'downloadMultiple':
+                $downloaded = $this->downloadMultipleAction($queries['items'], $queries['toFilename']);
+                if ($downloaded === true) {
+                    exit;
+                } else {
+                    $response = $this->simpleErrorResponse($t->file_not_found);
+                }
+
+                break;
+
+            default:
+                $response = $this->simpleErrorResponse($t->function_not_implemented);
+                break;
+        }
+
+        return $response;
+    }
+
+    private function downloadAction($path)
+    {
+        $file_name = basename($path);
+        $path = $this->canonicalizePath($this->basePath.$path);
+
+        if (!file_exists($path)) {
+            return false;
+        }
+
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime_type = finfo_file($finfo, $path);
+        finfo_close($finfo);
+
+        if (ob_get_level()) {
+            ob_end_clean();
+        }
+
+        header("Content-Disposition: attachment; filename=\"$file_name\"");
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header("Content-Type: $mime_type");
+        header('Pragma: public');
+        header('Content-Length: '.filesize($path));
+        readfile($path);
+
+        return true;
+    }
+
+    private function downloadMultipleAction($items, $archiveName)
+    {
+        $archivePath = tempnam('../', 'archive');
+
+        $zip = new \ZipArchive();
+        if ($zip->open($archivePath, \ZipArchive::CREATE) !== true) {
+            unlink($archivePath);
+            return false;
+        }
+
+        foreach ($items as $path) {
+            $zip->addFile($this->basePath.$path, basename($path));
+        }
+
+        $zip->close();
+
+        header("Content-Disposition: attachment; filename=\"$archiveName\"");
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header("Content-Type: application/zip");
+        header('Pragma: public');
+        header('Content-Length: '.filesize($archivePath));
+        readfile($archivePath);
+
+        unlink($archivePath);
+
+        return true;
     }
 }

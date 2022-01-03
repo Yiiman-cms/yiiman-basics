@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\transactions\Terminals;
 
@@ -18,7 +24,7 @@ class Zarinpal extends \YiiMan\YiiBasics\modules\transactions\base\BaseTerminal
             'zarinMerchant' =>
                 [
                     'label' => 'مرچنت کد',
-                    'hint' => 'لطفا مرچنت کد درگاه زرین پال را در این ورودی ثبت کنید'
+                    'hint'  => 'لطفا مرچنت کد درگاه زرین پال را در این ورودی ثبت کنید'
                 ]
         ];
     public $token;
@@ -31,9 +37,9 @@ class Zarinpal extends \YiiMan\YiiBasics\modules\transactions\base\BaseTerminal
     }
 
     /**
-     * @param TransactionsFactor $factor
-     * @param Transactions $transactions
-     * @param string $callbackUrl
+     * @param  TransactionsFactor  $factor
+     * @param  Transactions        $transactions
+     * @param  string              $callbackUrl
      * @return mixed|void
      */
     public function start(TransactionsFactor $factor, Transactions $transactions, string $callbackUrl)
@@ -42,9 +48,9 @@ class Zarinpal extends \YiiMan\YiiBasics\modules\transactions\base\BaseTerminal
             return;
         }
         if ($this->sandbox) {
-            $url = 'https://sandbox.zarinpal.com/pg/StartPay/' . $transactions->terminal_pre_pay_serial;
+            $url = 'https://sandbox.zarinpal.com/pg/StartPay/'.$transactions->terminal_pre_pay_serial;
         } else {
-            $url = 'https://www.zarinpal.com/pg/StartPay/' . $transactions->terminal_pre_pay_serial;
+            $url = 'https://www.zarinpal.com/pg/StartPay/'.$transactions->terminal_pre_pay_serial;
         }
         $html = <<<HTML
 <!DOCTYPE html>
@@ -90,19 +96,19 @@ HTML;
                     $post = \Yii::$app->Curl->post($url,
                         [
                             'merchant_id' => $this->token,
-                            'amount' => $transactions->factor0->price * 10,
-                            'authority' => $transactions->terminal_pre_pay_serial,
+                            'amount'      => $transactions->factor0->price * 10,
+                            'authority'   => $transactions->terminal_pre_pay_serial,
                         ]
                     );
 
                     $result = json_decode(\Yii::$app->Curl->rawResponse);
 
-                    if ((int)$result->data->code == 100) {
+                    if ((int) $result->data->code == 100) {
                         $transactions->terminal_after_pay_serial = $result->data->ref_id;
                         $transactions->save();
                         $transactions->payed();
                         return true;
-                    } elseif ((int)$result->data->code == 101) {
+                    } elseif ((int) $result->data->code == 101) {
                         if ($transactions->factor0->status == TransactionsFactor::STATUS_PAYED) {
                             return true;
                         } else {
@@ -119,10 +125,10 @@ HTML;
     }
 
     /**
-     * @param float $price
-     * @param TransactionsFactor $factor
-     * @param Transactions $transaction
-     * @param string $callbackUrl
+     * @param  float               $price
+     * @param  TransactionsFactor  $factor
+     * @param  Transactions        $transaction
+     * @param  string              $callbackUrl
      * @return mixed
      * @throws BadRequestHttpException
      */
@@ -139,9 +145,9 @@ HTML;
         \Yii::$app->Curl->setDefaultJsonDecoder();
         $data =
             [
-                'merchant_id' => $this->token,
-                'amount' => (int)$price,
-                'description' => $transaction->description,
+                'merchant_id'  => $this->token,
+                'amount'       => (int) $price,
+                'description'  => $transaction->description,
                 'callback_url' => $callbackUrl,
 //            'metadata' =>
 //                [
@@ -163,11 +169,11 @@ HTML;
 
 
         if (empty($result->data) && !empty($result->errors)) {
-            \Yii::$app->session->addFlash('danger', 'Code: ' . $result->errors->code . ' : ' . $result->errors->message);
+            \Yii::$app->session->addFlash('danger', 'Code: '.$result->errors->code.' : '.$result->errors->message);
             \Yii::$app->response->redirect(['/panel'])->send();
             die();
         }
-        if ((int)$result->data->code == 100) {
+        if ((int) $result->data->code == 100) {
             return $result->data->authority;
         } else {
             throw new BadRequestHttpException($result->errorDesc);

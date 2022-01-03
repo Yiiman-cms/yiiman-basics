@@ -1,7 +1,16 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
+
 /* @var $this yii\web\View */
 /* @var $model \frontend\models\ChangePassword */
 $this->title = Yii::t('base', 'Change Password');
@@ -17,7 +26,7 @@ $this->title = Yii::t('base', 'Change Password');
                 <label class="form-label">
                     رمز عبور فعلی
                 </label>
-                <?= $form->field($model, 'old_password')->passwordInput(['class'=>'form-control'])->label(false); ?>
+                <?= $form->field($model, 'old_password')->passwordInput(['class' => 'form-control'])->label(false); ?>
             </div>
         </div>
         <div class="w-100"></div>
@@ -26,7 +35,7 @@ $this->title = Yii::t('base', 'Change Password');
                 <label class="form-label">
                     رمز عبور جدید
                 </label>
-                <?= $form->field($model, 'new_password')->passwordInput(['class'=>'form-control'])->label(false); ?>
+                <?= $form->field($model, 'new_password')->passwordInput(['class' => 'form-control'])->label(false); ?>
 
             </div>
         </div>
@@ -36,7 +45,8 @@ $this->title = Yii::t('base', 'Change Password');
                 <label class="form-label">
                     تکرار رمز عبور جدید
                 </label>
-                <?= $form->field($model, 'new_password_repeat')->passwordInput(['class'=>'form-control'])->label(false); ?>
+                <?= $form->field($model,
+                    'new_password_repeat')->passwordInput(['class' => 'form-control'])->label(false); ?>
 
             </div>
         </div>

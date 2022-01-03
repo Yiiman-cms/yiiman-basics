@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
@@ -14,7 +21,7 @@ $this->title = 'تخصیص کاربران ادمین به دپارتمان ها'
     Yii::t('ticket', 'ثبت '),
     'success',
     null,
-    Yii::$app->Options->BackendUrl . '/ticket/ticket-department-users/create'
+    Yii::$app->Options->BackendUrl.'/ticket/ticket-department-users/create'
 );
 \YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 

@@ -1,17 +1,24 @@
 <?php
-
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\pages\models\Pages;
 use YiiMan\YiiBasics\modules\pages\widgets\htmlBuilder\assets\Assets;
 
 /**
- * @var $id int
+ * @var $id   int
  * @var $this \YiiMan\YiiBasics\lib\View
  */
 $assets = Assets::register($this);
 $model = Pages::findOne($id);
 
-file_put_contents(Yii::$app->Options->UploadDir . '/samplePages/index.php', (!empty($model->content)?$model->content:''));
+file_put_contents(Yii::$app->Options->UploadDir.'/samplePages/index.php',
+    (!empty($model->content) ? $model->content : ''));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +31,7 @@ file_put_contents(Yii::$app->Options->UploadDir . '/samplePages/index.php', (!em
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
     <base href="">
-    <title><?= empty($model->title) ? 'صفحه ی جدید' : 'ویرایش برگه: ' . $model->title ?></title>
+    <title><?= empty($model->title) ? 'صفحه ی جدید' : 'ویرایش برگه: '.$model->title ?></title>
 
     <link href="<?= $assets->baseUrl ?>/css/editor.css" rel="stylesheet">
     <link href="<?= $assets->baseUrl ?>/css/line-awesome.css" rel="stylesheet">
@@ -35,7 +42,7 @@ file_put_contents(Yii::$app->Options->UploadDir . '/samplePages/index.php', (!em
     <link href="<?= $assets->baseUrl ?>/contextMenu/jquery.contextMenu.min.css" rel="stylesheet">
     <link href="<?= $assets->baseUrl ?>/libs/codemirror/lib/foldgutter.css" rel="stylesheet">
     <script>
-        var asseturlt = '<?= Yii::$app->Options->URL . $assets->baseUrl ?>/';
+        var asseturlt = '<?= Yii::$app->Options->URL.$assets->baseUrl ?>/';
         var backend = '<?= Yii::$app->Options->BackendUrl ?>';
         var saveUrl = '<?= Yii::$app->Options->BackendUrl ?>pages/widget/save';
         var uploadUrl = '<?= Yii::$app->Options->BackendUrl ?>pages/widget/upload?id=<?= $id ?>';
@@ -54,10 +61,11 @@ file_put_contents(Yii::$app->Options->UploadDir . '/samplePages/index.php', (!em
 </script>
 <style>
 
-    *{
+    * {
         user-select: all !important;
         transition: none !important;
     }
+
     .tippy-tooltip[data-animation="fade"][data-state="hidden"] {
         opacity: 1 !important;
     }
@@ -315,7 +323,8 @@ file_put_contents(Yii::$app->Options->UploadDir . '/samplePages/index.php', (!em
                     <div class="row">
                         <div class="col-md-12 modal-fields">
                             <div class="form-group">
-                                <label class="control-label" style="direction: <?= \YiiMan\YiiBasics\lib\i18n\Layout::run() ?>"
+                                <label class="control-label"
+                                       style="direction: <?= \YiiMan\YiiBasics\lib\i18n\Layout::run() ?>"
                                        for="slug">نامک</label>
                                 <style>     #slughinthelp {
                                         margin-top: 11px;
@@ -327,21 +336,22 @@ file_put_contents(Yii::$app->Options->UploadDir . '/samplePages/index.php', (!em
 
                                 <?php
                                 if (empty($slug)) {
-                                    $slug = 'page/' . $model->id;
+                                    $slug = 'page/'.$model->id;
                                 }
                                 ?>
                                 <span id="slughinthelp">
-                            <a class="slug-link" href="<?= Yii::$app->Options->URL . '/' . $slug ?>"
-                               target="_blank"><?= Yii::$app->Options->URL . '/' . $slug ?></a>
+                            <a class="slug-link" href="<?= Yii::$app->Options->URL.'/'.$slug ?>"
+                               target="_blank"><?= Yii::$app->Options->URL.'/'.$slug ?></a>
 
                                     <p style="text-align: right">نامک همان آدرس مستقیم صفحه است</p>
                                 <p style="text-align: right">چنانچه نامک را پر کنید، این صفحه به صورت زیر با آدرس مستقیم در دسترس خواهد بود:</p>
-                                <p style="text-align: left;direction: ltr"><?= Yii::$app->Options->URL . '/نامک شما' ?></p>
+                                <p style="text-align: left;direction: ltr"><?= Yii::$app->Options->URL.'/نامک شما' ?></p>
                             </span>
                                 <p class="help-block help-block-error"></p>
                             </div>
                             <div class="form-group">
-                                <label class="control-label" style="direction: <?= \YiiMan\YiiBasics\lib\i18n\Layout::run() ?>"
+                                <label class="control-label"
+                                       style="direction: <?= \YiiMan\YiiBasics\lib\i18n\Layout::run() ?>"
                                        for="pageType">مدل صفحه</label>
 
                                 <select type="text" class="form-control" id="pageType">
@@ -351,7 +361,7 @@ file_put_contents(Yii::$app->Options->UploadDir . '/samplePages/index.php', (!em
                                         if ($item['name'] == $model->template) {
                                             $selected = ' selected';
                                         }
-                                        echo '<option value="' . $item['name'] . '" ' . $selected . '>' . $item['label'] . '</option>';
+                                        echo '<option value="'.$item['name'].'" '.$selected.'>'.$item['label'].'</option>';
                                     }
                                     ?>
                                 </select>
@@ -359,17 +369,21 @@ file_put_contents(Yii::$app->Options->UploadDir . '/samplePages/index.php', (!em
                                 <p class="help-block help-block-error"></p>
                             </div>
                             <div class="form-group">
-                                <label class="control-label" style="direction: <?= \YiiMan\YiiBasics\lib\i18n\Layout::run() ?>"
+                                <label class="control-label"
+                                       style="direction: <?= \YiiMan\YiiBasics\lib\i18n\Layout::run() ?>"
                                        for="status">وضعیت انتشار</label>
 
                                 <select type="text" class="form-control" id="status">
                                     <?php
-                                    foreach ([0 => 'پیش نویس', 1 => 'منتشر شده'] as $k => $v) {
+                                    foreach ([
+                                                 0 => 'پیش نویس',
+                                                 1 => 'منتشر شده'
+                                             ] as $k => $v) {
                                         $selected = '';
                                         if ($k == $model->status) {
                                             $selected = ' selected';
                                         }
-                                        echo '<option value="' . $k . '" ' . $selected . '>' . $v . '</option>';
+                                        echo '<option value="'.$k.'" '.$selected.'>'.$v.'</option>';
                                     }
                                     ?>
                                 </select>
@@ -1485,7 +1499,7 @@ file_put_contents(Yii::$app->Options->UploadDir . '/samplePages/index.php', (!em
     foreach ($components as $component) {
         $idc = uniqid();
         $cGroup .= '
-Vvveb.BlocksGroup[\'' . $component['name'] . '\'] = [
+Vvveb.BlocksGroup[\''.$component['name'].'\'] = [
 
 ';
 
@@ -1494,7 +1508,7 @@ Vvveb.BlocksGroup[\'' . $component['name'] . '\'] = [
             foreach ($component['items'] as $key => $item) {
                 // < generate Group variable >
                 {
-                    $cGroup .= '"' . $idc . '/' . $item['name'] . '"';
+                    $cGroup .= '"'.$idc.'/'.$item['name'].'"';
                     if (!empty($component['items'][$key + 1])) {
                         $cGroup .= ',';
                     }
@@ -1508,17 +1522,17 @@ Vvveb.BlocksGroup[\'' . $component['name'] . '\'] = [
 
                     // < Check Image >
                     {
-                        $path = Yii::$app->Options->UploadDir . '/pageBuilder/';
-                        $pathURL = Yii::$app->Options->UploadUrl . '/pageBuilder/';
-                        if (!file_exists($path . $item['name'] . '.png')) {
+                        $path = Yii::$app->Options->UploadDir.'/pageBuilder/';
+                        $pathURL = Yii::$app->Options->UploadUrl.'/pageBuilder/';
+                        if (!file_exists($path.$item['name'].'.png')) {
                             @mkdir($path);
-                            copy($item['image'], $path . $item['name'] . '.png');
+                            copy($item['image'], $path.$item['name'].'.png');
                         }
                     }
                     // </ Check Image >
 
 
-                    $imageContent = $pathURL . $item['name'] . '.png';
+                    $imageContent = $pathURL.$item['name'].'.png';
                     $description = empty($item['description']) ? '' : trim($item['description']);
                     $jsComponent .= <<<JS
 
@@ -1711,7 +1725,7 @@ $componentFile = '';
             $properties = '';
             // < generate Group variable >
             {
-                $pCG .= '"' . $idc . '/' . $attribute . '",';
+                $pCG .= '"'.$idc.'/'.$attribute.'",';
 
             }
             // </ generate Group variable >
@@ -1795,7 +1809,7 @@ if (!empty($parameters)) {
         $properties = '';
         // < generate Group variable >
         {
-            $pCG .= '"' . $idc . '/' . $name . '",';
+            $pCG .= '"'.$idc.'/'.$name.'",';
 
         }
         // </ generate Group variable >
@@ -1809,7 +1823,7 @@ if (!empty($parameters)) {
 
                 foreach ($component['fields'] as $k => $f) {
                     $key = $k;
-                    $attributes .= ' ' . $key . '="' . $key . '"';
+                    $attributes .= ' '.$key.'="'.$key.'"';
 
                     $mode = ucfirst($f['mode']);
                     $validValues = '';
@@ -1824,10 +1838,10 @@ if (!empty($parameters)) {
                                 $data = 'data: {
                             options: [';
                                 foreach ($f['values'] as $vk => $vv) {
-                                    $validValues .= '"' . $vk . '",';
+                                    $validValues .= '"'.$vk.'",';
                                     $data .= '{
-                        value: "' . $vk . '",
-                        text: "' . $vv . '"
+                        value: "'.$vk.'",
+                        text: "'.$vv.'"
                     },';
                                 }
                                 $validValues .= '],';

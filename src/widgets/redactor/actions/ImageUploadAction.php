@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * Copyright (c) 2018-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
@@ -15,7 +15,7 @@ use YiiMan\YiiBasics\widgets\redactor\models\ImageUploadModel;
 
 /**
  * @author Nghia Nguyen <yiidevelop@hotmail.com>
- * @since 2.0
+ * @since  2.0
  */
 class ImageUploadAction extends \yii\base\Action
 {

@@ -1,13 +1,25 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\useradmin\models;
+
 use Yii;
 use yii\base\Model;
 use yii\base\InvalidParamException;
-class ResetPasswordForm extends Model {
+
+class ResetPasswordForm extends Model
+{
     public $password;
     private $_user = null;
-    public function __construct($token, $config = []) {
+
+    public function __construct($token, $config = [])
+    {
         if (empty($token) || !is_string($token)) {
             throw new InvalidParamException(Yii::t('base', 'Password reset token cannot be blank.'));
         }
@@ -17,18 +29,32 @@ class ResetPasswordForm extends Model {
         }
         parent::__construct($config);
     }
-    public function rules() {
+
+    public function rules()
+    {
         return [
-                ['password', 'required'],
-                ['password', 'string', 'min' => 6, 'max' => 255],
+            [
+                'password',
+                'required'
+            ],
+            [
+                'password',
+                'string',
+                'min' => 6,
+                'max' => 255
+            ],
         ];
     }
-    public function attributeLabels() {
+
+    public function attributeLabels()
+    {
         return [
             'password' => Yii::t('base', 'Password'),
         ];
     }
-    public function resetPassword() {
+
+    public function resetPassword()
+    {
         $user = $this->_user;
         $user->setPassword($this->password);
         $user->removePasswordResetToken();

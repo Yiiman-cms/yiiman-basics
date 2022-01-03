@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\product\models;
 
@@ -18,9 +25,35 @@ class SearchProduct extends Product
     public function rules()
     {
         return [
-            [['id', 'status', 'hit', 'sold'], 'integer'],
-            [['hash', 'title', 'description', 'code', 'unit', 'created_at', 'updated_at', 'json_data'], 'safe'],
-            [['weight', 'discount'], 'number'],
+            [
+                [
+                    'id',
+                    'status',
+                    'hit',
+                    'sold'
+                ],
+                'integer'
+            ],
+            [
+                [
+                    'hash',
+                    'title',
+                    'description',
+                    'code',
+                    'unit',
+                    'created_at',
+                    'updated_at',
+                    'json_data'
+                ],
+                'safe'
+            ],
+            [
+                [
+                    'weight',
+                    'discount'
+                ],
+                'number'
+            ],
         ];
     }
 
@@ -35,20 +68,18 @@ class SearchProduct extends Product
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
     {
         $query = Product::find();
 
-        if ($this->hasLanguage){
-            if (!empty( $_GET['lng'])){
-                $query=$query->where(['language'=> $_GET['lng']]);
-            }else{
-                $query=$query->where(['language_parent'=>null]);
+        if ($this->hasLanguage) {
+            if (!empty($_GET['lng'])) {
+                $query = $query->where(['language' => $_GET['lng']]);
+            } else {
+                $query = $query->where(['language_parent' => null]);
             }
         }
         // add conditions that should always apply here
@@ -67,22 +98,46 @@ class SearchProduct extends Product
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'status' => $this->status,
-            'weight' => $this->weight,
-            'discount' => $this->discount,
-            'hit' => $this->hit,
-            'sold' => $this->sold,
+            'id'         => $this->id,
+            'status'     => $this->status,
+            'weight'     => $this->weight,
+            'discount'   => $this->discount,
+            'hit'        => $this->hit,
+            'sold'       => $this->sold,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'hash', $this->hash])
-            ->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'code', $this->code])
-            ->andFilterWhere(['like', 'unit', $this->unit])
-            ->andFilterWhere(['like', 'json_data', $this->json_data]);
+        $query->andFilterWhere([
+            'like',
+            'hash',
+            $this->hash
+        ])
+            ->andFilterWhere([
+                'like',
+                'title',
+                $this->title
+            ])
+            ->andFilterWhere([
+                'like',
+                'description',
+                $this->description
+            ])
+            ->andFilterWhere([
+                'like',
+                'code',
+                $this->code
+            ])
+            ->andFilterWhere([
+                'like',
+                'unit',
+                $this->unit
+            ])
+            ->andFilterWhere([
+                'like',
+                'json_data',
+                $this->json_data
+            ]);
 
         return $dataProvider;
     }

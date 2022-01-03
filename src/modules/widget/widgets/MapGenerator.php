@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\widget\widgets;
 
@@ -8,12 +14,13 @@ use yii\bootstrap\Widget;
 
 class MapGenerator extends Widget
 {
-    public $image='';
+    public $image = '';
+
     public function run()
     {
         MapGeneratorAssets::register($this->view);
 
-        $js=<<<JS
+        $js = <<<JS
 $.each($("img[usemap]"),function(){
     $(this).mapify({
   popOver: {
@@ -47,7 +54,7 @@ $.each($("img[usemap]"),function(){
 })
 
 JS;
-        $this->view->registerJs($js,$this->view::POS_END);
+        $this->view->registerJs($js, $this->view::POS_END);
         return '';
     }
 }

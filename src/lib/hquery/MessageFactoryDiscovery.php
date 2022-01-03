@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\lib\hquery;
 
@@ -7,16 +14,13 @@ use Http\Message\MessageFactory;
 
 /**
  * Finds a Message Factory.
- *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
 final class MessageFactoryDiscovery extends ClassDiscovery
 {
     /**
      * Finds a Message Factory.
-     *
      * @return MessageFactory
-     *
      * @throws Exception\NotFoundException
      */
     public static function find()

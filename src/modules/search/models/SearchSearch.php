@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\search\models;
 
@@ -18,8 +25,22 @@ class SearchSearch extends Search
     public function rules()
     {
         return [
-            [['id', 'resultCount'], 'integer'],
-            [['query', 'created_at', 'ip', 'result_types'], 'safe'],
+            [
+                [
+                    'id',
+                    'resultCount'
+                ],
+                'integer'
+            ],
+            [
+                [
+                    'query',
+                    'created_at',
+                    'ip',
+                    'result_types'
+                ],
+                'safe'
+            ],
         ];
     }
 
@@ -34,20 +55,18 @@ class SearchSearch extends Search
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
     {
         $query = Search::find();
 
-        if ($this->hasLanguage){
-            if (!empty( $_GET['lng'])){
-                $query=$query->where(['language'=> $_GET['lng']]);
-            }else{
-                $query=$query->where(['language_parent'=>null]);
+        if ($this->hasLanguage) {
+            if (!empty($_GET['lng'])) {
+                $query = $query->where(['language' => $_GET['lng']]);
+            } else {
+                $query = $query->where(['language_parent' => null]);
             }
         }
         // add conditions that should always apply here
@@ -71,9 +90,21 @@ class SearchSearch extends Search
             'created_at' => $this->created_at,
         ]);
 
-        $query->andFilterWhere(['like', 'query', $this->query])
-            ->andFilterWhere(['like', 'ip', $this->ip])
-            ->andFilterWhere(['like', 'result_types', $this->result_types]);
+        $query->andFilterWhere([
+            'like',
+            'query',
+            $this->query
+        ])
+            ->andFilterWhere([
+                'like',
+                'ip',
+                $this->ip
+            ])
+            ->andFilterWhere([
+                'like',
+                'result_types',
+                $this->result_types
+            ]);
 
         return $dataProvider;
     }

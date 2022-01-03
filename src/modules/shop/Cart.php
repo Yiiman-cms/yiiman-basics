@@ -1,7 +1,16 @@
 <?php
 /**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
+/**
  * https://www.yiiframework.com/extension/devanych/yii2-cart#configuration
  */
+
 namespace YiiMan\YiiBasics\modules\shop;
 
 use yii\base\BaseObject;
@@ -28,10 +37,10 @@ class Cart extends BaseObject
      * @var array $defaultParams
      */
     private $defaultParams = [
-        'key' => 'cart',
-        'expire' => 604800,
-        'productClass' => 'app\model\Product',
-        'productFieldId' => 'id',
+        'key'               => 'cart',
+        'expire'            => 604800,
+        'productClass'      => 'app\model\Product',
+        'productFieldId'    => 'id',
         'productFieldPrice' => 'price',
     ];
 
@@ -60,13 +69,13 @@ class Cart extends BaseObject
         $this->params = array_merge($this->defaultParams, $this->params);
 
         if (!class_exists($this->params['productClass'])) {
-            throw new InvalidConfigException('productClass `' . $this->params['productClass'] . '` not found');
+            throw new InvalidConfigException('productClass `'.$this->params['productClass'].'` not found');
         }
         if (!class_exists($this->storageClass)) {
-            throw new InvalidConfigException('storageClass `' . $this->storageClass . '` not found');
+            throw new InvalidConfigException('storageClass `'.$this->storageClass.'` not found');
         }
         if (!class_exists($this->calculatorClass)) {
-            throw new InvalidConfigException('calculatorClass `' . $this->calculatorClass . '` not found');
+            throw new InvalidConfigException('calculatorClass `'.$this->calculatorClass.'` not found');
         }
 
         $this->storage = new $this->storageClass($this->params);
@@ -75,8 +84,8 @@ class Cart extends BaseObject
 
     /**
      * Add an item to the cart
-     * @param object $product
-     * @param integer $quantity
+     * @param  object   $product
+     * @param  integer  $quantity
      * @return void
      */
     public function add($product, $quantity)
@@ -85,16 +94,28 @@ class Cart extends BaseObject
         if (isset($this->items[$product->{$this->params['productFieldId']}])) {
             $this->plus($product->{$this->params['productFieldId']}, $quantity);
         } else {
-            $this->items[$product->{$this->params['productFieldId']}] = new CartItem($product, $quantity, $this->params);
+            $this->items[$product->{$this->params['productFieldId']}] = new CartItem($product, $quantity,
+                $this->params);
             ksort($this->items, SORT_NUMERIC);
             $this->saveItems();
         }
     }
 
     /**
+     * Load all items from the cart
+     * @return void
+     */
+    private function loadItems()
+    {
+        if ($this->items === null) {
+            $this->items = $this->storage->load();
+        }
+    }
+
+    /**
      * Adding item quantity in the cart
-     * @param integer $id
-     * @param integer $quantity
+     * @param  integer  $id
+     * @param  integer  $quantity
      * @return void
      */
     public function plus($id, $quantity)
@@ -107,9 +128,18 @@ class Cart extends BaseObject
     }
 
     /**
+     * Save all items to the cart
+     * @return void
+     */
+    private function saveItems()
+    {
+        $this->storage->save($this->items);
+    }
+
+    /**
      * Change item quantity in the cart
-     * @param integer $id
-     * @param integer $quantity
+     * @param  integer  $id
+     * @param  integer  $quantity
      * @return void
      */
     public function change($id, $quantity)
@@ -123,7 +153,7 @@ class Cart extends BaseObject
 
     /**
      * Removes an items from the cart
-     * @param integer $id
+     * @param  integer  $id
      * @return void
      */
     public function remove($id)
@@ -157,7 +187,7 @@ class Cart extends BaseObject
 
     /**
      * Returns an item from the cart
-     * @param integer $id
+     * @param  integer  $id
      * @return CartItem
      */
     public function getItem($id)
@@ -198,25 +228,5 @@ class Cart extends BaseObject
     {
         $this->loadItems();
         return $this->calculator->getCount($this->items);
-    }
-
-    /**
-     * Load all items from the cart
-     * @return void
-     */
-    private function loadItems()
-    {
-        if ($this->items === null) {
-            $this->items = $this->storage->load();
-        }
-    }
-
-    /**
-     * Save all items to the cart
-     * @return void
-     */
-    private function saveItems()
-    {
-        $this->storage->save($this->items);
     }
 }

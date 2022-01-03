@@ -1,9 +1,11 @@
 <?php
 
 /**
- * @link https://github.com/unclead/yii2-multiple-input
- * @copyright Copyright (c) 2014 unclead
- * @license https://github.com/unclead/yii2-multiple-input/blob/master/LICENSE.md
+ * Copyright (c) 2014-2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
  */
 
 namespace YiiMan\YiiBasics\widgets\multiRowInput;
@@ -18,7 +20,6 @@ use YiiMan\YiiBasics\widgets\multiRowInput\components\BaseColumn;
 /**
  * Class MultipleInputColumn
  * @package YiiMan\YiiBasics\widgets\multiRowInput
- *
  * @property MultipleInput $context
  */
 class MultipleInputColumn extends BaseColumn
@@ -36,22 +37,52 @@ class MultipleInputColumn extends BaseColumn
     }
 
     /**
+     * @param  int|string|null  $index
+     * @return null|string
+     */
+    public function getFirstError($index)
+    {
+        if ($index === null) {
+            return null;
+        }
+
+        if ($this->isRendererHasOneColumn()) {
+            $attribute = $this->name.'['.$index.']';
+        } else {
+            $attribute = $this->context->attribute.$this->getElementName($index, false);
+        }
+
+        $model = $this->context->model;
+        if ($model instanceof Model) {
+            return $model->getFirstError($attribute);
+        }
+
+        return null;
+    }
+
+    /**
+     * @return bool
+     */
+    private function isRendererHasOneColumn()
+    {
+        return count($this->renderer->columns) === 1;
+    }
+
+    /**
      * Returns element's name.
-     *
-     * @param int|null|string $index current row index
-     * @param bool $withPrefix whether to add prefix.
-     *
+     * @param  int|null|string  $index       current row index
+     * @param  bool             $withPrefix  whether to add prefix.
      * @return string
      */
     public function getElementName($index, $withPrefix = true)
     {
         if ($index === null) {
-            $index = '{' . $this->renderer->getIndexPlaceholder() . '}';
+            $index = '{'.$this->renderer->getIndexPlaceholder().'}';
         }
 
         $elementName = $this->isRendererHasOneColumn()
-            ? '[' . $this->name . '][' . $index . ']'
-            : '[' . $index . '][' . $this->name . ']';
+            ? '['.$this->name.']['.$index.']'
+            : '['.$index.']['.$this->name.']';
 
         if (!$withPrefix) {
             return $elementName;
@@ -62,20 +93,11 @@ class MultipleInputColumn extends BaseColumn
             $prefix = $this->context->name;
         }
 
-        return $prefix . $elementName . (empty($this->nameSuffix) ? '' : ('_' . $this->nameSuffix));
-    }
-
-    /**
-     * @return bool
-     */
-    private function isRendererHasOneColumn()
-    {
-        return count($this->renderer->columns) === 1; 
+        return $prefix.$elementName.(empty($this->nameSuffix) ? '' : ('_'.$this->nameSuffix));
     }
 
     /**
      * Return prefix for name of input.
-     *
      * @return string
      */
     protected function getInputNamePrefix()
@@ -85,10 +107,10 @@ class MultipleInputColumn extends BaseColumn
             if (empty($this->renderer->columns) || ($this->isRendererHasOneColumn() && $this->hasModelAttribute($this->name))) {
                 return $model->formName();
             }
-            
+
             return Html::getInputName($this->context->model, $this->context->attribute);
         }
-        
+
         return $this->context->name;
     }
 
@@ -109,30 +131,6 @@ class MultipleInputColumn extends BaseColumn
         }
 
         return false;
-    }
-
-    /**
-     * @param int|string|null $index
-     * @return null|string
-     */
-    public function getFirstError($index)
-    {
-        if ($index === null) {
-            return null;
-        }
-        
-        if ($this->isRendererHasOneColumn()) {
-            $attribute = $this->name . '[' . $index . ']';
-        } else {
-            $attribute = $this->context->attribute . $this->getElementName($index, false);
-        }
-
-        $model = $this->context->model;
-        if ($model instanceof Model) {
-            return $model->getFirstError($attribute);
-        }
-
-        return null;
     }
 
     /**

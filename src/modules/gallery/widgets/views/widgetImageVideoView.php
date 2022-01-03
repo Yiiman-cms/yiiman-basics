@@ -1,6 +1,6 @@
 <?php
-/*
- * Copyright (c) 2022.
+/**
+ * Copyright (c) 2022-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
@@ -11,14 +11,13 @@
  * Created by YiiMan TM.
  * Programmer: gholamreza beheshtian
  * Mobile:+989353466620 | +17272282283
- *
  * Site:https://yiiman.ir
  * Date: 12/30/2018
  * Time: 4:09 AM
  */
 
 /**
- * @var $this \yii\web\View
+ * @var $this          \yii\web\View
  * @var $id            string
  * @var $label         string
  * @var $name          string
@@ -33,9 +32,9 @@ use yii\bootstrap\Modal;
 use yii\helpers\BaseHtml;
 use yii\web\View;
 
-$modal = $id . 'Modal';
-$idWidget = $id . 'Widget';
-$id=uniqid();
+$modal = $id.'Modal';
+$idWidget = $id.'Widget';
+$id = uniqid();
 
 \YiiMan\YiiBasics\modules\gallery\widgets\LightBoxAssets::register($this);
 $this->registerJs('var selectMediaArray=\'\';', View::POS_HEAD);
@@ -76,10 +75,9 @@ $this->registerJs($js, View::POS_END);
 </style>
 
 
-
 <?php
 if (!function_exists('galEcho')) {
-    function galEcho($url,$class)
+    function galEcho($url, $class)
     {
         $src = $url;
         $src = explode('/', $src);
@@ -91,7 +89,8 @@ if (!function_exists('galEcho')) {
 
 
         ?>
-        <li class="col-xs-6 col-sm-4 col-md-3 <?= $class ?>" data-src="<?= $url ?>" data-sub-html="" data-pinterest-text=""
+        <li class="col-xs-6 col-sm-4 col-md-3 <?= $class ?>" data-src="<?= $url ?>" data-sub-html=""
+            data-pinterest-text=""
             data-tweet-text="">
             <a href="">
                 <?php
@@ -149,9 +148,9 @@ if (!function_exists('galEcho')) {
                 /**
                  * @var \YiiMan\YiiBasics\modules\gallery\models\GalleryMedias $item
                  */
-                $url = Yii::$app->Options->UploadUrl . '/dl/' . $item->className . '/' . $item->file_name . $item->extension;
-                $class=!empty($item->default)?'default-pic':'';
-                galEcho($url,$class);
+                $url = Yii::$app->Options->UploadUrl.'/dl/'.$item->className.'/'.$item->file_name.$item->extension;
+                $class = !empty($item->default) ? 'default-pic' : '';
+                galEcho($url, $class);
             }
         }
         ?>

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\menumodern\models;
 
@@ -22,26 +29,33 @@ class Provider
 {
 
 
-    protected function menuUrl($item)
+    public static function getFrontendMegamenuHtml()
     {
-        if (!empty($item->hyper_url)) {
-            return $item->hyper_url;
-        }
+        $assets = MegaMenuAssets::register(Yii::$app->view);
+        $url = $assets->baseUrl.'/megamenu.css';
+        $css = "<link rel='stylesheet' href='".$url."' type='text/css' media='all'>";
+        if (!file_exists(__DIR__."/menu.text")) {
+            $provider = new self();
+            $menu = $provider->getMenu();
 
-        if ($item->url > 0 && empty($item->hyper_url)) {
-            $slug = Slug::getSlug($item);
-            if (!empty($slug)) {
-                return Yii::$app->urlManager->createUrl(['/' . $slug]);
-            }
-            $type = Menu::getType($item->menuContentType);
-
-            $table = $type['model']::tableName();
-            $slug = Slug::findOne(['table_name' => $table, 'table_id' => $item->url]);
-            if (!empty($slug)) {
-                return Yii::$app->urlManager->createUrl(['/' . $slug->slug]);
-            }
-             return yii::$app->urlManager->createUrl(['/site/'.$type['action'].'?id='.$item->url]);
+            $menuCatch = fopen(__DIR__."/menu.text", "w");
+            $html = $provider->getMegaMenu($menu);
+            fwrite($menuCatch, $html);
+            fclose($menuCatch);
+            return $css.$html;
+        } else {
+            chmod(__DIR__."/menu.text", 0775);
+            return $css.file_get_contents(__DIR__."/menu.text");
         }
+    }
+
+    public function getMenu()
+    {
+        return $this->gmenu(
+            Menu::find()->where(['enable' => 1])->orderBy(
+                'position ASC'
+            )->all()
+        );
     }
 
     public function gmenu($model, $parent = null, $maxLevel = 6, $i = 1)
@@ -85,15 +99,15 @@ class Provider
                 if ($parent == $item->parent_id) {
                     $items[$k] =
                         [
-                            'label' => $item->name,
-                            'icon' => $item->icon,
+                            'label'  => $item->name,
+                            'icon'   => $item->icon,
                             'column' => $item->column,
-                            'img' => $item->img,
-                            'type' => $item->menuType,
-                            'url' => $url,
-                            'level' => $i,
+                            'img'    => $item->img,
+                            'type'   => $item->menuType,
+                            'url'    => $url,
+                            'level'  => $i,
                             'parent' => $item->parent_id,
-                            'id' => $item->id,
+                            'id'     => $item->id,
                         ];
                     if ($i < $maxLevel) {
                         $items[$k]['items'] = $this->gmenu($model, $item->id, $maxLevel, ($i + 1));
@@ -104,15 +118,15 @@ class Provider
             } else {
                 $items[$k] =
                     [
-                        'label' => $item->name,
-                        'icon' => $item->icon,
+                        'label'  => $item->name,
+                        'icon'   => $item->icon,
                         'column' => $item->column,
-                        'img' => $item->img,
-                        'url' => $url,
-                        'type' => $item->menuType,
-                        'level' => $i,
+                        'img'    => $item->img,
+                        'url'    => $url,
+                        'type'   => $item->menuType,
+                        'level'  => $i,
                         'parent' => $item->parent_id,
-                        'id' => $item->id,
+                        'id'     => $item->id,
                     ];
                 if ($i < $maxLevel) {
                     $items[$k]['items'] = $this->gmenu($model, $item->id, $maxLevel, ($i + 1));
@@ -125,20 +139,34 @@ class Provider
         return array_values($items);
     }
 
-    public function getMenu()
+    protected function menuUrl($item)
     {
-        return $this->gmenu(
-            Menu::find()->where(['enable' => 1])->orderBy(
-                'position ASC'
-            )->all()
-        );
+        if (!empty($item->hyper_url)) {
+            return $item->hyper_url;
+        }
+
+        if ($item->url > 0 && empty($item->hyper_url)) {
+            $slug = Slug::getSlug($item);
+            if (!empty($slug)) {
+                return Yii::$app->urlManager->createUrl(['/'.$slug]);
+            }
+            $type = Menu::getType($item->menuContentType);
+
+            $table = $type['model']::tableName();
+            $slug = Slug::findOne([
+                'table_name' => $table,
+                'table_id'   => $item->url
+            ]);
+            if (!empty($slug)) {
+                return Yii::$app->urlManager->createUrl(['/'.$slug->slug]);
+            }
+            return yii::$app->urlManager->createUrl(['/site/'.$type['action'].'?id='.$item->url]);
+        }
     }
 
     /**
      * @param $items
-     *
      *              مگامنوی سایت
-     *
      * @return string
      */
     public function getMegaMenu($items, $isadmin = false)
@@ -202,9 +230,9 @@ HTML;
                     $ar =
                         [
                             'type' => $level1['type'],
-                            'id' => $level1['id']
+                            'id'   => $level1['id']
                         ];
-                    $add = "addparent='" . json_encode($ar) . "'";
+                    $add = "addparent='".json_encode($ar)."'";
                 } else {
                     $add = '';
                 }
@@ -215,14 +243,14 @@ HTML;
                 $url = $level1['url'];
             }
             /* </ این بخش برای بک اند تولید میشود، پس از این پارامتر کلید + قرار داده میشود > */
-            $p .= '<li class="dropdown mega-dropdown" data-id="' . $key . '">';
+            $p .= '<li class="dropdown mega-dropdown" data-id="'.$key.'">';
 
             $dropdown = '';
             if (!empty($level1['items']) || $isadmin) {
                 $dropdown = 'data-toggle="dropdown"';
             }
 
-            $p .= '<a href="' . $url . '"   ' . $dropdown . ' data-id="' . $key . '" label="' . $level1['label'] . '" mode="detail" tid="' . $level1['id'] . '" ' . $add . '  delete edit><i class="fa ' . $level1['icon'] . '"></i> ' . $level1['label'] . '</a>';
+            $p .= '<a href="'.$url.'"   '.$dropdown.' data-id="'.$key.'" label="'.$level1['label'].'" mode="detail" tid="'.$level1['id'].'" '.$add.'  delete edit><i class="fa '.$level1['icon'].'"></i> '.$level1['label'].'</a>';
             /* < right Menu > */
             {
                 if (!empty($level1['items']) || $isadmin) {
@@ -244,9 +272,9 @@ HTML;
                                                 $ar =
                                                     [
                                                         'type' => $level1['type'],
-                                                        'id' => $level1['id']
+                                                        'id'   => $level1['id']
                                                     ];
-                                                $add = "addparent='" . json_encode($ar) . "'";
+                                                $add = "addparent='".json_encode($ar)."'";
                                             } else {
                                                 $add = '';
                                             }
@@ -256,7 +284,7 @@ HTML;
                                         if (empty($right['items']) && !empty($right['url'])) {
                                             $url = $right['url'];
                                         } else {
-                                            $url = '#nav-' . $right['id'];
+                                            $url = '#nav-'.$right['id'];
                                         }
                                         $p .= <<<HTML
       <a class="nav-link  right-m active" id="v-pills-home-tab" data-toggle="pill" href="{$url}" role="tab" aria-controls="v-pills-home" aria-selected="true" tid="{$right['id']}" label="{$right['label']}" mode="detail" {$add} delete edit right><i class="fa {$right['icon']}" ></i>{$right['label']}</a>
@@ -268,9 +296,9 @@ HTML;
                                                 $ar =
                                                     [
                                                         'type' => $level1['type'],
-                                                        'id' => $level1['id']
+                                                        'id'   => $level1['id']
                                                     ];
-                                                $add = "addparent='" . json_encode($ar) . "'";
+                                                $add = "addparent='".json_encode($ar)."'";
                                             } else {
                                                 $add = '';
                                             }
@@ -279,7 +307,7 @@ HTML;
                                         if (empty($right['items']) && !empty($right['url'])) {
                                             $url = $right['url'];
                                         } else {
-                                            $url = '#nav-' . $right['id'];
+                                            $url = '#nav-'.$right['id'];
                                         }
 
 
@@ -318,9 +346,9 @@ HTML;
                         /* < Open First panel > */
                         {
                             if ($keyRight == 0) {
-                                $p .= '<div class="tab-pane fade active" id="nav-' . $right['id'] . '" role="tabpanel">';
+                                $p .= '<div class="tab-pane fade active" id="nav-'.$right['id'].'" role="tabpanel">';
                             } else {
-                                $p .= '<div class="tab-pane fade" id="nav-' . $right['id'] . '" role="tabpanel">';
+                                $p .= '<div class="tab-pane fade" id="nav-'.$right['id'].'" role="tabpanel">';
                             }
                         }
                         /* </ Open First panel > */
@@ -337,19 +365,19 @@ HTML;
 
                         foreach ($colPart as $part) {
 
-                            $p .= '<li class="col-sm-' . $col . ' rb p10">';
+                            $p .= '<li class="col-sm-'.$col.' rb p10">';
                             $p .= '     <ul class="p0 w100p">';
                             foreach ($part as $leftItem) {
-                                $p .= '         <li tid="' . $leftItem['id'] . '">';
-                                $p .= '<a class="w100p parent"  href="' . $leftItem['url'] . '" mode="detail" label="' . $leftItem['label'] . '" tid="' . $leftItem['id'] . '" edit delete lev2>' . $leftItem['label'] . '<i class="fa fa-angle-left" aria-hidden="true" ></i></a>';
+                                $p .= '         <li tid="'.$leftItem['id'].'">';
+                                $p .= '<a class="w100p parent"  href="'.$leftItem['url'].'" mode="detail" label="'.$leftItem['label'].'" tid="'.$leftItem['id'].'" edit delete lev2>'.$leftItem['label'].'<i class="fa fa-angle-left" aria-hidden="true" ></i></a>';
 
 
                                 /* < underMenu > */
                                 {
                                     if (!empty($leftItem['items'])) {
                                         foreach ($leftItem['items'] as $level3) {
-                                            $p .= '         <li tid="' . $level3['id'] . '">';
-                                            $p .= '<a class="w100p "  href="' . $level3['url'] . '" mode="detail" label="' . $level3['label'] . '" tid="' . $level3['id'] . '" edit delete lev2>' . $level3['label'] . '</a>';
+                                            $p .= '         <li tid="'.$level3['id'].'">';
+                                            $p .= '<a class="w100p "  href="'.$level3['url'].'" mode="detail" label="'.$level3['label'].'" tid="'.$level3['id'].'" edit delete lev2>'.$level3['label'].'</a>';
                                             $p .= '         </li>';
                                         }
                                     }
@@ -392,28 +420,45 @@ HTML;
         return $p;
     }
 
-
     public function topMenu()
     {
         if (Yii::$app->user->isGuest) {
             $items[] = [
-                'label' => Yii::t('app', 'Login') . '/' . Yii::t('app', 'Register'),
+                'label' => Yii::t('app', 'Login').'/'.Yii::t('app', 'Register'),
                 'items' => [
-                    ['label' => Yii::t('app', 'Login'), 'url' => Url::to(['site/login'])],
-                    ['label' => Yii::t('app', 'Register'), 'url' => Url::to(['site/signup'])],
-                    ['label' => Yii::t('app', 'Favourite list'), 'url' => Url::to(['site/favourite'])]
+                    [
+                        'label' => Yii::t('app', 'Login'),
+                        'url'   => Url::to(['site/login'])
+                    ],
+                    [
+                        'label' => Yii::t('app', 'Register'),
+                        'url'   => Url::to(['site/signup'])
+                    ],
+                    [
+                        'label' => Yii::t('app', 'Favourite list'),
+                        'url'   => Url::to(['site/favourite'])
+                    ]
                 ]
             ];
         } else {
             $items[] = [
                 'label' => Yii::$app->user->identity->nickName ? Yii::$app->user->identity->nickName : Yii::$app->user->identity->username,
                 'items' => [
-                    ['label' => Yii::t('app', 'Profile'), 'url' => Url::to(['site/profile'])],
-                    ['label' => Yii::t('app', 'My orders'), 'url' => Url::to(['site/my-orders'])],
-                    ['label' => Yii::t('app', 'Favourite list'), 'url' => Url::to(['site/favourite'])],
                     [
-                        'label' => Yii::t('app', 'Logout'),
-                        'url' => Url::to(['site/logout']),
+                        'label' => Yii::t('app', 'Profile'),
+                        'url'   => Url::to(['site/profile'])
+                    ],
+                    [
+                        'label' => Yii::t('app', 'My orders'),
+                        'url'   => Url::to(['site/my-orders'])
+                    ],
+                    [
+                        'label' => Yii::t('app', 'Favourite list'),
+                        'url'   => Url::to(['site/favourite'])
+                    ],
+                    [
+                        'label'       => Yii::t('app', 'Logout'),
+                        'url'         => Url::to(['site/logout']),
                         'linkOptions' => ['data-method' => 'POST']
                     ]
                 ]
@@ -429,33 +474,18 @@ HTML;
         $items[] = [
             'label' => Yii::t('app', 'Farsi'),
             'items' => [
-                ['label' => Yii::t('app', 'Farsi'), 'url' => Url::to([''])],
-                ['label' => Yii::t('app', 'English'), 'url' => Url::to([''])]
+                [
+                    'label' => Yii::t('app', 'Farsi'),
+                    'url'   => Url::to([''])
+                ],
+                [
+                    'label' => Yii::t('app', 'English'),
+                    'url'   => Url::to([''])
+                ]
             ]
         ];
 
         return $items;
-    }
-
-
-    public static function getFrontendMegamenuHtml()
-    {
-        $assets = MegaMenuAssets::register(Yii::$app->view);
-        $url = $assets->baseUrl . '/megamenu.css';
-        $css = "<link rel='stylesheet' href='" . $url . "' type='text/css' media='all'>";
-        if (!file_exists(__DIR__ . "/menu.text")) {
-            $provider = new self();
-            $menu = $provider->getMenu();
-
-            $menuCatch = fopen(__DIR__ . "/menu.text", "w");
-            $html = $provider->getMegaMenu($menu);
-            fwrite($menuCatch, $html);
-            fclose($menuCatch);
-            return $css . $html;
-        } else {
-            chmod(__DIR__ . "/menu.text", 0775);
-            return $css . file_get_contents(__DIR__ . "/menu.text");
-        }
     }
 }
 

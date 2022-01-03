@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\slider\controllers;
 
@@ -13,11 +20,12 @@ use yii\filters\VerbFilter;
 /**
  * DefaultController implements the CRUD actions for Slider model.
  */
-class DefaultController extends \YiiMan\YiiBasics\lib\Controller{
-	/**
-	*
-	* @var $model SearchSlider	*/
-	public $model;
+class DefaultController extends \YiiMan\YiiBasics\lib\Controller
+{
+    /**
+     * @var $model SearchSlider
+     */
+    public $model;
 
 
     /**
@@ -30,21 +38,21 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller{
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
      * Displays a single Slider model.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
 
-        $model=$this->findModel($id);
+        $model = $this->findModel($id);
 
         return $this->render('view', [
             'model' => $model,
@@ -61,7 +69,7 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller{
         $model = new Slider;
 
         if ($model->load(Yii::$app->request->post())) {
-            if($model->save()){
+            if ($model->save()) {
                 return $this->redirect(['index']);
             }
         }
@@ -73,15 +81,15 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller{
     /**
      * Updates an existing Slider model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
-        $model=$this->findModel($id);
+        $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post())) {
-            if( $model->save()){
+            if ($model->save()) {
                 return $this->redirect(['index']);
             }
         }
@@ -94,7 +102,7 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller{
     /**
      * Deletes an existing Slider model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -105,17 +113,15 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller{
         return $this->redirect(['index']);
     }
 
-
-
-
-	protected function upload(){
-	
-	
-	}
-
-
-	public function init(){
+    public function init()
+    {
         parent::init();
-		$this->modelClass=new Slider();
-	}
+        $this->modelClass = new Slider();
+    }
+
+    protected function upload()
+    {
+
+
+    }
 }

@@ -1,8 +1,10 @@
 <?php
 /**
- * @author ifo@yiiman.ir
- * @copyright Yiiman.ir @2020
- * @version 0.1
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
  */
 
 namespace YiiMan\YiiBasics\widgets\nestedItems;
@@ -15,7 +17,6 @@ use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
 
 /**
- *
  * Class NestedItems
  * @property ActiveRecord[]|null $dataModel
  * @property [] $attributes
@@ -23,8 +24,8 @@ use yii\web\BadRequestHttpException;
  * @property [] $parental
  * @property [] $fieldsCallbacks
  * @property [] $customFields آرایه ای از فیلد های جدید که مقدار یکی از فیلد های موجود را داخل فیلد جدید می اندازد و داخل کال بک قابل استفاده است
- * @property string $parent_attribute
- * @package YiiMan\YiiBasics\widgets\nestedItems
+ * @property string              $parent_attribute
+ * @package  YiiMan\YiiBasics\widgets\nestedItems
  */
 class NestedItems extends Widget
 {
@@ -38,7 +39,7 @@ class NestedItems extends Widget
      * مشخص کنید کدام نام فیلدی که به والد اشاره دارد چیست
      * @var string
      */
-    public $parent_attribute ;
+    public $parent_attribute;
 
     /**
      * آرایه ای از فیلد های جدید
@@ -82,7 +83,7 @@ class NestedItems extends Widget
 
     private $parental = [];
 
-    private $nested=1;
+    private $nested = 1;
 
     public function run()
     {
@@ -92,7 +93,7 @@ class NestedItems extends Widget
         }
 
         $items = $this->dataModel;
-        if (!empty($this->parent_attribute)){
+        if (!empty($this->parent_attribute)) {
             $this->parental = ArrayHelper::index($items, null, $this->parent_attribute);
         }
         $idial = ArrayHelper::index($items, 'id');
@@ -113,7 +114,7 @@ class NestedItems extends Widget
             if (!empty($item[$this->parent_attribute])) {
                 continue;
             }
-            $this->nested=1;
+            $this->nested = 1;
             $itemsHtml .= $this->getHtmlItem($item);
         }
 
@@ -159,7 +160,7 @@ class NestedItems extends Widget
 
 
         $subItems = [];
-        if (!empty($this->parental)){
+        if (!empty($this->parental)) {
             if (!empty($this->parental[$id])) {
                 foreach ($this->parental[$id] as $sid => $sub) {
                     $subItems[] = $this->buildItem($items, $sub['id']);
@@ -170,19 +171,6 @@ class NestedItems extends Widget
             $array['items'] = $subItems;
         }
         return $array;
-    }
-
-    private function attributes($withItems = true)
-    {
-        $p = [];
-        if ($withItems) {
-            $p [] = '{items}';
-        }
-        foreach ($this->attributes as $attr) {
-            $p[] = '{' . $attr . '}';
-        }
-
-        return $p;
     }
 
     /**
@@ -196,35 +184,6 @@ class NestedItems extends Widget
             $this->vals[] = $this->vals[$this->flipped_attributes[$attr]];
         }
         $this->flipped_attributes = array_flip($this->attributes);
-    }
-
-
-    private function generateClassParameters($item)
-    {
-
-        // < Generate Attributes >
-        {
-            $attrs = $item;
-            $this->attributes = [];
-            $this->vals = [];
-            foreach ($attrs as $attr => $val) {
-                if ($attr == 'items') {
-                    continue;
-                }
-                $this->attributes[] = $attr;
-                $this->vals[] = $val;
-            }
-            $this->flipped_attributes = array_flip($this->attributes);
-            $this->generateCustomFields();
-            if (!empty($this->parent_attribute)){
-                foreach ($this->fieldsCallbacks as $attr => $function) {
-                    $valID = $this->flipped_attributes[$attr];
-                    $this->vals[$valID] = $function($this->vals[$valID]);
-                }
-            }
-        }
-        // </ Generate Attributes >
-
     }
 
     private function getHtmlItem($item)
@@ -255,18 +214,18 @@ class NestedItems extends Widget
             // < check nested Limit >
             {
 
-                    if (!empty($this->parent_attribute)){
-                        foreach ($item['items'] as $i) {
+                if (!empty($this->parent_attribute)) {
+                    foreach ($item['items'] as $i) {
 
-                            if ($this->nestedLimit>0 && $this->nested>$this->nestedLimit){
-                                continue;
-                            }
-                            if ($this->nestedLimit>0){
-                                $this->nested=$this->nested+1;
-                            }
-                            $itemsHtml .= $this->getHtmlItem($i);
+                        if ($this->nestedLimit > 0 && $this->nested > $this->nestedLimit) {
+                            continue;
                         }
+                        if ($this->nestedLimit > 0) {
+                            $this->nested = $this->nested + 1;
+                        }
+                        $itemsHtml .= $this->getHtmlItem($i);
                     }
+                }
 
             }
             // </ check nested Limit >
@@ -291,5 +250,46 @@ class NestedItems extends Widget
 
             return $s2;
         }
+    }
+
+    private function generateClassParameters($item)
+    {
+
+        // < Generate Attributes >
+        {
+            $attrs = $item;
+            $this->attributes = [];
+            $this->vals = [];
+            foreach ($attrs as $attr => $val) {
+                if ($attr == 'items') {
+                    continue;
+                }
+                $this->attributes[] = $attr;
+                $this->vals[] = $val;
+            }
+            $this->flipped_attributes = array_flip($this->attributes);
+            $this->generateCustomFields();
+            if (!empty($this->parent_attribute)) {
+                foreach ($this->fieldsCallbacks as $attr => $function) {
+                    $valID = $this->flipped_attributes[$attr];
+                    $this->vals[$valID] = $function($this->vals[$valID]);
+                }
+            }
+        }
+        // </ Generate Attributes >
+
+    }
+
+    private function attributes($withItems = true)
+    {
+        $p = [];
+        if ($withItems) {
+            $p [] = '{items}';
+        }
+        foreach ($this->attributes as $attr) {
+            $p[] = '{'.$attr.'}';
+        }
+
+        return $p;
     }
 }

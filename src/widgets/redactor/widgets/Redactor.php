@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * Copyright (c) 2018-2022.
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
@@ -23,14 +23,14 @@ use yii\helpers\ArrayHelper;
 
 /**
  * @author Nghia Nguyen <yiidevelop@hotmail.com>
- * @since 2.0
+ * @since  2.0
  */
 
 /**
  * Class Redactor
  * @package YiiMan\YiiBasics\widgets\redactor\widgets
- * @property AssetBundle $assetBundle
- * @property string $sourcePath
+ * @property AssetBundle    $assetBundle
+ * @property string         $sourcePath
  * @property RedactorModule $module
  */
 class Redactor extends InputWidget
@@ -40,8 +40,8 @@ class Redactor extends InputWidget
      */
     public $moduleId = 'redactor';
 
-    public $fileUpload=true;
-    public $imageUpload=true;
+    public $fileUpload = true;
+    public $imageUpload = true;
 
     /**
      * @var array HTML attributes for textarea tag
@@ -61,23 +61,12 @@ class Redactor extends InputWidget
      */
     public function init()
     {
-        Yii::$app->setModule($this->moduleId,(new RedactorModule($this->moduleId)));
+        Yii::$app->setModule($this->moduleId, (new RedactorModule($this->moduleId)));
         $this->defaultOptions();
         $this->registerAssetBundle();
         $this->registerRegional();
         $this->registerPlugins();
         $this->registerScript();
-    }
-    /**
-     * @inheritdoc
-     */
-    public function run()
-    {
-        if ($this->hasModel()) {
-            echo Html::activeTextarea($this->model, $this->attribute, $this->options);
-        } else {
-            echo Html::textarea($this->name, $this->value, $this->options);
-        }
     }
 
     /**
@@ -96,28 +85,48 @@ class Redactor extends InputWidget
         }
 
 
-
         Html::addCssClass($this->options, 'form-control');
 
         $this->setOptionsKey('lang', 'fa');
-        if ($this->imageUpload){
+        if ($this->imageUpload) {
             $this->setOptionsKey('imageUpload', '/site/redactor-upload');
-            $this->clientOptions['imageUploadErrorCallback'] = ArrayHelper::getValue($this->clientOptions, 'imageUploadErrorCallback', new JsExpression("function(json){alert(json.error);}"));
+            $this->clientOptions['imageUploadErrorCallback'] = ArrayHelper::getValue($this->clientOptions,
+                'imageUploadErrorCallback', new JsExpression("function(json){alert(json.error);}"));
         }
 
-        if ($this->fileUpload){
+        if ($this->fileUpload) {
             $this->setOptionsKey('fileUpload', '/site/redactor-upload');
-            $this->clientOptions['fileUploadErrorCallback'] = ArrayHelper::getValue($this->clientOptions, 'fileUploadErrorCallback', new JsExpression("function(json){alert(json.error);}"));
+            $this->clientOptions['fileUploadErrorCallback'] = ArrayHelper::getValue($this->clientOptions,
+                'fileUploadErrorCallback', new JsExpression("function(json){alert(json.error);}"));
         }
 
 
-        if (isset($this->clientOptions['plugins']) && array_search('imagemanager', $this->clientOptions['plugins']) !== false) {
+        if (isset($this->clientOptions['plugins']) && array_search('imagemanager',
+                $this->clientOptions['plugins']) !== false) {
             $this->setOptionsKey('imageManagerJson', $this->module->imageManagerJsonRoute);
         }
-        if (isset($this->clientOptions['plugins']) && array_search('filemanager', $this->clientOptions['plugins']) !== false) {
+        if (isset($this->clientOptions['plugins']) && array_search('filemanager',
+                $this->clientOptions['plugins']) !== false) {
             $this->setOptionsKey('fileManagerJson', $this->module->fileManagerJsonRoute);
         }
-	 
+
+    }
+
+    /**
+     * @param         $key
+     * @param  mixed  $defaultValue
+     */
+    protected function setOptionsKey($key, $defaultValue = null)
+    {
+        $this->clientOptions[$key] = Url::to(ArrayHelper::getValue($this->clientOptions, $key, $defaultValue));
+    }
+
+    /**
+     * Register assetBundle
+     */
+    protected function registerAssetBundle()
+    {
+        $this->_assetBundle = RedactorAsset::register($this->getView());
     }
 
     /**
@@ -126,8 +135,8 @@ class Redactor extends InputWidget
     protected function registerRegional()
     {
         $this->clientOptions['lang'] = ArrayHelper::getValue($this->clientOptions, 'lang', Yii::$app->language);
-        $langAsset = 'lang/' . $this->clientOptions['lang'] . '.js';
-        if (file_exists($this->sourcePath . DIRECTORY_SEPARATOR . $langAsset)) {
+        $langAsset = 'lang/'.$this->clientOptions['lang'].'.js';
+        if (file_exists($this->sourcePath.DIRECTORY_SEPARATOR.$langAsset)) {
             $this->assetBundle->js[] = $langAsset;
         } else {
             ArrayHelper::remove($this->clientOptions, 'lang');
@@ -142,12 +151,12 @@ class Redactor extends InputWidget
     {
         if (isset($this->clientOptions['plugins']) && count($this->clientOptions['plugins'])) {
             foreach ($this->clientOptions['plugins'] as $plugin) {
-                $js = 'plugins/' . $plugin . '/' . $plugin . '.js';
-                if (file_exists($this->sourcePath . DIRECTORY_SEPARATOR . $js)) {
+                $js = 'plugins/'.$plugin.'/'.$plugin.'.js';
+                if (file_exists($this->sourcePath.DIRECTORY_SEPARATOR.$js)) {
                     $this->assetBundle->js[] = $js;
                 }
-                $css = 'plugins/' . $plugin . '/' . $plugin . '.css';
-                if (file_exists($this->sourcePath . DIRECTORY_SEPARATOR . $css)) {
+                $css = 'plugins/'.$plugin.'/'.$plugin.'.css';
+                if (file_exists($this->sourcePath.DIRECTORY_SEPARATOR.$css)) {
                     $this->assetBundle->css[] = $css;
                 }
             }
@@ -164,11 +173,23 @@ class Redactor extends InputWidget
     }
 
     /**
-     * Register assetBundle
+     * @inheritdoc
      */
-    protected function registerAssetBundle()
+    public function run()
     {
-        $this->_assetBundle = RedactorAsset::register($this->getView());
+        if ($this->hasModel()) {
+            echo Html::activeTextarea($this->model, $this->attribute, $this->options);
+        } else {
+            echo Html::textarea($this->name, $this->value, $this->options);
+        }
+    }
+
+    /**
+     * @return bool|string The path of assetBundle
+     */
+    public function getSourcePath()
+    {
+        return Yii::getAlias($this->getAssetBundle()->sourcePath);
     }
 
     /**
@@ -183,14 +204,6 @@ class Redactor extends InputWidget
     }
 
     /**
-     * @return bool|string The path of assetBundle
-     */
-    public function getSourcePath()
-    {
-        return Yii::getAlias($this->getAssetBundle()->sourcePath);
-    }
-
-    /**
      * @return RedactorModule
      * @throws InvalidConfigException
      */
@@ -200,14 +213,5 @@ class Redactor extends InputWidget
             throw new InvalidConfigException('Invalid config Redactor module with "$moduleId"');
         }
         return Yii::$app->getModule($this->moduleId);
-    }
-
-    /**
-     * @param $key
-     * @param mixed $defaultValue
-     */
-    protected function setOptionsKey($key, $defaultValue = null)
-    {
-        $this->clientOptions[$key] = Url::to(ArrayHelper::getValue($this->clientOptions, $key, $defaultValue));
     }
 }

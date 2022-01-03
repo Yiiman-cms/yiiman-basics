@@ -1,8 +1,10 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
- * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * Copyright (c) 2008-2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
  */
 
 namespace YiiMan\YiiBasics\modules\log\models;
@@ -17,19 +19,14 @@ use yii\log\Target;
 
 /**
  * DbTarget stores log messages in a database table.
- *
  * The database connection is specified by [[db]]. Database schema could be initialized by applying migration:
- *
  * ```
  * yii migrate --migrationPath=@yii/log/migrations/
  * ```
- *
  * If you don't want to use migration and need SQL instead, files for all databases are in migrations directory.
- *
  * You may change the name of the table used to store the data by setting [[logTable]].
- *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @since 2.0
+ * @since  2.0
  */
 class DbTarget extends Target
 {
@@ -86,11 +83,11 @@ class DbTarget extends Target
                 }
             }
             if ($command->bindValues([
-                    ':level' => $level,
+                    ':level'    => $level,
                     ':category' => $category,
                     ':log_time' => $timestamp,
-                    ':prefix' => $this->getMessagePrefix($message),
-                    ':message' => $text,
+                    ':prefix'   => $this->getMessagePrefix($message),
+                    ':message'  => $text,
                 ])->execute() > 0) {
                 continue;
             }

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\posttypes\models;
 
@@ -7,20 +14,15 @@ use Yii;
 
 /**
  * This is the model class for table "{{%module_posttypes_fields}}".
- *
- * @property int $id
- * @property string $key
- * @property string $value
- * @property string $type
- * @property int $posttype_id
- * @property int $index
- *
- * @property string $posttype
+ * @property int       $id
+ * @property string    $key
+ * @property string    $value
+ * @property string    $type
+ * @property int       $posttype_id
+ * @property int       $index
+ * @property string    $posttype
  * @property Posttypes $posttype0
- * @property string $fieldName
- *
- *
- *
+ * @property string    $fieldName
  */
 class PosttypesMultiple extends \YiiMan\YiiBasics\lib\ActiveRecord
 {
@@ -39,12 +41,42 @@ class PosttypesMultiple extends \YiiMan\YiiBasics\lib\ActiveRecord
     public function rules()
     {
         return [
-            [['key', 'posttype_id', 'posttype', 'fieldName', 'fieldName'], 'required'],
+            [
+                [
+                    'key',
+                    'posttype_id',
+                    'posttype',
+                    'fieldName',
+                    'fieldName'
+                ],
+                'required'
+            ],
 
-            [['posttype_id', 'index'], 'integer'],
-            [['value', 'key', 'posttype', 'fieldName', 'type'], 'safe'],
+            [
+                [
+                    'posttype_id',
+                    'index'
+                ],
+                'integer'
+            ],
+            [
+                [
+                    'value',
+                    'key',
+                    'posttype',
+                    'fieldName',
+                    'type'
+                ],
+                'safe'
+            ],
 
-            [['posttype_id'], 'exist', 'skipOnError' => true, 'targetClass' => \YiiMan\YiiBasics\modules\posttypes\models\Posttypes::className(), 'targetAttribute' => ['posttype_id' => 'id']],
+            [
+                ['posttype_id'],
+                'exist',
+                'skipOnError'     => true,
+                'targetClass'     => \YiiMan\YiiBasics\modules\posttypes\models\Posttypes::className(),
+                'targetAttribute' => ['posttype_id' => 'id']
+            ],
         ];
     }
 

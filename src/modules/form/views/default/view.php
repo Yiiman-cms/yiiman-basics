@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
@@ -13,7 +20,7 @@ use yii\widgets\DetailView;
     Yii::t('form', 'ثبت فرم ها'),
     'success',
     null,
-    Yii::$app->Options->BackendUrl . '/form/default/create'
+    Yii::$app->Options->BackendUrl.'/form/default/create'
 );
 
 
@@ -22,7 +29,7 @@ use yii\widgets\DetailView;
     Yii::t('form', 'ویرایش این مورد'),
     'info',
     null,
-    Yii::$app->Options->BackendUrl . '/form/default/update?id=' . $model->id);
+    Yii::$app->Options->BackendUrl.'/form/default/update?id='.$model->id);
 
 
 \YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
@@ -30,11 +37,14 @@ use yii\widgets\DetailView;
     Yii::t('form', 'حذف این مورد'),
     'danger',
     null,
-    Yii::$app->Options->BackendUrl . '/form/default/delete?id=' . $model->id);
+    Yii::$app->Options->BackendUrl.'/form/default/delete?id='.$model->id);
 
 
-$this->title = Yii::t('form', 'فرم ها:  ' . $model->title);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('form', 'فرم ساز'), 'url' => ['index']];
+$this->title = Yii::t('form', 'فرم ها:  '.$model->title);
+$this->params['breadcrumbs'][] = [
+    'label' => Yii::t('form', 'فرم ساز'),
+    'url'   => ['index']
+];
 $this->params['breadcrumbs'][] = $this->title;
 
 \YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
@@ -77,7 +87,7 @@ $this->registerJs($js, \YiiMan\YiiBasics\lib\View::POS_END);
                                     'title',
                                     [
                                         'attribute' => 'details',
-                                        'value' => function ($model) {
+                                        'value'     => function ($model) {
                                             echo '<div id="form">
 
                             </div>';

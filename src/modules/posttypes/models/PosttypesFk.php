@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\posttypes\models;
 
@@ -7,20 +14,14 @@ use Yii;
 
 /**
  * This is the model class for table "{{%module_posttypes_fields}}".
- *
- * @property int $posttype_from
- * @property int $posttype_to
- * @property string $posttype_type_from
- * @property string $posttype_type_to
- *
+ * @property int       $posttype_from
+ * @property int       $posttype_to
+ * @property string    $posttype_type_from
+ * @property string    $posttype_type_to
  * @property Posttypes $posttypes_from0
  * @property Posttypes $posttypes_to0
- *
- *
  * @property Posttypes $posttype_from0
  * @property Posttypes $posttype_to0
- *
- *
  */
 class PosttypesFk extends \YiiMan\YiiBasics\lib\ActiveRecord
 {
@@ -39,12 +40,45 @@ class PosttypesFk extends \YiiMan\YiiBasics\lib\ActiveRecord
     public function rules()
     {
         return [
-            [['posttype_from', 'posttype_to', 'posttype_type_from', 'posttype_type_to'], 'required'],
+            [
+                [
+                    'posttype_from',
+                    'posttype_to',
+                    'posttype_type_from',
+                    'posttype_type_to'
+                ],
+                'required'
+            ],
 
-            [['posttype_to', 'posttype_from'], 'integer'],
-            [['posttype_type_from', 'posttype_type_to',], 'string', 'max' => 255],
-            [['posttype_from'], 'exist', 'skipOnError' => true, 'targetClass' => \YiiMan\YiiBasics\modules\posttypes\models\Posttypes::className(), 'targetAttribute' => ['posttype_from' => 'id']],
-            [['posttype_to'], 'exist', 'skipOnError' => true, 'targetClass' => \YiiMan\YiiBasics\modules\posttypes\models\Posttypes::className(), 'targetAttribute' => ['posttype_to' => 'id']],
+            [
+                [
+                    'posttype_to',
+                    'posttype_from'
+                ],
+                'integer'
+            ],
+            [
+                [
+                    'posttype_type_from',
+                    'posttype_type_to',
+                ],
+                'string',
+                'max' => 255
+            ],
+            [
+                ['posttype_from'],
+                'exist',
+                'skipOnError'     => true,
+                'targetClass'     => \YiiMan\YiiBasics\modules\posttypes\models\Posttypes::className(),
+                'targetAttribute' => ['posttype_from' => 'id']
+            ],
+            [
+                ['posttype_to'],
+                'exist',
+                'skipOnError'     => true,
+                'targetClass'     => \YiiMan\YiiBasics\modules\posttypes\models\Posttypes::className(),
+                'targetAttribute' => ['posttype_to' => 'id']
+            ],
         ];
     }
 
@@ -73,7 +107,6 @@ class PosttypesFk extends \YiiMan\YiiBasics\lib\ActiveRecord
     {
         return $this->hasMany(Posttypes::className(), ['id' => 'posttype_from']);
     }
-
 
 
     /**

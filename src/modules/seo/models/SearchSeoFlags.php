@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\seo\models;
 
@@ -18,8 +25,17 @@ class SearchSeoFlags extends SeoFlags
     public function rules()
     {
         return [
-            [['id', 'content'], 'integer'],
-            [['flag'], 'safe'],
+            [
+                [
+                    'id',
+                    'content'
+                ],
+                'integer'
+            ],
+            [
+                ['flag'],
+                'safe'
+            ],
         ];
     }
 
@@ -34,9 +50,7 @@ class SearchSeoFlags extends SeoFlags
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
@@ -63,7 +77,11 @@ class SearchSeoFlags extends SeoFlags
             'content' => $this->content,
         ]);
 
-        $query->andFilterWhere(['like', 'flag', $this->flag]);
+        $query->andFilterWhere([
+            'like',
+            'flag',
+            $this->flag
+        ]);
 
         return $dataProvider;
     }

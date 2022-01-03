@@ -1,35 +1,44 @@
 <?php
-	
-	namespace YiiMan\YiiBasics\widgets\toggle;
-	
-	use Yii;
-	use yii\base\Widget;
-	use yii\helpers\Html;
-	use yii\widgets\InputWidget;
-	
-	/**
-	 * Class ToggleWidget
-	 * @package YiiMan\YiiBasics\widgets\toggle
-	 * @property \YiiMan\YiiBasics\lib\View $view
-	 */
-	class ToggleWidget extends \kartik\base\InputWidget {
-		public $model;
-		public $attribute;
-		public $view;
-		public $className;
-		public $label;
-		public $description;
-		public $for;
-		
-		public function init() {
-			
-			parent::init();
-			if ( ! empty( $_POST ) && empty( $_POST['DynamicModel'][ $this->attribute ] ) ) {
-				Yii::$app->Options->set( $this->attribute , '' );
-			}
-			
-			$this->for = $this->hasModel() ? Html::getInputId( $this->model , $this->attribute ) : $this->getId();
-			$css=<<<CSS
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
+namespace YiiMan\YiiBasics\widgets\toggle;
+
+use Yii;
+use yii\base\Widget;
+use yii\helpers\Html;
+use yii\widgets\InputWidget;
+
+/**
+ * Class ToggleWidget
+ * @package YiiMan\YiiBasics\widgets\toggle
+ * @property \YiiMan\YiiBasics\lib\View $view
+ */
+class ToggleWidget extends \kartik\base\InputWidget
+{
+    public $model;
+    public $attribute;
+    public $view;
+    public $className;
+    public $label;
+    public $description;
+    public $for;
+
+    public function init()
+    {
+
+        parent::init();
+        if (!empty($_POST) && empty($_POST['DynamicModel'][$this->attribute])) {
+            Yii::$app->Options->set($this->attribute, '');
+        }
+
+        $this->for = $this->hasModel() ? Html::getInputId($this->model, $this->attribute) : $this->getId();
+        $css = <<<CSS
 
 .togglebutton label {
 	cursor: pointer;
@@ -47,18 +56,18 @@
 }
 CSS;
 
-			$this->view->registerCss($css);
-			echo $this->render
-			(
-				'toggle' ,
-				[
-					'name'        => $this->name ,
-					'label'       => $this->label ,
-					'description' => $this->description ,
-					'value'       => $this->value ,
-					'id'          => $this->id ,
-					'for'         => $this->for
-				]
-			);
-		}
-	}
+        $this->view->registerCss($css);
+        echo $this->render
+        (
+            'toggle',
+            [
+                'name'        => $this->name,
+                'label'       => $this->label,
+                'description' => $this->description,
+                'value'       => $this->value,
+                'id'          => $this->id,
+                'for'         => $this->for
+            ]
+        );
+    }
+}

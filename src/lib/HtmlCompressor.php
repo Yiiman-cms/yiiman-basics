@@ -1,5 +1,13 @@
 <?php
 /**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
+/**
  * HtmlCompressor.php
  * @author Revin Roman http://phptime.ru
  */
@@ -47,7 +55,7 @@ class HtmlCompressor
 function html_compress($data, $options = null)
 {
     if (!isset($options)) {
-        $options = array();
+        $options = [];
     }
 
     $data .= "\n";
@@ -86,7 +94,7 @@ function html_compress($data, $options = null)
 
         // Filter out any blank lines that aren't inside a <pre> block...
         if ($inside_pre || $line != '') {
-            $out .= $line . "\n";
+            $out .= $line."\n";
         }
     }
 
@@ -109,8 +117,8 @@ function html_compress($data, $options = null)
     if (array_key_exists('s', $options) || array_key_exists('stats', $options)) {
         $echo = '';
         $echo .= "Original Size: $bytecount\n";
-        $echo .= "Compressed Size: " . strlen($out) . "\n";
-        $echo .= "Savings: " . round((1 - strlen($out) / $bytecount) * 100, 2) . "%\n";
+        $echo .= "Compressed Size: ".strlen($out)."\n";
+        $echo .= "Savings: ".round((1 - strlen($out) / $bytecount) * 100, 2)."%\n";
         echo $echo;
     } else {
         if (array_key_exists('o', $options) || array_key_exists('overwrite', $options)) {
@@ -119,7 +127,7 @@ function html_compress($data, $options = null)
 
                 return true;
             } else {
-                return "Error: could not write to " . $GLOBALS['argv'][$GLOBALS['argc'] - 1] . "\n";
+                return "Error: could not write to ".$GLOBALS['argv'][$GLOBALS['argc'] - 1]."\n";
             }
         } else {
             return $out;
@@ -139,7 +147,7 @@ function get_line(&$data)
     if (is_string($data)) {
         if (strlen($data) > 0) {
             $pos = strpos($data, "\n");
-            $return = substr($data, 0, $pos) . "\n";
+            $return = substr($data, 0, $pos)."\n";
             $data = substr($data, $pos + 1);
 
             return $return;

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\widgets\mapInput;
 
@@ -7,7 +14,6 @@ use Yii;
 /**
  * Class GMapInputWidget
  * @package YiiMan\YiiBasics\widgets\mapInput
- *
  */
 class GMapInputWidget extends \yii\widgets\InputWidget
 {
@@ -37,7 +43,7 @@ class GMapInputWidget extends \yii\widgets\InputWidget
     public function run()
     {
 
-        Yii::setAlias('@systemMap','@system/widgets/mapInput');
+        Yii::setAlias('@systemMap', '@system/widgets/mapInput');
 
         // Asset bundle should be configured with the application key
         $this->configureAssetBundle();
@@ -45,18 +51,18 @@ class GMapInputWidget extends \yii\widgets\InputWidget
         return $this->render(
             'MapInputWidget',
             [
-                'id' => $this->getId(),
-                'model' => $this->model,
-                'attribute' => $this->attribute,
-                'latitude' => $this->latitude,
-                'longitude' => $this->longitude,
-                'zoom' => $this->zoom,
-                'width' => $this->width,
-                'height' => $this->height,
-                'pattern' => $this->pattern,
-                'mapType' => $this->mapType,
-                'animateMarker' => $this->animateMarker,
-                'alignMapCenter' => $this->alignMapCenter,
+                'id'              => $this->getId(),
+                'model'           => $this->model,
+                'attribute'       => $this->attribute,
+                'latitude'        => $this->latitude,
+                'longitude'       => $this->longitude,
+                'zoom'            => $this->zoom,
+                'width'           => $this->width,
+                'height'          => $this->height,
+                'pattern'         => $this->pattern,
+                'mapType'         => $this->mapType,
+                'animateMarker'   => $this->animateMarker,
+                'alignMapCenter'  => $this->alignMapCenter,
                 'enableSearchBar' => $this->enableSearchBar,
             ]
         );
@@ -64,6 +70,6 @@ class GMapInputWidget extends \yii\widgets\InputWidget
 
     private function configureAssetBundle()
     {
-	    \YiiMan\YiiBasics\widgets\mapInput\assets\MapInputAsset::$key = $this->key;
+        \YiiMan\YiiBasics\widgets\mapInput\assets\MapInputAsset::$key = $this->key;
     }
 }

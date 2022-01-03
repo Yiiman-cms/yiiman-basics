@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\language\models;
 
@@ -18,8 +25,22 @@ class SearchLanguage extends Language
     public function rules()
     {
         return [
-            [['id', 'status'], 'integer'],
-            [['title', 'image', 'code', 'layout'], 'safe'],
+            [
+                [
+                    'id',
+                    'status'
+                ],
+                'integer'
+            ],
+            [
+                [
+                    'title',
+                    'image',
+                    'code',
+                    'layout'
+                ],
+                'safe'
+            ],
         ];
     }
 
@@ -34,9 +55,7 @@ class SearchLanguage extends Language
 
     /**
      * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param  array  $params
      * @return ActiveDataProvider
      */
     public function search($params)
@@ -63,10 +82,26 @@ class SearchLanguage extends Language
             'status' => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'image', $this->image])
-            ->andFilterWhere(['like', 'code', $this->code])
-            ->andFilterWhere(['like', 'layout', $this->layout]);
+        $query->andFilterWhere([
+            'like',
+            'title',
+            $this->title
+        ])
+            ->andFilterWhere([
+                'like',
+                'image',
+                $this->image
+            ])
+            ->andFilterWhere([
+                'like',
+                'code',
+                $this->code
+            ])
+            ->andFilterWhere([
+                'like',
+                'layout',
+                $this->layout
+            ]);
 
         return $dataProvider;
     }

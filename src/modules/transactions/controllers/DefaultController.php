@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\transactions\controllers;
 
@@ -14,12 +21,13 @@ use yii\filters\VerbFilter;
 /**
  * DefaultController implements the CRUD actions for Transactions model.
  */
-class DefaultController extends \YiiMan\YiiBasics\lib\Controller{
-	/**
-	*
-	* @var $model SearchTransactions	*/
-	public $model;
-	public $enableCsrfValidation=false;
+class DefaultController extends \YiiMan\YiiBasics\lib\Controller
+{
+    /**
+     * @var $model SearchTransactions
+     */
+    public $model;
+    public $enableCsrfValidation = false;
     /**
      * {@inheritdoc}
      */
@@ -52,14 +60,14 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller{
 
     /**
      * Displays a single Transactions model.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
 
-        $model=$this->findModel($id);
+        $model = $this->findModel($id);
 
         return $this->render('view', [
             'model' => $model,
@@ -76,8 +84,11 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller{
         $model = new Transactions;
 
         if ($model->load(Yii::$app->request->post())) {
-            if($model->save()){
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->save()) {
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
             }
         }
         return $this->render('create', [
@@ -88,16 +99,19 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller{
     /**
      * Updates an existing Transactions model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
-        $model=$this->findModel($id);
+        $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post())) {
-            if( $model->save()){
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->save()) {
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id
+                ]);
             }
         }
 
@@ -109,7 +123,7 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller{
     /**
      * Deletes an existing Transactions model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param  integer  $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -125,8 +139,8 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller{
         $post = Yii::$app->request->post();
 
         if (!empty($post['id'])) {
-            $gateClass=\stdClass::class;
-            eval('$gateClass = new YiiMan\YiiBasics\modules\transactions\Terminals\\' . $post['id'].';');
+            $gateClass = \stdClass::class;
+            eval('$gateClass = new YiiMan\YiiBasics\modules\transactions\Terminals\\'.$post['id'].';');
             /**
              * @var $gateClass PaymentTerminal
              */
@@ -139,25 +153,25 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller{
         $post = Yii::$app->request->post();
 
         if (!empty($post['id'])) {
-            $gateClass=\stdClass::class;
-            eval('$gateClass = new YiiMan\YiiBasics\modules\transactions\Terminals\\' . $post['id'].';');
+            $gateClass = \stdClass::class;
+            eval('$gateClass = new YiiMan\YiiBasics\modules\transactions\Terminals\\'.$post['id'].';');
             /**
              * @var $gateClass PaymentTerminal
              */
-            $out= '<script>'.$gateClass->renderJS().'</script>';
+            $out = '<script>'.$gateClass->renderJS().'</script>';
             return $out;
         }
     }
 
-
-
-	protected function upload(){
-	
-	
-	}
-
-	public function init(){
+    public function init()
+    {
         parent::init();
-		$this->modelClass=new Transactions();
-	}
+        $this->modelClass = new Transactions();
+    }
+
+    protected function upload()
+    {
+
+
+    }
 }
