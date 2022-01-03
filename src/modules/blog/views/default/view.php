@@ -11,7 +11,7 @@
 	$this->title                   = $model->title;
 	$this->params['breadcrumbs'][] = [ 'label' => Yii::t( 'blog' , 'Blogs' ) , 'url' => [ 'index' ] ];
 	$this->params['breadcrumbs'][] = $this->title;
-	\system\widgets\topMenu\TopMenuWidget::addBtb(
+	\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 	    'add',
 	    Yii::t('blog', 'ثبت مقاله'),
 	    'success',
@@ -20,7 +20,7 @@
 	);
 
 
-	\system\widgets\topMenu\TopMenuWidget::addBtb(
+	\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 	    'edit',
 	    Yii::t('blog', 'ویرایش این مورد'),
 	    'info',
@@ -28,14 +28,14 @@
 	    Yii::$app->Options->BackendUrl . '/blog/default/update?id=' . $model->id);
 
 
-	\system\widgets\topMenu\TopMenuWidget::addBtb(
+	\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 	    'delete',
 	    Yii::t('blog', 'حذف این مورد'),
 	    'danger',
 	    null,
 	    Yii::$app->Options->BackendUrl . '/blog/default/delete?id=' . $model->id);
 
-	\system\widgets\backLang\backLangWidget::languages($model);
+	\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
 
 ?>
 <div class="blog-articles-view">

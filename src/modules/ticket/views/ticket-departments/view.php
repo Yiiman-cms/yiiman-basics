@@ -8,7 +8,7 @@ use yii\widgets\DetailView;
 /* @var $model YiiMan\YiiBasics\modules\ticket\models\TicketDepartments */
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('ticket', 'ثبت دپارتمان ها'),
     'success',
@@ -17,7 +17,7 @@ use yii\widgets\DetailView;
 );
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'edit',
     Yii::t('ticket', 'ویرایش این مورد'),
     'info',
@@ -25,7 +25,7 @@ use yii\widgets\DetailView;
     Yii::$app->Options->BackendUrl . '/ticket/ticket-departments/update?id=' . $model->id);
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'delete',
     Yii::t('ticket', 'حذف این مورد'),
     'danger',
@@ -37,7 +37,7 @@ $this->title = Yii::t('ticket', 'دپارتمان ها:  ' . $model->title);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('ticket', 'دپارتمان ها'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-\system\widgets\backLang\backLangWidget::languages($model);
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
 
 ?>
 <div class="ticket-departments-view">

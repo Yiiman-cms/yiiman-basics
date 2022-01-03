@@ -10,7 +10,7 @@ $this->title = Yii::t('gallery', 'ویرایش فایل ها: ' . $model->id, [
 ]);
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'add',
 Yii::t('gallery', 'ثبت فایل ها'),
 'success' ,
@@ -18,7 +18,7 @@ null ,
 Yii::$app->Options->BackendUrl . '/gallery-medias/default/create'
 );
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'assignment',
 Yii::t('gallery', 'بازبینی فایل ها'),
 'info' ,
@@ -31,7 +31,7 @@ Yii::$app->Options->BackendUrl . '/gallery-medias/default/view?id='.$model->id
 $this->params['breadcrumbs'][] = ['label' => Yii::t('gallery', 'گالری'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('gallery', 'ویرایش');
-\system\widgets\backLang\backLangWidget::languages($model);
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
 ?>
 <div class="gallery-medias-update">
 

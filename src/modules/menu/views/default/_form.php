@@ -120,7 +120,7 @@ $this->registerJs($this->render('script/form.js'), $this::POS_END);
                                 <?= $form->field($model, 'index')->textInput(
                                     ['type' => 'number']
                                 ) ?>
-                                <?php $form->field($model, 'icon')->widget(\system\widgets\fontAwesomePicker\FontAwesomeFontPickerWidget::className()) ?>
+                                <?php $form->field($model, 'icon')->widget(\YiiMan\YiiBasics\widgets\fontAwesomePicker\FontAwesomeFontPickerWidget::className()) ?>
                             </div>
                             <div class="col-md-6">
                                 <?= $form->field($model, 'related_id')->widget(

@@ -10,7 +10,7 @@ $this->title = Yii::t('ticket', 'ویرایش دپارتمان ها: ' . $model-
 ]);
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'add',
 Yii::t('ticket', 'ثبت دپارتمان ها'),
 'success' ,
@@ -18,7 +18,7 @@ null ,
 Yii::$app->Options->BackendUrl . '/ticket/ticket-departments/create'
 );
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'assignment',
 Yii::t('ticket', 'بازبینی دپارتمان ها'),
 'info' ,

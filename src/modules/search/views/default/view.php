@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model YiiMan\YiiBasics\modules\search\models\Search */
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'add',
 Yii::t('search', 'ثبت جست و جوها'),
 'success' ,
@@ -16,7 +16,7 @@ Yii::$app->Options->BackendUrl . '/search/default/create'
 );
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'edit',
 Yii::t('search', 'ویرایش این مورد'),
 'info' ,
@@ -24,7 +24,7 @@ null ,
 Yii::$app->Options->BackendUrl . '/search/default/update?id='.$model->id);
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'delete',
 Yii::t('search', 'حذف این مورد'),
 'danger' ,
@@ -36,7 +36,7 @@ $this->title = Yii::t('search','جست و جوها:  '.$model->id);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('search', 'جست و جوها'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-\system\widgets\backLang\backLangWidget::languages($model);
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
 
 ?>
 <div class="search-view">

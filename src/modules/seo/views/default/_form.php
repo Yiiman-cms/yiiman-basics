@@ -77,7 +77,7 @@ use kartik\select2\Select2;
                             </div>
 
                             <div class="col-md-12">
-                                <?= $form->field($model, 'short_content')->widget(\system\widgets\redactor\widgets\Redactor::className()) ?>
+                                <?= $form->field($model, 'short_content')->widget(\YiiMan\YiiBasics\widgets\redactor\widgets\Redactor::className()) ?>
                             </div>
                         </div>
                     </div>

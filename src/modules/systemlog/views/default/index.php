@@ -10,14 +10,14 @@ use yii\widgets\Pjax;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $users [] */
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'delete',
     Yii::t('systemlog', 'پاکسازی'),
     'danger',
     null,
     Yii::$app->Options->BackendUrl . '/systemlog/default/clear'
 );
-\system\widgets\backLang\backLangWidget::languages();
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 
 $this->title = Yii::t('systemlog', 'لاگ های ثبت شده') . ' ';
 $this->params['breadcrumbs'][] = $this->title;

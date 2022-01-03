@@ -4,7 +4,7 @@
  * @var $this \YiiMan\YiiBasics\lib\View
  */
 $assets=\YiiMan\YiiBasics\modules\menumodern\assets\RuleAsset::register($this);
-\system\widgets\fontAwesomePicker\assets\FontAwesomeFontPickerAssets::register($this);
+\YiiMan\YiiBasics\widgets\fontAwesomePicker\assets\FontAwesomeFontPickerAssets::register($this);
 $this->title = 'تنظیم منوها';
 $p = '';
 $p .= <<<HTML

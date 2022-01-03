@@ -65,7 +65,7 @@
 							
 							<div class="col-md-12" style="margin-top:20px">
 								<?= $form->field( $model , 'content' )->widget(
-									\system\widgets\floara\FroalaEditorWidget::className() ,
+									\YiiMan\YiiBasics\widgets\floara\FroalaEditorWidget::className() ,
 									[]
 								) ?>
 							</div>

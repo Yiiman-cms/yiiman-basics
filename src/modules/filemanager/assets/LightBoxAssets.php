@@ -2,7 +2,7 @@
 	
 	namespace YiiMan\YiiBasics\modules\filemanager\assets;
 	
-	use system\assets\angular\AngularJsAssets;
+	use YiiMan\YiiBasics\assets\angular\AngularJsAssets;
 	use YiiMan\YiiBasics\lib\View;
 	use yii\bootstrap\BootstrapAsset;
 	use yii\web\AssetBundle;

@@ -4,7 +4,7 @@
  * @var $form \yii\bootstrap\ActiveForm
  * @var $tokens []
  */
-$form = \system\widgets\ActiveForm::begin();
+$form = \YiiMan\YiiBasics\widgets\ActiveForm::begin();
 $model=new \YiiMan\YiiBasics\modules\setting\models\DynamicModel();
 $options=new \YiiMan\YiiBasics\modules\sms\base\smsOptions();
 if (!empty($tokens)) {

@@ -86,7 +86,7 @@ use kartik\select2\Select2;
                             <div class="col-md-6"><?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?></div>
 
                             <div class="col-md-12">
-                                <?= $form->field($model, 'content')->widget(\system\widgets\CodeMirror\CodeMirrorWidget::className()) ?>
+                                <?= $form->field($model, 'content')->widget(\YiiMan\YiiBasics\widgets\CodeMirror\CodeMirrorWidget::className()) ?>
                             </div>
 
 

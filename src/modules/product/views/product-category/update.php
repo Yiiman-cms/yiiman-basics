@@ -10,7 +10,7 @@ $this->title = Yii::t('product', 'ویرایش گروه محصول: ' . $model->
 ]);
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'add',
 Yii::t('product', 'ثبت گروه محصول'),
 'success' ,
@@ -18,7 +18,7 @@ null ,
 Yii::$app->Options->BackendUrl . '/product/product-category/create'
 );
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'assignment',
 Yii::t('product', 'بازبینی گروه محصول'),
 'info' ,
@@ -31,7 +31,7 @@ Yii::$app->Options->BackendUrl . '/product/product-category/view?id='.$model->id
 $this->params['breadcrumbs'][] = ['label' => Yii::t('product', 'محصولات'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('product', 'ویرایش');
-\system\widgets\backLang\backLangWidget::languages($model);
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
 ?>
 <div class="product-category-update">
 

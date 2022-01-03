@@ -3,7 +3,7 @@
 	/* @var $content string */
 $image = Yii::$app->Options->bgImage . '?ver=' . Yii::$app->Options->assetVersion;
 	
-	use system\assets\dashboard\MaterialDashboardProAsset;
+	use YiiMan\YiiBasics\assets\dashboard\MaterialDashboardProAsset;
 	use YiiMan\YiiBasics\lib\i18n\Layout;
 	use yii\helpers\Html;
 	MaterialDashboardProAsset::register( $this );

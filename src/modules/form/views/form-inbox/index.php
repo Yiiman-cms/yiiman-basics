@@ -11,7 +11,7 @@ use yii\widgets\Pjax;
 /* @var $form \YiiMan\YiiBasics\modules\form\models\Form */
 
 
-\system\widgets\backLang\backLangWidget::languages();
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 
 $this->title = $form->title;
 $this->params['breadcrumbs'][] = $this->title;

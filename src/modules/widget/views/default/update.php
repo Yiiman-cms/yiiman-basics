@@ -10,7 +10,7 @@ $this->title = Yii::t('widget', 'ویرایش ویجت: ' . $model->title, [
 ]);
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'add',
 Yii::t('widget', 'ثبت ویجت'),
 'success' ,
@@ -18,7 +18,7 @@ null ,
 Yii::$app->Options->BackendUrl . '/widget/default/create'
 );
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'assignment',
 Yii::t('widget', 'بازبینی ویجت'),
 'info' ,
@@ -31,7 +31,7 @@ Yii::$app->Options->BackendUrl . '/widget/default/view?id='.$model->id
 $this->params['breadcrumbs'][] = ['label' => Yii::t('widget', 'ویجت'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('widget', 'ویرایش');
-\system\widgets\backLang\backLangWidget::languages($model);
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
 ?>
 <div class="widget-update">
 

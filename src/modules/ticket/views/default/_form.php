@@ -8,7 +8,7 @@ use kartik\select2\Select2;
 /* @var $this yii\web\View */
 /* @var $model YiiMan\YiiBasics\modules\ticket\models\Ticket */
 /* @var $form yii\widgets\ActiveForm */
-echo \system\widgets\TippyTooltip\TippyWidget::widget();
+echo \YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget::widget();
 ?>
 
 <div class="ticket-form">

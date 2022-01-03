@@ -14,14 +14,14 @@ use yii\widgets\Pjax;
 $this->title = Yii::t('menu', 'منوهای سایت') . ' ';
 $this->params['breadcrumbs'][] = $this->title;
 $this->registerJs($this->render('script/app.js'), $this::POS_END);
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('Menu', 'ثبت منو'),
     'success',
     null,
     Yii::$app->Options->BackendUrl . '/menu/default/create'
 );
-\system\widgets\backLang\backLangWidget::languages();
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 ?>
 
 <div class="menu-index">

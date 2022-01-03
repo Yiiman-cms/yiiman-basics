@@ -11,14 +11,14 @@ use yii\widgets\Pjax;
 
 $this->title = Yii::t('blog', 'مقالات') . ' ';
 $this->params['breadcrumbs'][] = $this->title;
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('blog', 'ثبت مقاله'),
     'success',
     null,
     Yii::$app->Options->BackendUrl . '/blog/default/create'
 );
-\system\widgets\backLang\backLangWidget::languages();
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 ?>
 
 <div class="blog-articles-index">

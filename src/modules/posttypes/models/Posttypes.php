@@ -4,9 +4,9 @@ namespace YiiMan\YiiBasics\modules\posttypes\models;
 
 use kartik\select2\Select2;
 use phpDocumentor\Reflection\Types\This;
-use system\widgets\fontAwesomePicker\FontAwesomeFontPickerWidget;
-use system\widgets\multiRowInput\MultipleInput;
-use system\widgets\multiRowInput\MultipleInputColumn;
+use YiiMan\YiiBasics\widgets\fontAwesomePicker\FontAwesomeFontPickerWidget;
+use YiiMan\YiiBasics\widgets\multiRowInput\MultipleInput;
+use YiiMan\YiiBasics\widgets\multiRowInput\MultipleInputColumn;
 use Yii;
 use \YiiMan\YiiBasics\modules\posttypesfields\models\PosttypesFields;
 use yii\bootstrap\ActiveForm;
@@ -818,7 +818,7 @@ SQL;
                 $out .= '<div class="col-md-' . $column['col'] . '">';
                 $out .= $form
                     ->field($model, 'fields[' . $name . ']')
-                    ->widget(\system\widgets\floara\FroalaEditorWidget::className())
+                    ->widget(\YiiMan\YiiBasics\widgets\floara\FroalaEditorWidget::className())
                     ->label($column['label']);
                 $out .= '</div>';
                 break;
@@ -827,7 +827,7 @@ SQL;
                 $out .= '<div class="col-md-' . $column['col'] . '">';
                 $out .= $form
                     ->field($model, 'fields[' . $name . ']')
-                    ->widget(\system\widgets\redactor\widgets\Redactor::className())
+                    ->widget(\YiiMan\YiiBasics\widgets\redactor\widgets\Redactor::className())
                     ->label($column['label']);
 
                 $out .= '</div>';
@@ -911,7 +911,7 @@ SQL;
                 $fields = !empty($model->fields[$name]) ? $model->fields[$name] : [];
                 $multipleArray['label'] = $column['label'];
                 $multipleArray['field'] = $form->field($model, 'fields[' . $name . ']')->widget(
-                    \system\widgets\multiRowInput\MultipleInput::className(),
+                    \YiiMan\YiiBasics\widgets\multiRowInput\MultipleInput::className(),
                     [
                         'max' => !empty($column['max']) ? $column['max'] : 10,
                         'min' => !empty($column['min']) ? $column['min'] : 1,

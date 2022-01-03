@@ -11,7 +11,7 @@ $this->title = Yii::t('ticket', 'ویرایش تیکت : ' . $model->serial, [
 
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'assignment',
 Yii::t('ticket', 'بازبینی تیکت '),
 'info' ,
@@ -24,7 +24,7 @@ Yii::$app->Options->BackendUrl . '/ticket/default/view?id='.$model->id
 $this->params['breadcrumbs'][] = ['label' => Yii::t('ticket', 'تیکت'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('ticket', 'ویرایش');
-\system\widgets\backLang\backLangWidget::languages($model);
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
 ?>
 <div class="ticket-update">
 

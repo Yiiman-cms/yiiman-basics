@@ -12,14 +12,14 @@ use \YiiMan\YiiBasics\modules\posttypes\models\Posttypes;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $posttype string */
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('posttypes', 'ثبت '),
     'success',
     null,
     Yii::$app->Options->BackendUrl . 'pt/create/' . $posttype
 );
-\system\widgets\backLang\backLangWidget::languages();
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 
 $this->title = $searchModel::getConfigs()['items'][$posttype]['labels']['sum'];
 $this->params['breadcrumbs'][] = $this->title;

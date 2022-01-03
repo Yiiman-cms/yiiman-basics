@@ -9,8 +9,8 @@ use yii\widgets\Pjax;
 /* @var $searchModel YiiMan\YiiBasics\modules\language\models\SearchLanguage */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-\system\widgets\backLang\backLangWidget::languages();
-\system\widgets\topMenu\TopMenuWidget::addBtb('add',Yii::t('language','ثبت زبان'),'success',null,Yii::$app->Options->BackendUrl . '/language/default/create');
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb('add',Yii::t('language','ثبت زبان'),'success',null,Yii::$app->Options->BackendUrl . '/language/default/create');
 
 
 $this->title = Yii::t('language', 'زبان های سایت') . ' ';

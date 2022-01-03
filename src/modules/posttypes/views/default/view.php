@@ -35,7 +35,7 @@ if (!empty($model::getConfigs()['items'][$posttype]['fields'])) {
 }
 
 $posttype = $model->postType;
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('posttypes', 'ثبت '),
     'success',
@@ -44,7 +44,7 @@ $posttype = $model->postType;
 );
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'edit',
     Yii::t('posttypes', 'ویرایش این مورد'),
     'info',
@@ -52,7 +52,7 @@ $posttype = $model->postType;
     Yii::$app->Options->BackendUrl . 'pt/update/' . $posttype . '/' . $model->id);
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'delete',
     Yii::t('posttypes', 'حذف این مورد'),
     'danger',
@@ -64,7 +64,7 @@ $this->title = Yii::t('posttypes', 'بازبینی:  ') . $model->title;
 $this->params['breadcrumbs'][] = ['label' => \YiiMan\YiiBasics\modules\posttypes\models\Posttypes::getConfigs()['items'][$_GET['posttype']]['labels']['sum'], 'url' => ['/pt/' . $_GET['posttype']]];
 $this->params['breadcrumbs'][] = $this->title;
 
-\system\widgets\backLang\backLangWidget::languages($model);
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
 
 ?>
 <style>

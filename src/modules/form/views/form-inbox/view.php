@@ -9,7 +9,7 @@ use yii\widgets\DetailView;
 /* @var $dataArray [] */
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'delete',
     Yii::t('form', 'حذف این مورد'),
     'danger',
@@ -21,7 +21,7 @@ $this->title = Yii::t('form', 'اطلاعات ثبت شده:  ' . $model->title)
 $this->params['breadcrumbs'][] = ['label' => Yii::t('form', 'فرم ساز'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-\system\widgets\backLang\backLangWidget::languages($model);
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
 
 ?>
 <div class="row">

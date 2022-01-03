@@ -11,7 +11,7 @@ use yii\widgets\Pjax;
 
 $this->title = Yii::t('user', 'Manage Users') . ' ';
 $this->params['breadcrumbs'][] = $this->title;
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('useradmin', 'ثبت کاربر'),
     'success',

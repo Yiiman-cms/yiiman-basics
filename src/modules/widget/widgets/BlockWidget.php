@@ -8,7 +8,7 @@ use kartik\base\Widget;
 use YiiMan\YiiBasics\lib\View;
 use YiiMan\YiiBasics\modules\parameters\models\Parameters;
 use YiiMan\YiiBasics\modules\widget\models\Components;
-use system\widgets\TippyTooltip\TippyWidget;
+use YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget;
 
 class BlockWidget extends Widget
 {

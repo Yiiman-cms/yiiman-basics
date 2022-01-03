@@ -8,7 +8,7 @@ use yii\widgets\DetailView;
 /* @var $model YiiMan\YiiBasics\modules\location\models\LocationNeighbourhood */
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('location', 'ثبت محلات'),
     'success',
@@ -17,7 +17,7 @@ use yii\widgets\DetailView;
 );
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'edit',
     Yii::t('location', 'ویرایش این مورد'),
     'info',
@@ -25,7 +25,7 @@ use yii\widgets\DetailView;
     Yii::$app->Options->BackendUrl . '/location/neighbourhood/update?id=' . $model->id);
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'delete',
     Yii::t('location', 'حذف این مورد'),
     'danger',
@@ -37,7 +37,7 @@ $this->title = Yii::t('location', 'محله ی :  ' . $model->name);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('location', 'موقعیت جغرافیایی'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-\system\widgets\backLang\backLangWidget::languages($model);
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
 
 ?>
 <div class="location-neighbourhood-view">

@@ -390,11 +390,11 @@ $this->registerJs($js, $this::POS_END);
             <input type="file" name="file">
 
             <button type="submit"
-                    class="btn btn-round btn-info" <?= system\widgets\TippyTooltip\TippyWidget::attribute('ارسال پاسخ') ?>>
+                    class="btn btn-round btn-info" <?= YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget::attribute('ارسال پاسخ') ?>>
                 <i class="far fa fas fa-location-arrow"></i>
             </button>
             <button type="button"
-                    class="btn btn-round btn-info file-btn" <?= system\widgets\TippyTooltip\TippyWidget::attribute('الصاق فایل') ?>>
+                    class="btn btn-round btn-info file-btn" <?= YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget::attribute('الصاق فایل') ?>>
                 <i class="fa fa-paperclip"></i>
             </button>
         </div>

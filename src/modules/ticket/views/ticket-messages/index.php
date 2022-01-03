@@ -7,14 +7,14 @@ use yii\widgets\Pjax;
 /* @var $searchModel YiiMan\YiiBasics\modules\ticket\models\SearchTicketMessages */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'add',
 Yii::t('ticket', 'ثبت '),
 'success' ,
 null ,
 Yii::$app->Options->BackendUrl . '/ticket-messages/default/create'
 );
-\system\widgets\backLang\backLangWidget::languages();
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 
 $this->title = Yii::t('ticket', '').' ';
 $this->params['breadcrumbs'][] = $this->title;

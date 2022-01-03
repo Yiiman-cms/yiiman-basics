@@ -1,0 +1,23 @@
+.bonsai {
+    margin-right: -2px;
+}
+.bonsai > li {
+    position: relative;
+    padding-right: 1.3em;
+    padding-left: 1rem;
+}
+li .thumb {
+    margin: 0 -1px 0 -1em;
+    position: absolute;
+    cursor: pointer;
+    right: 0px;
+    transform: scaleX(-1);
+}
+.bonsai label{
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #AAAAAA;
+    font-weight: 400;
+    direction: rtl;
+    padding-right: 6px;
+}

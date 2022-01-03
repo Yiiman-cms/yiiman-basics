@@ -7,14 +7,14 @@ use yii\widgets\Pjax;
 /* @var $searchModel YiiMan\YiiBasics\modules\gallery\models\SearchGalleryFkMediasCategories */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'add',
 Yii::t('gallery', 'ثبت اتصالات فایل ها'),
 'success' ,
 null ,
 Yii::$app->Options->BackendUrl . '/gallery-fk-medias-categories/default/create'
 );
-\system\widgets\backLang\backLangWidget::languages();
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 
 $this->title = Yii::t('gallery', 'اتصالات فایل ها').' ';
 $this->params['breadcrumbs'][] = $this->title;

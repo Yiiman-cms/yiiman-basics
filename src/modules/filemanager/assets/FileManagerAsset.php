@@ -3,7 +3,7 @@
 	namespace YiiMan\YiiBasics\modules\filemanager\assets;
 	
 	use kartik\select2\Select2Asset;
-	use system\assets\angular\AngularJsAssets;
+	use YiiMan\YiiBasics\assets\angular\AngularJsAssets;
 	use YiiMan\YiiBasics\lib\View;
 	use yii\bootstrap\BootstrapAsset;
 	use yii\web\AssetBundle;
@@ -48,7 +48,7 @@
 				'yii\web\YiiAsset' ,
 				'yii\bootstrap\BootstrapAsset' ,
 				'kartik\select2\Select2Asset',
-				'system\assets\angular\AngularJsAssets',
+				'YiiMan\YiiBasics\assets\angular\AngularJsAssets',
 				
 			];
 		

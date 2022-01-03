@@ -155,7 +155,7 @@ use kartik\select2\Select2;
                     مراجعه نمایید و آیکون مورد نظر خود را انتخاب نمایید. سپس نام کلاس آیکون که برای مثال fa-home می باشد
                     را
                     در اینجا وارد کنید.</p>
-                <?= $form->field($model, 'icon')->widget(\system\widgets\fontAwesomePicker\FontAwesomeFontPickerWidget::className(),
+                <?= $form->field($model, 'icon')->widget(\YiiMan\YiiBasics\widgets\fontAwesomePicker\FontAwesomeFontPickerWidget::className(),
                     [
                         'pluginOptions' =>
                             [

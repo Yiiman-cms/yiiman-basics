@@ -10,7 +10,7 @@ $this->title = Yii::t('language', 'ویرایش زبان های سایت: ' . $m
 ]);
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'add',
 Yii::t('language', 'ثبت زبان های سایت'),
 'success' ,

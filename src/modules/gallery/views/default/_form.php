@@ -76,7 +76,7 @@ use kartik\select2\Select2;
 
                             <div class="col-md-6"><?= \YiiMan\YiiBasics\modules\slug\widgets\SlugField::run( $form , $model ) ?></div>
 
-                            <div class="col-md-12"><?= $form->field($model, 'description')->widget(\system\widgets\floara\FroalaEditorWidget::className(), []) ?></div>
+                            <div class="col-md-12"><?= $form->field($model, 'description')->widget(\YiiMan\YiiBasics\widgets\floara\FroalaEditorWidget::className(), []) ?></div>
 
                         </div>
                     </div>

@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('blog', 'وبلاگ'), 'url'
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('blog', 'ویرایش');
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('blog', 'ثبت مقاله'),
     'success',
@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = Yii::t('blog', 'ویرایش');
     Yii::$app->Options->BackendUrl . '/blog/default/create'
 );
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'assignment',
     Yii::t('blog', 'بازبینی مقاله'),
     'info',
@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = Yii::t('blog', 'ویرایش');
     Yii::$app->Options->BackendUrl . '/blog/default/view?id=' . $model->id
 );
 
-\system\widgets\backLang\backLangWidget::languages($model);
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
 
 ?>
 <div class="blog-articles-update">

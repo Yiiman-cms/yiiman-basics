@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = Yii::t('pages', 'ویرایش برگه ');
 
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('pages', 'ثبت برگه ها'),
     'success' ,
@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = Yii::t('pages', 'ویرایش برگه ');
     Yii::$app->Options->BackendUrl . '/pages/default/create'
 );
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'assignment',
     Yii::t('pages', 'بازبینی برگه ها'),
     'info' ,
@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = Yii::t('pages', 'ویرایش برگه ');
     Yii::$app->Options->BackendUrl . '/pages/default/view?id='.$model->id
 );
 
-\system\widgets\backLang\backLangWidget::languages($model);
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
 
 ?>
 <div class="pages-update">

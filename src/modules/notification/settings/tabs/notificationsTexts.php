@@ -80,7 +80,7 @@ $notificationActs = \YiiMan\YiiBasics\lib\Core::getNotificationNames();
                                                         if (!empty($actBody['params'])) {
                                                             foreach ($actBody['params'] as $name => $popup) {
                                                                 ?>
-                                                                <li <?= \system\widgets\TippyTooltip\TippyWidget::attribute
+                                                                <li <?= \YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget::attribute
                                                                 (
                                                                     \Yii::t
                                                                     ('settings', 'Dynamic Parameter: ({p}) with value: ({v}) can change in system>parameters menu',
@@ -104,16 +104,16 @@ $notificationActs = \YiiMan\YiiBasics\lib\Core::getNotificationNames();
                                                            href="<?= Yii::$app->urlManager->createUrl(['/parameters']) ?>">پارامتر
                                                             های تعریف شده ی شما</a></h4>
                                                     <ul>
-                                                        <li <?= \system\widgets\TippyTooltip\TippyWidget::attribute(\Yii::t('settings', 'user\'s (first name + last name)')) ?>>
+                                                        <li <?= \YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget::attribute(\Yii::t('settings', 'user\'s (first name + last name)')) ?>>
                                                             {{fullname}}
                                                         </li>
-                                                        <li <?= \system\widgets\TippyTooltip\TippyWidget::attribute(\Yii::t('settings', 'Site title')) ?>>
+                                                        <li <?= \YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget::attribute(\Yii::t('settings', 'Site title')) ?>>
                                                             {{siteTitle}}
                                                         </li>
                                                         <?php
                                                         foreach (\YiiMan\YiiBasics\modules\parameters\models\Parameters::getAllParameters() as $key => $param) {
                                                             ?>
-                                                            <li <?= \system\widgets\TippyTooltip\TippyWidget::attribute
+                                                            <li <?= \YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget::attribute
                                                             (
                                                                 \Yii::t
                                                                 ('settings', 'Dynamic Parameter: ({p}) with value: ({v}) can change in system>parameters menu',

@@ -11,7 +11,7 @@ use johnitvn\ajaxcrud\CrudAsset;
 $this->title = Yii::t('rbac', 'User Assignment');
 
 $this->params['breadcrumbs'][] = $this->title;
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('rbac', 'انتساب دسترسی جدید'),
     'success',

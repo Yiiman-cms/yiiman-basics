@@ -1,0 +1,84 @@
+#rendercontent {
+    position: fixed;
+    z-index: 9999;
+    left: 50%;
+    top: 50%;
+    background: white;
+    /* padding-top: 8px; */
+    min-width: 420px;
+    box-shadow: 0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12),0 8px 10px -5px rgba(0,0,0,.2);
+    transition: none;
+    resize: both;
+    overflow: hidden;
+    direction: ltr;
+    padding: 0 !important;
+    border-radius: 5px;
+    height: 130px;
+    min-height: 35px;
+}
+#rendercontent.fullscreen {
+    width: 100% !important;
+    height: 100% !important;
+    left: 0 !important;
+    top: 0 !important;
+}
+dragclickme {
+    padding: 7px;
+    display: block;
+    width: 100%;
+    cursor: all-scroll;
+    background: #00bcd4 !important;
+    color: white;
+    text-align: right;
+    direction: rtl;
+    padding-right: 27px;
+}
+resisable {
+    position: absolute;
+    float: right;
+    color: black;
+    margin-bottom: -10px;
+    display: block;
+    right: 0;
+    top: auto;
+    bottom: 10px;
+}
+resisable .material-icons {
+    color: green;
+    font-size: 20px;
+    text-align: center;
+    position: relative;
+    float: right;
+    rotate: 90deg;
+}
+#iframeRendered {
+    height: calc(100% - 35px);
+}
+dragclickme .material-icons.move-icon {
+    position: absolute;
+    right: 1px;
+}
+
+.mbdraggBtnBox {
+    position: absolute;
+    left: 5px;
+    top: 4px;
+}
+.mdragbtn {
+    display: inline;
+    cursor: pointer;
+    margin-left: 6px;
+    margin-top: 6px;
+}
+.mdragbtn .material-icons {
+    font-size: 16px;
+    height: auto;
+    width: auto;
+    margin-top: 5px;
+}
+.mdragbtn.mbactive .material-icons {
+    background-color: #41aa45;
+    border-color: #4caf507a;
+    box-shadow: 0 2px 2px 0 rgba(76,175,80,.14),0 3px 1px -2px rgba(76,175,80,.2),0 1px 5px 0 rgba(76,175,80,.12);
+    border-radius: 2px;
+}

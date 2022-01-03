@@ -9,14 +9,14 @@ use yii\widgets\Pjax;
 /* @var $searchModel YiiMan\YiiBasics\modules\location\models\SearchLocationNeighbourhood */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('location', 'ثبت محله'),
     'success',
     null,
     Yii::$app->Options->BackendUrl . '/location/neighbourhood/create'
 );
-\system\widgets\backLang\backLangWidget::languages();
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 
 $this->title = Yii::t('location', 'محلات') . ' ';
 $this->params['breadcrumbs'][] = $this->title;

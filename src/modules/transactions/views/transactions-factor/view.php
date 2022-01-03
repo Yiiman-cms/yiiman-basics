@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model YiiMan\YiiBasics\modules\transactions\models\TransactionsFactor */
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'add',
 Yii::t('transactions', 'ثبت فاکتور ها'),
 'success' ,
@@ -16,7 +16,7 @@ Yii::$app->Options->BackendUrl . '/transactions-factor-head/default/create'
 );
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'edit',
 Yii::t('transactions', 'ویرایش این مورد'),
 'info' ,
@@ -24,7 +24,7 @@ null ,
 Yii::$app->Options->BackendUrl . '/transactions-factor-head/default/update?id='.$model->id);
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'delete',
 Yii::t('transactions', 'حذف این مورد'),
 'danger' ,
@@ -36,7 +36,7 @@ $this->title = Yii::t('transactions','فاکتور ها:  '.$model->id);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('transactions', 'مالی'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-\system\widgets\backLang\backLangWidget::languages($model);
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
 
 ?>
 <div class="transactions-factor-head-view">

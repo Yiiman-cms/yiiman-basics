@@ -25,7 +25,7 @@ use YiiMan\YiiBasics\modules\pages\models\Pages;
 use YiiMan\YiiBasics\modules\search\models\Search;
 use YiiMan\YiiBasics\modules\slug\models\Slug;
 use YiiMan\YiiBasics\modules\works\models\Works;
-use system\widgets\nestedItems\NestedItems;
+use YiiMan\YiiBasics\widgets\nestedItems\NestedItems;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\base\View;

@@ -138,7 +138,7 @@ use kartik\select2\Select2;
 
     <div class="col-md-6"><?= $form->field($model, 'created_user_mode')->textInput() ?></div>
 
-    <div class="col-md-6"><?= $form->field($model, 'description')->widget(\system\widgets\floara\FroalaEditorWidget::className() ,[]) ?></div>
+    <div class="col-md-6"><?= $form->field($model, 'description')->widget(\YiiMan\YiiBasics\widgets\floara\FroalaEditorWidget::className() ,[]) ?></div>
 
                             </div>
                         </div>

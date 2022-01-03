@@ -10,7 +10,7 @@ $this->title = Yii::t('form', 'ویرایش اطلاعات ثبت شده: ' . $m
 ]);
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'add',
 Yii::t('form', 'ثبت اطلاعات ثبت شده'),
 'success' ,
@@ -18,7 +18,7 @@ null ,
 Yii::$app->Options->BackendUrl . '/form-inbox/default/create'
 );
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'assignment',
 Yii::t('form', 'بازبینی اطلاعات ثبت شده'),
 'info' ,
@@ -31,7 +31,7 @@ Yii::$app->Options->BackendUrl . '/form-inbox/default/view?id='.$model->id
 $this->params['breadcrumbs'][] = ['label' => Yii::t('form', 'فرم ساز'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('form', 'ویرایش');
-\system\widgets\backLang\backLangWidget::languages($model);
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
 ?>
 <div class="form-inbox-update">
 

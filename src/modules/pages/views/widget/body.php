@@ -429,13 +429,13 @@ file_put_contents(Yii::$app->Options->UploadDir . '/samplePages/index.php', (!em
 
     <div id="top-panel">
 
-        <img src="<?= Yii::$app->Options->logo ?>" <?= \system\widgets\TippyTooltip\TippyWidget::attribute('سازنده ی این سیستم') ?>
+        <img src="<?= Yii::$app->Options->logo ?>" <?= \YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget::attribute('سازنده ی این سیستم') ?>
              alt="Vvveb" class="float-left" id="logo">
 
 
         <div class="btn-group float-left" role="group">
 
-            <button class="btn btn-light" <?= \system\widgets\TippyTooltip\TippyWidget::attribute('پنل سمت چپ') ?>
+            <button class="btn btn-light" <?= \YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget::attribute('پنل سمت چپ') ?>
                     title="Toggle left column" id="toggle-left-column-btn"
                     data-vvveb-action="toggleLeftColumn" data-toggle="button" aria-pressed="false">
                 <img src="<?= $assets->baseUrl ?>/libs/builder/icons/left-column-layout.svg" width="20px" height="20px">

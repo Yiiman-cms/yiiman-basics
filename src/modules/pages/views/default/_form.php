@@ -165,7 +165,7 @@ use kartik\select2\Select2;
                                             <div class="col-md-12 pull-right">
 
                                                 <?=  $form->field($model, 'content')->widget(
-                                                    \system\widgets\CodeMirror\CodeMirrorWidget::className(),
+                                                    \YiiMan\YiiBasics\widgets\CodeMirror\CodeMirrorWidget::className(),
                                                     []
                                                 ) ?>
                                             </div>

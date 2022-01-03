@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model YiiMan\YiiBasics\modules\gallery\models\GalleryFkMediasCategories */
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'add',
 Yii::t('gallery', 'ثبت اتصالات فایل ها'),
 'success' ,
@@ -16,7 +16,7 @@ Yii::$app->Options->BackendUrl . '/gallery-fk-medias-categories/default/create'
 );
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'edit',
 Yii::t('gallery', 'ویرایش این مورد'),
 'info' ,
@@ -24,7 +24,7 @@ null ,
 Yii::$app->Options->BackendUrl . '/gallery-fk-medias-categories/default/update?id='.$model->id);
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'delete',
 Yii::t('gallery', 'حذف این مورد'),
 'danger' ,
@@ -36,7 +36,7 @@ $this->title = Yii::t('gallery','اتصالات فایل ها:  '.$model->id);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('gallery', 'گالری'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-\system\widgets\backLang\backLangWidget::languages($model);
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
 
 ?>
 <div class="gallery-fk-medias-categories-view">

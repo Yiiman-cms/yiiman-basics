@@ -10,7 +10,7 @@ $this->title = Yii::t('search', 'ویرایش جست و جوها: ' . $model->id
 ]);
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'add',
 Yii::t('search', 'ثبت جست و جوها'),
 'success' ,
@@ -18,7 +18,7 @@ null ,
 Yii::$app->Options->BackendUrl . '/search/default/create'
 );
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'assignment',
 Yii::t('search', 'بازبینی جست و جوها'),
 'info' ,
@@ -31,7 +31,7 @@ Yii::$app->Options->BackendUrl . '/search/default/view?id='.$model->id
 $this->params['breadcrumbs'][] = ['label' => Yii::t('search', 'جست و جوها'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('search', 'ویرایش');
-\system\widgets\backLang\backLangWidget::languages($model);
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
 ?>
 <div class="search-update">
 

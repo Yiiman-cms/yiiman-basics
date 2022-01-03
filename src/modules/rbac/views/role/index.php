@@ -11,7 +11,7 @@ use johnitvn\ajaxcrud\CrudAsset;
 
 $this->title = Yii::t('rbac', 'Roles Manager');
 $this->params['breadcrumbs'][] = $this->title;
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('rbac', 'ثبت نقش'),
     'success',

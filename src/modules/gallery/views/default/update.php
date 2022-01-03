@@ -10,7 +10,7 @@ $this->title = Yii::t('gallery', 'ویرایش پوشه ها: ' . $model->title,
 ]);
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('gallery', 'ثبت پوشه ها'),
     'success',
@@ -18,7 +18,7 @@ $this->title = Yii::t('gallery', 'ویرایش پوشه ها: ' . $model->title,
     Yii::$app->Options->BackendUrl . '/gallery/default/create'
 );
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'assignment',
     Yii::t('gallery', 'بازبینی پوشه ها'),
     'info',
@@ -30,7 +30,7 @@ $this->title = Yii::t('gallery', 'ویرایش پوشه ها: ' . $model->title,
 $this->params['breadcrumbs'][] = ['label' => Yii::t('gallery', 'گالری'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('gallery', 'ویرایش');
-\system\widgets\backLang\backLangWidget::languages($model);
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
 ?>
 <div class="gallery-categories-update">
 

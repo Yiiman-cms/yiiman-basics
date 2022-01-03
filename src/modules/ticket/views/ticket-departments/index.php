@@ -9,7 +9,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel YiiMan\YiiBasics\modules\ticket\models\SearchTicketDepartments */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('ticket', 'ثبت دپارتمان'),
     'success',

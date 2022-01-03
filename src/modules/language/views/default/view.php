@@ -10,7 +10,7 @@ use yii\widgets\DetailView;
  * @var array $files
  */
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('language', 'ثبت زبان های سایت'),
     'success',
@@ -19,7 +19,7 @@ use yii\widgets\DetailView;
 );
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'edit',
     Yii::t('language', 'ویرایش این مورد'),
     'info',
@@ -27,7 +27,7 @@ use yii\widgets\DetailView;
     Yii::$app->Options->BackendUrl . '/language/default/update?id=' . $model->id);
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'delete',
     Yii::t('language', 'حذف این مورد'),
     'danger',
@@ -199,7 +199,7 @@ color: white;" ';
                                                                     ?>
                                                                     <tr>
                                                                         <td class="key"><?= $item['key'] ?></td>
-                                                                        <td><input <?= \system\widgets\TippyTooltip\TippyWidget::attribute('برای ترجمه ی ماشینی، دابل کلیک کنید') ?> type="text" class="form-control"
+                                                                        <td><input <?= \YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget::attribute('برای ترجمه ی ماشینی، دابل کلیک کنید') ?> type="text" class="form-control"
                                                                                    name="<?= $file['name'] ?>[<?= $key ?>]"
                                                                                    value="<?= $item['translate'] ?>">
                                                                         </td>

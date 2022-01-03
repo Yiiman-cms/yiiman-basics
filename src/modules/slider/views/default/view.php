@@ -8,7 +8,7 @@ use yii\widgets\DetailView;
 /* @var $model YiiMan\YiiBasics\modules\slider\models\Slider */
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('slider', 'ثبت اسلاید'),
     'success',
@@ -17,7 +17,7 @@ use yii\widgets\DetailView;
 );
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'edit',
     Yii::t('slider', 'ویرایش این مورد'),
     'info',
@@ -25,7 +25,7 @@ use yii\widgets\DetailView;
     Yii::$app->Options->BackendUrl . '/slider/default/update?id=' . $model->id);
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'delete',
     Yii::t('slider', 'حذف این مورد'),
     'danger',
@@ -37,7 +37,7 @@ $this->title = Yii::t('slider', 'اسلاید:  ' . $model->title);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('slider', 'اسلاید'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-\system\widgets\backLang\backLangWidget::languages($model);
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
 
 ?>
 <div class="slider-view">
@@ -77,7 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         'attribute' => 'data',
                                         'format' => 'raw',
                                         'value'=>function($model){
-                                            return \system\theme\Widgets\Slider::widget();
+                                            return \YiiMan\YiiBasics\theme\Widgets\Slider::widget();
                                         }
                                     ],
                                 ],

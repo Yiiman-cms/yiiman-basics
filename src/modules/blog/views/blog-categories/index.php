@@ -11,14 +11,14 @@
 	
 	$this->title                   = Yii::t( 'blog' , 'دسته بندی مقالات' ) . ' ';
 	$this->params['breadcrumbs'][] = $this->title;
-	\system\widgets\topMenu\TopMenuWidget::addBtb(
+	\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 	    'add',
 	    Yii::t('blog', 'ثبت دسته بندی'),
 	    'success',
 	    null,
 	    Yii::$app->Options->BackendUrl . '/blog/blog-category/create'
 	);
-	\system\widgets\backLang\backLangWidget::languages();
+	\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 	
 ?>
 

@@ -1,7 +1,7 @@
 <?php
 
 use \YiiMan\YiiBasics\modules\posttypes\models\Posttypes;
-\system\widgets\fontAwesomePicker\assets\FontAwesomeFontPickerAssets::register($this);
+\YiiMan\YiiBasics\widgets\fontAwesomePicker\assets\FontAwesomeFontPickerAssets::register($this);
 /**
  * @var $posttype string
  */

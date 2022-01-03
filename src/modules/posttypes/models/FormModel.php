@@ -12,7 +12,7 @@ use YiiMan\YiiBasics\modules\posttypes\models\PosttypesFk;
 use YiiMan\YiiBasics\modules\posttypes\models\PosttypesMultiple;
 use YiiMan\YiiBasics\modules\posttypes\models\PosttypesMultipleFields;
 use YiiMan\YiiBasics\modules\posttypes\models\Search;
-use system\widgets\multiRowInput\MultipleInputColumn;
+use YiiMan\YiiBasics\widgets\multiRowInput\MultipleInputColumn;
 use yii\helpers\ArrayHelper;
 use Yii;
 

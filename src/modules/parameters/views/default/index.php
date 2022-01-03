@@ -9,14 +9,14 @@ use yii\widgets\Pjax;
 /* @var $searchModel YiiMan\YiiBasics\modules\parameters\models\SearchParameters */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('parameters', 'ثبت '),
     'success',
     null,
     Yii::$app->Options->BackendUrl . '/parameters/default/create'
 );
-\system\widgets\backLang\backLangWidget::languages();
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 
 $this->title = Yii::t('parameters', 'پارامتر ها') . ' ';
 $this->params['breadcrumbs'][] = $this->title;
@@ -82,7 +82,7 @@ $form = \yii\bootstrap\ActiveForm::begin();
                                 <div class="row">
                                     <div class="col-md-4">
                                         <button class="btn btn-round btn-success"
-                                                id="add-row" <?= \system\widgets\TippyTooltip\TippyWidget::attribute(\Yii::t('parameters', 'کلید جدید')) ?>>
+                                                id="add-row" <?= \YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget::attribute(\Yii::t('parameters', 'کلید جدید')) ?>>
                                                     <span class="material-icons">
                                                         add
                                                     </span>
@@ -90,7 +90,7 @@ $form = \yii\bootstrap\ActiveForm::begin();
                                     </div>
                                     <div class="col-md-8">
                                         <button class="btn btn-round btn-success " style="float: left"
-                                            <?= \system\widgets\TippyTooltip\TippyWidget::attribute(\Yii::t('parameters', 'ذخیره ی موارد')) ?>>
+                                            <?= \YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget::attribute(\Yii::t('parameters', 'ذخیره ی موارد')) ?>>
                                             <?= \Yii::t('parameters', 'ذخیره') ?>
                                         </button>
                                     </div>
@@ -117,7 +117,7 @@ $form = \yii\bootstrap\ActiveForm::begin();
                                                     ?>
                                                     <tr style="margin-top: 5px" id="db-<?= $model->id ?>">
                                                         <td>
-                                                            <span <?= !empty($model->description) ? \system\widgets\TippyTooltip\TippyWidget::attribute($model->description) : '' ?>>
+                                                            <span <?= !empty($model->description) ? \YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget::attribute($model->description) : '' ?>>
                                                                 {{<?= $model->key ?>}}
                                                             </span>
                                                         </td>
@@ -140,7 +140,7 @@ $form = \yii\bootstrap\ActiveForm::begin();
                                                                 <div class="rm-btn">
                                                                     <button class="rm-btn btn-round btn btn-danger"
                                                                             data-mode="db"
-                                                                        <?= \system\widgets\TippyTooltip\TippyWidget::attribute(\Yii::t('parameters', 'حذف این ردیف')) ?>
+                                                                        <?= \YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget::attribute(\Yii::t('parameters', 'حذف این ردیف')) ?>
                                                                             data-id="<?= $model->id ?>">
                                                                     <span class="material-icons">
                                                                          clear

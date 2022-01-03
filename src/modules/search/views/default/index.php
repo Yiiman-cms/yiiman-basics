@@ -9,14 +9,14 @@ use yii\widgets\Pjax;
 /* @var $searchModel YiiMan\YiiBasics\modules\search\models\SearchSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('search', 'ثبت جست و جوها'),
     'success',
     null,
     Yii::$app->Options->BackendUrl . '/search/default/create'
 );
-\system\widgets\backLang\backLangWidget::languages();
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 
 $this->title = Yii::t('search', 'جست و جوها') . ' ';
 $this->params['breadcrumbs'][] = $this->title;

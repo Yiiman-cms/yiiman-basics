@@ -127,7 +127,7 @@ $redactorOptions =
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <?= \system\widgets\redactor\widgets\Redactor::widget(
+                                <?= \YiiMan\YiiBasics\widgets\redactor\widgets\Redactor::widget(
                                     [
                                         'name' => 'description',
                                         'fileUpload' => false,

@@ -9,14 +9,14 @@ use yii\widgets\Pjax;
 /* @var $departments \YiiMan\YiiBasics\modules\ticket\models\TicketDepartments[] */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 $this->title = 'تخصیص کاربران ادمین به دپارتمان ها';
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('ticket', 'ثبت '),
     'success',
     null,
     Yii::$app->Options->BackendUrl . '/ticket/ticket-department-users/create'
 );
-\system\widgets\backLang\backLangWidget::languages();
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 
 $this->params['breadcrumbs'][] = $this->title;
 ?>

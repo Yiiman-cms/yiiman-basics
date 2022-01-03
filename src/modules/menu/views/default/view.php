@@ -10,7 +10,7 @@ use yii\widgets\DetailView;
 $this->title = \Yii::t('menu', 'اطلاعات منوی: ') . $model->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('menu', 'لیست منوهای سایت'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('menu', 'ثبت منو'),
     'success',
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 );
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'edit',
     Yii::t('menu', 'ویرایش این مورد'),
     'info',
@@ -27,15 +27,15 @@ $this->params['breadcrumbs'][] = $this->title;
     Yii::$app->Options->BackendUrl . '/menu/default/update?id=' . $model->id);
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'delete',
     Yii::t('menu', 'حذف این مورد'),
     'danger',
     null,
     Yii::$app->Options->BackendUrl . '/menu/default/delete?id=' . $model->id);
 
-\system\widgets\backLang\backLangWidget::languages($model);
-\system\widgets\multiRowInput\assets\FontAwesomeAsset::register($this);
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
+\YiiMan\YiiBasics\widgets\multiRowInput\assets\FontAwesomeAsset::register($this);
 ?>
 <div class="menu-view">
 

@@ -36,7 +36,7 @@ class Module extends \yii\base\Module
         {
             $this->config = include realpath(__DIR__.'/config.php');
             $this->nameSpace = 'YiiMan\YiiBasics\modules\\'.$this->config['name'];
-            $this->controllerNamespace = 'system\reports\controllers';
+            $this->controllerNamespace = 'YiiMan\YiiBasics\reports\controllers';
             $this->viewPath = '@system/reports/views';
             $this->name = $this->config['name'];
 

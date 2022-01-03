@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model YiiMan\YiiBasics\modules\ticket\models\Ticket */
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'edit',
 Yii::t('ticket', 'ویرایش این مورد'),
 'info' ,
@@ -14,7 +14,7 @@ null ,
 Yii::$app->Options->BackendUrl . '/ticket/default/update?id='.$model->id);
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'delete',
 Yii::t('ticket', 'حذف این مورد'),
 'danger' ,
@@ -26,7 +26,7 @@ $this->title = Yii::t('ticket','تیکت ها:  '.$model->id);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('ticket', 'تیکت'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-\system\widgets\backLang\backLangWidget::languages($model);
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
 
 ?>
 <div class="ticket-view">

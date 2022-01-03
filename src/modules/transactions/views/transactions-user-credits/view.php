@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model YiiMan\YiiBasics\modules\transactions\models\TransactionsUserCredits */
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'add',
 Yii::t('transactions', 'ثبت تاریخچه ی کیف پول کاربران'),
 'success' ,
@@ -16,7 +16,7 @@ Yii::$app->Options->BackendUrl . '/transactions-user-credits/default/create'
 );
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'edit',
 Yii::t('transactions', 'ویرایش این مورد'),
 'info' ,
@@ -24,7 +24,7 @@ null ,
 Yii::$app->Options->BackendUrl . '/transactions-user-credits/default/update?id='.$model->id);
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'delete',
 Yii::t('transactions', 'حذف این مورد'),
 'danger' ,
@@ -36,7 +36,7 @@ $this->title = Yii::t('transactions','تاریخچه ی کیف پول کاربر
 $this->params['breadcrumbs'][] = ['label' => Yii::t('transactions', 'مالی'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-\system\widgets\backLang\backLangWidget::languages($model);
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
 
 ?>
 <div class="transactions-user-credits-view">

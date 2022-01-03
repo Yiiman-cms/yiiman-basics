@@ -16,7 +16,7 @@ use YiiMan\YiiBasics\modules\hint\models\Hint;
 use YiiMan\YiiBasics\modules\language\models\Language;
 use YiiMan\YiiBasics\modules\setting\models\DynamicModel;
 use YiiMan\YiiBasics\modules\slug\models\Slug;
-use system\widgets\TreeSelector\TreeSelectorWidget;
+use YiiMan\YiiBasics\widgets\TreeSelector\TreeSelectorWidget;
 use This;
 use Yii;
 use yii\base\InvalidArgumentException;

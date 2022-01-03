@@ -8,7 +8,7 @@ use yii\helpers\Html;
 $this->title = Yii::t('posttypes', 'ویرایش : ') .' '. \YiiMan\YiiBasics\modules\posttypes\models\Posttypes::getConfigs()['items'][$_GET['posttype']]['labels']['single'].': '. $model->title;
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('posttypes', 'ثبت '),
     'success',
@@ -16,7 +16,7 @@ $this->title = Yii::t('posttypes', 'ویرایش : ') .' '. \YiiMan\YiiBasics\mo
     Yii::$app->Options->BackendUrl . 'pt/' . $model->postType . '/create'
 );
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'assignment',
     Yii::t('posttypes', 'بازبینی '),
     'info',
@@ -28,7 +28,7 @@ $this->title = Yii::t('posttypes', 'ویرایش : ') .' '. \YiiMan\YiiBasics\mo
 $this->params['breadcrumbs'][] = ['label' => \YiiMan\YiiBasics\modules\posttypes\models\Posttypes::getConfigs()['items'][$_GET['posttype']]['labels']['sum'], 'url' => ['/pt/' . $_GET['posttype']]];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['/pt/' . $_GET['posttype'] . '/view/' . $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('posttypes', 'ویرایش');
-\system\widgets\backLang\backLangWidget::languages($model);
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
 ?>
 <div class="posttypes-update">
 

@@ -7,14 +7,14 @@ use yii\widgets\Pjax;
 /* @var $searchModel YiiMan\YiiBasics\modules\transactions\models\SearchTransactionsUserCredits */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'add',
 Yii::t('transactions', 'ثبت تاریخچه ی کیف پول کاربران'),
 'success' ,
 null ,
 Yii::$app->Options->BackendUrl . '/transactions-user-credits/default/create'
 );
-\system\widgets\backLang\backLangWidget::languages();
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 
 $this->title = Yii::t('transactions', 'تاریخچه ی کیف پول کاربران').' ';
 $this->params['breadcrumbs'][] = $this->title;

@@ -7,14 +7,14 @@ use yii\widgets\Pjax;
 /* @var $searchModel YiiMan\YiiBasics\modules\location\models\SearchLocationCity */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
 'add',
 Yii::t('location', 'ثبت شهر ها'),
 'success' ,
 null ,
 Yii::$app->Options->BackendUrl . '/location/default/create'
 );
-\system\widgets\backLang\backLangWidget::languages();
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 
 $this->title = Yii::t('location', 'شهر ها').' ';
 $this->params['breadcrumbs'][] = $this->title;

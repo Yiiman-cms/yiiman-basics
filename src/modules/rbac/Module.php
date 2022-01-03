@@ -150,7 +150,7 @@ class Module extends \yii\base\Module
 
 //			Yii::$app->components['authManager']=
 //			[
-//				'class'=>'system\module\rbac\models\DbManager'
+//				'class'=>'YiiMan\YiiBasics\module\rbac\models\DbManager'
 //			];
         Yii::$app->setComponents(
             [

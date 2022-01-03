@@ -1,7 +1,7 @@
 <?php
 	
 	use kartik\select2\Select2;
-	use system\widgets\floara\FroalaEditorWidget;
+	use YiiMan\YiiBasics\widgets\floara\FroalaEditorWidget;
 	use yii\helpers\ArrayHelper;
 	use yii\helpers\Html;
 	use yii\widgets\ActiveForm;

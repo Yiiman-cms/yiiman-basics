@@ -9,14 +9,14 @@ use yii\widgets\Pjax;
 /* @var $searchModel YiiMan\YiiBasics\modules\gallery\models\SearchGalleryCategories */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('gallery', 'ثبت پوشه ها'),
     'success',
     null,
     Yii::$app->Options->BackendUrl . '/gallery/default/create'
 );
-\system\widgets\backLang\backLangWidget::languages();
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 
 $this->title = Yii::t('gallery', 'پوشه ها') . ' ';
 $this->params['breadcrumbs'][] = $this->title;

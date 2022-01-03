@@ -15,14 +15,14 @@ $this->title = Yii::t('pages', 'صفحات') . ' ';
 $this->params['breadcrumbs'][] = $this->title;
 $this->registerJs($this->render('script/app.js'), $this::POS_END);
 $this->registerJs($this->render('script/app.js'), $this::POS_END);
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('pages', 'ثبت صفحه'),
     'success',
     null,
     Yii::$app->Options->BackendUrl . '/pages/default/create'
 );
-\system\widgets\backLang\backLangWidget::languages();
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 $setDefaultURL = Yii::$app->urlManager->createUrl(['/pages/default/set-default']);
 $js = <<<JS
 function actionDefault(id) {

@@ -12,14 +12,14 @@ use yii\widgets\Pjax;
 $this->title = Yii::t('blog', 'دیدگاه ها') . ' ';
 $this->params['breadcrumbs'][] = $this->title;
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('blog', 'ثبت دیدگاه جدید'),
     'success',
     null,
     Yii::$app->Options->BackendUrl . '/blog/default/create'
 );
-\system\widgets\backLang\backLangWidget::languages();
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages();
 
 $verified=  \Yii::t('site','منتشر شده');
 $unverified=  \Yii::t('site','جفنگ(منتشر نشده)');

@@ -8,7 +8,7 @@ use yii\widgets\DetailView;
 /* @var $model YiiMan\YiiBasics\modules\form\models\Form */
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
     Yii::t('form', 'ثبت فرم ها'),
     'success',
@@ -17,7 +17,7 @@ use yii\widgets\DetailView;
 );
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'edit',
     Yii::t('form', 'ویرایش این مورد'),
     'info',
@@ -25,7 +25,7 @@ use yii\widgets\DetailView;
     Yii::$app->Options->BackendUrl . '/form/default/update?id=' . $model->id);
 
 
-\system\widgets\topMenu\TopMenuWidget::addBtb(
+\YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'delete',
     Yii::t('form', 'حذف این مورد'),
     'danger',
@@ -37,7 +37,7 @@ $this->title = Yii::t('form', 'فرم ها:  ' . $model->title);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('form', 'فرم ساز'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-\system\widgets\backLang\backLangWidget::languages($model);
+\YiiMan\YiiBasics\widgets\backLang\backLangWidget::languages($model);
 \YiiMan\YiiBasics\modules\form\widgets\FormGeneratorAssets::register($this);
 
 $js = <<<JS

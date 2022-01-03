@@ -7,7 +7,7 @@ namespace YiiMan\YiiBasics\modules\parameters\widgets;
 use kartik\base\Widget;
 use YiiMan\YiiBasics\lib\View;
 use YiiMan\YiiBasics\modules\parameters\models\Parameters;
-use system\widgets\TippyTooltip\TippyWidget;
+use YiiMan\YiiBasics\widgets\TippyTooltip\TippyWidget;
 
 class ParameterWidget extends Widget
 {
