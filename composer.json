@@ -24,6 +24,7 @@
     "kartik-v/yii2-widget-select2": "2.1.7",
     "kartik-v/yii2-widget-fileinput": "1.0.9",
     "kartik-v/yii2-grid": "dev-master",
-    "demi/sitemap-generator": "~1.0"
+    "demi/sitemap-generator": "~1.0",
+    "piwik/device-detector": "3.12.4"
   }
 }
