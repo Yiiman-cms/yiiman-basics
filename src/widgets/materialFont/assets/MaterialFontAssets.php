@@ -1,12 +1,10 @@
 <?php
-/**
- * Copyright (c) 2018.
- * Author: Tokapps Tm
+/*
+ * Copyright (c) 2018-2022.
+ * Created by YiiMan.
  * Programmer: gholamreza beheshtian
- * mobile: 09353466620
- * WebSite:http://tokapps.ir
- *
- *
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
  */
 
 /**

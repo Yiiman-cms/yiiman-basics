@@ -1,13 +1,21 @@
 <?php
-	namespace YiiMan\YiiBasics\modules\errors\controllers;
+/*
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
+namespace YiiMan\YiiBasics\modules\errors\controllers;
 	use Yii;
 	use yii\web\Controller;
 	
 	/**
 	 * Created by YiiMan TM.
 	 * Programmer: gholamreza beheshtian
-	 * Mobile:09353466620
-	 * Company Phone:05138846411
+	 * Mobile:+989353466620 | +17272282283
+	 *
 	 * Site:https://yiiman.ir
 	 * Date: 12/14/2018
 	 * Time: 7:56 PM

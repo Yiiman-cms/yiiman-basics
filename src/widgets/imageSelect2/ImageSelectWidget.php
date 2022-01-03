@@ -1,10 +1,18 @@
 <?php
+/*
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
 	/**
-	 * Created by tokapps TM.
+	 * Created by YiiMan.
 	 * Programmer: gholamreza beheshtian
-	 * Mobile:09353466620
-	 * Company Phone:05138846411
-	 * Site:http://tokapps.ir
+	 * Mobile:+989353466620 | +17272282283
+	 *
+	 * Site:https://yiiman.ir
 	 * Date: ۱۷/۰۴/۲۰۲۰
 	 * Time: ۰۳:۵۰ قبل‌ازظهر
 	 */

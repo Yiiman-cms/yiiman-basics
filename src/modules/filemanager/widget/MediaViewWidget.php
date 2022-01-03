@@ -1,4 +1,11 @@
 <?php
+/*
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\filemanager\widget;
 
@@ -11,8 +18,8 @@ use yii\widgets\InputWidget;
 /**
  * Created by YiiMan TM.
  * Programmer: gholamreza beheshtian
- * Mobile:09353466620
- * Company Phone:05138846411
+ * Mobile:+989353466620 | +17272282283
+ *
  * Site:https://yiiman.ir
  * Date: 12/30/2018
  * Time: 4:05 AM

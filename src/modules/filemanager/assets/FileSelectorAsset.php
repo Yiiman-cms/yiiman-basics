@@ -1,4 +1,11 @@
 <?php
+/*
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\modules\filemanager\assets;
 
@@ -8,7 +15,7 @@ use yii\web\AssetBundle;
 /**
  * Created by YiiMan.
  * Programmer: gholamreza beheshtian
- * Mobile:09353466620
+ * Mobile:+989353466620 | +17272282283
  * Site:http://yiiman.ir
  * Date: 12/29/2018
  * Time: 2:43 PM

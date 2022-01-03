@@ -1,12 +1,20 @@
 <?php
-	namespace YiiMan\YiiBasics\modules\filemanager\controllers;
+/*
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
+namespace YiiMan\YiiBasics\modules\filemanager\controllers;
 	use YiiMan\YiiBasics\lib\Controller;
 	
 	/**
 	 * Created by YiiMan TM.
 	 * Programmer: gholamreza beheshtian
-	 * Mobile:09353466620
-	 * Company Phone:05138846411
+	 * Mobile:+989353466620 | +17272282283
+	 *
 	 * Site:https://yiiman.ir
 	 * Date: 12/29/2018
 	 * Time: 2:49 PM

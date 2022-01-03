@@ -1,15 +1,22 @@
 <?php
-	
-	namespace YiiMan\YiiBasics\widgets\notFound;
+/*
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
+namespace YiiMan\YiiBasics\widgets\notFound;
 	
 	use yii\base\Widget;
 	
 	/**
-	 * Created by tokapps TM.
+	 * Created by YiiMan.
 	 * Programmer: gholamreza beheshtian
-	 * Mobile:09353466620
-	 * Company Phone:05138846411
-	 * Site:http://tokapps.ir
+	 * Mobile:+989353466620 | +17272282283
+	 *
+	 * Site:https://yiiman.ir
 	 * Date: 01/05/2019
 	 * Time: 07:00 PM
 	 */

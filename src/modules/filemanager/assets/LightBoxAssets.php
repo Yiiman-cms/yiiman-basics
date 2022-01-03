@@ -1,6 +1,13 @@
 <?php
-	
-	namespace YiiMan\YiiBasics\modules\filemanager\assets;
+/*
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
+namespace YiiMan\YiiBasics\modules\filemanager\assets;
 	
 	use YiiMan\YiiBasics\assets\angular\AngularJsAssets;
 	use YiiMan\YiiBasics\lib\View;
@@ -11,8 +18,8 @@
 	/**
 	 * Created by YiiMan TM.
 	 * Programmer: gholamreza beheshtian
-	 * Mobile:09353466620
-	 * Company Phone:05138846411
+	 * Mobile:+989353466620 | +17272282283
+	 *
 	 * Site:https://yiiman.ir
 	 * Date: 12/29/2018
 	 * Time: 2:43 PM
