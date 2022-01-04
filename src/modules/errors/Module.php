@@ -7,12 +7,6 @@
  * Site:https://yiiman.ir
  */
 
-/**
- * Site: https://yiiman.ir
- * AuthorName: gholamreza beheshtian
- * AuthorNumber:+989353466620 | +17272282283
- * AuthorCompany: YiiMan
- */
 
 namespace YiiMan\YiiBasics\modules\errors;
 
@@ -22,61 +16,26 @@ use Yii;
 use yii\base\Event;
 use yii\helpers\ArrayHelper;
 
-class Module extends \yii\base\Module
+class Module extends \YiiMan\YiiBasics\lib\Module
 {
-
-
     public $controllerNamespace = 'YiiMan\YiiBasics\modules\errors\controllers';
-    public $name = 'api';
-    public $nameSpace = 'YiiMan\YiiBasics\modules\errors';
-    public $config =
+    public $hasComponent = true;
+
+    public $components =
         [
-            'type'           => ['common'],
-            'namespace'      => 'YiiMan\YiiBasics\modules\errors',
-            'sourceLanguage' => 'fa',
-            'address'        => '',
-            'menu'           =>
-                [
-                    'test' =>
-                        [
-                            'sub-menu' => 'controller/action'
-                        ]
-                ],
-            'message'        =>
-                [
-                    'app-name',
-                    'app-name-2'
-                ],
-
+            'errorHandler' => ['errorAction' => 'errors/default/error']
         ];
 
-    public function init()
+    public static function settings()
     {
-        $this->initModules();
-    }
-
-    public function initModules()
-    {
-        if (!empty($this->config['modules'])) {
-
-            foreach ($this->config['modules'] as $key => $val) {
-                $this->modules[$key] = $val;
-            }
-        }
-    }
-
-    public function initComponents()
-    {
-        $Option =
+        return
             [
-//                'class'=>'YiiMan\YiiBasics\modules\api\components\Options',
-        ];
-
-
-        //Yii::$app->components['pdf']= $pdf;
-        Yii::$app->setComponents([$Option]);
+                'Settings' => function ($form) {
+                    return Yii::$app->view->render('@vendor/yiiman/yii-basics/src/modules/errors/views/settings.php',
+                        ['form' => $form]
+                    );
+                }
+            ];
     }
-
-
 }
 

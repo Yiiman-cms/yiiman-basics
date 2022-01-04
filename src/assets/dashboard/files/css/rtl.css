@@ -1,0 +1,301 @@
+/*
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
+@font-face {
+    font-family: 'iran_sans';
+    src: url('../fonts/IRANSansWeb(FaNum)_UltraLight.eot?#') format('eot'),
+        url('../fonts/IRANSansWeb(FaNum)_UltraLight.woff') format('woff'),
+        url('../fonts/IRANSansWeb(FaNum)_UltraLight.woff2') format('woff2'),
+        url('../fonts/IRANSansWeb(FaNum)_UltraLight.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Google';
+    src: url('../fonts/Google.eot');
+    src: url('../fonts/Google.eot') format('embedded-opentype'),
+        url('../fonts/Google.woff') format('woff'),
+        url('../fonts/Google.ttf') format('truetype'),
+        url('../fonts/Google.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+.sidebar, .off-canvas-sidebar {
+    right: 0;
+    left: auto;
+}
+.sidebar .nav li .nav li .nav li > a {
+    margin-right: -29px !important;
+}
+.sidebar .nav li .nav li > a {
+    margin-left: 0 !important;
+}
+.sidebar .nav i, .off-canvas-sidebar .nav i {
+    float: right;
+    margin-left: 15px;
+    margin-right: 0px;
+}
+
+.main-panel {
+
+    float: left;
+
+}
+
+.ps-scrollbar-y-rail {
+    left: 0px;
+    right: auto;
+}
+
+.card-stats .card-header {
+    float: right;
+}
+
+.card .card-footer .stats {
+    float: right;
+    direction: rtl;
+    margin-bottom: 10px;
+}
+/*
+@font-face {
+    font-family: 'Byekan';
+    src: url(../../../webfonts/BYekan.woff);
+}
+@font-face {
+    font-family: 'IRANSansWeb';
+    src: url(../../../webfonts/IRANSansWeb.woff);
+}*/
+h1,h2,h3,h4,h5{
+    text-align: right;
+
+}
+body{
+    direction: rtl;
+}
+.navbar .navbar-nav > li.open > .dropdown-menu {
+    direction: rtl;
+    text-align: right;
+}
+.card-nav-tabs .nav-tabs-title {
+    float: right;
+    padding: 10px 10px 10px 0;
+    line-height: 24px;
+    margin-top: -42px;
+    direction: rtl;
+}
+.nav-tabs > li {
+    float: right;
+    margin-bottom: -1px;
+    direction: rtl;
+}
+.card-nav-tabs .nav-tabs {
+
+    padding-right: 91px;
+}
+.breadcrumb {
+    margin-bottom: 10px;
+}
+th{
+    text-align: right;
+}
+
+.kv-file-zoom.btn.btn-kv.btn-default.btn-outline-secondary {
+    padding: 0px;
+}
+.btn.btn-kv.btn-default.btn-outline-secondary.btn-close {
+    padding: 0px;
+}
+.btn.btn-kv.btn-default.btn-outline-secondary.btn-borderless {
+    padding: 0px;
+}
+.btn.btn-kv.btn-default.btn-outline-secondary.btn-fullscreen {
+    padding: 0px;
+}
+.btn.btn-kv.btn-default.btn-outline-secondary.btn-toggleheader {
+    padding: 0px;
+}
+.guid-text{
+    margin-top: 30px;
+    color: grey;
+}
+.sidebar-mini .sidebar .sidebar-wrapper .nav {
+    padding-right: 15px;
+    padding-left: 0;
+    transition: 0.5s ease;
+}
+.sidebar-nav.nav {
+    margin-right: -39px;
+    transition: 0.5s ease;
+}
+.sidebar-mini .sidebar-nav.nav{
+    transition: 0.5s ease;
+    margin-right: 0
+}
+.sidebar .user .photo {
+    float: right;
+    margin-right: 23px;
+    border-radius: 50%;
+    margin-left: 11px;
+}
+.user-info .nav-link {
+    margin-right: 50px !important;
+    margin-left: auto;
+}
+.user-info .nav-link {
+    margin-right: auto !important;
+    margin-left: auto;
+}
+.user-info .sidebar-normal {
+    margin-top: 5px;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.sidebar .nav i, .off-canvas-sidebar .nav i {
+    float: right;
+    margin-left: 16px;
+    margin-right: 3px;
+}
+.sidebar-mini .sidebar .logo a.logo-normal, .sidebar-mini .sidebar .sidebar-wrapper .user .user-info > a > span, .sidebar-mini .sidebar .sidebar-wrapper .user .user-info [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal, .sidebar-mini .sidebar .sidebar-wrapper > .nav [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal, .sidebar-mini .sidebar .sidebar-wrapper > .nav li > a p {
+    opacity: 1;
+    padding-right: 15px;
+}
+.sidebar-mini .simple-text.logo-normal {
+    padding-left: 0;
+    padding-right: 0 !important;
+}
+.sidebar-mini .nav-item.active .nav-link {
+    height: 45px;
+    width: 53px;
+}
+.navbar.navbar-absolute.fixed-top .navbar-wrapper {
+    float: right;
+    padding-top: 7px;
+}
+.navbar .navbar-minimize {
+    float: right;
+    padding: 0 18px 0 0;
+}
+.main-panel .container-fluid > .navbar-collapse {
+    margin-top: 18px;
+}
+.card-stats .card-header.card-header-icon, .card-stats .card-header.card-header-text {
+    text-align: left;
+}
+.card-stats .card-header {
+    float: right;
+}
+.card [class*="card-header-"] .card-icon, .card [class*="card-header-"] .card-text {
+    margin-right: 0;
+    float: right;
+    padding-right: 0;
+    padding-left: 19px;
+
+}
+
+.card-stats .card-header {
+    display: block;
+    width: 100%;
+    margin: auto;
+}
+.card-stats .card-footer {
+    float: right;
+    width: 100%;
+    margin: auto;
+}
+.col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+    float: right;
+}
+.nav-pills > li {
+    float: right;
+}
+.breadcrumb.breadcrumb-container {
+    font-weight: 900;
+    background: transparent;
+}
+.sidebar-mini .nav-item.active .nav {
+    padding-right: 0;
+}
+.sidebar-mini .nav-item .nav .nav-item .nav-link .sidebar-mini {
+    padding-right: 0;
+    margin-right: -12px;
+}
+.sidebar .nav .caret {
+    left: 56px;
+    right: auto;
+}
+.card .card-header.card-header-icon .card-title, .card .card-header.card-header-text .card-title {
+    text-align: center;
+    padding-left: 58px;
+}
+body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4 {
+    font-family: Aviny;
+    font-weight: 300;
+    line-height: 1.5em;
+}
+body {
+    font-family: IRANSans;
+    font-size: 14px;
+}
+.col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12 {
+    float: right;
+}
+[layout="rtl"] .grid-view em {
+    float: right;
+    padding-top: 16px;
+    /* direction: ; */
+    direction: rtl;
+}
+[layout="rtl"] .btn-toolbar.kv-grid-toolbar.toolbar-container.pull-right {
+    float: left !important;
+}
+[layout="rtl"] h1 {
+    text-align: right;
+}
+.image-body .page-title {
+    background: linear-gradient(90deg, hsla(264.9, 49.3%, 27.8%, 0) 0%, hsla(241.5, 91.1%, 8.8%, 0.7) 100%);
+    direction: rtl;
+    text-align: right;
+    color: white;
+}
+[layout="ltr"] .page-title small {
+    color: hsl(286.5, 68.9%, 73.5%);
+    margin-left: 5px;
+    margin-right: auto;
+}
+[layout="rtl"] .select2-selection__rendered {
+    text-align: right !important;
+}
+[layout="rtl"] .select2-container--krajee .select2-results > .select2-results__options {
+    max-height: 200px;
+    overflow-y: auto;
+    text-align: right;
+}
+[layout="rtl"] .hint-block{
+    margin-right: 7px;
+}
+.sidebar-mini .sidebar .nav .caret {
+    left: 23px;
+    margin: 26px;
+}
+.card .card-header.card-header-icon .card-title, .card .card-header.card-header-text .card-title {
+    text-align: left !important;
+    padding-right: 58px !important;
+    padding-left: 0 !important;
+    padding-top: 6px;
+}
+.card .card-header {
+    background: linear-gradient(60deg, #eee, #bdbdbd00);
+}
+.card.card-stats {
+    background: #ffffff59;
+}
+.card [class*="card-header-"] .card-icon, .card [class*="card-header-"] .card-text {
+    margin-top: -40px;
+}
+.card-stats .card-footer a {
+    color: white;
+}

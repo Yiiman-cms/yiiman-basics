@@ -23,6 +23,7 @@ use yii\web\Request;
 use yii\web\Response;
 use yii\web\Session;
 use yii\web\User;
+use YiiMan\functions\functions;
 
 /**
  * Application is the base class for all web application classes.
@@ -53,7 +54,7 @@ use yii\web\User;
  *           read-only.
  *S @property \YiiMan\Setting\module\components\Options $Options تنظیمات سایت از این کلاس
  *                       فراخوانی می شود
- * @property \YiiMan\YiiBasics\lib\functions                 $functions                   The user component. This property is
+ * @property functions                 $functions                   The user component. This property is
  *           read-only.
  * @property \YiiMan\YiiBasics\modules\seo\components\seo    $seo                         The user component. This property is
  *           read-only.

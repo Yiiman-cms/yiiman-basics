@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
 module.exports = function (e) {
     function t(o) {
         if (n[o]) return n[o].exports;

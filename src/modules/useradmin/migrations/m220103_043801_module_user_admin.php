@@ -6,7 +6,7 @@
  * Mobile:+989353466620 | +17272282283
  * Site:https://yiiman.ir
  */
-
+namespace YiiMan\YiiBasics\modules\useradmin\migrations;
 use yii\db\Schema;
 use yii\db\Migration;
 

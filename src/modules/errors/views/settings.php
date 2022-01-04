@@ -16,7 +16,7 @@
  * Time: 1:23 AM
  */
 
-use YiiMan\YiiBasics\modules\setting\widgets\FieldRender;
+use YiiMan\Setting\module\models\DynamicModel\widgets\FieldRender;
 
 ?>
 
@@ -48,7 +48,7 @@ use YiiMan\YiiBasics\modules\setting\widgets\FieldRender;
 
 
     echo
-    \YiiMan\YiiBasics\modules\setting\widgets\FieldRender::FieldsRender(
+    \YiiMan\Setting\module\models\DynamicModel\widgets\FieldRender::FieldsRender(
         [
 
             [

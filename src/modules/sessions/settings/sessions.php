@@ -17,7 +17,7 @@
  */
 /**
  * @var $this  \YiiMan\YiiBasics\lib\View
- * @var $model YiiMan\YiiBasics\modules\setting\models\DynamicModel;
+ * @var $model YiiMan\Setting\module\models\DynamicModel;
  */
 ?>
 <style>

@@ -21,13 +21,13 @@ use yii\base\InvalidConfigException;
 use yii\helpers\ArrayHelper;
 use yii\web\GroupUrlRule;
 
-class Module extends \yii\base\Module
+class Module extends  \YiiMan\YiiBasics\lib\Module
 {
     /**
      * {@inheritdoc}
      */
 
-    public $controllerNamespace;
+    public $controllerNamespace='YiiMan\YiiBasics\modules\logs\controllers';
     public $name;
     public $nameSpace;
     public $config = [];

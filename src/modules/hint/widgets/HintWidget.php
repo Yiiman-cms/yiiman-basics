@@ -41,13 +41,13 @@ class HintWidget extends Widget
             {
                 $l1 = date('Y-m-d', strtotime('-'.$i.' day')
                 );
-                $l2 = \Yii::$app->functions->convertdate($l1);
+                $l2 = \Yii::$app->functions->convert_date($l1);
                 $l2 = explode('/', $l2);
                 $l2 = $l2[1].'-'.$l2[2];
             }
             // </ Build Label >
 
-            $dateLabel[\Yii::$app->functions->convertdate(date('Y-m-d', strtotime('-'.$i.' day')))] = $l2;
+            $dateLabel[\Yii::$app->functions->convert_date(date('Y-m-d', strtotime('-'.$i.' day')))] = $l2;
 
         }
 
@@ -71,7 +71,7 @@ class HintWidget extends Widget
         $dateLabels = [];
         foreach ($dates as $date) {
 
-            $dateLabels[] = $dateLabel[\Yii::$app->functions->convertdate($date)];
+            $dateLabels[] = $dateLabel[\Yii::$app->functions->convert_date($date)];
             if (!empty($model[$date])) {
 
                 $dateArray[] = $model[$date]['count'];

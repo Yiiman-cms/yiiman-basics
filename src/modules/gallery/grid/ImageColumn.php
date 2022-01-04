@@ -13,7 +13,7 @@ use YiiMan\YiiBasics\lib\Model;
 
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
-use YiiMan\YiiBasics\modules\setting\models\DynamicModel;
+use YiiMan\Setting\module\models\DynamicModel;
 use yii\grid\Column;
 
 /**

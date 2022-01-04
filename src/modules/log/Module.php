@@ -17,33 +17,13 @@ namespace YiiMan\YiiBasics\modules\log;
 use Yii;
 use yii\helpers\ArrayHelper;
 
-class Module extends \yii\base\Module
+class Module extends  \YiiMan\YiiBasics\lib\Module
 {
     /**
      * {@inheritdoc}
      */
 
-    public $controllerNamespace;
-    public $name;
-    public $nameSpace;
-    public $config = [];
-
-    /**
-     * {@inheritdoc}
-     */
-    public function init()
-    {
-        // < set Class Parameters >
-        {
-            $this->config = include realpath(__DIR__.'/config.php');
-            $this->nameSpace = 'YiiMan\YiiBasics\modules\\'.$this->config['name'];
-            $this->controllerNamespace = 'YiiMan\YiiBasics\modules\\'.$this->config['name'].'\controllers';
-            $this->name = $this->config['name'];
-
-        }
-        // </ set Class Parameters >
-
-
-    }
+    public $controllerNamespace='\YiiMan\YiiBasics\lib\Module\controllers';
+    
 
 }

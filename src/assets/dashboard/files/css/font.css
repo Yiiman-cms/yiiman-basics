@@ -1,0 +1,34 @@
+/*
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
+
+@font-face {
+    font-family: 'iran_sans';
+    src: url('digibano/admin/assets/fonts/IRANSansWeb(FaNum)_UltraLight.eot?#') format('eot'),
+        url('digibano/admin/assets/fonts/IRANSansWeb(FaNum)_UltraLight.woff') format('woff'),
+        url('../fonts/IRANSansWeb(FaNum)_UltraLight.woff2') format('woff2'),
+        url('../fonts/IRANSansWeb(FaNum)_UltraLight.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Google';
+    src: url('../fonts/Google.eot');
+    src: url('../fonts/Google.eot') format('embedded-opentype'),
+        url('../fonts/Google.woff') format('woff'),
+        url('../fonts/Google.ttf') format('truetype'),
+        url('../fonts/Google.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+body{   
+    font-family: 'iran_sans';
+    font-size: 14px;
+
+}
+.navbar-right .dropdown-menu {
+left:0;
+}

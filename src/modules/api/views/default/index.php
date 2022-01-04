@@ -16,13 +16,13 @@
 
 use kartik\tabs\TabsX;
 use YiiMan\YiiBasics\lib\BaseConfigs;
-use YiiMan\YiiBasics\modules\setting\Module;
+use YiiMan\Setting\module\models\DynamicModel\Module;
 use yii\helpers\Html;
 
 
 /**
  * @var yii\web\View                                          $this
- * @var YiiMan\YiiBasics\modules\setting\models\SettingSearch $searchModel
+ * @var YiiMan\Setting\module\models\DynamicModel\models\SettingSearch $searchModel
  * @var yii\data\ActiveDataProvider                           $dataProvider
  * @var \YiiMan\Setting\module\components\Options             $options
  */

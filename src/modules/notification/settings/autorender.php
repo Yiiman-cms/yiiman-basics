@@ -8,12 +8,12 @@
  */
 
 /**
- * @var $model  \YiiMan\YiiBasics\modules\setting\models\DynamicModel
+ * @var $model  \YiiMan\Setting\module\models\DynamicModel
  * @var $form   \yii\bootstrap\ActiveForm
  * @var $tokens []
  */
 
-$model = new \YiiMan\YiiBasics\modules\setting\models\DynamicModel();
+$model = new \YiiMan\Setting\module\models\DynamicModel();
 $options = new \YiiMan\YiiBasics\modules\sms\base\smsOptions();
 if (!empty($tokens)) {
     $count = 0;

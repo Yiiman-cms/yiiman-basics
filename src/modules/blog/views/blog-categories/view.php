@@ -8,7 +8,7 @@
  */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
-use YiiMan\YiiBasics\modules\setting\widgets\ImageField;
+use YiiMan\Setting\module\models\DynamicModel\widgets\ImageField;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 

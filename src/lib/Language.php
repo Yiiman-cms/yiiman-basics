@@ -70,11 +70,11 @@ class Language
     public function getLanguages()
     {
         if (empty(self::$languages)) {
-            if (realpath(__DIR__.'/languages.json')) {
-                self::$languages = (array) json_decode(file_get_contents(__DIR__.'/languages.json'));
+            if (realpath(Yii::getAlias('@system').'/languages.json')) {
+                self::$languages = (array) json_decode(file_get_contents(Yii::getAlias('@system').'/languages.json'));
             } else {
                 (new self())->reBuild();
-                self::$languages = (array) json_decode(file_get_contents(__DIR__.'/languages.json'));
+                self::$languages = (array) json_decode(file_get_contents(Yii::getAlias('@system').'/languages.json'));
             }
         }
         return self::$languages;
@@ -85,7 +85,7 @@ class Language
      */
     public function reBuild()
     {
-        $file = __DIR__.'/languages.json';
+        $file = Yii::getAlias('@system').'/languages.json';
         $languages = \YiiMan\YiiBasics\modules\language\models\Language::find()->where(['status' => \YiiMan\YiiBasics\modules\language\models\Language::STATUS_ACTIVE])->all();
         $array = [];
         foreach ($languages as $item) {

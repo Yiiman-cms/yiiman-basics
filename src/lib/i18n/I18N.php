@@ -448,12 +448,12 @@ class I18N extends Component
     {
         try {
             return json_decode(
-                file_get_contents(realpath(Yii::getAlias('@system')).'/lib/languages.json')
+                file_get_contents(realpath(Yii::getAlias('@system')).'/languages.json')
             );
         } catch (\Exception $e) {
             (new Language)->reBuild();
             return json_decode(
-                file_get_contents(realpath(Yii::getAlias('@system')).'/lib/languages.json')
+                file_get_contents(realpath(Yii::getAlias('@system')).'/languages.json')
             );
         }
 

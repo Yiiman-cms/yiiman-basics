@@ -28,7 +28,7 @@ use yii\filters\AccessControl;
 class LoginController extends Controller
 {
 
-    public $layout = '@system/modules/useradmin/views/layouts/main.php';
+    public $layout = '@vendor/yiiman/yii-basics/src/modules/useradmin/views/layouts/main.php';
 
     /**
      * {@inheritdoc}

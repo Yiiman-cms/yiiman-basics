@@ -7,7 +7,7 @@
  * Site:https://yiiman.ir
  */
 
-namespace YiiMan\YiiBasics\modules\setting\migrations;
+namespace YiiMan\Setting\module\models\DynamicModel\migrations;
 
 use yii\db\Exception;
 use yii\db\Migration;

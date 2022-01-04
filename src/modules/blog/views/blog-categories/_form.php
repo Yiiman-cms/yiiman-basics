@@ -8,7 +8,7 @@
  */
 
 use YiiMan\YiiBasics\modules\filemanager\widget\FileSelectorWidget;
-use YiiMan\YiiBasics\modules\setting\widgets\ImageField;
+use YiiMan\Setting\module\models\DynamicModel\widgets\ImageField;
 use YiiMan\YiiBasics\modules\slug\widgets\SlugField;
 use YiiMan\YiiBasics\modules\user\models\User;
 use yii\helpers\ArrayHelper;

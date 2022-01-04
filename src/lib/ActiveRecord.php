@@ -16,7 +16,7 @@ use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use YiiMan\YiiBasics\modules\gallery\models\GalleryMedias;
 use YiiMan\YiiBasics\modules\hint\models\Hint;
 use YiiMan\YiiBasics\modules\language\models\Language;
-use YiiMan\YiiBasics\modules\setting\models\DynamicModel;
+use YiiMan\Setting\module\models\DynamicModel;
 use YiiMan\YiiBasics\modules\slug\models\Slug;
 use YiiMan\YiiBasics\widgets\TreeSelector\TreeSelectorWidget;
 use This;
