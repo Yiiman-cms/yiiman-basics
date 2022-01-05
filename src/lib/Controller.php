@@ -276,7 +276,7 @@ class Controller extends \yii\web\Controller
 
         return [
             'error' => [
-                'class' => 'YiiMan\YiiBasics\modules\error\actions\ErrorHandler',
+                'class' => 'YiiMan\YiiBasics\modules\errors\actions\ErrorHandler',
             ],
         ];
     }

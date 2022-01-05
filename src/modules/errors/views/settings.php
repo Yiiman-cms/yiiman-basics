@@ -16,7 +16,9 @@
  * Time: 1:23 AM
  */
 
-use YiiMan\Setting\module\models\DynamicModel\widgets\FieldRender;
+use YiiMan\Setting\widgets\FieldRender;
+use YiiMan\Setting\widgets\ImageSelectWidget;
+use YiiMan\YiiBasics\modules\errors\themes\one\assets\ErrorAsset;
 
 ?>
 
@@ -27,39 +29,40 @@ use YiiMan\Setting\module\models\DynamicModel\widgets\FieldRender;
     $themes = [];
     /* < Check if Asset Folder Is Not Exist > */
     {
-        if (!realpath(Yii::$app->basePath.'/assets/error-themes/')) {
-            mkdir(Yii::$app->basePath.'/assets/error-themes/');
+        if (!realpath($_ENV['uploadDir'].'/assets/error-themes/')) {
+            mkdir($_ENV['uploadDir'].'/assets/error-themes/', 0777, true);
         }
     }
     /* </ Check if Asset Folder Is Not Exist > */
+    $is=[];
     foreach ($themeFolders as $theme) {
         $item = [];
-        if (!realpath(Yii::$app->basePath.'/assets/error-themes/'.$theme['name'].'scr.jpg')) {
-            copy(
-                realpath(__DIR__.'/../themes/'.$theme['name'].'/screenshot.jpg'),
-                Yii::$app->basePath.'/assets/error-themes/'.$theme['name'].'-scr.jpg'
-            );
-        }
+
         Yii::$app->urlManager->showScriptName = false;
-        $item['img'] = Yii::$app->homeUrl.'/assets/error-themes/'.$theme['name'].'-scr.jpg';
+        $assetClass = 'YiiMan\YiiBasics\modules\errors\themes\\'.$theme['name'].'\assets\ErrorAsset';
+        if (!realpath($_ENV['uploadDir'].'/errorcovers/'.$theme['name'].'/cover.png')) {
+            @mkdir($_ENV['uploadDir'].'/errorcovers/'.$theme['name'], 0777, true);
+            copy(__DIR__.'/../themes/'.$theme['name'].'/cover.png',
+                $_ENV['uploadDir'].'/errorcovers/'.$theme['name'].'/cover.png');
+        }
+        $item['img'] = $_ENV['uploadURL'].'/errorcovers/'.$theme['name'].'/cover.png';
         $item['value'] = $theme['name'];
         $themes[] = $item;
+
+        $is[$item['img']]= $item['value'];
     }
-
-
-    echo
-    \YiiMan\Setting\module\models\DynamicModel\widgets\FieldRender::FieldsRender(
+    echo $form->field($model, 'errorTheme')->widget(
+        ImageSelectWidget::className(),
         [
-
-            [
-                'name'  => 'errorTheme',
-                'label' => 'انتخاب قالب صفحات خطا',
-                'type'  => FieldRender::TYPE_RADIO_BUTTON_IMAGE,
-                'hint'  => 'با انتخاب هر یک از قالب های موجود، از این پس خطاهای سیستمی با طرح انتخابی شما به کاربر نمایش داده خواهد شد.',
-                'items' => $themes
-            ]
+            'images' => $is
         ]
-
     )
-    ?>
+        ->label(Yii::t('settings', 'انتخاب قالب نمایش خطا به کاربران'))->hint(
+            Yii::t(
+                'settings',
+                'انتخاب کنید تمایل دارید کدام قالب برای نمایش خطا به کاربران نمایش داده شود؟'
+            )
+        );
+
+?>
 </div>

@@ -24,7 +24,7 @@ use yii\web\JqueryAsset;
 
 class ErrorAsset extends AssetBundle
 {
-    public $sourcePath = '@system/modules/errors/themes/one/assets/files';
+    public $sourcePath = '@vendor/yiiman/yii-basics/src/modules/errors/themes/one/assets/files';
     public $css = [
         'style.css',
         'fonts/font-face.css'

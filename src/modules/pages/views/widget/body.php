@@ -1791,8 +1791,8 @@ JS;
 
 <?php
 $componentFile = '';
-if (!empty(file_exists(Yii::getAlias('@system/theme/builder/components.js')))) {
-    $componentFile = file_get_contents(Yii::getAlias('@system/theme/builder/components.js'));
+if (!empty(file_exists(Yii::getAlias('@vendor/yiiman/yii-basics/src/theme/builder/components.js')))) {
+    $componentFile = file_get_contents(Yii::getAlias('@vendor/yiiman/yii-basics/src/theme/builder/components.js'));
 }
 
 $parameters = \YiiMan\YiiBasics\modules\parameters\models\Parameters::getAllParameters(true);

@@ -14,7 +14,7 @@ use YiiMan\YiiBasics\lib\AssetBundle;
 
 class MapGeneratorAssets extends AssetBundle
 {
-    public $sourcePath = '@system/modules/widget/widgets/files';
+    public $sourcePath = '@vendor/yiiman/yii-basics/src/modules/widget/widgets/files';
     public $js =
         [
             'jquery.mapify.js',

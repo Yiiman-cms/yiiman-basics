@@ -43,7 +43,7 @@ class GMapInputWidget extends \yii\widgets\InputWidget
     public function run()
     {
 
-        Yii::setAlias('@systemMap', '@system/widgets/mapInput');
+        Yii::setAlias('@vendor/yiiman/yii-basics/srcMap', '@vendor/yiiman/yii-basics/src/widgets/mapInput');
 
         // Asset bundle should be configured with the application key
         $this->configureAssetBundle();

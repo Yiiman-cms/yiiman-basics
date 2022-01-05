@@ -19,20 +19,15 @@ use yii\helpers\ArrayHelper;
 class Module extends \YiiMan\YiiBasics\lib\Module
 {
     public $controllerNamespace = 'YiiMan\YiiBasics\modules\errors\controllers';
-    public $hasComponent = true;
-
-    public $components =
-        [
-            'errorHandler' => ['errorAction' => 'errors/default/error']
-        ];
+   
 
     public static function settings()
     {
         return
             [
-                'Settings' => function ($form) {
+                'صفحه ی خطا' => function ($form,$model) {
                     return Yii::$app->view->render('@vendor/yiiman/yii-basics/src/modules/errors/views/settings.php',
-                        ['form' => $form]
+                        ['form' => $form,'model'=>$model]
                     );
                 }
             ];

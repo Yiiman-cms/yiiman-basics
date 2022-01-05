@@ -61,7 +61,7 @@ class BaseGate implements BaseGateInterface
 
     public function renderForm()
     {
-        return \Yii::$app->view->render('@system/modules/sms/settings/autorender.php',
+        return \Yii::$app->view->render('@vendor/yiiman/yii-basics/src/modules/sms/settings/autorender.php',
             [
                 'tokens' => $this->tokens
             ]

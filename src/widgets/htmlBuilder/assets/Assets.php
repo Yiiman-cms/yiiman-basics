@@ -16,7 +16,7 @@ class Assets extends \YiiMan\YiiBasics\lib\AssetBundle
 {
 
 
-    public $sourcePath = '@system/modules/pages/widgets/htmlBuilder/assets/files';
+    public $sourcePath = '@vendor/yiiman/yii-basics/src/modules/pages/widgets/htmlBuilder/assets/files';
     public $js =
         [
             'js/jquery.hotkeys.js',

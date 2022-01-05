@@ -66,9 +66,13 @@ class Module extends \YiiMan\YiiBasics\lib\Module
     {
         return
             [
-                Yii::t('sessions', 'تنظیمات نشست های کاربران') => function ($form) {
+                Yii::t('sessions', 'تنظیمات نشست های کاربران') => function ($form, $model) {
                     return Yii::$app->view->render('@vendor/yiiman/yii-basics/src/modules/sessions/settings/sessions.php',
-                        ['form' => $form]);
+                        [
+                            'form'  => $form,
+                            'model' => $model
+                        ]
+                    );
                 }
             ];
     }

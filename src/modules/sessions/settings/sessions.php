@@ -50,7 +50,7 @@
                     $model->addRule([$attr], 'trim');
                     $model->addRule([$attr], 'integer', ['max' => 519000]);
                     if (empty($model->{$attr})) {
-                        $model->setAttribute($attr, 100);
+                        $model->defineAttribute($attr, 100);
                     }
                     echo $form->field($model, $attr)->input('number')->hint(
                         Yii::t('sessions',

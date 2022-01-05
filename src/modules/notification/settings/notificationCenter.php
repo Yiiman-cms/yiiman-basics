@@ -249,7 +249,7 @@ Yii::$app->view->registerJs($js, Yii::$app->view::POS_END);
                     ?>
                 </ul>
                 <div class="tab-content content-notif">
-                    <?= Yii::$app->view->render('@system/modules/notification/settings/tabs/notificationsTexts', [
+                    <?= Yii::$app->view->render('@vendor/yiiman/yii-basics/src/modules/notification/settings/tabs/notificationsTexts', [
                         'model' => $model,
                         'form'  => $form,
                         'gates' => $gates

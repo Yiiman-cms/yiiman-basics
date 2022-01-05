@@ -60,7 +60,7 @@ class MediaViewWidget extends Widget
 
         if (!empty($medias)) {
             echo $this->render(
-                '@system/modules/gallery/widgets/views/widgetImageVideoView.php',
+                '@vendor/yiiman/yii-basics/src/modules/gallery/widgets/views/widgetImageVideoView.php',
                 [
                     'model'     => $medias,
                     'attribute' => $this->attribute,

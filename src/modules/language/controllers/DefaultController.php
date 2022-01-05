@@ -53,9 +53,9 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
     {
         $model = Language::findOne($id);
         $lng = Yii::$app->Language->getLanguages()[strtoupper($model->shortCode)];
-        $translates = getFileList(Yii::getAlias('@system/translates/'.$lng->systemCode));
+        $translates = getFileList(Yii::getAlias('@vendor/yiiman/yii-basics/src/translates/'.$lng->systemCode));
 
-        $modules = getFileList(Yii::getAlias('@system/modules'));
+        $modules = getFileList(Yii::getAlias('@vendor/yiiman/yii-basics/src/modules'));
 
         $moduleTranslates = [];
         $values = [];
@@ -64,9 +64,9 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
                 continue;
             }
 
-            if (file_exists(Yii::getAlias('@system/modules').'/'.$file['name'].'/translates/'.$lng->systemCode.'/'.$file['name'].'.php')) {
+            if (file_exists(Yii::getAlias('@vendor/yiiman/yii-basics/src/modules').'/'.$file['name'].'/translates/'.$lng->systemCode.'/'.$file['name'].'.php')) {
                 $v = [];
-                $v['path'] = Yii::getAlias('@system/modules').'/'.$file['name'].'/translates/'.$lng->systemCode.'/'.$file['name'].'.php';;
+                $v['path'] = Yii::getAlias('@vendor/yiiman/yii-basics/src/modules').'/'.$file['name'].'/translates/'.$lng->systemCode.'/'.$file['name'].'.php';;
                 $v['values'] = [];
                 $v['name'] = str_replace('.php', '', $file['name']);
                 $i = include_once $v['path'];
@@ -88,7 +88,7 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
         foreach ($translates as $item) {
 
             $v = [];
-            $v['path'] = Yii::getAlias('@system/translates/'.$lng->systemCode).'/'.$item['name'];
+            $v['path'] = Yii::getAlias('@vendor/yiiman/yii-basics/src/translates/'.$lng->systemCode).'/'.$item['name'];
             $v['values'] = [];
             $v['name'] = str_replace('.php', '', $item['name']);
 

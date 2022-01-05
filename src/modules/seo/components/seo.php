@@ -31,9 +31,9 @@ class seo extends Object1
     public function textFlags($text)
     {
         $view = Yii::$app->view;
-        $view->registerJs($view->render('@system/modules/seo/assets/files/js/tippy.js'), $view::POS_END);
+        $view->registerJs($view->render('@vendor/yiiman/yii-basics/src/modules/seo/assets/files/js/tippy.js'), $view::POS_END);
         $view->registerJs('$(document).ready(function(){$.protip({scheme:"dark"});});', $view::POS_END);
-        $view->registerCss($view->render('@system/modules/seo/assets/files/css/protip.css'));
+        $view->registerCss($view->render('@vendor/yiiman/yii-basics/src/modules/seo/assets/files/css/protip.css'));
         if (empty($flags)) {
             $model = SeoFlags::find()->all();
             $this->flags = $model;

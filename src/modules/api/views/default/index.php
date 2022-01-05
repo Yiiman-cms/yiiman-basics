@@ -421,7 +421,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
         <?php
         if (realpath(__DIR__.'/../../../../childModules/setting/view.php')) {
-            echo $this->render('@system/childModules/setting/view.php', ['options' => $options]);
+            echo $this->render('@vendor/yiiman/yii-basics/src/childModules/setting/view.php', ['options' => $options]);
         }
         ?>
 

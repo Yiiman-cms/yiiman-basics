@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 namespace YiiMan\YiiBasics\widgets\CodeMirror;
 
@@ -8,7 +14,7 @@ use YiiMan\YiiBasics\lib\AssetBundle;
 
 class CodeMirrorAssets extends AssetBundle
 {
-    public $sourcePath = '@system/widgets/CodeMirror/files';
+    public $sourcePath = '@vendor/yiiman/yii-basics/src/widgets/CodeMirror/files';
     public $css =
         [
             'contextMenu/jquery.contextMenu.min.css',

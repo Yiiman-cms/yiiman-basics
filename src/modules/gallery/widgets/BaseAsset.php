@@ -22,7 +22,7 @@ class BaseAsset extends AssetBundle
     /**
      * @inheritdoc
      */
-    public $sourcePath = '@system/modules/gallery/widgets/bootstrap-fileinput';
+    public $sourcePath = '@vendor/yiiman/yii-basics/src/modules/gallery/widgets/bootstrap-fileinput';
 
     public function __construct($config = [])
     {

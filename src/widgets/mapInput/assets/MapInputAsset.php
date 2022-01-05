@@ -14,7 +14,7 @@ class MapInputAsset extends \yii\web\AssetBundle
 
     public static $key;
 
-    public $sourcePath = '@system/widgets/mapInput/assets';
+    public $sourcePath = '@vendor/yiiman/yii-basics/src/widgets/mapInput/assets';
 
     public $depends =
         [

@@ -48,9 +48,13 @@ class Module extends \YiiMan\YiiBasics\lib\Module
         return
             [
                 Yii::t('notification', 'مرکز اطلاعیه ها') =>
-                    function ($form) {
+                    function ($form, $model) {
                         return Yii::$app->view->render('@vendor/yiiman/yii-basics/src/modules/notification/settings/notificationCenter.php',
-                            ['form' => $form]);
+                            [
+                                'form'  => $form,
+                                'model' => $model
+                            ]
+                        );
                     }
             ];
     }

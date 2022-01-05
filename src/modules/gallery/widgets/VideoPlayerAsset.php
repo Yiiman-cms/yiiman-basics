@@ -23,7 +23,7 @@ class VideoPlayerAsset extends AssetBundle
     /**
      * @inheritdoc
      */
-    public $sourcePath = '@system/modules/gallery/widgets/videoPlayer';
+    public $sourcePath = '@vendor/yiiman/yii-basics/src/modules/gallery/widgets/videoPlayer';
     public $css =
         [
             'video-js.css'

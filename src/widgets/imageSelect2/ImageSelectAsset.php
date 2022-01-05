@@ -23,7 +23,7 @@ use yii\web\AssetBundle;
 
 class ImageSelectAsset extends AssetBundle
 {
-    public $sourcePath = '@system/widgets/imageSelect/file';
+    public $sourcePath = '@vendor/yiiman/yii-basics/src/widgets/imageSelect/file';
     public $js =
         [
             'jquery.imgcheckbox.js'

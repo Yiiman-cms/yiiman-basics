@@ -14,7 +14,7 @@ use YiiMan\YiiBasics\lib\AssetBundle;
 
 class EditareaAssets extends AssetBundle
 {
-    public $sourcePath = '@system/widgets/editarea/files';
+    public $sourcePath = '@vendor/yiiman/yii-basics/src/widgets/editarea/files';
     public $js =
         [
             'edit_area_loader.js',

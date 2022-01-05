@@ -16,7 +16,7 @@ class Assets extends \YiiMan\YiiBasics\lib\AssetBundle
 {
 
 
-    public $sourcePath = '@system/modules/pages/widgets/noviBuilder/assets/files';
+    public $sourcePath = '@vendor/yiiman/yii-basics/src/modules/pages/widgets/noviBuilder/assets/files';
 
     public $depends = [
         'yii\web\YiiAsset',

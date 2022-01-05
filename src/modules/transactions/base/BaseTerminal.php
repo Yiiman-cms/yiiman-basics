@@ -86,7 +86,7 @@ abstract class BaseTerminal extends Transactions implements Terminal
      */
     public function renderForm()
     {
-        return \Yii::$app->view->render('@system/modules/transactions/settings/autorender.php',
+        return \Yii::$app->view->render('@vendor/yiiman/yii-basics/src/modules/transactions/settings/autorender.php',
             [
                 'tokens' => $this->tokens
             ]

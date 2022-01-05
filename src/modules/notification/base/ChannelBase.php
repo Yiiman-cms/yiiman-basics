@@ -16,7 +16,7 @@ abstract class ChannelBase implements ChannelBaseInterface
 
     public function renderForm($form): string
     {
-        return \Yii::$app->view->render('@system/modules/notification/settings/autorender.php',
+        return \Yii::$app->view->render('@vendor/yiiman/yii-basics/src/modules/notification/settings/autorender.php',
             [
                 'tokens' => $this->tokens,
                 'form'   => $form

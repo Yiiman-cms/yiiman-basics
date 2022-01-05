@@ -36,7 +36,7 @@ class TimePickerWidget extends InputWidget
         $this->registerAssets();
 
         return $this->render(
-            '@system/widgets/TimePicker/index',
+            '@vendor/yiiman/yii-basics/src/widgets/TimePicker/index',
             [
                 'id'       => $this->id,
                 'hasModel' => $this->hasModel(),

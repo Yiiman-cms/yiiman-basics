@@ -25,11 +25,11 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
     public function actions()
     {
         if (!empty(Yii::$app->Options) && !empty(Yii::$app->Options->errorTheme)) {
-            $view = '@system/modules/errors/themes/'.Yii::$app->Options->errorTheme.'/views/default/error.php';
-            $layout = '@system/modules/errors/themes/'.Yii::$app->Options->errorTheme.'/views/layout/main.php';
+            $view = '@vendor/yiiman/yii-basics/src/modules/errors/themes/'.Yii::$app->Options->errorTheme.'/views/default/error.php';
+            $layout = '@vendor/yiiman/yii-basics/src/modules/errors/themes/'.Yii::$app->Options->errorTheme.'/views/layout/main.php';
         } else {
-            $view = '@system/modules/errors/themes/one/views/default/error.php';
-            $layout = '@system/modules/errors/themes/one/views/layout/main.php';
+            $view = '@vendor/yiiman/yii-basics/src/modules/errors/themes/one/views/default/error.php';
+            $layout = '@vendor/yiiman/yii-basics/src/modules/errors/themes/one/views/layout/main.php';
         }
         return [
             'error' => [

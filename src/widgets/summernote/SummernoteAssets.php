@@ -13,7 +13,7 @@ use yii\web\AssetBundle;
 
 class SummernoteAssets extends \YiiMan\YiiBasics\lib\AssetBundle
 {
-    public $sourcePath = '@system/widgets/summernote/files';
+    public $sourcePath = '@vendor/yiiman/yii-basics/src/widgets/summernote/files';
     public $js =
         [
             'summernote.min.js'

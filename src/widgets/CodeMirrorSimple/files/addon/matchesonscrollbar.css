@@ -1,0 +1,16 @@
+/*
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
+.CodeMirror-search-match {
+  background: gold;
+  border-top: 1px solid orange;
+  border-bottom: 1px solid orange;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  opacity: .5;
+}

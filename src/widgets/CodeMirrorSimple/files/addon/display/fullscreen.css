@@ -1,0 +1,14 @@
+/*
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
+.CodeMirror-fullscreen {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  height: auto;
+  z-index: 9;
+}

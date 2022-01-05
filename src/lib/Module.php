@@ -37,15 +37,12 @@ class Module extends \yii\base\Module
 
     /**
      * if you want create setting tab you should return array like this:
-     * 
      * [
      *      'tabTitle'=>function($form){return 'rendered view';},
-     * 
      *      Yii::t('sessions', 'Our tab title')=>function($form){
      *          return Yii::$app->view->render('path/to.php',['form'=>$form]);
-     *      } 
+     *      }
      * ]
-     * 
      * @return array
      */
     public static function settings()
@@ -55,9 +52,7 @@ class Module extends \yii\base\Module
 
     /**
      * if you want set admin menu for this modules,then you should return array like this:
-     * 
      * [
-     * 
      *      [
      *          'title' => 'Title',
      *          'url'   => 'moduleName/index',
@@ -79,17 +74,13 @@ class Module extends \yii\base\Module
      *                            'url'   => 'moduleName/index3',
      *                            'icon'  => 'material-icon'
      *                      ],
-     * 
      *                  ]
      *      ]
-     * 
      * ]
-     * 
-     * 
-     * 
      * @return array
      */
-    public static function menus(){
+    public static function menus()
+    {
         return [];
     }
 
@@ -222,34 +213,37 @@ class Module extends \yii\base\Module
 
     public static function initSetting()
     {
-        $settings = self::settings();
-
-        if (!empty($settings)) {
-            foreach ($settings as $tabTitle => $contentCallBack) {
-                $tabID = 'tab'.uniqid();
-                Event::on(Triggers::className(), Triggers::AFTER_SETTINGS_TAB, function () use ($tabTitle, $tabID) {
-                    echo '<li>
+        $class = get_called_class();
+        $settings = $class::settings();
+        if (class_exists('\YiiMan\Setting\module\trigger\Triggers')) {
+            if (!empty($settings)) {
+                foreach ($settings as $tabTitle => $contentCallBack) {
+                    $tabID = 'tab'.uniqid();
+                    Event::on(\YiiMan\Setting\module\trigger\Triggers::className(), \YiiMan\Setting\module\trigger\Triggers::AFTER_SETTINGS_TAB, function () use ($tabTitle, $tabID) {
+                        echo '<li>
 				<a href="#'.$tabID.'" data-toggle="tab">'.$tabTitle.'</a>
           </li>';
-                });
-                Event::on(Triggers::className(), Triggers::AFTER_SETTINGS_TAB_CONTENT,
-                    function () use ($contentCallBack, $tabID) {
-                        $model = DynamicModel::getInstans();
-                        $form = $model::getForm();
-                        echo '<div class="tab-pane" id="'.$tabID.'">';
-                        echo $contentCallBack($form);
-                        echo '</div>';
                     });
+                    Event::on(\YiiMan\Setting\module\trigger\Triggers::className(), \YiiMan\Setting\module\trigger\Triggers::AFTER_SETTINGS_TAB_CONTENT,
+                        function () use ($contentCallBack, $tabID) {
+                            $model = DynamicModel::getInstans();
+                            $form = $model::getForm();
+                            echo '<div class="tab-pane" id="'.$tabID.'">';
+                            echo $contentCallBack($form,$model);
+                            echo '</div>';
+                        });
+                }
             }
         }
     }
-    
-    public static function initMenus(){
+
+    public static function initMenus()
+    {
         Event::on(
             Triggers::className(),
             Triggers::EVENT_AFTER_MENU,
             function () use ($conf) {
-                $adminURl=$_ENV['SiteAdminURL'];
+                $adminURl = $_ENV['SiteAdminURL'];
                 $menu = $conf['menu'];
                 if (empty($menu['items'])) {
                     $title = $conf['menu']['title'];
@@ -259,7 +253,7 @@ class Module extends \yii\base\Module
                     } else {
                         $icon = $conf['menu']['icon'];
                     }
-                    
+
                     echo <<<EOT
 				<li class="nav-item">
                         <a class="nav-link " href="/$adminURl/$url" aria-expanded="false"><i class="material-icons">$icon</i><p>$title</p>

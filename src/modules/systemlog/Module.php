@@ -65,9 +65,13 @@ class Module extends \YiiMan\YiiBasics\lib\Module
     {
         return
             [
-                Yii::t('systemlog', 'تنظیمات خطایابی') => function ($form) {
+                Yii::t('systemlog', 'تنظیمات خطایابی') => function ($form, $model) {
                     return Yii::$app->view->render('@vendor/yiiman/yii-basics/src/modules/systemlog/settings/LogSettings.php',
-                        ['form' => $form]);
+                        [
+                            'form'  => $form,
+                            'model' => $model
+                        ]
+                    );
                 }
             ];
     }

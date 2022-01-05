@@ -23,7 +23,7 @@ use yii\web\AssetBundle;
 
 class FontAwesomeFontPickerAssets extends AssetBundle
 {
-    public $sourcePath = '@system/widgets/fontAwesomePicker/assets/files';
+    public $sourcePath = '@vendor/yiiman/yii-basics/src/widgets/fontAwesomePicker/assets/files';
     public $js =
         [
             'fontawesome-iconpicker.min.js'

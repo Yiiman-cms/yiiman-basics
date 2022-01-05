@@ -18,7 +18,7 @@ use YiiMan\YiiBasics\lib\AssetBundle;
  */
 class RedactorAsset extends AssetBundle
 {
-    public $sourcePath = '@system/widgets/redactor/assets';
+    public $sourcePath = '@vendor/yiiman/yii-basics/src/widgets/redactor/assets';
     public $depends = ['yii\web\JqueryAsset'];
 
     public $css =

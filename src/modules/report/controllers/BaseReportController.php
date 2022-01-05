@@ -37,7 +37,7 @@ class BaseReportController extends \YiiMan\YiiBasics\lib\Controller implements V
         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams, $this);
 
 
-        return $this->render('@system/modules/report/views/index.php',
+        return $this->render('@vendor/yiiman/yii-basics/src/modules/report/views/index.php',
             [
                 'searchModel'  => $searchModel,
                 'dataProvider' => $dataProvider,

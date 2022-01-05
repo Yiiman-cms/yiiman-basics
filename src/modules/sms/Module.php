@@ -22,7 +22,7 @@ class Module extends \YiiMan\YiiBasics\lib\Module
      * {@inheritdoc}
      */
 
-    public $controllerNamespace = 'YiiMan\YiiBasics\modules\sms';
+    public $controllerNamespace = 'YiiMan\YiiBasics\modules\sms\controllers';
 
     public static function menus()
     {
@@ -39,9 +39,13 @@ class Module extends \YiiMan\YiiBasics\lib\Module
     {
         return
             [
-                Yii::t('sms', 'تنظیمات پیامک') => function ($form) {
+                Yii::t('sms', 'تنظیمات پیامک') => function ($form, $model) {
                     return Yii::$app->view->render('@vendor/yiiman/yii-basics/src/modules/sms/settings/smsPanel.php',
-                        ['form' => $form]);
+                        [
+                            'form'  => $form,
+                            'model' => $model
+                        ]
+                    );
                 }
             ];
     }

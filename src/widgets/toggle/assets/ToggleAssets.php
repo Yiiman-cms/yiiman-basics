@@ -13,7 +13,7 @@ use yii\web\AssetBundle;
 
 class ToggleAssets extends AssetBundle
 {
-    public $sourcePath = '@system/widgets/toggle/assets/files';
+    public $sourcePath = '@vendor/yiiman/yii-basics/src/widgets/toggle/assets/files';
     public $js =
         [
             'bootstrap2-toggle.min.js'

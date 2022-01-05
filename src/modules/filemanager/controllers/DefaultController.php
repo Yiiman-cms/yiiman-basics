@@ -23,7 +23,7 @@ class DefaultController extends Controller
 {
     public function actionIframe()
     {
-        $this->layout = '@system/modules/filemanager/views/layouts/main.php';
+        $this->layout = '@vendor/yiiman/yii-basics/src/modules/filemanager/views/layouts/main.php';
         return $this->render('iframe');
     }
 
@@ -34,7 +34,7 @@ class DefaultController extends Controller
 
     public function actionWidgetIframe()
     {
-        $this->layout = '@system/modules/filemanager/views/layouts/main.php';
+        $this->layout = '@vendor/yiiman/yii-basics/src/modules/filemanager/views/layouts/main.php';
         return $this->render('widget-iframe');
     }
 

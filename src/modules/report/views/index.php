@@ -89,7 +89,7 @@ $columns[] =
                             ],
                         ]);
 
-                        echo $this->render('@system/reports/views/'.$viewname.'/_search.php', [
+                        echo $this->render('@vendor/yiiman/yii-basics/src/reports/views/'.$viewname.'/_search.php', [
                             'model' => $searchModel,
                             'form'  => $form
                         ]);;
