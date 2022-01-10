@@ -25,6 +25,7 @@ use yii\web\Response;
 class DefaultController extends \YiiMan\YiiBasics\lib\Controller
 {
     public $enableCsrfValidation = false;
+    public $skipPermittions=['check'=>true];
     /**
      * @var $model SearchSlug
      */

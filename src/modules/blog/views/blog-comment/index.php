@@ -128,7 +128,9 @@ $this->registerJs($js, $this::POS_END);
                                     /**
                                      * @var $model \YiiMan\YiiBasics\modules\blog\models\BlogComment
                                      */
-                                    return '<a target="_blank" href="/article?id='.$model->article.'">'.$model->article0->title.'</a>';
+                                    if (!empty($a=$model->article0)) {
+                                        return '<a target="_blank" href="/article?id='.$model->article.'">'.$a->title.'</a>';
+                                    }
                                 }
                             ],
                             //'created_at',

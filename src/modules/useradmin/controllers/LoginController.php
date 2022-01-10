@@ -18,6 +18,7 @@
 
 namespace YiiMan\YiiBasics\modules\useradmin\controllers;
 
+use yii\filters\VerbFilter;
 use YiiMan\YiiBasics\lib\Controller;
 use YiiMan\YiiBasics\modules\rbac\models\Provider;
 use YiiMan\YiiBasics\modules\useradmin\models\LoginForm;
@@ -29,7 +30,7 @@ class LoginController extends Controller
 {
 
     public $layout = '@vendor/yiiman/yii-basics/src/modules/useradmin/views/layouts/main.php';
-
+    public $skipPermittions=['logout'=>true];
     /**
      * {@inheritdoc}
      */
@@ -54,12 +55,12 @@ class LoginController extends Controller
                         ],
                     ],
                 ],
-//				'verbs'  => [
-//					'class'   => VerbFilter::className() ,
-//					'actions' => [
-//						'logout' => [ 'post' ] ,
-//					] ,
-//				] ,
+//            'verbs'  => [
+//                'class'   => VerbFilter::className(),
+//                'actions' => [
+//                    'logout' => ['post'],
+//                ],
+//            ],
         ];
     }
 

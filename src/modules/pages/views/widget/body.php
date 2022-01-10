@@ -16,7 +16,7 @@ use YiiMan\YiiBasics\modules\pages\widgets\htmlBuilder\assets\Assets;
  */
 $assets = Assets::register($this);
 $model = Pages::findOne($id);
-
+$jsAssetURL=Yii::$app->Options->URL.$assets->baseUrl;
 file_put_contents(Yii::$app->Options->UploadDir.'/samplePages/index.php',
     (!empty($model->content) ? $model->content : ''));
 ?>
@@ -42,11 +42,11 @@ file_put_contents(Yii::$app->Options->UploadDir.'/samplePages/index.php',
     <link href="<?= $assets->baseUrl ?>/contextMenu/jquery.contextMenu.min.css" rel="stylesheet">
     <link href="<?= $assets->baseUrl ?>/libs/codemirror/lib/foldgutter.css" rel="stylesheet">
     <script>
-        var asseturlt = '<?= Yii::$app->Options->URL.$assets->baseUrl ?>/';
+        var asseturlt = '<?= $jsAssetURL ?>/';
         var backend = '<?= Yii::$app->Options->BackendUrl ?>';
-        var saveUrl = '<?= Yii::$app->Options->BackendUrl ?>pages/widget/save';
-        var uploadUrl = '<?= Yii::$app->Options->BackendUrl ?>pages/widget/upload?id=<?= $id ?>';
-        var exitUrl = '<?= Yii::$app->Options->BackendUrl ?>pages/';
+        var saveUrl = '<?= Yii::$app->Options->BackendUrl ?>/pages/widget/save';
+        var uploadUrl = '<?= Yii::$app->Options->BackendUrl ?>/pages/widget/upload?id=<?= $id ?>';
+        var exitUrl = '<?= Yii::$app->Options->BackendUrl ?>/pages/';
     </script>
 </head>
 <body>

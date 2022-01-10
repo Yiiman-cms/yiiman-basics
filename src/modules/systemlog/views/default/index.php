@@ -90,7 +90,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'attribute' => 'log_time',
                                 'filter'    => false,
                                 'value'     => function ($model) {
-                                    return Yii::$app->functions->convertdatetime($model->log_time);
+                                    return Yii::$app->functions->convert_date($model->log_time);
                                 }
                             ],
                             [

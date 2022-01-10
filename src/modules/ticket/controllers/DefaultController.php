@@ -178,7 +178,7 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
                     [
                         'serial'  => $model->serial,
                         'subject' => $model->subject,
-                        'date'    => Yii::$app->functions->convertdatetime($model->updated_at)
+                        'date'    => Yii::$app->functions->convert_date($model->updated_at)
                     ]
                 );
 

@@ -44,6 +44,31 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
     }
 
     /**
+     * fine translate directory in module
+     * @param $baseModuleDirectory
+     * @return false|string
+     */
+    private function getTranslateDirectory($baseModuleDirectory)
+    {
+        $messages = realpath($baseModuleDirectory.'/messages');
+        $message = realpath($baseModuleDirectory.'/message');
+        $translates = realpath($baseModuleDirectory.'/translates');
+        $translate = realpath($baseModuleDirectory.'/translate');
+        switch (!false) {
+            case $message:
+                return $message;
+            case $messages:
+                return $messages;
+            case $translate:
+                return $translate;
+            case $translates:
+                return $translates;
+            default:
+                return false;
+        }
+    }
+
+    /**
      * Displays a single Language model.
      * @param  integer  $id
      * @return mixed
@@ -53,42 +78,47 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
     {
         $model = Language::findOne($id);
         $lng = Yii::$app->Language->getLanguages()[strtoupper($model->shortCode)];
-        $translates = getFileList(Yii::getAlias('@vendor/yiiman/yii-basics/src/translates/'.$lng->systemCode));
+        $translates = getFileList(Yii::getAlias('@system/translates/'.$lng->systemCode));
 
-        $modules = getFileList(Yii::getAlias('@vendor/yiiman/yii-basics/src/modules'));
+        $modules = Yii::$app->modules;
 
         $moduleTranslates = [];
         $values = [];
-        foreach ($modules as $file) {
-            if ($file['type'] != 'dir') {
-                continue;
+        foreach ($modules as $moduleName => $file) {
+            if (is_array($file)) {
+                $class = new \ReflectionClass($file['class']);
+                $moduleDir = str_replace('Module.php','',$class->getFileName());
+            } else {
+                $moduleDir = $file->getBasePath();
             }
-
-            if (file_exists(Yii::getAlias('@vendor/yiiman/yii-basics/src/modules').'/'.$file['name'].'/translates/'.$lng->systemCode.'/'.$file['name'].'.php')) {
-                $v = [];
-                $v['path'] = Yii::getAlias('@vendor/yiiman/yii-basics/src/modules').'/'.$file['name'].'/translates/'.$lng->systemCode.'/'.$file['name'].'.php';;
-                $v['values'] = [];
-                $v['name'] = str_replace('.php', '', $file['name']);
-                $i = include_once $v['path'];
-                if (!empty($i)) {
-                    $trans = [];
-                    foreach ($i as $k => $t) {
-                        $trans[hash('crc32', $k)] =
-                            [
-                                'key'       => $k,
-                                'translate' => $t
-                            ];
+            $translateDir = $this->getTranslateDirectory($moduleDir);
+            if ($translateDir) {
+                if ($translateFile = realpath($translateDir.'/'.$lng->systemCode.'/'.$moduleName.'.php')) {
+                    $v = [];
+                    $v['path'] = $translateFile;
+                    $v['values'] = [];
+                    $v['name'] = str_replace('.php', '', $moduleName);
+                    $i = include_once $v['path'];
+                    if (!empty($i)) {
+                        $trans = [];
+                        foreach ($i as $k => $t) {
+                            $trans[hash('crc32', $k)] =
+                                [
+                                    'key'       => $k,
+                                    'translate' => $t
+                                ];
+                        }
+                        $v['values'] = $trans;
                     }
-                    $v['values'] = $trans;
+                    $moduleTranslates[$v['name']] = $v;
                 }
-                $moduleTranslates[$v['name']] = $v;
             }
         }
 
         foreach ($translates as $item) {
 
             $v = [];
-            $v['path'] = Yii::getAlias('@vendor/yiiman/yii-basics/src/translates/'.$lng->systemCode).'/'.$item['name'];
+            $v['path'] = Yii::getAlias('@system/translates/'.$lng->systemCode).'/'.$item['name'];
             $v['values'] = [];
             $v['name'] = str_replace('.php', '', $item['name']);
 

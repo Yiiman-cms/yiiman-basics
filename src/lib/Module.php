@@ -35,6 +35,16 @@ class Module extends \yii\base\Module
     public $hasComponent = false;
     public $components = [];
 
+
+    /**
+     * module title for shown in admin menu and permissions
+     * @return string
+     */
+    public static function title()
+    {
+        return 'Untitled module';
+    }
+
     /**
      * if you want create setting tab you should return array like this:
      * [
@@ -46,6 +56,19 @@ class Module extends \yii\base\Module
      * @return array
      */
     public static function settings()
+    {
+        return [];
+    }
+
+    /**
+     * array of permition labes like this:
+     * [
+     *  'permission-name'=>'label'
+     * ]
+     * this array will used for show labels in rbac module
+     * @return array
+     */
+    public static function permissionLabels()
     {
         return [];
     }
@@ -219,17 +242,20 @@ class Module extends \yii\base\Module
             if (!empty($settings)) {
                 foreach ($settings as $tabTitle => $contentCallBack) {
                     $tabID = 'tab'.uniqid();
-                    Event::on(\YiiMan\Setting\module\trigger\Triggers::className(), \YiiMan\Setting\module\trigger\Triggers::AFTER_SETTINGS_TAB, function () use ($tabTitle, $tabID) {
-                        echo '<li>
+                    Event::on(\YiiMan\Setting\module\trigger\Triggers::className(),
+                        \YiiMan\Setting\module\trigger\Triggers::AFTER_SETTINGS_TAB,
+                        function () use ($tabTitle, $tabID) {
+                            echo '<li>
 				<a href="#'.$tabID.'" data-toggle="tab">'.$tabTitle.'</a>
           </li>';
-                    });
-                    Event::on(\YiiMan\Setting\module\trigger\Triggers::className(), \YiiMan\Setting\module\trigger\Triggers::AFTER_SETTINGS_TAB_CONTENT,
+                        });
+                    Event::on(\YiiMan\Setting\module\trigger\Triggers::className(),
+                        \YiiMan\Setting\module\trigger\Triggers::AFTER_SETTINGS_TAB_CONTENT,
                         function () use ($contentCallBack, $tabID) {
                             $model = DynamicModel::getInstans();
                             $form = $model::getForm();
                             echo '<div class="tab-pane" id="'.$tabID.'">';
-                            echo $contentCallBack($form,$model);
+                            echo $contentCallBack($form, $model);
                             echo '</div>';
                         });
                 }

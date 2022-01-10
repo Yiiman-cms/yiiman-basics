@@ -85,7 +85,7 @@ $message = str_replace(
                                     <td>
                                         <?php
 
-                                        $time = Yii::$app->functions->convertdatetime($model->log_time);
+                                        $time = Yii::$app->functions->convert_date($model->log_time);
                                         $time .= '<br>';
                                         $time .= Yii::$app->functions->timeLeft($model->log_time);
                                         echo $time;

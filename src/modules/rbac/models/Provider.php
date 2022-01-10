@@ -23,6 +23,7 @@ use Composer\Autoload\ClassLoader;
 use Composer\Composer;
 use phpDocumentor\Reflection\Types\This;
 use phpDocumentor\Reflection\Types\True_;
+use yii\base\Module;
 use YiiMan\YiiBasics\lib\Core;
 use Yii;
 use yii\web\NotFoundHttpException;
@@ -67,73 +68,32 @@ class Provider
     {
         self::createSuperAdminRole();
         $controllerDirs = [];
-
+        $moduleClasses = [];
         /* < get Module Controllers > */
         {
             foreach ($modules = Yii::$app->modules as $ModuleName => $item) {
                 if (is_array($item)) {
-
-                    $folder = str_replace([
-                        'YiiMan\YiiBasics\modules\\',
-                        '\Module'
-                    ], '', $item['class']);
-                    if ($folder == $ModuleName) {
+                    $folder = (new \ReflectionClass($item['class']))->getFileName();
+                    $moduleClasses[$ModuleName] = $item['class'];
+                    $folder = str_replace('Module.php', '', $folder);
+                    if (realpath($folder) && realpath($folder.'/controllers')) {
                         $controllerDirectory = realpath(
-                            Yii::getAlias('@system').'/modules/'.$folder.'/controllers'
-                        );;
-                        if ($controllerDirectory) {
-                            $controllerDirs[$ModuleName] = $controllerDirectory;
-                        }
+                            $folder.'/controllers'
+                        );
+                        $controllerDirs[$ModuleName] = $controllerDirectory;
                     }
+
                 } else {
                     if (!empty($item->controllerNamespace)) {
-                        $folder = str_replace(
-                            [
-                                'YiiMan\YiiBasics\modules\\',
-                                '\Module'
-                            ],
-                            '',
-                            $item->controllerNamespace
-                        );
-                        if ($folder == $ModuleName) {
+                        $moduleClasses[$ModuleName] = $item::className();
+
+                        $folder = (new \ReflectionClass($item))->getFileName();
+                        $folder = str_replace('Module.php', '', $folder);
+                        if (realpath($folder) && realpath($folder.'/controllers')) {
                             $controllerDirectory = realpath(
-                                Yii::getAlias('@system').'/modules/'.$folder.'/controllers'
+                                $folder.'/controllers'
                             );
-                            if ($controllerDirectory) {
-                                $controllerDirs[$ModuleName] = $controllerDirectory;
-                            }
-                        } else {
-                            $namespace = explode('\\', $folder);
-                            $root = $namespace[0];
-                            $slashCount = count($namespace);
-                            try {
-
-                                if ($slashCount > 0) {
-
-                                    $classes = include Yii::getAlias('@vendor').'/autoload.php';
-                                    $classes2 = $classes->getPrefixesPsr4();
-
-                                    $namespaceMap = str_replace('\controllers', '', $folder).'\\';
-                                    if (!empty($path = $classes2[$namespaceMap])) {
-                                        $controllerDirectory = realpath(
-                                            $path[0].DIRECTORY_SEPARATOR.'controllers'
-                                        );
-                                    } else {
-                                        throw new NotFoundHttpException('test');
-                                    }
-
-                                }
-                            } catch (\Exception $e) {
-                                $module = Yii::getAlias('@system').'/modules/'.$root.'/controllers';
-                                $folder = str_replace(explode('/', $folder)[0], '', $folder);
-                                $controllerDirectory = realpath(
-                                    $module.$folder
-                                );
-                            }
-
-                            if ($controllerDirectory) {
-                                $controllerDirs[$ModuleName] = $controllerDirectory;
-                            }
+                            $controllerDirs[$ModuleName] = $controllerDirectory;
                         }
                     }
                 }
@@ -165,26 +125,26 @@ class Provider
 
                 // < set module access permission >
                 {
-                    $configFile = Yii::getAlias('@system').'/modules/'.$moduleId.'/config.php';
-                    if (realpath($configFile)) {
-                        $configFile = include $configFile;
-                        if (!empty($configFile['name_fa'])) {
-                            $name_fa = $configFile['name_fa'];
-                        } else {
-                            $name_fa = '';
-                        }
-                    } else {
-                        $name_fa = '';
-                    }
-                    self::addPermission(
-                        $moduleId,
-                        'دسترسی به بخش '.$moduleId,
-                        null,
-                        $moduleId,
-                        $name_fa
-                    );
-                    self::assignToSuperadmin($moduleId);
+                    if (!empty($moduleId)) {
 
+                        try {
+                            $title = $moduleClasses[$moduleId]::title();
+                        } catch (\Exception $e) {
+                            $title = 'Untitled Module';
+                        }catch (\Error $e) {
+                            $title = 'Untitled Module';
+                        }
+
+
+                        self::addPermission(
+                            $moduleId,
+                            'دسترسی به بخش '.$moduleId,
+                            null,
+                            $moduleId,
+                            $title
+                        );
+                        self::assignToSuperadmin($moduleId);
+                    }
                 }
                 // </ set module access permission >
             }
@@ -221,16 +181,12 @@ class Provider
 
 
                 if (!empty($controllers)) {
-                    $configFile = Yii::getAlias('@system').'/modules/'.$moduleName.'/config.php';
-                    if (realpath($configFile)) {
-                        $configFile = include $configFile;
-                        if (!empty($configFile['name_fa'])) {
-                            $name_fa = $configFile['name_fa'];
-                        } else {
-                            $name_fa = '';
-                        }
-                    } else {
-                        $name_fa = '';
+                    try {
+                        $title = $moduleClasses[$moduleId]::title();
+                    } catch (\Exception $e) {
+                        $title = 'Untitled Module';
+                    }catch (\Error $e) {
+                        $title = 'Untitled Module';
                     }
                     foreach ($controllers as $controllerName => $actions) {
                         if (!empty($actions)) {
@@ -245,7 +201,7 @@ class Provider
                                     $actionName.' action in '.$controllerName.' controller in '.$moduleName.' module',
                                     null,
                                     $moduleName,
-                                    $name_fa
+                                    $title
                                 );
                                 self::assignToSuperadmin($moduleName.'_'.$controllerName.'_'.$actionName);
                             }
@@ -263,8 +219,6 @@ class Provider
                     $permission['module_fa']
                 );
                 self::assignToSuperadmin($permission['name']);
-
-
             }
         }
         /* </ Save All Permissions in Database > */
@@ -390,7 +344,7 @@ class Provider
     private static function assignSuperAdminRole()
     {
         $assignment = ModuleRbacAuthAssignment::findOne([
-            'user_id' => 1,
+            'user_id'   => 1,
             'item_name' => 'superadmin'
         ]);
         if (empty($assignment)) {

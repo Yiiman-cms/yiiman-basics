@@ -82,7 +82,7 @@ $this->registerJsFile('@assets/js/page_number.js');
                                                         ),
                                                         'contentOptions' => ['style' => 'direction:ltr;text-align:center;width:180px;'],
                                                         'value'          => function ($model) {
-                                                            return Yii::$app->functions->convertdatetime(
+                                                            return Yii::$app->functions->convert_date(
                                                                 $model->RegisterTime
                                                             );
                                                         },

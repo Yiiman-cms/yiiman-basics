@@ -57,7 +57,8 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'created_at',
                 'value'     => function ($model) {
-                    return Yii::$app->functions->convertdatetime($model->created_at).' - '.
+
+                    return Yii::$app->functions->convert_date($model->created_at).' - '.
                         Yii::$app->functions->timeLeft($model->created_at);
                 }
             ],
@@ -68,7 +69,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     /**
                      * @var $model \YiiMan\YiiBasics\modules\blog\models\BlogComment
                      */
-                    return '<a target="_blank" href="/article?id='.$model->article.'">'.$model->article0->title.'</a>';
+                    if (!empty($a=$model->article0)) {
+
+                        return '<a target="_blank" href="/article?id='.$model->article.'">'.$a->title.'</a>';
+                    }
                 }
             ],
             //'created_at',

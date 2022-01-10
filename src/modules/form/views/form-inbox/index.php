@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             [
                                 'attribute' => 'created_at',
                                 'value'     => function ($model) {
-                                    return Yii::$app->functions->convertdatetime($model->created_at);
+                                    return Yii::$app->functions->convert_date($model->created_at);
                                 }
                             ],
                             //'title',

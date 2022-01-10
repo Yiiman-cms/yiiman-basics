@@ -259,7 +259,7 @@ $this->registerJs($js, $this::POS_END);
                                 <?= $msg->message ?>
                             </p>
                             <div class="name"><?= $user->fullname ?></div>
-                            <div class="datetime"><?= Yii::$app->functions->convertdatetime($msg->created_at) ?></div>
+                            <div class="datetime"><?= Yii::$app->functions->convert_date($msg->created_at) ?></div>
                         </div>
                     </div>
                     <div class="line-break"></div>
@@ -288,7 +288,7 @@ $this->registerJs($js, $this::POS_END);
                                                      alt="">
                                             </a>
                                             <div class="name"><?= $user->fullname ?></div>
-                                            <div class="datetime"><?= Yii::$app->functions->convertdatetime($msg->created_at) ?></div>
+                                            <div class="datetime"><?= Yii::$app->functions->convert_date($msg->created_at) ?></div>
                                         </div>
                                     </div>
                                     <div class="line-break"></div>
@@ -308,7 +308,7 @@ $this->registerJs($js, $this::POS_END);
                                                 <?= $msg->file ?>
                                             </a>
                                             <div class="name"><?= $admin->nickName ?></div>
-                                            <div class="datetime"><?= Yii::$app->functions->convertdatetime($msg->created_at) ?></div>
+                                            <div class="datetime"><?= Yii::$app->functions->convert_date($msg->created_at) ?></div>
                                         </div>
                                     </div>
                                     <div class="line-break"></div>
@@ -334,7 +334,7 @@ $this->registerJs($js, $this::POS_END);
                                 <?= $msg->message ?>
                             </p>
                             <div class="name"><?= $admin->nickName ?></div>
-                            <div class="datetime"><?= Yii::$app->functions->convertdatetime($msg->created_at) ?></div>
+                            <div class="datetime"><?= Yii::$app->functions->convert_date($msg->created_at) ?></div>
                         </div>
                     </div>
                     <div class="line-break"></div>
@@ -363,7 +363,7 @@ $this->registerJs($js, $this::POS_END);
                                                      alt="">
                                             </a>
                                             <div class="name"><?= $admin->nickName ?></div>
-                                            <div class="datetime"><?= Yii::$app->functions->convertdatetime($msg->created_at) ?></div>
+                                            <div class="datetime"><?= Yii::$app->functions->convert_date($msg->created_at) ?></div>
                                         </div>
                                     </div>
                                     <div class="line-break"></div>
@@ -383,7 +383,7 @@ $this->registerJs($js, $this::POS_END);
                                                 <?= $msg->file ?>
                                             </a>
                                             <div class="name"><?= $admin->nickName ?></div>
-                                            <div class="datetime"><?= Yii::$app->functions->convertdatetime($msg->created_at) ?></div>
+                                            <div class="datetime"><?= Yii::$app->functions->convert_date($msg->created_at) ?></div>
                                         </div>
                                     </div>
                                     <div class="line-break"></div>

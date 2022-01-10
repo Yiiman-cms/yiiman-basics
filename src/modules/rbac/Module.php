@@ -30,7 +30,7 @@ class Module extends \YiiMan\YiiBasics\lib\Module
      * {@inheritdoc}
      */
 
-    public $controllerNamespace;
+    public $controllerNamespace='YiiMan\YiiBasics\modules\rbac\controllers';
     public $name;
     public $nameSpace;
     public $config = [];

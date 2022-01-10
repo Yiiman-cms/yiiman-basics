@@ -83,7 +83,12 @@ class FormInboxController extends \YiiMan\YiiBasics\lib\Controller
         // < Calculate Data >
         {
             $fields = json_decode($model->form0->details);
-            $fields = ArrayHelper::index($fields, 'name');
+            $mapped=[];
+            foreach ($fields as $name => $data){
+                $mapped[isset($data->name)?$data->name:uniqid()]=$data;
+            }
+            $fields=$mapped;
+
             $inboxData = json_decode($model->details);
 
             if (!empty($inboxData)) {
@@ -104,8 +109,12 @@ class FormInboxController extends \YiiMan\YiiBasics\lib\Controller
                             $data->values = ArrayHelper::index($data->values, 'value');
 
                             $dataArray[$data->label] = '';
-                            foreach ($val as $v) {
-                                $dataArray[$data->label] .= $data->values[$v]->label.',';
+                            if (!empty($val) && is_array($val)) {
+                                foreach ($val as $v) {
+                                    $dataArray[$data->label] .= $data->values[$v]->label.',';
+                                }
+                            }else{
+                                $dataArray[$data->label] .= $data->values[$val]->label.',';
                             }
                             break;
                         case 'date':
@@ -118,8 +127,12 @@ class FormInboxController extends \YiiMan\YiiBasics\lib\Controller
                             $data->values = ArrayHelper::index($data->values, 'value');
                             if ($data->multiple && is_array($val)) {
                                 $dataArray[$data->label] = '';
-                                foreach ($val as $v) {
-                                    $dataArray[$data->label] .= $data->values[$v]->label.',';
+                                if (!empty($val) && is_array($val)) {
+                                    foreach ($val as $v) {
+                                        $dataArray[$data->label] .= $data->values[$v]->label.',';
+                                    }
+                                }else{
+                                    $dataArray[$data->label] .= $data->values[$val]->label.',';
                                 }
                             } else {
                                 $dataArray[$data->label] = $data->values[$val]->label;

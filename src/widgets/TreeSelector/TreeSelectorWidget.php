@@ -17,14 +17,18 @@ use yii\helpers\ArrayHelper;
 
 class TreeSelectorWidget extends InputWidget
 {
+    public $data = [];
+
+    public $titleAttribute='title';
+
     private static $parental = [];
+
     private static $template =
         [
             'head' => '<ol id="auto-checkboxes-{id}" data-name="{name}">{items}</ol>',
             'item' => '<li {id}>{title} {items}</li>',
             'second_head' => '<ol>{items}</ol>'
         ];
-    public $data = [];
 
     public function run()
     {
@@ -36,7 +40,7 @@ class TreeSelectorWidget extends InputWidget
 
 
         foreach ($idial as $id => $item) {
-            $all[] = self::buildItem($idial, $id);
+            $all[] = self::buildItem($idial, $id,$this->titleAttribute);
         }
 
 
@@ -49,10 +53,10 @@ class TreeSelectorWidget extends InputWidget
             $itemsHtml .= self::getHtmlItem($item);
         }
 
-        if (!empty($this->value)) {
-            $value = json_encode($this->value);
-        } else {
-            $value = '[]';
+        if (!empty($this->value)){
+            $value=json_encode($this->value);
+        }else{
+            $value= '[]';
         }
 
         $js = <<<JS
@@ -71,32 +75,23 @@ $('#auto-checkboxes-{$this->id}').bonsai(
 JS;
         $this->view->registerJs($js, $this->view::POS_END);
 
-
-        return str_replace([
-            '{items}',
-            '{id}',
-            '{name}'
-        ], [
-            $itemsHtml,
-            $this->id,
-            $this->name.'[]'
-        ], self::$template['head']);
+        return str_replace(['{items}', '{id}', '{name}'], [$itemsHtml, $this->id, $this->name.'[]'], self::$template['head']);
 
     }
 
 
-    private static function buildItem($items, $id)
+    private static function buildItem($items, $id,$titleAttr)
     {
 
         $array = [];
 
-        $array['label'] = $items[$id]['title'];
+        $array['label'] = $items[$id][$titleAttr];
         $array['id'] = $items[$id]['id'];
-        $array['parent'] = $items[$id]['parent'];
+        $array['parent'] = !empty($items[$id]['parent'])?$items[$id]['parent']:null;
         $subItems = [];
         if (!empty(self::$parental[$id])) {
-            foreach (self::$parental[$id] as $sid => $sub) {
-                $subItems[] = self::buildItem($items, $sub['id']);
+            foreach (self::$parental[$id] as $sid=> $sub){
+                $subItems[] = self::buildItem($items, $sub['id'],$titleAttr);
             }
         }
         $array['items'] = $subItems;
@@ -109,16 +104,8 @@ JS;
         if (empty($item['items'])) {
 
             $s1 = str_replace(
-                [
-                    '{id}',
-                    '{title}',
-                    '{items}'
-                ],
-                [
-                    'data-value="'.$item['id'].'"',
-                    !empty($item['label']) ? $item['label'] : $item['title'],
-                    ''
-                ],
+                ['{id}', '{title}', '{items}'],
+                ['data-value="' . $item['id'] . '"', !empty($item['label'])?$item['label']:$item['title'], ''],
                 self::$template['item']
             );
 
@@ -132,22 +119,15 @@ JS;
             }
 
 
+
             $s1 = str_replace(
                 ['{items}'],
                 $itemsHtml,
                 self::$template['second_head']
             );
             $s2 = str_replace(
-                [
-                    '{items}',
-                    '{title}',
-                    '{id}'
-                ],
-                [
-                    $s1,
-                    $item['label'],
-                    'data-value="'.$item['id'].'"'
-                ],
+                ['{items}', '{title}', '{id}'],
+                [$s1, $item['label'], 'data-value="' . $item['id'] . '"'],
                 self::$template['item']
             );
 

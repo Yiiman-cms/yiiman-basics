@@ -63,13 +63,13 @@ $this->registerJs($js, $this::POS_END);
                                     [
                                         'attribute' => 'created_at',
                                         'value'     => function ($model) {
-                                            return Yii::$app->functions->convertdatetime($model->created_at);
+                                            return Yii::$app->functions->convert_date($model->created_at);
                                         }
                                     ],
                                     [
                                         'attribute' => 'updated_at',
                                         'value'     => function ($model) {
-                                            return Yii::$app->functions->convertdatetime($model->updated_at);
+                                            return Yii::$app->functions->convert_date($model->updated_at);
                                         }
                                     ],
                                     //'updated_by',

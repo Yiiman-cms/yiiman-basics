@@ -57,8 +57,8 @@ class WidgetController extends Controller
             $out = $controller->actionLayout('array', $model->template, $model)['full'];
             $html = hQuery::fromHTML($out);
             $content = $html->find('begincontent')->html();
-            $menu = $html->find('beginMenu')->html();
-            $footer = $html->find('beginFooter')->html();
+//            $menu = $html->find('beginMenu')->html();
+//            $footer = $html->find('beginFooter')->html();
 //            $out = str_replace($menu, '', $out);
 //            $out = str_replace($footer, '', $out);
             $out = str_replace($content, $pageContent, $out);
