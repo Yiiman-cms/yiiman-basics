@@ -1,0 +1,6 @@
+<component name="CopyrightManager">
+  <copyright>
+    <option name="notice" value="Copyright (c) &amp;#36;originalComment.match(&quot;Copyright \(c\) (\d+)&quot;, 1, &quot;-&quot;)&amp;#36;today.year.&#10;Created by YiiMan.&#10;Programmer: gholamreza beheshtian&#10;Mobile:+989353466620 | +17272282283&#10;Site:https://yiiman.ir" />
+    <option name="myName" value="YiiMan" />
+  </copyright>
+</component>
