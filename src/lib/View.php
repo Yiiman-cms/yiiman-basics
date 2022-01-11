@@ -15,10 +15,12 @@
 namespace YiiMan\YiiBasics\lib;
 
 use yii\base\InvalidCallException;
+use yii\base\InvalidConfigException;
 use yii\base\ViewContextInterface;
 use yii\helpers\FileHelper;
 use yii\helpers\Html;
 use yii\helpers\StringHelper;
+use yii\web\AssetBundle;
 
 class View extends \yii\web\View
 {
@@ -101,24 +103,6 @@ class View extends \yii\web\View
         );
 
         $this->clear();
-    }
-
-    protected function registerAssetFiles($name)
-    {
-        if (!isset($this->assetBundles[$name])) {
-            return;
-        }
-
-        $bundle = $this->assetBundles[$name];
-        if ($bundle) {
-            foreach ($bundle->depends as $dep) {
-                $this->registerAssetFiles($dep);
-            }
-
-            $bundle->registerAssetFiles($this);
-        }
-
-        unset($this->assetBundles[$name]);
     }
 
     /**
@@ -244,5 +228,6 @@ class View extends \yii\web\View
 
         return $result;
     }
+
 
 }

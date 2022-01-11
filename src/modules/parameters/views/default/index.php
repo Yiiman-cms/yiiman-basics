@@ -11,10 +11,11 @@ use YiiMan\YiiBasics\modules\filemanager\widget\MediaViewWidget;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use YiiMan\YiiBasics\modules\parameters\models\Parameters;
 
 /* @var $this yii\web\View */
-/* @var $searchModel YiiMan\YiiBasics\modules\parameters\models\SearchParameters */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $dataProvider Parameters */
+
 
 \YiiMan\YiiBasics\widgets\topMenu\TopMenuWidget::addBtb(
     'add',
@@ -124,8 +125,8 @@ $form = \yii\bootstrap\ActiveForm::begin();
                                             </thead>
                                             <tbody id="data-table">
                                             <?php
-                                            if (!empty($dataProvider->models)) {
-                                                foreach ($dataProvider->models as $model) {
+                                            if (!empty($dataProvider)) {
+                                                foreach ($dataProvider as $model) {
                                                     ?>
                                                     <tr style="margin-top: 5px" id="db-<?= $model->id ?>">
                                                         <td>

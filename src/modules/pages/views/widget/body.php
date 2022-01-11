@@ -16,9 +16,13 @@ use YiiMan\YiiBasics\modules\pages\widgets\htmlBuilder\assets\Assets;
  */
 $assets = Assets::register($this);
 $model = Pages::findOne($id);
-$jsAssetURL=Yii::$app->Options->URL.$assets->baseUrl;
-file_put_contents(Yii::$app->Options->UploadDir.'/samplePages/index.php',
-    (!empty($model->content) ? $model->content : ''));
+$jsAssetURL = Yii::$app->Options->URL.$assets->baseUrl;
+//@mkdir(Yii::$app->Options->UploadDir.'/samplePages', 0755, true);
+//
+//$indexFile = fopen(Yii::$app->Options->UploadDir.'/samplePages/index.php', 'w+');
+//fwrite($indexFile, (!empty($model->content) ? $model->content : ''));
+//fclose($indexFile);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

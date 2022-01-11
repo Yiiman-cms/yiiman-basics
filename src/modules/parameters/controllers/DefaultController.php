@@ -36,8 +36,13 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
      */
     public function actionIndex()
     {
-        $searchModel = new SearchParameters();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = Parameters::find();
+        if (!empty($_GET['lng'])) {
+            $dataProvider = $dataProvider->where(['language' => $_GET['lng']]);
+        } else {
+            $dataProvider = $dataProvider->where(['language_parent' => null]);
+        }
+
         $post = Yii::$app->request->post();
         if (!empty($post)) {
             if (!empty($post['keys'])) {
@@ -88,8 +93,7 @@ class DefaultController extends \YiiMan\YiiBasics\lib\Controller
         }
 
         return $this->render('index', [
-            'searchModel'  => $searchModel,
-            'dataProvider' => $dataProvider,
+            'dataProvider' => $dataProvider->all(),
         ]);
     }
 

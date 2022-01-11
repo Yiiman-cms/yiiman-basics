@@ -7,11 +7,11 @@
  * Site:https://yiiman.ir
  */
 
-namespace system\assets\dashboard;
+namespace YiiMan\YiiBasics\assets\dashboard;
 	
 	
-	use system\lib\AssetBundle;
-	use system\lib\i18n\Layout;
+	use YiiMan\YiiBasics\lib\AssetBundle;
+	use YiiMan\YiiBasics\lib\i18n\Layout;
 	use Yii;
 	
 	/**

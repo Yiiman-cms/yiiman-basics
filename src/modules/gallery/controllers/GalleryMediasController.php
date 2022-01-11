@@ -29,7 +29,7 @@ class GalleryMediasController extends \YiiMan\YiiBasics\lib\Controller
      */
     public $model;
     public $enableCsrfValidation = false;
-
+    public $skipPermittions=['upload'=>true];
     /**
      * Lists all GalleryMedias models.
      * @return mixed
