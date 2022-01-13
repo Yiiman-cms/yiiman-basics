@@ -186,7 +186,7 @@ class Controller extends \yii\web\Controller
 
         if ($runAction && $this->beforeAction($action)) {
             // run the action
-            if (!empty($action) && empty($this->skipPermittions[$action->id]) && !Yii::$app->user->Can($module->id.'_'.$action->controller->id.'_'.$action->id)) {
+            if (!Yii::$app->user->isGuest && !empty($action) && empty($this->skipPermittions[$action->id]) && !Yii::$app->user->Can($module->id.'_'.$action->controller->id.'_'.$action->id)) {
                 throw new ForbiddenHttpException(Yii::t('rbac', 'You do not have access to this page'));
             }
             $result = $action->runWithParams($params);
