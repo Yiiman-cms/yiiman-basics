@@ -35,6 +35,7 @@ class Widget extends \YiiMan\YiiBasics\lib\ActiveRecord
     const STATUS_ACTIVE = 1;
     const STATUS_DE_ACTIVE = 0;
     public static $locations = [];
+    public static $defaultCodes=[];
 
     /**
      * {@inheritdoc}
@@ -59,6 +60,27 @@ class Widget extends \YiiMan\YiiBasics\lib\ActiveRecord
         foreach ($array as $key => $label) {
             self::$locations[$key] = $label;
         }
+    }
+
+    /**
+     * کدهای پیش فرض هر لوکیشن ویجت را ذخیره میکند
+     *
+     * @param $array
+     *
+     *                    [
+     *                      'locationName'=>
+     *                          [
+     *                              [
+     *                                  'title'=>'some title',
+     *                                  'html'=>'HTML code'
+     *                              ]
+     *
+     *                          ]
+     *
+     *                    ]
+     */
+    public static function addDefaultLocationCode($array){
+        self::$defaultCodes=$array;
     }
 
     public static function disabledItemsSelect2()

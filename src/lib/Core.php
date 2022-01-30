@@ -23,6 +23,7 @@ use YiiMan\YiiBasics\modules\search\models\Search;
 use YiiMan\YiiBasics\modules\slug\models\Slug;
 use YiiMan\YiiBasics\modules\widget\models\Components;
 use yii\helpers\ArrayHelper;
+use YiiMan\YiiBasics\modules\widget\models\Widget;
 
 /**
  * Class Core
@@ -108,11 +109,36 @@ class Core
         \YiiMan\YiiBasics\modules\menu\models\Menu::addLocations($array);
     }
 
-
+    /**
+     * add widget locations for admin
+     * sample array stracture:
+     * [
+     *  'footerRight'=>'فوتر راست'
+     * ]
+     */
     public static function AddThemeLocations($array)
     {
         \YiiMan\YiiBasics\modules\widget\models\Widget::addLocations($array);
     }
+
+    /**
+     * add default html listes for every widget in admin
+     * @param  array  $array
+     *                                  [
+     *                                  'locationName'=>
+     *                                  [
+     *                                  [
+     *                                  'title'=>'some title',
+     *                                  'html'=>'HTML code'
+     *                                  ]
+     *                                  ]
+     *                                  ]
+     */
+    public static function AddThemeLocationsDefaultValue(array $array)
+    {
+        Widget::addDefaultLocationCode($array);
+    }
+
 
     public static function setMenuUrlHint($text)
     {
