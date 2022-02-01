@@ -272,9 +272,7 @@ $jsAssetURL = Yii::$app->Options->URL.$assets->baseUrl;
         white-space: normal;
     }
 
-    ::selection {
-        transition: 0.5s ease;
-    }
+
 
     .item-location-box {
         width: 300px;
