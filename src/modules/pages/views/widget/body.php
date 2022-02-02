@@ -33,7 +33,7 @@ $jsAssetURL = Yii::$app->Options->URL.$assets->baseUrl;
 
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
+    <link rel="icon" href="<?= Yii::$app->Options->logo ?>">
     <base href="">
     <title><?= empty($model->title) ? 'صفحه ی جدید' : 'ویرایش برگه: '.$model->title ?></title>
 
@@ -46,6 +46,7 @@ $jsAssetURL = Yii::$app->Options->URL.$assets->baseUrl;
     <link href="<?= $assets->baseUrl ?>/contextMenu/jquery.contextMenu.min.css" rel="stylesheet">
     <link href="<?= $assets->baseUrl ?>/libs/codemirror/lib/foldgutter.css" rel="stylesheet">
     <script>
+        var assetUrl='<?=$assets->baseUrl?>';
         var asseturlt = '<?= $jsAssetURL ?>/';
         var backend = '<?= Yii::$app->Options->BackendUrl ?>';
         var saveUrl = '<?= Yii::$app->Options->BackendUrl ?>/pages/widget/save';
@@ -65,9 +66,14 @@ $jsAssetURL = Yii::$app->Options->URL.$assets->baseUrl;
 </script>
 <style>
 
-    * {
-        user-select: all !important;
+    input,textarea {
+        user-select: text !important;
         transition: none !important;
+        animation: none !important;
+    }
+    input::selection,textarea::selection{
+        color: darkblue;
+        background: cornflowerblue;
     }
 
     .tippy-tooltip[data-animation="fade"][data-state="hidden"] {
@@ -1627,7 +1633,7 @@ JS;
 <script src="<?= $assets->baseUrl ?>/libs/codemirror/lib/formatting.js"></script>
 
 <script src="<?= $assets->baseUrl ?>/libs/forms/form-render.min.js"></script>
-<script src="<?= $assets->baseUrl ?>/libs/forms/formatting.js"></script>
+<!--<script src=" $assets->baseUrl /libs/forms/formatting.js"></script>-->
 
 <!-- autocomplete plugin used by autocomplete input-->
 <script src="<?= $assets->baseUrl ?>/libs/codemirror/lib/emmet.js"></script>

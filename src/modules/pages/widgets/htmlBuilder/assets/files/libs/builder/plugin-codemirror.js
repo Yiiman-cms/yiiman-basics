@@ -1,13 +1,21 @@
+/*
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
 Vvveb.CodeEditor = {
-	
+
 	isActive: false,
 	oldValue: '',
 	doc:false,
 	codemirror:false,
-	
-	init: function(doc) {
 
-		if (this.codemirror == false)		
+	init: function(doc=null) {
+
+		if (this.codemirror == false)
 		{
 			this.codemirror = CodeMirror.fromTextArea(document.querySelector("#vvveb-code-editor textarea"), {
 				mode: 'text/html',
@@ -109,14 +117,14 @@ Vvveb.CodeEditor = {
 			this.codemirror.autoFormatRange({line:0, ch:0}, {line:totalLines});
 
 			this.isActive = true;
-			this.codemirror.getDoc().on("change", function (e, v) { 
+			this.codemirror.getDoc().on("change", function (e, v) {
 				if (v.origin != "setValue")
 				delay(Vvveb.Builder.setHtml(e.getValue()), 1000);
 			});
 		}
 
 
-		
+
 		//_self = this;
 		Vvveb.Builder.frameBody.on("vvveb.undo.add vvveb.undo.restore", function (e) { Vvveb.CodeEditor.setValue(e);});
 		//load code when a new url is loaded
@@ -131,9 +139,10 @@ Vvveb.CodeEditor = {
 	setValue: function(value) {
 		if (this.isActive == true)
 		{
+
 			var scrollInfo = this.codemirror.getScrollInfo();
-			var html=$(Vvveb.Builder.getHtml());
-			this.codemirror.setValue(html.find('begincontent').html());
+			
+			this.codemirror.setValue(Vvveb.Builder.getHtml());
 			this.codemirror.scrollTo(scrollInfo.left, scrollInfo.top);
 		}
 	},
@@ -143,7 +152,7 @@ Vvveb.CodeEditor = {
 		//save memory by destroying but lose scroll on editor toggle
 		this.codemirror.toTextArea();
 		this.codemirror = false;
-		*/ 
+		*/
 		this.isActive = false;
 	},
 

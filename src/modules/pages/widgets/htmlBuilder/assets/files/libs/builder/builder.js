@@ -1,20 +1,10 @@
 /*
-Copyright 2017 Ziadin Givan
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-   http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-https://github.com/givanz/VvvebJs
-*/
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
 
 
 // Simple JavaScript Templating
@@ -1505,6 +1495,7 @@ Vvveb.Builder = {
 
         self._loadIframe(url);
 
+
         self._initDragdrop();
 
         self._initBox();
@@ -1697,7 +1688,7 @@ Vvveb.Builder = {
         self.frameHead = $(window.FrameDocument).find("head");
 
         //insert editor helpers like non editable areas
-        self.frameHead.append('<link data-vvveb-helpers href="' + Vvveb.baseUrl + '../../css/vvvebjs-editor-helpers.css" rel="stylesheet">');
+        self.frameHead.append('<link data-vvveb-helpers href="' + assetUrl + '/css/vvvebjs-editor-helpers.css" rel="stylesheet">');
 
         self._initHighlight();
 
@@ -2252,6 +2243,19 @@ Vvveb.Builder = {
             return false;
         });
 
+        $(document).keydown(function(e){
+            console.log(e);
+            switch (e.key){
+                case "n":
+                    console.log('new element');
+                    $("#add-section-btn").trigger('click');
+                    break;
+                case "Escape":
+                    console.log('exit');
+                    $("#close-section-btn").trigger('click');
+                    break;
+            }
+        })
 
         $("#add-section-float-btn").on("click", function (event) {
 
@@ -2486,14 +2490,16 @@ Vvveb.Builder = {
             + (doc.doctype.systemId ? ' "' + doc.doctype.systemId + '"' : '')
             + ">\n";
 
-        html += doc.documentElement.innerHTML + "\n</html>";
+        html += "<html>\n"+doc.documentElement.innerHTML + "\n</html>";
 
-        html = this.removeHelpers(html, keepHelperAttributes);
-
-        var filter = $(window).triggerHandler("vvveb.getHtml.after", html);
-        if (filter) return filter;
-
-        return html;
+        return $(html).find('begincontent').html();
+        //
+        // html = this.removeHelpers(html, keepHelperAttributes);
+        //
+        // var filter = $(window).triggerHandler("vvveb.getHtml.after", html);
+        // if (filter) return filter;
+        //
+        // return html;
     },
 
     setHtml: function (html) {
@@ -2609,10 +2615,22 @@ Vvveb.Builder = {
         data["default"] = $('#defaultPage:checked').val();
 
         data["id"] = Vvveb.Builder.getUrlParameter('id');
+
+        /**
+         * Unicode to ASCII (encode data to Base64)
+         * @param {string} data
+         * @return {string}
+         */
+        function utoa(data) {
+            return btoa(unescape(encodeURIComponent(data)));
+        }
+
         if (!startTemplateUrl || startTemplateUrl == null) {
             data["html"] = this.getHtml();
         }
-// debugger;
+        data['html']=data['html'].replace(/[\u00A0-\u9999<>\&]/g, function(i) {
+            return '&#'+i.charCodeAt(0)+';';
+        });
         $.ajax({
             type: "POST",
             url: saveUrl,//set your server side save script url
@@ -2701,8 +2719,10 @@ Vvveb.CodeEditor = {
     oldValue: '',
     doc: false,
 
-    init: function (doc) {
-        $("#vvveb-code-editor textarea").val(Vvveb.Builder.getHtml());
+    init: function (doc=null) {
+
+        let html=Vvveb.Builder.getHtml();
+        $("#vvveb-code-editor textarea").val(html);
 
         $("#vvveb-code-editor textarea").keyup(function () {
             delay(Vvveb.Builder.setHtml(this.value), 1000);
@@ -2731,6 +2751,7 @@ Vvveb.CodeEditor = {
     },
 
     toggle: function () {
+
         if (this.isActive != true) {
             this.isActive = true;
             return this.init();
@@ -2818,6 +2839,7 @@ Vvveb.Gui = {
     },
 
     toggleEditor: function () {
+
         $("#vvveb-builder").toggleClass("bottom-panel-expand");
         $("#toggleEditorJsExecute").toggle('slow');
         Vvveb.CodeEditor.toggle('slow');
