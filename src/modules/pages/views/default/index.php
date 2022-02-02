@@ -79,6 +79,48 @@ $this->registerJs($js, \YiiMan\YiiBasics\lib\View::POS_END);
         margin: 0;
         margin-bottom: -16px;
     }
+
+    .pull-left.btn.btn-danger.btn-round {
+        position: absolute;
+        top: -20px;
+        border-radius: 5px;
+        width: 10px;
+        padding-left: 12px;
+        right: -11px;
+    }
+
+    .card-body.home {
+        border: #0080002b 1px solid;
+    }
+
+    .pull-right.btn.btn-success.btn-round {
+        position: absolute;
+        right: -11px;
+        border-radius: 5px;
+        bottom: -20px;
+        padding-right: 27px;
+        width: 0px;
+        padding-left: 15px;
+    }
+
+    .pull-right.set-as-home.btn-warning {
+        position: absolute;
+        left: -10px;
+        padding: 6px;
+        border-radius: 4px;
+        bottom: -10px;
+        color: white;
+    }
+    .pull-right.btn.btn-info.btn-round {
+        position: absolute;
+        /* bottom: -20px; */
+        left: 0;
+        left: -11px;
+        width: 8px;
+        padding-left: 12px;
+        border-radius: 6px;
+        top: -21px;
+    }
 </style>
 <div class="pages-index">
     <div class="col-md-12">
@@ -97,7 +139,7 @@ $this->registerJs($js, \YiiMan\YiiBasics\lib\View::POS_END);
                 ?>
                 <div class="col-md-4" style="margin-bottom:20px">
                     <div class="card card-nav-tabs" data-id="<?= $model->id ?>">
-                        <div class="card-body ">
+                        <div class="card-body <?= !empty($model->default) ? ' home ' : '' ?>">
                             <h4 class="text-center"><?= $model->title ?></h4>
                             <h5 class="h5-default" <?= empty($model->default) ? 'style="display:none"' : '' ?>><?= \Yii::t('site',
                                     'صفحه ی نخست') ?></h5>
@@ -125,16 +167,26 @@ $this->registerJs($js, \YiiMan\YiiBasics\lib\View::POS_END);
 
 
                                 <li>
-                                    <a href="<?=
-                                    //                                    /pages/widget?id=6
-
-                                    Yii::$app->urlManager->createUrl(
-                                        ['/pages/widget?id='.$model->id]
-                                    ) ?>"
+                                    <a href="<?= Yii::$app->urlManager->createUrl(['/pages/widget?id='.$model->id]) ?>"
                                        class="pull-right btn btn-success btn-round" title="ویرایشگر بصری"><span
                                                 class="glyphicon glyphicon-pencil"></span></a>
                                 </li>
-
+                                <?php if ($model->status = $model::STATUS_ACTIVE) {
+                                    $url='';
+                                    if (!empty($model->slug)) {
+                                        $url='/'.$model->slug;
+                                    }else{
+                                        $url='/site/page?id='.$model->id;
+                                    }
+                                    ?>
+                                    <li>
+                                        <a href="<?= $url ?>" target="_blank"
+                                           class="pull-right btn btn-info btn-round" title="نمایش صفحه"><span
+                                                    class="glyphicon glyphicon-eye-open"></span></a>
+                                    </li>
+                                    <?php
+                                }
+                                ?>
                                 <li class="set-default " <?= !empty($model->default) ? 'style="display:none"' : '' ?>>
                                     <a href="<?=
                                     //                                    /pages/widget?id=6
@@ -143,7 +195,8 @@ $this->registerJs($js, \YiiMan\YiiBasics\lib\View::POS_END);
                                         ['/pages/default/set-default?id='.$model->id]
                                     ) ?>"
                                        done="actionDefault(<?= $model->id ?>)"
-                                       class="pull-right " style="font-size: 10px;margin-top: 14px;"
+                                       class="pull-right set-as-home btn-warning"
+                                       style="font-size: 10px;margin-top: 14px;"
                                        title="تنظیم به عنوان صفحه ی نخست">تنظیم به عنوان صفحه ی نخست</a>
                                 </li>
 

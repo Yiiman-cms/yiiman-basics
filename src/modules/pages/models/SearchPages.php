@@ -108,6 +108,7 @@ class SearchPages extends Pages
                 $this->title
             ]);
 
+        $query->orderBy('default DESC');
         return $dataProvider;
     }
 }
