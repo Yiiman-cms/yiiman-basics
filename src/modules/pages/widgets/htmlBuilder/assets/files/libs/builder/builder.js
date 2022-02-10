@@ -2243,17 +2243,19 @@ Vvveb.Builder = {
             return false;
         });
 
-        $(document).keydown(function(e){
-            console.log(e);
-            switch (e.key){
-                case "n":
-                    console.log('new element');
-                    $("#add-section-btn").trigger('click');
-                    break;
-                case "Escape":
-                    console.log('exit');
-                    $("#close-section-btn").trigger('click');
-                    break;
+        $(document).keydown(function (e) {
+            // console.log(e);
+            if (e.ctrlKey) {
+                switch (e.key) {
+                    case "n":
+                        console.log('new element');
+                        $("#add-section-btn").trigger('click');
+                        break;
+                }
+            }
+            if (e.key === "Escape") {
+                console.log('exit');
+                $("#close-section-btn").trigger('click');
             }
         })
 
@@ -2343,7 +2345,18 @@ Vvveb.Builder = {
         }
 
         $(".components-list li ol li", addSectionBox).on("click", function (event) {
-            var html = Vvveb.Components.get(this.dataset.type).html;
+            var component = Vvveb.Components.get(this.dataset.type);
+            var html = component.html;
+            let ifameBody = $($("#iframe-wrapper > iframe").get(0).contentWindow.document);
+            if (component.enginCode) {
+                let enginScriptElement = ifameBody.find("script#script_" + component.id);
+                if (enginScriptElement.length === 0) {
+                    ifameBody.find('body').append('<script id="#script_' + component.id + '">' + component.enginCode + ";;" + component.activeCode + '</script>');
+                } else {
+                    ifameBody.find("script#script_" + component.id).append(component.activeCode);
+                }
+            }
+
 
             addSectionComponent(html, (jQuery("[name='add-section-insert-mode']:checked").val()));
 
@@ -2490,7 +2503,7 @@ Vvveb.Builder = {
             + (doc.doctype.systemId ? ' "' + doc.doctype.systemId + '"' : '')
             + ">\n";
 
-        html += "<html>\n"+doc.documentElement.innerHTML + "\n</html>";
+        html += "<html>\n" + doc.documentElement.innerHTML + "\n</html>";
 
         return $(html).find('begincontent').html();
         //
@@ -2607,7 +2620,7 @@ Vvveb.Builder = {
         // < background file >
         {
             var fileInput = $('#fileBack');
-            data["back"]=fileInput.val();
+            data["back"] = fileInput.val();
         }
         // </ background file >
 
@@ -2628,8 +2641,8 @@ Vvveb.Builder = {
         if (!startTemplateUrl || startTemplateUrl == null) {
             data["html"] = this.getHtml();
         }
-        data['html']=data['html'].replace(/[\u00A0-\u9999<>\&]/g, function(i) {
-            return '&#'+i.charCodeAt(0)+';';
+        data['html'] = data['html'].replace(/[\u00A0-\u9999<>\&]/g, function (i) {
+            return '&#' + i.charCodeAt(0) + ';';
         });
         $.ajax({
             type: "POST",
@@ -2719,9 +2732,9 @@ Vvveb.CodeEditor = {
     oldValue: '',
     doc: false,
 
-    init: function (doc=null) {
+    init: function (doc = null) {
 
-        let html=Vvveb.Builder.getHtml();
+        let html = Vvveb.Builder.getHtml();
         $("#vvveb-code-editor textarea").val(html);
 
         $("#vvveb-code-editor textarea").keyup(function () {

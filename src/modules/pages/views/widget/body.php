@@ -7,7 +7,10 @@
  * Site:https://yiiman.ir
  */
 
+use YiiMan\YiiBasics\lib\Core;
 use YiiMan\YiiBasics\modules\pages\models\Pages;
+use YiiMan\YiiBasics\modules\pages\ThemComponents\PageBuilderChildComponent;
+use YiiMan\YiiBasics\modules\pages\ThemComponents\PageBuilderComponent;
 use YiiMan\YiiBasics\modules\pages\widgets\htmlBuilder\assets\Assets;
 
 /**
@@ -46,7 +49,7 @@ $jsAssetURL = Yii::$app->Options->URL.$assets->baseUrl;
     <link href="<?= $assets->baseUrl ?>/contextMenu/jquery.contextMenu.min.css" rel="stylesheet">
     <link href="<?= $assets->baseUrl ?>/libs/codemirror/lib/foldgutter.css" rel="stylesheet">
     <script>
-        var assetUrl='<?=$assets->baseUrl?>';
+        var assetUrl = '<?=$assets->baseUrl?>';
         var asseturlt = '<?= $jsAssetURL ?>/';
         var backend = '<?= Yii::$app->Options->BackendUrl ?>';
         var saveUrl = '<?= Yii::$app->Options->BackendUrl ?>/pages/widget/save';
@@ -66,12 +69,13 @@ $jsAssetURL = Yii::$app->Options->URL.$assets->baseUrl;
 </script>
 <style>
 
-    input,textarea {
+    input, textarea {
         user-select: text !important;
         transition: none !important;
         animation: none !important;
     }
-    input::selection,textarea::selection{
+
+    input::selection, textarea::selection {
         color: darkblue;
         background: cornflowerblue;
     }
@@ -279,7 +283,6 @@ $jsAssetURL = Yii::$app->Options->URL.$assets->baseUrl;
     }
 
 
-
     .item-location-box {
         width: 300px;
         display: flex;
@@ -294,6 +297,33 @@ $jsAssetURL = Yii::$app->Options->URL.$assets->baseUrl;
     #vvveb-builder #top-panel {
         z-index: 9999999;
         position: fixed;
+    }
+
+    .scale-range-group {
+        margin-right: 20px;
+        scale: 0.7;
+        width: 70%;
+    }
+
+    .scale-range-group input {
+        float: left !important;
+        direction: ltr !important;
+        width: 80%;
+    }
+
+    .scale-range-group label {
+        float: left !important;
+        width: 20% !important;
+    }
+
+    #sections-new-tab .blocks-list.clearfix {
+        height: calc(100vh - 190px) !important;
+    }
+
+    #vvveb-builder .components-list, #vvveb-builder .blocks-list, #vvveb-builder .component-properties {
+
+        height: calc(100vh - 150px) !important;
+
     }
 </style>
 
@@ -543,10 +573,16 @@ $jsAssetURL = Yii::$app->Options->URL.$assets->baseUrl;
         </div>
 
         <div class="btn-group page-title float-right responsive-btns" role="group">
+            <div class="scale-range-group">
+                <label for="scaleRange">Scale</label>
+                <input type="range" id="scaleRange" name="volume"
+                       min="1" max="100" value="50">
+            </div>
             <button type="button" id="openModal" class="btn btn-small btn-info">اطلاعات برگه</button>
             <input type="text" class="form-control" value="<?= $model->title ?>">
             <label>نام صفحه</label>
         </div>
+
 
     </div>
 
@@ -962,7 +998,10 @@ $jsAssetURL = Yii::$app->Options->URL.$assets->baseUrl;
     <script id="vvveb-input-textinput" type="text/html">
 
         <div>
-            <input name="{%=key%}" type="text" class="form-control"/>
+            <input name="{%=key%}"
+                   placeholder="{% if (typeof placeholder !== 'undefined' && placeholder != false) placeholder %}"
+                   value="{% if (typeof value !== 'undefined' && value != false) value %}" type="text"
+                   class="form-control"/>
         </div>
 
     </script>
@@ -970,7 +1009,7 @@ $jsAssetURL = Yii::$app->Options->URL.$assets->baseUrl;
     <script id="vvveb-input-textareainput" type="text/html">
 
         <div>
-            <textarea name="{%=key%}" rows="3" class="form-control"/>
+            <textarea name="{%=key%}" rows="3" class="form-control">{% if (typeof text !== 'undefined' && text != false) text %}</textarea>
         </div>
 
     </script>
@@ -1261,7 +1300,7 @@ $jsAssetURL = Yii::$app->Options->URL.$assets->baseUrl;
 
     <script id="vvveb-input-button" type="text/html">
         <div>
-            <button class="btn btn-sm btn-primary">
+            <button class="btn btn-sm btn-{% (typeof colorClass !== 'undefined' && colorClass != false)?colorClass:'primary' %}">
                 <i class="la  {% if (typeof icon !== 'undefined') { %} {%=icon%} {% } else { %} la-plus {% } %} la-lg"></i>
                 {%=text%}
             </button>
@@ -1348,18 +1387,12 @@ $jsAssetURL = Yii::$app->Options->URL.$assets->baseUrl;
             <input name="{%=key%}" type="text" class="form-control"/>
 
             <div class="form-control autocomplete-list" style="min=height: 150px; overflow: auto;">
-                <div id="featured-product43"><i class="la la-close"></i> مک بوک
-                    <input name="product[]" value="43" type="hidden">
+
+                {% for ( var i = 0; i < options.length; i++ ) { %}
+                <div id="featured-product{%=i%}"><i class="la la-close"></i> {%=options[i].text%}
+                    <input name="product[]" value="{%=options[i].value%}" type="hidden">
                 </div>
-                <div id="featured-product40"><i class="la la-close"></i> آیفون
-                    <input name="product[]" value="40" type="hidden">
-                </div>
-                <div id="featured-product42"><i class="la la-close"></i> Apple Cinema 30"
-                    <input name="product[]" value="42" type="hidden">
-                </div>
-                <div id="featured-product30"><i class="la la-close"></i> Canon EOS 5D
-                    <input name="product[]" value="30" type="hidden">
-                </div>
+                {% } %}
             </div>
         </div>
 
@@ -1640,6 +1673,7 @@ JS;
 
 <script src="<?= $assets->baseUrl ?>/libs/builder/plugin-codemirror.js?ver=<?= Yii::$app->Develop->assetVersion() ?>"></script>
 <script src="<?= $assets->baseUrl ?>/sweetalert.js"></script>
+<script src="<?= $assets->baseUrl ?>/js/scale.js"></script>
 
 
 <!-- jszip - download page as zip -->
@@ -1808,7 +1842,7 @@ $pCG = '';//parameters components group
 $pc = '';// parameters components properties
 $idc = uniqid();
 if (!empty($parameters)) {
-    $pCG = 'Vvveb.ComponentsGroup[\'پارامترهای داینامیک\'] = [';//parameters components group
+    $pCG = 'Vvveb.ComponentsGroup[\'پارامترهای پویا\'] = [';//parameters components group
     foreach ($parameters as $name => $component) {
         if (!empty($component['private'])) {
             continue;
@@ -1899,11 +1933,125 @@ JS;
     $pCG .= '];';
 }
 
+
+$customComponents = realpath(Yii::getAlias('@system').'/theme/builder/classes');
+
+if (!empty($customComponents)) {
+    $customComponents = getFileList($customComponents);
+    $customComponentsGroupScript = 'Vvveb.ComponentsGroup[\'ویجت های قالب شما\'] = [';
+    $customComponentsScript = '';
+
+    // < create icon asset folder >
+    {
+        $assetDirAddress = Yii::getAlias('@webroot').'/assets/aaabhj23';
+        if (!realpath($assetDirAddress)) {
+            @mkdir($assetDirAddress, 0777, true);
+        }
+
+    }
+    // </ create icon asset folder >
+    foreach ($customComponents as $key => $item) {
+        if ($item['type'] == 'dir') {
+            $componenClassNamespace = '\system\theme\builder\classes\\'.$item['name'].'\Component';
+            $componentClass = new $componenClassNamespace();
+            /**
+             * @var $componentClass PageBuilderComponent
+             */
+
+            // < Addcomponent to component group >
+            {
+                $customComponentsGroupScript .= '\'customTheme/'.$item['name'].'\'';
+                if (!isset($customComponents[$key + 1])) {
+                    $customComponentsGroupScript .= ',';
+                }
+            }
+            // </ Addcomponent to component group >
+
+
+            /**
+             * @var $item PageBuilderComponent
+             */
+            $reflectComponent = new ReflectionClass($componentClass);
+
+            if ($reflectComponent->getParentClass()->name != 'YiiMan\YiiBasics\modules\pages\ThemComponents\PageBuilderComponent') {
+                throw new Exception('کامپوننت هایی که برای صفحه ساز تنظیم کرده اید از نوع کلاس PageBuildeComponent نیستند');
+            }
+
+            // < copy icon to asset folder >
+            {
+                if (!realpath($assetDirAddress.'/'.$item['name'].'.png')) {
+                    copy
+                    (
+                        Yii::getAlias('@system').'/theme/builder/classes/'.$item['name'].'/image.png',
+                        $assetDirAddress.'/'.$item['name'].'.png'
+                    );
+                }
+            }
+            // </ copy icon to asset folder >
+
+            $imgUrl = Yii::getAlias('@web').'/assets/aaabhj23/'.$item['name'].'.png';
+
+
+            // < Generate children property >
+            {
+                $childrenJs='';
+                if (!empty($componentClass->child()->childComponent)) {
+                    $childClassName=$componentClass->child()->childComponent;
+                    $childComponent=new ReflectionClass(new $childClassName());
+                    $childrenPath=str_replace(['system\theme\builder\classes\\','\Component'],'',$childComponent->getName());
+                    $childrenJs='children:[{name:"customTheme/'.$childrenPath.'",classesRegex:["'.$componentClass->child()->class_regex.'"]}],';
+                }
+            }
+            // </ Generate children property >
+
+
+            // < Generate nodes property >
+            {
+                $nodes='';
+                if (!empty($componentClass->nodes)) {
+                    $nodes='nodes:'.json_encode($componentClass->nodes).',';
+                }
+            }
+            // </ Generate nodes property >
+
+
+            // < generate classes >
+            {
+                $classes='';
+                if (!empty($componentClass->classes)) {
+                    $classes='classes:'.json_encode($componentClass->classes).',';
+                }
+            }
+            // </ generate classes >
+
+            $customComponentsScript .= <<<JS
+
+//Dont Change Html Format because Pars Will be lost
+Vvveb.Components.extend("_base", "customTheme/{$item['name']}", {
+    image: '$imgUrl',
+    html: `{$componentClass->html()}`,
+    name: "{$componentClass->title()}",
+    properties: {$componentClass->generateProperties()},
+    {$childrenJs}
+    {$nodes}
+    {$classes}
+});   
+JS;
+
+
+        }
+
+
+    }
+    $customComponentsGroupScript .= '];';
+}
 ?>
 <script>
     <?= $pCG ?>
     <?= $pc ?>
     <?= $componentFile ?>
+    <?= $customComponentsGroupScript ?>
+    <?= $customComponentsScript ?>
 </script>
 
 
