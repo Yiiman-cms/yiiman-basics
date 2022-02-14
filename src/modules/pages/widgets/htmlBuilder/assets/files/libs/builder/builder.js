@@ -6,7 +6,8 @@
  * Site:https://yiiman.ir
  */
 
-
+var styleHelpers = '';//used on toggleStyleHelpers function
+var allScripts = '';//used on toggleJavaScript function
 // Simple JavaScript Templating
 // John Resig - https://johnresig.com/ - MIT Licensed
 (function () {
@@ -966,6 +967,8 @@
     this.tmpl = function tmpl(str, data) {
         // Figure out if we're getting a template, or if we need to
         // load the template - and be sure to cache the result.
+
+
         var fn = /^[-a-zA-Z0-9]+$/.test(str) ?
             cache[str] = cache[str] ||
                 tmpl(document.getElementById(str).innerHTML) :
@@ -988,6 +991,7 @@
                     .split("%}").join("p.push('")
                     .split("\r").join("\\'")
                 + "');}return p.join('');");
+
         // Provide some basic currying to the user
         return data ? fn(data) : fn;
     };
@@ -1235,8 +1239,8 @@ Vvveb.Components = {
 
                 var element = Vvveb.Builder.selectedEl;
 
-                if (property.child) element = element.find(property.child);
                 if (property.parent) element = element.parent(property.parent);
+                if (property.child) element = element.find(property.child);
 
                 if (property.onChange) {
                     element = property.onChange(element, value, input, component);
@@ -1283,6 +1287,7 @@ Vvveb.Components = {
 
             if (property.beforeInit) property.beforeInit(element.get(0))
 
+            if (property.parent) element = element.parent(property.parent);
             if (property.child) element = element.find(property.child);
 
             if (property.data) {
@@ -1914,6 +1919,9 @@ Vvveb.Builder = {
                         newElement = $(self.component.html);
                         self.dragElement.replaceWith(newElement);
                         self.dragElement = newElement;
+                        if (self.component.script.length > 0) {
+                            $($("#iframe-wrapper > iframe").get(0).contentWindow.document).find('body').after(`<script>` + self.component.script + `</script>`);
+                        }
                         console.log('type:', typeof self.component.afterDrop);
                         if (typeof self.component.afterDrop === 'function') {
 
@@ -2345,6 +2353,7 @@ Vvveb.Builder = {
         }
 
         $(".components-list li ol li", addSectionBox).on("click", function (event) {
+
             var component = Vvveb.Components.get(this.dataset.type);
             var html = component.html;
             let ifameBody = $($("#iframe-wrapper > iframe").get(0).contentWindow.document);
@@ -2360,6 +2369,11 @@ Vvveb.Builder = {
 
             addSectionComponent(html, (jQuery("[name='add-section-insert-mode']:checked").val()));
 
+            if (component.script && component.script.length > 0) {
+                $($("#iframe-wrapper > iframe").get(0).contentWindow.document).find('body').after(`<script>` + component.script + `</script>`);
+            }
+
+
             addSectionBox.hide('slow');
         });
 
@@ -2368,7 +2382,9 @@ Vvveb.Builder = {
             let loc = 'inside';
 
             addSectionComponent(html, (jQuery("[name='add-section-insert-mode']:checked").val()));
-
+            if (Vvveb.Blocks.get(this.dataset.type).script && Vvveb.Blocks.get(this.dataset.type).script.length > 0) {
+                $($("#iframe-wrapper > iframe").get(0).contentWindow.document).find('body').after(`<script>` + Vvveb.Blocks.get(this.dataset.type).script + `</script>`);
+            }
             addSectionBox.hide('slow');
 
             Vvveb.Sections.loadSections();
@@ -2610,7 +2626,7 @@ Vvveb.Builder = {
         var data = {};
         data["fileName"] = (fileName && fileName != "") ? fileName : Vvveb.FileManager.getCurrentUrl();
         data["startTemplateUrl"] = startTemplateUrl;
-        data["title"] = $('.page-title input').val();
+        data["title"] = $('#page-title-input').val();
         data["seo"] = $('#seodesc').val();
         data["template"] = $('#pageType option:selected').val();
         data["status"] = $('#status option:selected').val();
@@ -3002,6 +3018,50 @@ Vvveb.Gui = {
         if ($("#properties").is(":visible")) $('.component-tab a').show('slow').tab('show');
 
     },
+    toggleStyleHelpers: function () {
+        if (styleHelpers.length > 0) {
+            let styleTag = '<style id="styleHelpers">' + styleHelpers + '</style>';
+            $($("#iframe-wrapper > iframe").get(0).contentWindow.document).find('body').append(styleTag);
+            styleHelpers = '';
+            $('#toggle-style-helpers-btn').css('background', '#d4eec3');
+        } else {
+            styleHelpers = $($("#iframe-wrapper > iframe").get(0).contentWindow.document).find('#styleHelpers').text();
+            $($("#iframe-wrapper > iframe").get(0).contentWindow.document).find('#styleHelpers').remove();
+            $('#toggle-style-helpers-btn').css('background', '#eec3c5');
+
+        }
+
+
+    },
+    toggleJavaScript: function () {
+        if (allScripts.length === 0) {
+            let scripts = $($("#iframe-wrapper > iframe").get(0).contentWindow.document).find('script');
+            $.each(scripts, function (index, node) {
+
+                var id = $(node).attr('id');
+                var code = node.innerText;
+                var src = $(node).attr('src');
+                allScripts += '<script ' + (id ? 'id="' + id + '"' : '') + (src ? 'src="' + src + '"' : '') + ' >' + (code.length > 0 ? code : '') + "</script>\n\n";
+                $(node).remove();
+                $('#toggle-js-script-btn').css('background', '#eec3c5');
+                Vvveb.Gui.turnOff($(document.getElementsByTagName('iframe')[0].contentDocument.body.getElementsByTagName('div')));
+                Vvveb.Gui.turnOff($(document.getElementsByTagName('iframe')[0].contentDocument.body.getElementsByTagName('a')));
+
+            });
+
+        } else {
+            $($("#iframe-wrapper > iframe").get(0).contentWindow.document).find('body').append(allScripts);
+            allScripts='';
+            $('#toggle-js-script-btn').css('background', '#d4eec3');
+        }
+    },
+    turnOff:function(nodes){
+        $.each(nodes,function(index,node){
+            var new_element = node.cloneNode(true);
+            node.parentNode.replaceChild(new_element, node);
+
+        })
+    }
 }
 
 Vvveb.StyleManager = {
@@ -3356,8 +3416,8 @@ Vvveb.Sections = {
             } else {
                 id = $(node).attr('id');
             }
-            if ($(node).hasClass()) {
-                var name = node.tagName + ' [' + $(node).attr('class') + ']';
+            if ($(node).attr('class')) {
+                var name = node.tagName + '.' + $(node).attr('class') ;
             } else {
                 var name = node.tagName;
             }
@@ -3396,8 +3456,8 @@ Vvveb.Sections = {
 
         }
 
-        if ($(node).hasClass()) {
-            var name = node.tagName + ' [' + $(node).attr('class') + ']';
+        if ($(node).attr('class')) {
+            var name = node.tagName + '.' + $(node).attr('class');
         } else {
             var name = node.tagName;
         }

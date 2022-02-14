@@ -51,13 +51,22 @@ abstract class PageBuilderComponent implements PageBuilderComponentInterface
                     $this->createItem($generated, 'htmlAttr', $item->inputClass->htmlAttributeName);
                 }
 
+                if (!empty($item->child)) {
+                    $this->createItem($generated, 'child', $item->child);
+                }
+                if (!empty($item->parent)) {
+                    $this->createItem($generated, 'parent', $item->parent);
+                }
+
+
+
                 if (!empty($item->inputClass->onChange)) {
                     $this->createItem($generated, 'onChange', 'function(node){'.$item->inputClass->onChange.'}', true);
                 }
 
                 switch (true){
                     case $item->inputClass instanceof SelectInput:
-                        $this->createItem($generated,'data',$item->inputClass->generateOptions(),true);
+                        $this->createItem($generated,'data','{options:'.$item->inputClass->generateOptions().'}',true);
                         $this->createItem($generated,'validValues',json_encode($item->inputClass->validValues),true);
                             break;
                 }

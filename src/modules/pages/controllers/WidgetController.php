@@ -64,7 +64,10 @@ class WidgetController extends Controller
             $out = str_replace($content, $pageContent, $out);
             $out = str_replace('<beginfooter></beginfooter>', '', $out);
             $out = str_replace('<beginmenu></beginmenu>', '', $out);
-            $out .= '<style>'.<<<CSS
+            $out .= '<style id="styleHelpers">'.<<<CSS
+ beginfooter,beginHeader {
+        filter: blur(3px);
+    }
 main {
 	margin-top: 0;
 	margin-bottom: 0;
@@ -1019,7 +1022,7 @@ SQL;
         // </ Upload To Table >
 
 
-        echo Yii::$app->Options->URL.Yii::$app->Options->UploadUrl.'/dl/Pages/'.$fileName.$fileExtension;
+        echo Yii::$app->Options->UploadUrl.'/dl/Pages/'.$fileName.$fileExtension;
     }
 
     private function fileTypes($extension)

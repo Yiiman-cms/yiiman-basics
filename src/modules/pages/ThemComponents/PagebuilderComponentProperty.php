@@ -14,6 +14,7 @@
 namespace YiiMan\YiiBasics\modules\pages\ThemComponents;
 
 use YiiMan\YiiBasics\modules\pages\ThemComponents\Inputs\CheckboxInput;
+use YiiMan\YiiBasics\modules\pages\ThemComponents\Inputs\ImageInput;
 use YiiMan\YiiBasics\modules\pages\ThemComponents\Inputs\LinkInput;
 use YiiMan\YiiBasics\modules\pages\ThemComponents\Inputs\RangeInput;
 use YiiMan\YiiBasics\modules\pages\ThemComponents\Inputs\SelectInput;
@@ -32,22 +33,29 @@ class PagebuilderComponentProperty
     public string $key;
     public $inputClass;
     public string $onChangeJS = '';
+    public string $child = '';
+    public string $parent = '';
 
     /**
-     * @param  string                                                                  $title
-     * @param  string                                                                  $key
-     * @param  TextInput|CheckboxInput|LinkInput|RangeInput|SelectInput|TextareaInput  $inputClass
-     * @param  string|null                                                             $onChangeJs
+     * @param  string                                                                             $title
+     * @param  string                                                                             $key
+     * @param  TextInput|CheckboxInput|LinkInput|RangeInput|SelectInput|TextareaInput|ImageInput  $inputClass
+     * @param  string|null                                                                        $onChangeJs
      */
     public function __construct(
         string $title,
         string $key,
         $inputClass,
-        string $onChangeJs = ''
+        string $onChangeJs = '',
+        string $child = '',
+        string $parent = ''
     ) {
         $this->title = $title;
         $this->key = $key;
         $this->inputClass = $inputClass;
         $this->onChangeJS = $onChangeJs;
+
+        $this->child = $child;
+        $this->parent = $parent;
     }
 }

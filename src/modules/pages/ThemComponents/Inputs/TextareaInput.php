@@ -15,6 +15,10 @@ namespace YiiMan\YiiBasics\modules\pages\ThemComponents\Inputs;
 
 class TextareaInput extends BaseInputs
 {
+    public function __construct($httpAttribute = '')
+    {
+        $this->htmlAttributeName = $httpAttribute;
+    }
 
     public static function JsExtendCode(): string
     {
@@ -40,7 +44,7 @@ JS;
 
     public static function htmlTemplate(): string
     {
-       return <<<HTML
+        return <<<HTML
         <div>
             <textarea name="{%=key%}" rows="3" class="form-control">{% if (typeof text !== 'undefined' && text != false) text %}</textarea>
         </div>

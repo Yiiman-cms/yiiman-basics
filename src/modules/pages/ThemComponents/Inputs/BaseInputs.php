@@ -21,4 +21,8 @@ abstract class BaseInputs implements PageBuilderInputInterface
 {
     public string $onChange;
     public string $htmlAttributeName;
+
+    const HTTP_ATTR_CLASS = 'class';
+    const HTTP_ATTR_STYLE = 'style';
+    const HTTP_ATTR_HTML = 'innerHTML';
 }

@@ -325,6 +325,11 @@ $jsAssetURL = Yii::$app->Options->URL.$assets->baseUrl;
         height: calc(100vh - 150px) !important;
 
     }
+    #toggle-style-helpers-btn,#toggle-js-script-btn{
+        background: #d4eec3;
+    }
+
+
 </style>
 
 <script id="vvveb-section" type="text/html">
@@ -498,6 +503,18 @@ $jsAssetURL = Yii::$app->Options->URL.$assets->baseUrl;
                 <img src="<?= $assets->baseUrl ?>/libs/builder/icons/right-column-layout.svg" width="20px"
                      height="20px">
             </button>
+             <button class="btn btn-styles" title="Toggle style helpers" id="toggle-style-helpers-btn"
+                    data-vvveb-action="toggleStyleHelpers" data-toggle="button" aria-pressed="false">
+                <img src="<?= $assets->baseUrl ?>/libs/builder/icons/margin.png" width="20px"
+                     height="20px">
+            </button>
+             <button class="btn btn-js" title="Toggle java scripts" id="toggle-js-script-btn"
+                    data-vvveb-action="toggleJavaScript" data-toggle="button" aria-pressed="false">
+                <img src="<?= $assets->baseUrl ?>/libs/builder/icons/java-script.png" width="20px"
+                     height="20px">
+            </button>
+
+
         </div>
 
         <div class="btn-group mr-3" role="group">
@@ -579,7 +596,7 @@ $jsAssetURL = Yii::$app->Options->URL.$assets->baseUrl;
                        min="1" max="100" value="50">
             </div>
             <button type="button" id="openModal" class="btn btn-small btn-info">اطلاعات برگه</button>
-            <input type="text" class="form-control" value="<?= $model->title ?>">
+            <input type="text" id="page-title-input" class="form-control" value="<?= $model->title ?>">
             <label>نام صفحه</label>
         </div>
 
@@ -999,8 +1016,8 @@ $jsAssetURL = Yii::$app->Options->URL.$assets->baseUrl;
 
         <div>
             <input name="{%=key%}"
-                   placeholder="{% if (typeof placeholder !== 'undefined' && placeholder != false) placeholder %}"
-                   value="{% if (typeof value !== 'undefined' && value != false) value %}" type="text"
+                   placeholder="{% if (typeof placedholder !== 'undefined' && placedholder != false) { %} {%=placedholder%}  {% } else { %}{% } %}"
+                   value="{% if (typeof value !== 'undefined' && value != false) { %} {%=value%}  {% } else { %}{% } %}" type="text"
                    class="form-control"/>
         </div>
 
@@ -1009,7 +1026,7 @@ $jsAssetURL = Yii::$app->Options->URL.$assets->baseUrl;
     <script id="vvveb-input-textareainput" type="text/html">
 
         <div>
-            <textarea name="{%=key%}" rows="3" class="form-control">{% if (typeof text !== 'undefined' && text != false) text %}</textarea>
+            <textarea name="{%=key%}" rows="3" class="form-control">{% if (typeof text !== 'undefined' && text != false) { %} {%=text%}  {% } else { %}{% } %}</textarea>
         </div>
 
     </script>
@@ -1565,6 +1582,16 @@ Vvveb.BlocksGroup[\''.$component['name'].'\'] = [
                     {
                         $path = Yii::$app->Options->UploadDir.'/pageBuilder/';
                         $pathURL = Yii::$app->Options->UploadUrl.'/pageBuilder/';
+
+                        // < check script >
+                        {
+                            $script='';
+                            if (realpath(Yii::getAlias('@system').'/theme/components/'.$item['name'].'/script.js')) {
+                                $script=file_get_contents(Yii::getAlias('@system').'/theme/components/'.$item['name'].'/script.js');
+                            }
+                        }
+                        // </ check script >
+
                         if (!file_exists($path.$item['name'].'.png')) {
                             @mkdir($path);
                             copy($item['image'], $path.$item['name'].'.png');
@@ -1582,7 +1609,8 @@ Vvveb.Blocks.add("{$idc}/{$item['name']}", {
     dragHtml: '<img src="{$imageContent}">',    
     image: "{$imageContent}",
     html: `{$item['content']}`,
-    description:`{$description}`
+    description:`{$description}`,
+    script:`{$script}`
 });    
 
 JS;
@@ -1958,14 +1986,6 @@ if (!empty($customComponents)) {
              * @var $componentClass PageBuilderComponent
              */
 
-            // < Addcomponent to component group >
-            {
-                $customComponentsGroupScript .= '\'customTheme/'.$item['name'].'\'';
-                if (!isset($customComponents[$key + 1])) {
-                    $customComponentsGroupScript .= ',';
-                }
-            }
-            // </ Addcomponent to component group >
 
 
             /**
@@ -1979,12 +1999,21 @@ if (!empty($customComponents)) {
 
             // < copy icon to asset folder >
             {
-                if (!realpath($assetDirAddress.'/'.$item['name'].'.png')) {
+                if (!realpath($assetDirAddress.'/'.$item['name'].'.png') && realpath(Yii::getAlias('@system').'/theme/builder/classes/'.$item['name'].'/image.png')) {
                     copy
                     (
                         Yii::getAlias('@system').'/theme/builder/classes/'.$item['name'].'/image.png',
                         $assetDirAddress.'/'.$item['name'].'.png'
                     );
+
+
+                }
+                if (realpath(Yii::getAlias('@system').'/theme/builder/classes/'.$item['name'].'/image.png')) {
+                    // < Addcomponent to component group >
+                    {
+                        $customComponentsGroupScript .= '\'customTheme/'.$item['name'].'\',';
+                    }
+                    // </ Addcomponent to component group >
                 }
             }
             // </ copy icon to asset folder >
@@ -2058,9 +2087,6 @@ JS;
 <!-- components-->
 <script src="<?= $assets->baseUrl ?>/libs/builder/components-bootstrap4.js?ver=<?= Yii::$app->Develop->assetVersion() ?>"></script>
 <script src="<?= $assets->baseUrl ?>/libs/builder/components-widgets.js?ver=<?= Yii::$app->Develop->assetVersion() ?>"></script>
-
-<!-- blocks-->
-<script src="<?= $assets->baseUrl ?>/libs/builder/blocks-bootstrap4.js?ver=<?= Yii::$app->Develop->assetVersion() ?>"></script>
 
 <script>
     $(document).ready(function () {
