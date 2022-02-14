@@ -115,14 +115,16 @@ $menu = $provider->getMenu();
     }
 
     #megatabs .nav-link {
-        margin-right: 20px !important;
+        margin-right: 5px !important;
         padding-bottom: 12px !important;
         padding-top: 12px !important;
         margin-bottom: 0px;
         margin-top: 8px;
         border: none !important;
-        color: hsla(0, 0%, 0%, 0.77) !important;
+        color: #000000c4 !important;
         font-weight: 400;
+        text-align: right;
+        margin-left: 70px;
     }
 
 
@@ -270,8 +272,13 @@ $menu = $provider->getMenu();
         padding-right: 6px;
         padding-top: 3px;
         transition: ease 0.5s;
+        position: absolute;
+        top: 12px;
+        left: -5px;
     }
-
+    .mega-dropdown .navbar-nav > li > a {
+        margin-left: 20px;
+    }
     .editElement {
         color: green;
     }
@@ -393,6 +400,23 @@ $menu = $provider->getMenu();
         background-color: #c9ccd259;
         color: #FFFFFF;
         border-radius: 5px;
+    }
+    .addRightChild {
+        width: 26px !important;
+        padding-right: 3px;
+        float: right;
+        margin-top: 13px;
+        height: 26px !important;
+        padding-top: 8px;
+        display: block !important;
+        position: absolute;
+        left: 46px;
+    }
+    #megatabs .deleteElement {
+        left: 2px;
+        background: #c431bb33;
+        border-radius: 100px;
+        top: 15px;
     }
 </style>
 

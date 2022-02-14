@@ -43,6 +43,22 @@ var Input = {
 		}
 
 		return this.element;
+	},
+	renderHtml:function(html,data){
+		this.element = tmpl(html, data);
+
+		//bind events
+		if (this.events)
+			for (var i in this.events)
+			{
+				ev = this.events[i][0];
+				fun = this[ this.events[i][1] ];
+				el = this.events[i][2];
+
+				this.element.on(ev, el, {element: this.element, input:this}, fun);
+			}
+
+		return this.element;
 	}
 };
 

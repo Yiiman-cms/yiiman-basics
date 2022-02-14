@@ -442,7 +442,7 @@ HTML;
             ];
         } else {
             $items[] = [
-                'label' => Yii::$app->user->identity->nickName ? Yii::$app->user->identity->nickName : Yii::$app->user->identity->username,
+                'label' => Yii::$app->user->identity->nickName ? Yii::$app->user->identity->nickName : Yii::$app->user->identity->email,
                 'items' => [
                     [
                         'label' => Yii::t('app', 'Profile'),

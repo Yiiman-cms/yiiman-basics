@@ -299,3 +299,9 @@ body {
 .card-stats .card-footer a {
     color: white;
 }
+.image-body .main-panel {
+    width: calc(100% - 260px) !important;
+}
+#back-image-admin {
+    z-index: 0 !important;
+}

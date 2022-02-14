@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2022.
+ * Created by YiiMan.
+ * Programmer: gholamreza beheshtian
+ * Mobile:+989353466620 | +17272282283
+ * Site:https://yiiman.ir
+ */
+
 var form =
     {
         address: $('#address'),
@@ -179,7 +187,7 @@ $('#modal button.btn-success').click(function (e) {
         if (response.status === 'ok') {
             var data = {};
             $.ajax({
-                url: backend+'menumodern/default/indexx',
+                url: backend+'/menumodern/default/indexx',
                 type: 'post',
                 data: data,
                 beforeSend: function (data) {
@@ -206,7 +214,7 @@ $('#menu-parent').on('change', function () {
     var id = $(this).val();
     var data = {type: "child", parent: id};
     $.ajax({
-        url: backend+'menumodern/default/parents',
+        url: backend+'/menumodern/default/parents',
         type: 'post',
         data: data,
         beforeSend: function (data) {
@@ -226,7 +234,7 @@ $('#menu-right').on('change', function () {
     var id = $(this).val();
     var data = {type: "right", parent: id};
     $.ajax({
-        url: backend+'menumodern/default/parents',
+        url: backend+'/menumodern/default/parents',
         type: 'post',
         data: data,
         beforeSend: function (data) {
@@ -250,7 +258,7 @@ $('#menu-child').on('change', function () {
         var id = $(this).val();
         var data = {type: "child", parent: id};
         $.ajax({
-            url: backend+'menumodern/default/parents',
+            url: backend+'/menumodern/default/parents',
             type: 'post',
             data: data,
             beforeSend: function (data) {

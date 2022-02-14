@@ -14,8 +14,10 @@ use phpDocumentor\Reflection\Types\This;
 use YiiMan\YiiBasics\modules\blog\models\BlogArticles;
 use YiiMan\YiiBasics\modules\blog\models\BlogCategory;
 use YiiMan\YiiBasics\modules\hint\models\Hint;
-use YiiMan\YiiBasics\modules\menu\models\Menu;
+use YiiMan\YiiBasics\modules\menumodern\models\Menu;
 use YiiMan\YiiBasics\modules\pages\models\Pages;
+use YiiMan\YiiBasics\modules\pages\ThemComponents\ComponentClass;
+use YiiMan\YiiBasics\modules\pages\ThemComponents\PageBuilderComponent;
 use YiiMan\YiiBasics\modules\parameters\models\Parameters;
 use YiiMan\YiiBasics\modules\posttypes\models\Posttypes;
 use YiiMan\YiiBasics\modules\rbac\models\Item;
@@ -45,6 +47,7 @@ class Core
     public static $dbPassword;
     public static $hasRBAC = false;
     public static $superAdminID = 1;
+    public static $pageBuilderComponents =[];
     public static $LogLevel = [
         'error',
         'warning'
@@ -103,6 +106,10 @@ class Core
     {
         Parameters::addParameters($array);
     }
+
+
+
+
 
     public static function addMenuLocations($array)
     {
@@ -169,6 +176,15 @@ class Core
     {
         Components::setComponents($array);
     }
+
+    /**
+     * تنظیم کامپوننت های بخش ویجت های صفحه ساز
+     * @param  PageBuilderComponent[]  $components
+     */
+    public static function setPageBuilderComponents(array $components){
+        static::$pageBuilderComponents=$components;
+    }
+
 
     /**
      * یک استایل را به IFRAME باز شده در ماژول ویرایش برگه در بک اند اضافه میکند

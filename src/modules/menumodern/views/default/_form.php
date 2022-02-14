@@ -27,7 +27,7 @@ use kartik\select2\Select2;
 
 ?>
 <script>
-    var url = backend + '<?php
+    var url = backend + '/<?php
         if (Yii::$app->controller->action->id == 'create') {
             echo 'menumodern/default/create';
         } else {

@@ -503,16 +503,12 @@ $jsAssetURL = Yii::$app->Options->URL.$assets->baseUrl;
                 <img src="<?= $assets->baseUrl ?>/libs/builder/icons/right-column-layout.svg" width="20px"
                      height="20px">
             </button>
-             <button class="btn btn-styles" title="Toggle style helpers" id="toggle-style-helpers-btn"
+            <button class="btn btn-styles" title="Toggle style helpers" id="toggle-style-helpers-btn"
                     data-vvveb-action="toggleStyleHelpers" data-toggle="button" aria-pressed="false">
                 <img src="<?= $assets->baseUrl ?>/libs/builder/icons/margin.png" width="20px"
                      height="20px">
             </button>
-             <button class="btn btn-js" title="Toggle java scripts" id="toggle-js-script-btn"
-                    data-vvveb-action="toggleJavaScript" data-toggle="button" aria-pressed="false">
-                <img src="<?= $assets->baseUrl ?>/libs/builder/icons/java-script.png" width="20px"
-                     height="20px">
-            </button>
+
 
 
         </div>
@@ -991,6 +987,11 @@ $jsAssetURL = Yii::$app->Options->URL.$assets->baseUrl;
             <button id="code-editor-btn" data-view="mobile" class="btn btn-sm btn-light btn-sm" title="Code editor"
                     data-vvveb-action="toggleEditor">
                 <i class="la la-code"></i> ویرایش کد
+            </button>
+            <button style="margin-left: 60px;" class="btn btn-js" title="Toggle java scripts" id="toggle-js-script-btn"
+                    data-vvveb-action="toggleJavaScript" data-toggle="button" aria-pressed="false">
+                <img src="<?= $assets->baseUrl ?>/libs/builder/icons/java-script.png" width="20px"
+                     height="20px">
             </button>
 
             <div id="toggleEditorJsExecute" class="custom-control custom-checkbox mt-1" style="display:none">
@@ -2061,6 +2062,9 @@ Vvveb.Components.extend("_base", "customTheme/{$item['name']}", {
     html: `{$componentClass->html()}`,
     name: "{$componentClass->title()}",
     properties: {$componentClass->generateProperties()},
+    beforeInit:function(node){
+      {$componentClass->BeforeInitJsCode()}  
+    },
     {$childrenJs}
     {$nodes}
     {$classes}

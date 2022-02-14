@@ -60,6 +60,8 @@ abstract class PageBuilderComponent implements PageBuilderComponentInterface
 
 
 
+
+
                 if (!empty($item->inputClass->onChange)) {
                     $this->createItem($generated, 'onChange', 'function(node){'.$item->inputClass->onChange.'}', true);
                 }

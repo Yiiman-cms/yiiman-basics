@@ -233,8 +233,6 @@ class DefaultController extends Controller
 
     public function actionIndexx()
     {
-
-
         return $this->renderAjax(
             'indexAjax'
         );

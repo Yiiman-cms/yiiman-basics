@@ -64,6 +64,7 @@ class WidgetController extends Controller
             $out = str_replace($content, $pageContent, $out);
             $out = str_replace('<beginfooter></beginfooter>', '', $out);
             $out = str_replace('<beginmenu></beginmenu>', '', $out);
+            $out = str_replace('<beginheader></beginheader>', '', $out);
             $out .= '<style id="styleHelpers">'.<<<CSS
  beginfooter,beginHeader {
         filter: blur(3px);

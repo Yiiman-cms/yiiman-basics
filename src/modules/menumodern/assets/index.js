@@ -25,7 +25,7 @@ function initDelete() {
                 if (willDelete) {
                     var data = {tid: tid};
                     $.ajax({
-                        url: backend+'menumodern/default/delete?id=' + tid,
+                        url: backend+'/menumodern/default/delete?id=' + tid,
                         type: 'post',
                         data: data,
                         beforeSend: function (data) {
@@ -63,7 +63,7 @@ function initTargets() {
 
         var tid = $(value).attr('tid');
         var label = $(value).attr('label');
-        $(value).append('<span class="deleteElement" tid="' + tid + '" label="' + label + '" toggle="tooltip" title="حذف منوی '+label+' از بانک داده"><i class="fa fa-trash" ></i></span>');
+        $(value).after('<span class="deleteElement" tid="' + tid + '" label="' + label + '" toggle="tooltip" title="حذف منوی '+label+' از بانک داده"><i class="fa fa-trash" ></i></span>');
     });
     $.each($('.tab-content'),function(index,value){
          // console.log(isEmpty($(value)));
@@ -82,7 +82,7 @@ function initTargets() {
                 '<i class="fa fa-plus" ></i>' +
                 '</a>');
         }
-            $(value).append('<a class="addRightChild"  data-toggle="pill" href="#" role="tab" aria-controls="v-pills-home" aria-selected="true" tid="'+tid+'" label="" mode="detail" toggle="tooltip" title="افزودن یک منو روبروی '+label+'" addRight>' +
+            $(value).after('<a class="addRightChild"  data-toggle="pill" href="#" role="tab" aria-controls="v-pills-home" aria-selected="true" tid="'+tid+'" label="" mode="detail" toggle="tooltip" title="افزودن یک منو روبروی '+label+'" addRight>' +
                 '<i class="fa fa-plus" ></i>' +
                 '</a>');
 
@@ -101,19 +101,27 @@ function initTargets() {
     });
 
     $('[addparent]').click(function(){
-        $(this).trigger('stop');
-       var data=$(this).attr('addparent');
-        $.ajax({
-            url: backend+'menumodern/default/create',
-            type: 'get',
-            data: data,
-            beforeSend: function (data) {
+        console.log('[addparent]');
 
+        setTimeout(async function(){
+            let remove=$('.menu-index').attr('remove');
+            if (remove==='false'){
+                $(this).trigger('stop');
+                var data=await JSON.parse( $(this).attr('addparent'));
+                $.ajax({
+                    url: backend+'/menumodern/default/create',
+                    type: 'get',
+                    data: data,
+                    beforeSend: function (data) {
+
+                    }
+                }).done(function (data) {
+                    $('#modal .modal-body').html(data);
+                    $('#modal ').modal('show');
+                });
             }
-        }).done(function (data) {
-            $('#modal .modal-body').html(data);
-            $('#modal ').modal('show');
-        });
+        },500)
+
     });
     // $.each($('[edit=""]'), function (index, value) {
     //     var tid = $(value).attr('tid');
@@ -121,10 +129,11 @@ function initTargets() {
     // });
 
     $('.addnew').click(function (e) {
+        console.log('.addnew');
         $(this).trigger('stop');
         var data = $.parseJSON($(this).attr('data'));
         $.ajax({
-            url: backend+'menumodern/default/create',
+            url: backend+'/menumodern/default/create',
             type: 'get',
             data: data,
             beforeSend: function (data) {
@@ -139,11 +148,13 @@ function initTargets() {
         $('.menu-index').attr('new','false');
     });
     $('.addRightChild').click(function (e) {
+        e.preventDefault();
+        console.log('.addRightChild');
         $('.menu-index').attr('new','true');
         var data = {id:$(this).attr('tid')};
 
         $.ajax({
-            url: backend+'menumodern/default/create',
+            url: backend+'/menumodern/default/create',
             type: 'get',
             data: data,
             beforeSend: function (data) {
@@ -160,6 +171,7 @@ function initTargets() {
 
 
     $('.addRight').click(function (e) {
+        console.log('add right');
         var parrentTid=$(this).parent().parent().parent().parent().prev().attr('tid');
          console.log('p');
          console.log(parrentTid);
@@ -167,7 +179,7 @@ function initTargets() {
         var data = {type:'tabmenu',tid:parrentTid};
 
         $.ajax({
-            url: backend+'menumodern/default/create',
+            url: backend+'/menumodern/default/create',
             type: 'get',
             data: data,
             beforeSend: function (data) {
@@ -184,7 +196,15 @@ function initTargets() {
     initDelete();
     $('[tid]').click(function (e) {
         var $this=$(this);
+
+        switch (true){
+            case $this.hasClass('addRightChild'):
+            case $this.hasClass('addRight'):
+            case $this.hasClass('addnew'):
+                return ;
+        }
         e.preventDefault();
+        console.log('update clicked',new Date().getTime());
         setTimeout(function(){
             var remove=$('.menu-index').attr('remove');
             var newf=$('.menu-index').attr('new');
@@ -192,7 +212,7 @@ function initTargets() {
                 var tid =  $this.attr('tid');
                 var data = {};
                 $.ajax({
-                    url: backend+'menumodern/default/update?id=' + tid,
+                    url: backend+'/menumodern/default/update?id=' + tid,
                     type: 'post',
                     data: data,
                     beforeSend: function (data) {
@@ -203,15 +223,16 @@ function initTargets() {
                     $('#modal').modal('show');
                 });
             }
-        });
+        },1000);
 
     });
 
     $('.create').click(function (e) {
+        console.log('.create');
         e.preventDefault();
         var data = {};
         $.ajax({
-            url: backend+'menumodern/default/create',
+            url: backend+'/menumodern/default/create',
             type: 'get',
             data: data,
             beforeSend: function (data) {
@@ -237,7 +258,7 @@ function initTargets() {
                 if (willDelete) {
 
                     $.ajax({
-                        url: backend+'menumodern/default/publish',
+                        url: backend+'/menumodern/default/publish',
                         type: 'post',
                         beforeSend: function (data) {
 
