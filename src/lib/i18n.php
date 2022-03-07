@@ -23,7 +23,7 @@ use yii\base\InvalidConfigException;
  * [[getMessageFormatter()]] and [[setMessageFormatter()]] for details.
  * @since  2.0
  */
-class i18N extends \YiiMan\YiiBasics\lib\i18n\I18N
+class i18n extends \YiiMan\YiiBasics\lib\i18n\I18N
 {
 
 }
